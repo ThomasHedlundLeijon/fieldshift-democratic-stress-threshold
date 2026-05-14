@@ -1,0 +1,9 @@
+Test,Indicator,Estimate,p_value
+Test 1: above vs below S2,Varians,-0.0014714722346997,1.3779748568193123e-127
+Test 1: above vs below S2,AR(1),-0.05068859476359497,3.1037174255221606e-21
+Test 2: pre-collapse vs stable,Varians,0.0012639056355733334,1.9791037789552993e-66
+Test 2: pre-collapse vs stable,AR(1),0.08141299677313948,3.1295120171977446e-13
+Test 3: trend before collapse,Varians trend,6.711639325673704e-5,0.08571409765030517
+Test 3: trend before collapse,AR(1) trend,-0.004965640325742589,0.8276330104061088
+Placebo,Varians,NA,0.093
+Placebo,AR(1),NA,0.915

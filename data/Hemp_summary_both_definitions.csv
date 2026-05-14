@@ -1,0 +1,7 @@
+Definition,N_pairs,N_countries,Mean_erosion,Mean_recovery,Hemp,CI_lower,CI_upper,H1_in_CI,Hsqrt3_2_in_CI,Hsqrt3_in_CI,H2sqrt3_in_CI,H3sqrt3_in_CI
+Liberal (>=2 yr) (abs sum),1305,195,0.0379,0.0638,1.6822,1.5097,1.8809,FALSE,FALSE,TRUE,FALSE,FALSE
+Liberal (>=2 yr) (net),1305,195,0.0263,0.0516,1.9619,1.7092,2.2581,FALSE,FALSE,TRUE,FALSE,FALSE
+"Standard (>=5 yr, >=0.10) (abs sum)",35,32,0.2941,0.4561,1.5509,1.3587,1.778,FALSE,FALSE,TRUE,FALSE,FALSE
+"Standard (>=5 yr, >=0.10) (net)",35,32,0.2711,0.4274,1.5764,1.3657,1.8204,FALSE,FALSE,TRUE,FALSE,FALSE
+"Strict (>=8 yr, >=0.20) (abs sum)",10,10,0.3681,0.6356,1.7267,1.4621,2.0755,FALSE,FALSE,TRUE,FALSE,FALSE
+"Strict (>=8 yr, >=0.20) (net)",10,10,0.358,0.6106,1.7056,1.4289,2.06,FALSE,FALSE,TRUE,FALSE,FALSE
