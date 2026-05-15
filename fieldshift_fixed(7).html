@@ -1,0 +1,2438 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FieldShift Early Warning System &mdash; Hedlund-Leijon Principle</title>
+<meta name="description" content="FieldShift Early Warning System based on the Hedlund-Leijon Principle of Democracy. H = 1.724, k = 0.216. V-Dem v15, 200 countries, 1789&ndash;2024.">
+<meta name="author" content="Thomas Hedlund Leijon, FieldShift Research">
+<meta property="og:title" content="FieldShift Early Warning System">
+<meta property="og:description" content="The first mathematical early warning system for democratic erosion. Based on the Hedlund-Leijon Principle: H = 1.724, k = 0.216.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="js/hlPredictionGraphUtils.js"></script>
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg2: #111827;
+  --bg3: #1a2235;
+  --bg4: #1e2a42;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8eaf0;
+  --text2: #9aa3b8;
+  --text3: #6b7591;
+  --gold: #c9a84c;
+  --gold-dim: rgba(201,168,76,0.15);
+  --gold-bright: #e6c86e;
+  --red: #e05555;
+  --red-dim: rgba(224,85,85,0.12);
+  --green: #4caf82;
+  --green-dim: rgba(76,175,130,0.12);
+  --blue: #5b8ee6;
+  --blue-dim: rgba(91,142,230,0.1);
+  --purple: #9b7fe8;
+  --purple-dim: rgba(155,127,232,0.1);
+  --teal: #3ec9b0;
+  --amber: #e0a855;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'DM Mono', monospace;
+  --radius: 8px;
+  --radius-lg: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.site-header {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 clamp(1rem, 4vw, 3rem);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+.logo {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  text-decoration: none;
+}
+.logo-main {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--text);
+  letter-spacing: .02em;
+}
+.logo-tag {
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.header-constants {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.hc-item {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+}
+.hc-item span {
+  color: var(--gold);
+  font-weight: 500;
+}
+@media (max-width: 600px) { .header-constants { display: none; } }
+
+.hero {
+  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem) clamp(2rem, 4vw, 3rem);
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+.hero-sub {
+  font-size: 16px;
+  color: var(--text2);
+  max-width: 620px;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+.hero-metrics {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.hm-val {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--gold-bright);
+  display: block;
+}
+.hm-label {
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.main-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 3rem) 4rem;
+}
+
+.tab-bar {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+.tab-btn {
+  padding: 9px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--sans);
+  border: none;
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all .18s;
+  letter-spacing: .03em;
+  white-space: nowrap;
+  margin-bottom: -1px;
+}
+.tab-btn:hover { color: var(--text2); }
+.tab-btn.active {
+  color: var(--gold-bright);
+  border-bottom-color: var(--gold);
+}
+
+.panel { display: none; }
+.panel.active { display: block; }
+
+.sec-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--text);
+  margin-bottom: .5rem;
+}
+.sec-sub {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.mgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+.mcard {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+}
+.mcard-label {
+  font-size: 10px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+.mcard-val {
+  font-family: var(--mono);
+  font-size: 20px;
+  font-weight: 500;
+}
+.mcard-sub {
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.dtbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-bottom: 1.5rem;
+}
+.dtbl th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+.dtbl td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2);
+}
+.dtbl tr:last-child td { border-bottom: none; }
+.dtbl tr:hover td { background: var(--bg3); }
+.dtbl strong { color: var(--text); }
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+.b-red   { background: var(--red-dim);    color: var(--red);    border: 1px solid rgba(224,85,85,.2); }
+.b-green { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(76,175,130,.2); }
+.b-amber { background: rgba(224,168,85,.1); color: var(--amber); border: 1px solid rgba(224,168,85,.2); }
+.b-blue  { background: var(--blue-dim);   color: var(--blue);   border: 1px solid rgba(91,142,230,.2); }
+.b-gold  { background: var(--gold-dim);   color: var(--gold-bright); border: 1px solid rgba(201,168,76,.25); }
+
+.formula-box {
+  background: var(--purple-dim);
+  border: 1px solid rgba(155,127,232,.25);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  font-size: 13px;
+  color: #c4b0f0;
+  line-height: 1.8;
+}
+.formula-main {
+  font-family: var(--mono);
+  font-size: 15px;
+  color: var(--purple);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.callout {
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 12px;
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+}
+.callout-blue  { background: var(--blue-dim);  border-left: 3px solid var(--blue);  color: #a0bcf0; }
+.callout-gold  { background: var(--gold-dim);  border-left: 3px solid var(--gold);  color: #d4b870; }
+.callout-red   { background: var(--red-dim);   border-left: 3px solid var(--red);   color: #e88888; }
+.callout-green { background: var(--green-dim); border-left: 3px solid var(--green); color: #7ecfaa; }
+
+.chart-wrap { position: relative; width: 100%; margin-bottom: 1.5rem; }
+
+.srow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: .75rem;
+  font-size: 12px;
+  color: var(--text3);
+}
+.srow label { min-width: 110px; }
+.srow input[type=range] {
+  flex: 1;
+  height: 4px;
+  accent-color: var(--gold);
+}
+.sval {
+  min-width: 50px;
+  text-align: right;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gold-bright);
+}
+
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 480px) { .phase-grid { grid-template-columns: repeat(2,1fr); } }
+.phase-card {
+  border-radius: var(--radius);
+  padding: 10px;
+  text-align: center;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+}
+.phase-n { font-family: var(--mono); font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+.phase-name { font-size: 10px; font-weight: 500; }
+.phase-score { font-size: 9px; opacity: .7; margin-top: 3px; }
+
+.zone-bar {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(to right,#7a1f1f 0%,#a32d2d 21.6%,#c43535 21.6%,#c43535 35%,#854f0b 35%,#ba7517 70%,#3b6d11 70%,#2a5209 100%);
+  position: relative;
+  margin-bottom: 6px;
+}
+.zone-needle {
+  position: absolute;
+  top: -6px;
+  width: 4px;
+  height: 24px;
+  background: var(--text);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  transition: left .3s;
+}
+
+.risk-meter {
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(to right,#3b6d11,#3b6d11 30%,#ba7517 55%,#a32d2d 100%);
+  position: relative;
+  margin: .5rem 0 1.5rem;
+}
+.risk-needle {
+  position: absolute;
+  top: -7px;
+  width: 3px;
+  height: 24px;
+  background: var(--text);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  transition: left .4s ease;
+}
+
+.calc-res {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .875rem;
+  text-align: center;
+  margin-bottom: .875rem;
+}
+.calc-res-val { font-family: var(--mono); font-size: 22px; font-weight: 500; color: var(--gold-bright); }
+.calc-res-lbl { font-size: 11px; color: var(--text3); margin-top: 3px; }
+.calc-2col { display: grid; grid-template-columns: 1fr 1fr; gap: .875rem; margin-bottom: .875rem; }
+@media (max-width: 480px) { .calc-2col { grid-template-columns: 1fr; } }
+
+.road-item {
+  display: flex;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.road-item:last-child { border-bottom: none; }
+.road-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.road-content { flex: 1; }
+.road-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+.road-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
+.prog-track { height: 4px; border-radius: 2px; background: var(--bg4); margin-top: 8px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 2px; }
+
+.sep { height: 1px; background: var(--border); margin: 1.5rem 0; }
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem clamp(1rem, 4vw, 3rem);
+  text-align: center;
+  color: var(--text3);
+  font-size: 11px;
+  line-height: 1.9;
+}
+.site-footer a { color: var(--text2); text-decoration: none; border-bottom: 1px solid var(--border2); }
+.site-footer a:hover { color: var(--gold-bright); }
+
+@keyframes needlePulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.needle-warn { animation: needlePulse 1.4s ease-in-out infinite; }
+
+.fs-chip{font-size:11px;padding:4px 11px;border:0.5px solid rgba(255,255,255,0.12);border-radius:20px;background:transparent;color:var(--text3);cursor:pointer;transition:all .12s;font-family:var(--sans)}
+.fs-chip:hover{background:var(--bg3);color:var(--text);border-color:rgba(255,255,255,0.25)}
+.fs-area-card{border:0.5px solid rgba(255,255,255,0.1);border-radius:10px;background:var(--bg2);overflow:hidden;cursor:pointer;transition:border-color .15s}
+.fs-area-card:hover{border-color:rgba(255,255,255,0.2)}
+.fs-area-card.fsopen{border-color:rgba(201,168,76,0.4)}
+.fs-area-header{display:flex;align-items:center;gap:10px;padding:11px 13px;user-select:none}
+.fs-area-icon{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fs-area-title{font-size:12px;font-weight:500;flex:1;line-height:1.3;color:var(--text)}
+.fs-area-arrow{font-size:10px;color:var(--text3);transition:transform .2s;flex-shrink:0}
+.fs-area-card.fsopen .fs-area-arrow{transform:rotate(90deg)}
+.fs-topic-list{border-top:0.5px solid rgba(255,255,255,0.08);padding:6px 0;display:none}
+.fs-area-card.fsopen .fs-topic-list{display:block}
+.fs-topic-item{display:flex;align-items:center;gap:8px;padding:6px 13px;font-size:11px;color:var(--text3);cursor:pointer;transition:background .1s}
+.fs-topic-item:hover{background:var(--bg3);color:var(--text2)}
+.fs-topic-dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.2);flex-shrink:0}
+
+.em-tab {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text3);
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: .6rem 1.1rem .65rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .15s;
+  margin-bottom: -1px;
+}
+.em-tab:hover { color: var(--text); border-bottom-color: rgba(201,168,76,0.35); }
+.em-tab.active { color: var(--gold-bright); border-bottom-color: var(--gold); }
+
+.ec-month {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text3);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 1rem 0 .4rem;
+  border-top: 1px solid var(--border);
+  margin-top: .5rem;
+}
+.ec-month:first-child { border-top: none; margin-top: 0; padding-top: .25rem; }
+.ec-row {
+  display: grid;
+  grid-template-columns: 90px 1fr auto auto;
+  gap: 10px 14px;
+  align-items: center;
+  padding: .6rem .5rem;
+  border-radius: 8px;
+  transition: background .12s;
+}
+.ec-row:hover { background: var(--bg2); }
+.ec-row[data-country]:hover { background: var(--bg3); outline: 1px solid rgba(201,168,76,0.2); border-radius: 6px; }
+.ec-date { font-family: var(--mono); font-size: 12px; color: var(--text3); }
+.ec-country { font-size: 13px; color: var(--text); font-weight: 500; }
+.ec-type { font-size: 11px; color: var(--text3); }
+.ec-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.ec-score { font-size: 11px; font-family: var(--mono); font-weight: 500; }
+@media(max-width:520px){
+  .ec-row { grid-template-columns: 70px 1fr auto; }
+  .ec-score { display: none; }
+}
+
+.tab-btn-election {
+  color: rgba(224,85,85,0.9);
+  border-left: 1px solid var(--border2);
+  margin-left: 4px;
+}
+.tab-btn-election.active { color: var(--red); border-bottom-color: var(--red); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo">
+    <span class="logo-main">FieldShift</span>
+    <span class="logo-tag">Early Warning System</span>
+  </a>
+  <div class="header-constants">
+    <div class="hc-item">&#8459; = <span>1.724</span></div>
+    <div class="hc-item">&kappa; = <span>0.216</span></div>
+    <div class="hc-item">V-Dem v15 &middot; 200 countries &middot; <span>1789&ndash;2024</span></div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">FieldShift Research &middot; Stockholm, Sweden &middot; Thomas Hedlund Leijon</div>
+  <h1 class="hero-title">The <em>Hedlund-Leijon Principle</em><br>of Democracy</h1>
+  <p class="hero-sub">The first mathematical early warning system for democratic erosion. For every unit democracy falls, it takes 1.724 units of effort to recover. When a country's score falls below 0.216, the system enters a zone of accelerated collapse.</p>
+  <div class="hero-metrics">
+    <div class="hm-item"><span class="hm-val">&#8459; = 1.724</span><span class="hm-label">Asymmetry constant</span></div>
+    <div class="hm-item"><span class="hm-val">&kappa; = 0.216</span><span class="hm-label">Critical threshold</span></div>
+    <div class="hm-item"><span class="hm-val">25,709</span><span class="hm-label">Observations</span></div>
+    <div class="hm-item"><span class="hm-val">200</span><span class="hm-label">Countries</span></div>
+    <div class="hm-item"><span class="hm-val">235 yrs</span><span class="hm-label">Time span</span></div>
+  </div>
+</div>
+
+<div class="main-wrap" style="padding-bottom:0">
+<div style="padding:2rem 0 1.5rem">
+  <div style="font-size:clamp(1.4rem,3vw,2rem);font-weight:500;margin-bottom:6px;font-family:var(--serif);color:var(--text)">What would you like to learn?</div>
+  <div style="font-size:13px;color:var(--text2);margin-bottom:1.5rem;max-width:560px">Search any question about the HL Principle, V-Dem methodology, country cases, democratic theory, or the FieldShift research programme.</div>
+
+  <div style="display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap">
+    <input id="fsSearch" type="text" placeholder="e.g. 'Why did Poland recover?' &middot; 'What is &kappa; = 0.216?' &middot; 'What does the USA score mean?'"
+      style="flex:1;min-width:240px;font-family:var(--sans);font-size:13px;padding:11px 16px;border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;background:var(--bg2);color:var(--text);outline:none"
+      onfocus="this.style.borderColor='rgba(201,168,76,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'"
+      onkeydown="if(event.key==='Enter')fsDoSearch()">
+    <button onclick="fsDoSearch()" style="padding:11px 22px;border:1px solid rgba(201,168,76,0.4);border-radius:10px;background:rgba(201,168,76,0.08);color:var(--gold-bright);font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap">Ask FieldShift</button>
+  </div>
+
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.75rem;align-items:center">
+    <span style="font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;margin-right:2px">Try:</span>
+    <!-- FIX B5: chip queries stored in data attributes, no inline quote nesting -->
+    <button class="fs-chip" data-q="What is the Hedlund-Leijon constant and how was it calculated?">What is &#8459; = 1.724?</button>
+    <button class="fs-chip" data-q="How does the critical threshold &kappa; = 0.216 work and what happens below it?">How does &kappa; work?</button>
+    <button class="fs-chip" data-q="Why did Poland recover its democracy in 2023 but Hungary did not?">Poland vs Hungary</button>
+    <button class="fs-chip" data-q="Why does the United States have a V-Dem score of 0.71 and what does that mean?">USA score 0.71?</button>
+    <button class="fs-chip" data-q="What is the FieldShift early warning window and why does every year of delay add 1.724 years to recovery?">Early warning window</button>
+    <button class="fs-chip" data-q="Why does V-Dem give a higher HL constant than Freedom House or Polity V?">Why V-Dem?</button>
+  </div>
+
+  <div id="fsResultPanel" style="display:none;background:var(--bg2);border:1px solid rgba(201,168,76,0.3);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.75rem">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.875rem;gap:12px">
+      <div id="fsResultTitle" style="font-family:var(--serif);font-size:17px;color:var(--gold-bright);line-height:1.3"></div>
+      <button onclick="document.getElementById('fsResultPanel').style.display='none'" style="font-size:11px;color:var(--text3);background:transparent;border:1px solid rgba(255,255,255,0.1);padding:3px 10px;border-radius:6px;cursor:pointer;flex-shrink:0">✕ close</button>
+    </div>
+    <div id="fsResultBody" style="font-size:13px;color:var(--text2);line-height:1.85;margin-bottom:1.1rem"></div>
+    <!-- FIX B2: actions rendered by JS using data attributes, no inline quote nesting -->
+    <div id="fsResultActions" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+  </div>
+
+  <div style="font-size:10px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem">Browse all topic areas</div>
+  <div id="fsAreaGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:9px;margin-bottom:2.5rem"></div>
+</div>
+
+<div class="main-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="sw('overview',this)">Overview</button>
+    <button class="tab-btn" onclick="sw('constant',this)">The Constant</button>
+    <button class="tab-btn" onclick="sw('vdem',this)">Why V-Dem</button>
+    <button class="tab-btn" onclick="sw('threshold',this)">Threshold</button>
+    <button class="tab-btn" onclick="sw('wave',this)">Wave Model</button>
+    <button class="tab-btn" onclick="sw('cases',this)">17-Country Test</button>
+    <button class="tab-btn" onclick="sw('landscape',this)">Stability Landscape</button>
+    <button class="tab-btn" onclick="sw('fourier',this)">Fourier Cycles</button>
+    <button class="tab-btn" onclick="sw('worldmap',this)">World Map</button>
+    <button class="tab-btn" onclick="sw('predictions',this)">Predictions</button>
+    <button class="tab-btn" onclick="sw('programme',this)">Research Programme</button>
+    <button class="tab-btn" onclick="sw('calculator',this)">Risk Calculator</button>
+    <button class="tab-btn tab-btn-election" onclick="sw('electionmath',this)">&#9670; Election Math</button>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div id="tab-overview" class="panel active">
+    <div class="sec-title">The Hedlund-Leijon Principle</div>
+    <p class="sec-sub">Democracy rises and falls asymmetrically. Across 200 countries and 235 years of V-Dem data, recovery consistently requires ~1.724&times; more democratic change than the preceding erosion. This asymmetry is stable across time periods, regions, and datasets &mdash; and yields a predictive threshold at &kappa; = 0.216.</p>
+    <div class="mgrid">
+      <div class="mcard"><div class="mcard-label">HL Constant</div><div class="mcard-val" style="color:var(--purple)">&#8459; = 1.724</div><div class="mcard-sub">95% CI [1.53, 1.96]<br>n = 200 countries</div></div>
+      <div class="mcard"><div class="mcard-label">Critical Threshold</div><div class="mcard-val" style="color:var(--red)">&kappa; = 0.216</div><div class="mcard-sub">&kappa; = &#8459; / 8<br>Acceleration zone begins</div></div>
+      <div class="mcard"><div class="mcard-label">Temporal Asymmetry</div><div class="mcard-val" style="color:var(--amber)">1.77&times;</div><div class="mcard-sub">Recovery: 8.3 yrs<br>Erosion: 4.7 yrs</div></div>
+      <div class="mcard"><div class="mcard-label">Magnitude Asymmetry</div><div class="mcard-val" style="color:var(--teal)">1.73&times;</div><div class="mcard-sub">Recovery: 109.4 units<br>Erosion: 63.5 units</div></div>
+      <div class="mcard"><div class="mcard-label">Democratic Cycle</div><div class="mcard-val" style="color:var(--blue)">&asymp;50 yrs</div><div class="mcard-sub">Primary FFT peak<br>T in wave model D(t)</div></div>
+      <div class="mcard"><div class="mcard-label">Observations</div><div class="mcard-val" style="color:var(--text3)">25,709</div><div class="mcard-sub">1,613 erosion episodes<br>2,414 recovery episodes</div></div>
+    </div>
+    <div class="callout callout-blue"><strong>Official source:</strong> All HL Principle parameters use V-Dem v15 (Liberal Democracy Index, v2x_libdem). V-Dem is the primary source because it covers 235 years, uses 500+ indicators, 4,000+ country experts, and Bayesian measurement models with per-observation uncertainty intervals. See the "Why V-Dem" tab.</div>
+    <div class="sec-title" style="font-size:16px;margin-top:1rem">Period stability of &#8459; &mdash; Table 1</div>
+    <table class="dtbl">
+      <thead><tr><th>Period</th><th>Total erosion</th><th>Total recovery</th><th>Ratio (&#8459;)</th></tr></thead>
+      <tbody>
+        <tr><td>1789&ndash;1900</td><td>18.6</td><td>32.1</td><td><strong>1.73</strong></td></tr>
+        <tr><td>1901&ndash;1950</td><td>16.4</td><td>28.4</td><td><strong>1.73</strong></td></tr>
+        <tr><td>1951&ndash;2000</td><td>18.1</td><td>31.2</td><td><strong>1.72</strong></td></tr>
+        <tr><td>2001&ndash;2024</td><td>10.3</td><td>17.7</td><td><strong>1.72</strong></td></tr>
+        <tr style="background:var(--bg3)"><td><strong>Full period</strong></td><td><strong>63.5</strong></td><td><strong>109.4</strong></td><td><strong>1.73</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="sec-title" style="font-size:16px">Two asymmetry measures &mdash; one pattern</div>
+    <div class="chart-wrap" style="height:220px"><canvas id="overviewChart"></canvas></div>
+    <div class="sec-title" style="font-size:16px">Cross-dataset validation</div>
+    <table class="dtbl">
+      <thead><tr><th>Dataset</th><th>&#8459;</th><th>&kappa; = &#8459;/8</th><th>Countries</th><th>Period</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td><strong>V-Dem v15</strong></td><td><strong>1.724</strong></td><td><strong>0.216</strong></td><td>200</td><td>1789&ndash;2024</td><td><span class="badge b-gold">Official</span></td></tr>
+        <tr><td>Freedom House</td><td>1.537</td><td>0.192</td><td>200</td><td>1789&ndash;2024</td><td>2-dimensional</td></tr>
+        <tr><td>Polity V</td><td>1.363</td><td>0.170</td><td>167</td><td>1946&ndash;2018</td><td>1-dimensional</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CONSTANT -->
+  <div id="tab-constant" class="panel">
+    <div class="sec-title">The Hedlund-Leijon Constant</div>
+    <p class="sec-sub">The constant &#8459; is derived from the ratio of cumulative democratic recovery to cumulative democratic erosion across all country-year observations in the V-Dem dataset.</p>
+    <div class="formula-box">
+      <div class="formula-main">&#8459; = &Sigma;(positive &Delta;D) / &Sigma;|negative &Delta;D| = 109.38 / 63.46 = 1.7236</div>
+      For country i at year t: &Delta;D(i,t) = D(i,t) &minus; D(i,t&minus;1). Positive changes = recovery; negative changes = erosion. Minimum change threshold: 0.01 (1 percentage point), following Lührmann &amp; Lindberg 2019. Sensitivity analysis: thresholds 0.005&ndash;0.015 produce estimates within &plusmn;0.03 of the central value.
+    </div>
+    <div class="sec-title" style="font-size:16px">Bootstrap validation &mdash; 10,000 iterations (Table 5)</div>
+    <div class="mgrid">
+      <div class="mcard"><div class="mcard-label">Bootstrap mean</div><div class="mcard-val">1.728</div></div>
+      <div class="mcard"><div class="mcard-label">Bootstrap median</div><div class="mcard-val">1.724</div></div>
+      <div class="mcard"><div class="mcard-label">Std deviation</div><div class="mcard-val">0.110</div></div>
+      <div class="mcard"><div class="mcard-label">95% CI</div><div class="mcard-val">[1.53, 1.96]</div></div>
+    </div>
+    <div class="sec-title" style="font-size:16px">Bootstrap distribution of &#8459; (Figure 2)</div>
+    <div class="chart-wrap" style="height:200px"><canvas id="bootstrapChart"></canvas></div>
+    <div class="callout callout-blue"><strong>Bootstrap result:</strong> 10,000 resampling iterations confirm &#8459; = 1.724 is not a statistical artifact. Bootstrap mean = 1.728, median = 1.724, sd = 0.110. The 95% CI [1.53, 1.96] validates the constant across all subsamples.</div>
+    <div class="sec-title" style="font-size:16px">Validation &mdash; 17-country stress sample</div>
+    <div class="mgrid">
+      <div class="mcard"><div class="mcard-label">Sample size</div><div class="mcard-val">n = 17</div><div class="mcard-sub">stress cases 2010&ndash;2023</div></div>
+      <div class="mcard"><div class="mcard-label">Collapsed (below &kappa;)</div><div class="mcard-val" style="color:var(--red)">8 / 8</div><div class="mcard-sub">100% accuracy</div></div>
+      <div class="mcard"><div class="mcard-label">Survived (above &kappa;)</div><div class="mcard-val" style="color:var(--green)">9 / 9</div><div class="mcard-sub">100% accuracy</div></div>
+      <div class="mcard"><div class="mcard-label">Statistical test</div><div class="mcard-val" style="font-size:13px">p = 1.72&times;10<sup>-9</sup></div><div class="mcard-sub">Welch t-test, Cohen d = 3.57</div></div>
+    </div>
+  </div>
+
+  <!-- WHY V-DEM -->
+  <div id="tab-vdem" class="panel">
+    <div class="sec-title">Why V-Dem is the official source</div>
+    <p class="sec-sub">V-Dem is the most comprehensive, most precise, and most validated democracy dataset in existence. It is therefore V-Dem's output &mdash; &#8459; = 1.724, &kappa; = 0.216 &mdash; that constitutes the official version of the Hedlund-Leijon Principle.</p>
+    <div class="callout callout-green"><strong>Key principle:</strong> The broader the definition of democracy, the higher &#8459;. V-Dem's five-principle Liberal Democracy Index yields the highest and most complete asymmetry estimate because all five dimensions must be rebuilt during recovery &mdash; not just electoral procedures.</div>
+    <table class="dtbl">
+      <thead><tr><th>Feature</th><th>V-Dem v15</th><th>Freedom House</th><th>Polity V</th></tr></thead>
+      <tbody>
+        <tr><td>Time period</td><td><strong>1789&ndash;2024 (235 yrs)</strong></td><td>1789&ndash;2024 (235 yrs)</td><td>1946&ndash;2018 (72 yrs)</td></tr>
+        <tr><td>Countries</td><td><strong>200</strong></td><td>200</td><td>167</td></tr>
+        <tr><td>Indicators</td><td><strong>500+</strong></td><td>2&ndash;3</td><td>5&ndash;6</td></tr>
+        <tr><td>Experts</td><td><strong>4,000+</strong></td><td>30&ndash;40</td><td>10&ndash;20</td></tr>
+        <tr><td>Method</td><td><strong>Bayesian model</strong></td><td>Simple averages</td><td>Simple averages</td></tr>
+        <tr><td>Uncertainty intervals</td><td><strong>Yes &mdash; per observation</strong></td><td>No</td><td>No</td></tr>
+        <tr><td>Democracy definition</td><td><strong>5 principles</strong></td><td>2 dimensions (PR, CL)</td><td>1 dimension</td></tr>
+        <tr><td>Open science</td><td><strong>Full transparency</strong></td><td>Restricted access</td><td>Limited docs</td></tr>
+        <tr><td>HL constant &#8459;</td><td><strong>1.724 (official)</strong></td><td>1.537</td><td>1.363</td></tr>
+      </tbody>
+    </table>
+    <div class="sec-title" style="font-size:16px">V-Dem's five democracy principles</div>
+    <table class="dtbl">
+      <thead><tr><th>Principle</th><th>What it measures</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Electoral</strong></td><td>Free and fair elections, political competition</td></tr>
+        <tr><td><strong>Liberal</strong></td><td>Rule of law, individual rights, judicial checks &mdash; <em>primary index for HL Principle</em></td></tr>
+        <tr><td><strong>Participatory</strong></td><td>Civil society participation, direct democracy</td></tr>
+        <tr><td><strong>Deliberative</strong></td><td>Public debate, reasoned justification, deliberative norms</td></tr>
+        <tr><td><strong>Egalitarian</strong></td><td>Equal distribution of political power across social groups</td></tr>
+      </tbody>
+    </table>
+    <div class="formula-box">
+      <div class="formula-main">Official HL Principle &mdash; sourced from V-Dem v15</div>
+      &#8459; = 1.724 &nbsp;&middot;&nbsp; &kappa; = &#8459;/8 = 0.216<br>
+      Validated on V-Dem 1789&ndash;2024 &nbsp;&middot;&nbsp; 200 countries &nbsp;&middot;&nbsp; 25,709 observations<br>
+      1,613 erosion episodes &nbsp;&middot;&nbsp; 2,414 recovery episodes<br>
+      Source: V-Dem Institute (2025). <em>Varieties of Democracy Dataset v15</em>. University of Gothenburg.
+    </div>
+    <div class="sec-title" style="font-size:16px;margin-top:1.5rem">Dataset comparison &mdash; &#8459; value and indicator depth</div>
+    <div class="chart-wrap" style="height:180px"><canvas id="vdemCompChart"></canvas></div>
+  </div>
+
+  <!-- THRESHOLD -->
+  <div id="tab-threshold" class="panel">
+    <div class="sec-title">The Critical Threshold &kappa; = 0.216</div>
+    <p class="sec-sub">Derived from the geometry of a sine wave: the point of maximum slope &mdash; steepest acceleration &mdash; occurs at &pi;/4 radians = 1/8 of the full 2&pi; cycle. Scaled by &#8459;, this yields the early-warning threshold. Below &kappa; = 0.216 lies the Autocracy Pit. Between 0.216&ndash;0.35 is the Risk Zone. Between 0.35&ndash;0.70 is the Warning Zone. Above 0.70 is the Democracy Valley.</p>
+    <div class="formula-box"><div class="formula-main">&kappa; = &#8459; / 8 = 1.7236 / 8 = 0.2154 &asymp; 0.216</div>Below this score, the system enters a zone of increased acceleration toward autocracy. Recovery remains possible &mdash; Poland (2023) demonstrates this &mdash; but requires extraordinary political mobilisation, international intervention, or fundamental institutional rebuilding.</div>
+    <div class="sec-title" style="font-size:16px">Zone placement &mdash; where does a country stand?</div>
+    <div class="srow"><label>Democracy score</label><input type="range" id="zone-slider" min="0" max="100" value="45" step="1" oninput="updateZone(this.value/100)"><span class="sval" id="zone-val">0.45</span></div>
+    <div class="zone-bar"><div class="zone-needle" id="zone-needle" style="left:45%"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:12px"><span>0 &mdash; Autocracy Pit</span><span>&kappa; = 0.216</span><span>0.35</span><span>0.70</span><span>1.0 &mdash; Democracy Valley</span></div>
+    <div class="calc-res"><div class="calc-res-val" id="zone-label" style="font-size:16px"></div><div class="calc-res-lbl" id="zone-desc"></div></div>
+    <div class="sec-title" style="font-size:16px">Threshold sensitivity &mdash; m values</div>
+    <table class="dtbl">
+      <thead><tr><th>Divisor m</th><th>&kappa; = &#8459;/m</th><th>Assessment</th></tr></thead>
+      <tbody>
+        <tr><td>6</td><td>0.287</td><td>Too high &mdash; flags stable democracies as at-risk</td></tr>
+        <tr><td>7</td><td>0.246</td><td>Candidate &mdash; slightly conservative</td></tr>
+        <tr><td><strong>8</strong></td><td><strong>0.216</strong></td><td><strong>Optimal &mdash; cleanest separation in 17-country test</strong></td></tr>
+        <tr><td>9</td><td>0.192</td><td>Candidate &mdash; slightly permissive</td></tr>
+        <tr><td>10</td><td>0.172</td><td>Too low &mdash; misses early stress signals</td></tr>
+      </tbody>
+    </table>
+    <div class="sec-title" style="font-size:16px">Global distribution shift 2010 vs 2023 (Figure 7)</div>
+    <div class="chart-wrap" style="height:185px"><canvas id="globalDistChart"></canvas></div>
+  </div>
+
+  <!-- WAVE MODEL -->
+  <div id="tab-wave" class="panel">
+    <div class="sec-title">The Hedlund-Leijon Wave Model</div>
+    <p class="sec-sub">A stylized dynamic model capturing oscillation, path dependence, damping, and asymmetry. Parameters: &#8459; = 1.724, &kappa; = 0.216, T &asymp; 50 years. Not a deterministic prediction for individual countries &mdash; a representation of general structural tendency.</p>
+    <div class="formula-box"><div class="formula-main">D(t) = D_eq + A&#8320; &middot; e^(&minus;&delta;t) &middot; sin(&#8459; &middot; t / T + &phi;)</div>D(t) = democracy level &nbsp;&middot;&nbsp; D_eq = long-run equilibrium &nbsp;&middot;&nbsp; A&#8320; = amplitude &nbsp;&middot;&nbsp; &delta; = damping<br>&#8459; = 1.724 &nbsp;&middot;&nbsp; T &asymp; 50 years (primary cycle) &nbsp;&middot;&nbsp; &phi; = phase shift</div>
+    <div class="srow"><label>Equilibrium D_eq</label><input type="range" id="wDeq" min="0.1" max="0.9" value="0.5" step="0.01" oninput="drawWave()"><span class="sval" id="wDeqV">0.50</span></div>
+    <div class="srow"><label>Amplitude A&#8320;</label><input type="range" id="wA0" min="0.05" max="0.45" value="0.3" step="0.01" oninput="drawWave()"><span class="sval" id="wA0V">0.30</span></div>
+    <div class="srow"><label>Damping &delta;</label><input type="range" id="wDelta" min="0" max="0.08" value="0.02" step="0.002" oninput="drawWave()"><span class="sval" id="wDeltaV">0.020</span></div>
+    <div class="srow"><label>Phase shift &phi;</label><input type="range" id="wPhi" min="0" max="6.28" value="0" step="0.1" oninput="drawWave()"><span class="sval" id="wPhiV">0.00</span></div>
+    <div class="chart-wrap" style="height:240px"><canvas id="waveChart"></canvas></div>
+    <div class="sec-title" style="font-size:16px">The 8-phase democratic cycle (Figure 4)</div>
+    <div class="phase-grid" id="phaseCards"></div>
+  </div>
+
+  <!-- 17-COUNTRY -->
+  <div id="tab-cases" class="panel">
+    <div class="sec-title">17-Country Stress Test 2010&ndash;2023</div>
+    <p class="sec-sub">Cases selected using V-Dem Regimes of the World (RoW) coding. Collapse = transition from electoral or liberal democracy to electoral or closed autocracy. Selection followed established RoW coding rules &mdash; not post-hoc selection. <strong>All 8 countries below &kappa; collapsed. All 9 above &kappa; survived.</strong></p>
+    <div class="callout callout-blue">Welch t-test: t(19.2) = 10.64, p = 1.72&times;10<sup>-9</sup>, Cohen d = 3.57. This demonstrates diagnostic usefulness in this bounded sample &mdash; it does not establish universal predictive validity across all countries.</div>
+    <div style="height:70px;margin-bottom:1rem"><canvas id="dotplotChart"></canvas></div>
+    <table class="dtbl">
+      <thead><tr><th>Country</th><th>Min. score</th><th>Below &kappa;?</th><th>Outcome</th></tr></thead>
+      <tbody id="casesTbody"></tbody>
+    </table>
+    <div class="sep"></div>
+    <div class="sec-title" style="font-size:16px">Hungary vs Poland &mdash; same signal, different outcomes</div>
+    <p class="sec-sub">Both crossed the warning region within 5 years. Hungary continued declining to 0.32 by 2023. Poland reached 0.42 by 2019, then reversed after the October 2023 election (74% turnout &mdash; highest since 1919). Sweden shown as stable reference. The difference is not the signal &mdash; it is the political response.</p>
+    <div class="chart-wrap" style="height:210px"><canvas id="hpChart"></canvas></div>
+  </div>
+
+  <!-- STABILITY LANDSCAPE -->
+  <div id="tab-landscape" class="panel">
+    <div class="sec-title">The Democratic Stability Landscape (Figure 5)</div>
+    <p class="sec-sub">Democracy as a ball on a potential-energy surface with two basins of attraction. &#8459; = 1.724 quantifies the asymmetry: rolling uphill costs 1.724&times; more energy than rolling down. Drag the slider to place the ball and see how recovery cost scales.</p>
+    <div class="srow"><label>Score D(t)</label><input type="range" id="ls" min="0" max="100" value="60" step="1" oninput="drawLandscape(this.value/100)"><span class="sval" id="lsv">0.60</span></div>
+    <canvas id="landscapeCanvas" style="width:100%;height:210px;display:block;border-radius:8px"></canvas>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:6px"><span>Autocracy Pit (0&ndash;0.216)</span><span>&kappa; = 0.216</span><span>Risk Zone (0.216&ndash;0.35)</span><span>Warning Zone (0.35&ndash;0.70)</span><span>Democracy Valley (&gt;0.70)</span></div>
+    <div class="sep"></div>
+    <div class="sec-title" style="font-size:16px">Country scores &mdash; 14 stable democracies + key cases</div>
+    <table class="dtbl">
+      <thead><tr><th>Country</th><th>Score 2023</th><th>Zone</th></tr></thead>
+      <tbody>
+        <tr><td>Denmark</td><td>0.94</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>Norway</td><td>0.93</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>Sweden</td><td>0.92</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>Finland</td><td>0.91</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>Switzerland</td><td>0.90</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>Netherlands</td><td>0.89</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>New Zealand</td><td>0.89</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>Canada</td><td>0.88</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>Germany</td><td>0.88</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>Ireland</td><td>0.87</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>Luxembourg</td><td>0.87</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>Australia</td><td>0.86</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>Estonia</td><td>0.85</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>Iceland</td><td>0.84</td><td><span class="badge b-green">Democracy Valley</span></td></tr>
+        <tr><td>United States</td><td>0.71</td><td><span class="badge b-blue">Democracy Valley (lower)</span></td></tr>
+        <tr><td>Poland</td><td>0.45</td><td><span class="badge b-amber">Warning Zone &mdash; recovering</span></td></tr>
+        <tr><td>India</td><td>0.64</td><td><span class="badge b-amber">Warning Zone</span></td></tr>
+        <tr><td>Hungary</td><td>0.32</td><td><span class="badge b-red">Risk Zone</span></td></tr>
+        <tr><td>Turkey</td><td>0.28</td><td><span class="badge b-red">Risk Zone</span></td></tr>
+        <tr><td>Serbia</td><td>0.236</td><td><span class="badge b-red">Risk Zone &mdash; near &kappa;</span></td></tr>
+        <tr><td>Belarus</td><td>0.12</td><td><span class="badge b-red">Autocracy Pit</span></td></tr>
+        <tr><td>Russia</td><td>0.08</td><td><span class="badge b-red">Autocracy Pit</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FOURIER -->
+  <div id="tab-fourier" class="panel">
+    <div class="sec-title">Fourier Analysis &mdash; Democratic Periodicity (Figure 8)</div>
+    <p class="sec-sub">FFT applied to the detrended global average V-Dem Liberal Democracy Index, 1789&ndash;2024. Method: first-order polynomial detrending, Hann window, zero-padding. Primary cycle T &asymp; 50 years, used in the wave model D(t) formula. This analysis is exploratory and independent of the core &#8459; = 1.724 result.</p>
+    <div class="chart-wrap" style="height:200px"><canvas id="fourierChart"></canvas></div>
+    <table class="dtbl">
+      <thead><tr><th>Period (yrs)</th><th>Rel. power</th><th>Interpretation</th></tr></thead>
+      <tbody>
+        <tr><td><strong>&asymp;50</strong></td><td><strong>1.00</strong></td><td>Primary cycle &mdash; full wave &middot; used as T &asymp; 50 in HL wave model</td></tr>
+        <tr><td>22.0</td><td>0.97</td><td>Secondary cycle &middot; &asymp; &#8459;&sup2; &times; 7 = 1.724&sup2; &times; 7 &asymp; 20.8</td></tr>
+        <tr><td>19.0</td><td>0.92</td><td>Harmonic</td></tr>
+        <tr><td>14.3</td><td>0.76</td><td>Harmonic</td></tr>
+        <tr><td>11.0</td><td>0.68</td><td>Harmonic &mdash; approximates sunspot cycle</td></tr>
+      </tbody>
+    </table>
+    <div class="callout callout-gold"><strong>22-year harmonic:</strong> 22 &asymp; &#8459;&sup2; &times; 7 = 2.972 &times; 7 = 20.8. The value 7 corresponds to the Kitchin inventory cycle (Kitchin 1923). Also: 22/7 &asymp; &pi;. Primary cycle T &asymp; 50 years is used as the wave model period. These are hypothesis-generating observations &mdash; not confirmed findings.</div>
+    <div class="srow"><label>&#8459; value</label><input type="range" id="fHL" min="1.53" max="1.96" value="1.724" step="0.001" oninput="updateFourier()"><span class="sval" id="fHLV">1.724</span></div>
+    <div class="srow"><label>Kitchin k</label><input type="range" id="fK" min="3" max="12" value="7" step="0.5" oninput="updateFourier()"><span class="sval" id="fKV">7.0</span></div>
+    <div class="calc-res"><div class="calc-res-val" id="fResult">20.8 years</div><div class="calc-res-lbl">&#8459;&sup2; &times; k = predicted secondary cycle</div></div>
+  </div>
+
+  <!-- PREDICTIONS -->
+  <div id="tab-predictions" class="panel">
+    <div class="sec-title">Pre-Registered Predictions</div>
+    <p class="sec-sub">Designed for pre-registration at AsPredicted.org or OSF under: <em>"Prospective Testing of the Hedlund-Leijon Principle of Democracy."</em></p>
+    <div class="callout callout-gold">These are probabilistic early warnings, not point forecasts. The HL Principle identifies structural conditions under which democratic stability becomes increasingly fragile &mdash; it does not predict which political actors will trigger collapse or recovery.</div>
+    <table class="dtbl">
+      <thead><tr><th>#</th><th>Hypothesis</th><th>Prediction</th><th>Horizon</th></tr></thead>
+      <tbody>
+        <tr><td>H1</td><td>No country with score &gt; 0.216 will collapse</td><td>Zero collapses above &kappa;</td><td>5 years</td></tr>
+        <tr><td>H2</td><td>All countries below 0.216 will accelerate toward autocracy</td><td>All show downward trajectory</td><td>5 years</td></tr>
+        <tr><td>H3</td><td>Poland continues recovery after 2023 election</td><td>Score &gt; 0.45 by 2026</td><td>3 years</td></tr>
+        <tr><td>H4</td><td>Hungary remains below 0.35 or declines further</td><td>Score &lt; 0.35 in 2026</td><td>3 years</td></tr>
+      </tbody>
+    </table>
+    <div class="sec-title" style="font-size:16px">Election monitoring 2024&ndash;2028</div>
+    <table class="dtbl">
+      <thead><tr><th>Country / Event</th><th>Date</th><th>Score</th><th>HL prediction</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>USA presidential election</td><td>Nov 2024</td><td>0.71</td><td>No collapse (above &kappa;)</td><td><span class="badge b-green">✓ Validated</span></td></tr>
+        <tr><td>Germany election</td><td>Feb 2025</td><td>0.88</td><td>No collapse</td><td><span class="badge b-green">✓ Validated</span></td></tr>
+        <tr><td>Poland presidential election</td><td>May 2025</td><td>0.45</td><td>Continued recovery</td><td><span class="badge b-green">✓ Validated</span></td></tr>
+        <tr><td>Hungary election</td><td>Apr 2026</td><td>0.32</td><td>High risk &mdash; window closing</td><td><span class="badge b-red">Critical</span></td></tr>
+        <tr><td>Serbia election</td><td>2027</td><td>0.236</td><td>Very high risk &mdash; 0.02 above &kappa;</td><td><span class="badge b-red">Critical</span></td></tr>
+        <tr><td>Turkey election</td><td>2028</td><td>0.28</td><td>High risk &mdash; near &kappa;</td><td><span class="badge b-red">Critical</span></td></tr>
+      </tbody>
+    </table>
+    <div class="sec-title" style="font-size:16px">Countries approaching &kappa; = 0.216</div>
+    <table class="dtbl">
+      <thead><tr><th>Country</th><th>Score</th><th>Trend</th><th>Est. time to &kappa;</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Serbia</strong></td><td>0.236</td><td>Downward</td><td>1&ndash;2 years</td><td><span class="badge b-red">Highest</span></td></tr>
+        <tr><td>Turkey</td><td>0.280</td><td>Declining</td><td>2&ndash;3 years</td><td><span class="badge b-red">High</span></td></tr>
+        <tr><td>Hungary</td><td>0.323</td><td>Stabilised?</td><td>3&ndash;5 years</td><td><span class="badge b-amber">Monitor</span></td></tr>
+        <tr><td>India</td><td>0.640</td><td>Downward</td><td>5&ndash;10 years</td><td><span class="badge b-blue">Long-term</span></td></tr>
+        <tr><td>United States</td><td>0.710</td><td>Declining</td><td>10&ndash;15 years</td><td><span class="badge b-blue">Long-term</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RESEARCH PROGRAMME -->
+  <div id="tab-programme" class="panel">
+    <div class="sec-title">FieldShift Institute &mdash; Research Programme</div>
+    <p class="sec-sub"><strong>"The Universal Social Science Model: From Democratic Dynamics to a Unified Theory of Human Systems"</strong><br>FieldShift Research, Stockholm, Sweden.</p>
+    <div class="road-item">
+      <div class="road-dot" style="background:rgba(76,175,130,.15);color:var(--green);border:1.5px solid var(--green)">1</div>
+      <div class="road-content">
+        <div class="road-title">Phase 1 &mdash; Democracy (0&ndash;1 year) <span class="badge b-green" style="margin-left:8px">Current</span></div>
+        <div class="road-desc">Full validation of &#8459; and &kappa;. Regional subsamples. Rolling window stability. Out-of-sample tests. Pre-register at OSF. Build early warning dashboard. Submit to Journal of Democracy. Contact Staffan I. Lindberg (V-Dem).</div>
+        <div class="prog-track"><div class="prog-fill" style="width:60%;background:var(--green)"></div></div>
+      </div>
+    </div>
+    <div class="road-item">
+      <div class="road-dot" style="background:rgba(91,142,230,.15);color:var(--blue);border:1.5px solid var(--blue)">2</div>
+      <div class="road-content">
+        <div class="road-title">Phase 2 &mdash; Economics (1&ndash;2 years)</div>
+        <div class="road-desc">Test &#8459; on GDP, unemployment, business cycles. Does the same asymmetry (recovery harder than contraction) hold? Explore coupling between the 22-year political harmonic and the 7-year Kitchin cycle.</div>
+        <div class="prog-track"><div class="prog-fill" style="width:5%;background:var(--blue)"></div></div>
+      </div>
+    </div>
+    <div class="road-item">
+      <div class="road-dot" style="background:var(--purple-dim);color:var(--purple);border:1.5px solid var(--purple)">3</div>
+      <div class="road-content">
+        <div class="road-title">Phase 3 &mdash; Social systems (2&ndash;3 years)</div>
+        <div class="road-desc">Apply HL framework to social mobility, education, health, social cohesion. Test the 22-year cycle against generational turnover data.</div>
+        <div class="prog-track"><div class="prog-fill" style="width:0%;background:var(--purple)"></div></div>
+      </div>
+    </div>
+    <div class="road-item">
+      <div class="road-dot" style="background:rgba(224,168,85,.1);color:var(--amber);border:1.5px solid var(--amber)">4</div>
+      <div class="road-content">
+        <div class="road-title">Phase 4 &mdash; Historical long waves (3&ndash;4 years)</div>
+        <div class="road-desc">Analyse wars, revolutions, technological transitions. Test whether Kondratiev long waves, Huntington's democratisation waves, and the Strauss-Howe generational cycle align with HL predictions.</div>
+        <div class="prog-track"><div class="prog-fill" style="width:0%;background:var(--amber)"></div></div>
+      </div>
+    </div>
+    <div class="road-item">
+      <div class="road-dot" style="background:var(--red-dim);color:var(--red);border:1.5px solid var(--red)">5</div>
+      <div class="road-content">
+        <div class="road-title">Phase 5 &mdash; Universal model (4&ndash;5 years)</div>
+        <div class="road-desc">Formulate &Psi;(x,t) = &Psi;_eq + A&#8320;&middot;e^(&minus;&gamma;t)&middot;sin(&omega;&middot;t + &phi;) across all social systems. Test whether &#8459; = 1.724 is universal or system-specific.</div>
+        <div class="prog-track"><div class="prog-fill" style="width:0%;background:var(--red)"></div></div>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <div class="sec-title" style="font-size:16px">Doctoral projects &mdash; FieldShift Institute 2026&ndash;2028</div>
+    <table class="dtbl">
+      <thead><tr><th>Project</th><th>Institution</th><th>Funding target</th><th>Start</th></tr></thead>
+      <tbody>
+        <tr><td>Democratic resilience and institutional inertia</td><td>Karlstad University</td><td>MPF, VR</td><td>HT 2026</td></tr>
+        <tr><td>Economic cycles and political waves</td><td>Stockholm School of Economics</td><td>Riksbankens Jubileumsfond</td><td>2027</td></tr>
+        <tr><td>Generational turnover and political change</td><td>Dept. of Sociology</td><td>Forte</td><td>2027</td></tr>
+        <tr><td>Historical long waves (Kondratiev, Huntington)</td><td>Dept. of History</td><td>VR</td><td>2028</td></tr>
+      </tbody>
+    </table>
+    <div class="callout callout-gold"><strong>Funding foundation:</strong> The immediate priority is completing Phase 1 validation, pre-registering predictions, and deploying the early warning dashboard. These three deliverables demonstrate scientific rigour to funders before the broader programme can proceed.</div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div id="tab-calculator" class="panel">
+    <div class="sec-title">Risk Calculator</div>
+    <p class="sec-sub">Enter a V-Dem Liberal Democracy Index score to assess risk zone, recovery cost, and expected recovery timeline using the HL framework.</p>
+    <div class="srow"><label>Current score</label><input type="range" id="cs" min="0" max="100" value="40" step="1" oninput="updateCalc()"><span class="sval" id="csv">0.40</span></div>
+    <div class="srow"><label>Score decline &Delta;</label><input type="range" id="cd" min="1" max="50" value="15" step="1" oninput="updateCalc()"><span class="sval" id="cdv">0.15</span></div>
+    <div class="srow"><label>Erosion time (yrs)</label><input type="range" id="cet" min="1" max="20" value="5" step="1" oninput="updateCalc()"><span class="sval" id="cetv">5 yrs</span></div>
+    <div class="calc-2col">
+      <div class="calc-res"><div class="calc-res-val" id="cr-zone" style="font-size:14px"></div><div class="calc-res-lbl">Risk zone</div></div>
+      <div class="calc-res"><div class="calc-res-val" id="cr-cost"></div><div class="calc-res-lbl">Recovery effort (&times; &#8459; = 1.724)</div></div>
+    </div>
+    <div class="calc-2col">
+      <div class="calc-res"><div class="calc-res-val" id="cr-time"></div><div class="calc-res-lbl">Expected recovery time (&times; 1.77)</div></div>
+      <div class="calc-res"><div class="calc-res-val" id="cr-mag"></div><div class="calc-res-lbl">Recovery magnitude required</div></div>
+    </div>
+    <div class="risk-meter"><div class="risk-needle" id="calc-needle"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:1.5rem"><span>0 &mdash; Autocracy Pit</span><span>&kappa; = 0.216</span><span>0.35 &mdash; Risk Zone</span><span>0.70 &mdash; Warning Zone</span><span>1.0 &mdash; Democracy Valley</span></div>
+    <div class="sep"></div>
+    <p class="sec-sub" style="margin-bottom:.75rem">Cost-of-delay estimator &mdash; every year of delayed intervention adds ~&#8459; = 1.724 years to the expected recovery timeline.</p>
+    <div class="srow"><label>Delay (years)</label><input type="range" id="cdel" min="0" max="20" value="3" step="1" oninput="updateDelay()"><span class="sval" id="cdelv">3 yrs</span></div>
+    <div class="calc-res"><div class="calc-res-val" id="delay-cost">+5.2 years</div><div class="calc-res-lbl">Additional recovery years added by delay (delay &times; &#8459;)</div></div>
+    <div id="calc-note" class="callout callout-gold" style="margin-top:.5rem"></div>
+
+    <div class="sep"></div>
+    <div class="sec-title" style="font-size:14px;margin-bottom:.4rem">Countries at this score level</div>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:.75rem">V-Dem countries whose current score is closest to the slider value.</p>
+    <div id="calc-country-match" style="display:flex;flex-wrap:wrap;gap:8px;min-height:32px"></div>
+  </div>
+
+  <!-- WORLD MAP -->
+  <div id="tab-worldmap" class="panel">
+    <div class="sec-title">Global democracy map &mdash; V-Dem Liberal Democracy Index 2024</div>
+    <p class="sec-sub">Every country coloured by V-Dem Liberal Democracy Index score. Click any country for its FieldShift profile. Red zone = below &kappa; = 0.216. Source: V-Dem v15.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:1rem;font-size:11px;align-items:center;color:var(--text2)">
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;background:#2a5209;border-radius:2px;display:inline-block"></span>Democracy Valley (&gt;0.70)</span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;background:#c9a84c;border-radius:2px;display:inline-block"></span>Warning Zone (0.35&ndash;0.70)</span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;background:#c04828;border-radius:2px;display:inline-block"></span>Risk Zone (0.216&ndash;0.35)</span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;background:#791f1f;border-radius:2px;display:inline-block"></span>Autocracy Pit (&lt;0.216)</span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:2px;display:inline-block"></span>No data</span>
+    </div>
+    <div id="worldMapContainer" style="width:100%;background:var(--bg2);border-radius:10px;overflow:hidden;margin-bottom:1rem"></div>
+    <div id="countryCard" style="display:none;background:var(--bg2);border:1px solid rgba(201,168,76,0.3);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:1rem">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem">
+        <div>
+          <div id="ccName" style="font-family:var(--serif);font-size:18px;color:var(--gold-bright)"></div>
+          <div id="ccZone" style="font-size:11px;margin-top:3px"></div>
+        </div>
+        <button onclick="document.getElementById('countryCard').style.display='none'" style="font-size:11px;color:var(--text3);background:transparent;border:1px solid rgba(255,255,255,0.1);padding:3px 10px;border-radius:6px;cursor:pointer">Close</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:.875rem" id="ccMetrics"></div>
+      <div id="ccAnalysis" style="font-size:12px;color:var(--text2);line-height:1.75;margin-bottom:.875rem"></div>
+      <div id="ccActions" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+    </div>
+  </div>
+
+  <!-- ELECTION MATH PANEL -->
+  <div id="tab-electionmath" class="panel">
+    <div style="background:var(--bg);border-bottom:1px solid var(--border);padding:0 0">
+      <div style="display:flex;gap:0;overflow-x:auto;padding-top:.75rem">
+        <button class="em-tab active" onclick="emSw('overview',this)">Overview</button>
+        <button class="em-tab" onclick="emSw('upcoming',this)">&#127758; Upcoming Elections</button>
+        <button class="em-tab" onclick="emSw('predictions',this)">&#9670; Predictions</button>
+      </div>
+    </div>
+
+    <div style="padding:1.75rem 0 2rem">
+
+    <!-- EM: OVERVIEW -->
+    <div id="em-overview" class="em-panel">
+      <div style="margin-bottom:1.75rem">
+        <div style="font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem">FieldShift &middot; Predictive Science</div>
+        <div style="font-size:clamp(1.6rem,4vw,2.2rem);font-weight:500;font-family:var(--serif);color:var(--text);margin-bottom:.75rem;line-height:1.2">Election Math<br><span style="font-size:clamp(.9rem,2vw,1rem);color:var(--gold-bright);font-family:var(--sans);font-weight:400">Mathematical triangulation &middot; Pre-election forecasting &middot; Post-election validation</span></div>
+        <p style="font-size:14px;color:var(--text2);line-height:1.75;max-width:700px">Election Math is the FieldShift module for turning structural democracy data into testable quantitative forecasts. It combines eight variables &mdash; polling, electoral system mechanics, diaspora and institutional bias, district geometry, turnout differentials, prediction markets, HL structural risk, and historical incumbent performance &mdash; into a forecast that is published, date-locked, and checked against the actual result after election day.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:2rem">
+        <div style="background:var(--bg2);border:1px solid rgba(91,142,230,0.25);border-radius:12px;padding:1.1rem 1.2rem">
+          <div style="font-size:11px;color:var(--blue);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.5rem">What you learn</div>
+          <div style="font-size:13px;color:var(--text);font-weight:500;margin-bottom:.4rem">Why polls alone are not enough</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.65">In Hungary 2022, polls showed Fidesz +5 points. The actual result was +20. Election Math teaches you why &mdash; and how to correct for it using the Structural Amplification Factor (V2).</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid rgba(201,168,76,0.25);border-radius:12px;padding:1.1rem 1.2rem">
+          <div style="font-size:11px;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.5rem">What it produces</div>
+          <div style="font-size:13px;color:var(--text);font-weight:500;margin-bottom:.4rem">A locked, dated prediction</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.65">The model generates a documented prediction with confidence intervals &mdash; vote share, seat distribution, majority type &mdash; published before polling day so it can be scientifically validated after.</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid rgba(76,175,130,0.25);border-radius:12px;padding:1.1rem 1.2rem">
+          <div style="font-size:11px;color:var(--green);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.5rem">Why it matters</div>
+          <div style="font-size:13px;color:var(--text);font-weight:500;margin-bottom:.4rem">Structural vs surface analysis</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.65">FieldShift adds what no poll can: the V-Dem democratic health score, the HL erosion trajectory, and the institutional risk profile. This tells you what the election means for democracy &mdash; regardless of who wins.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.75rem">
+        <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:1rem">The 8 triangulation variables</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px" id="v8grid"></div>
+      </div>
+
+      <div style="background:var(--bg2);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin-bottom:1.75rem;font-size:13px;color:var(--text2);line-height:1.75">
+        <strong style="color:var(--text)">Scientific purpose:</strong> Every Election Math prediction is locked with a date stamp <em>before</em> the election and compared against the actual result afterward. This is how forecasting models are scientifically validated.
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid rgba(224,85,85,0.3);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.5rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:1rem">
+          <div>
+            <div style="font-size:10px;color:var(--red);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px">Live case &mdash; locked prediction</div>
+            <div style="font-size:16px;font-weight:500;color:var(--text)">Hungary &middot; Parliamentary election &middot; 12 April 2026</div>
+          </div>
+          <span style="background:rgba(224,85,85,0.12);border:1px solid rgba(224,85,85,0.35);border-radius:6px;padding:4px 12px;font-size:11px;color:var(--red);font-weight:500">🔴 Critical &mdash; HL score 0.323</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:1rem">
+          <div style="background:var(--bg3);border-radius:8px;padding:.75rem"><div style="font-size:10px;color:var(--text3);margin-bottom:3px">Tisza vote (model)</div><div style="font-size:17px;font-weight:500;font-family:var(--mono);color:var(--blue)">43&ndash;46%</div></div>
+          <div style="background:var(--bg3);border-radius:8px;padding:.75rem"><div style="font-size:10px;color:var(--text3);margin-bottom:3px">Fidesz vote (model)</div><div style="font-size:17px;font-weight:500;font-family:var(--mono);color:var(--red)">40&ndash;44%</div></div>
+          <div style="background:var(--bg3);border-radius:8px;padding:.75rem"><div style="font-size:10px;color:var(--text3);margin-bottom:3px">Tisza majority prob.</div><div style="font-size:17px;font-weight:500;font-family:var(--mono);color:var(--blue)">~64%</div></div>
+          <div style="background:var(--bg3);border-radius:8px;padding:.75rem"><div style="font-size:10px;color:var(--text3);margin-bottom:3px">Prediction locked</div><div style="font-size:17px;font-weight:500;font-family:var(--mono);color:var(--text2)">22 Mar 2026</div></div>
+        </div>
+        <div style="font-size:12px;color:var(--text3);line-height:1.65">Model locked 22 March 2026 &middot; 8 variables documented &middot; Result enters 13 April &middot; Variable-by-variable accuracy measured in the Predictions tab.</div>
+        <div style="margin-top:.75rem">
+          <button onclick="emSw('predictions',document.querySelectorAll('.em-tab')[2])" style="font-size:12px;padding:6px 16px;border:1px solid rgba(201,168,76,0.4);border-radius:8px;background:rgba(201,168,76,0.07);color:var(--gold-bright);font-family:var(--sans);cursor:pointer">See full prediction breakdown &rarr;</button>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button onclick="emSw('upcoming',document.querySelectorAll('.em-tab')[1])" style="padding:10px 20px;border:1px solid var(--border2);border-radius:10px;background:transparent;color:var(--text);font-family:var(--sans);font-size:13px;cursor:pointer">&#127758; Upcoming Elections &rarr;</button>
+        <button onclick="emSw('predictions',document.querySelectorAll('.em-tab')[2])" style="padding:10px 20px;border:1px solid rgba(201,168,76,0.4);border-radius:10px;background:rgba(201,168,76,0.08);color:var(--gold-bright);font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer">&#9670; Predictions &rarr;</button>
+      </div>
+    </div><!-- end em-overview -->
+
+    <!-- EM: UPCOMING -->
+    <div id="em-upcoming" class="em-panel" style="display:none">
+      <div style="margin-bottom:1.5rem">
+        <div style="font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem">FieldShift &middot; Global Calendar</div>
+        <div style="font-size:clamp(1.3rem,3vw,1.8rem);font-weight:500;font-family:var(--serif);color:var(--text);margin-bottom:.6rem">Upcoming Elections Worldwide</div>
+        <p style="font-size:13px;color:var(--text2);line-height:1.7;max-width:680px">All national-level elections scheduled within the next 24 months, sorted by date &mdash; closest first. Colour indicates the FieldShift democratic health assessment based on V-Dem scores.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center">
+        <span style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">HL Score:</span>
+        <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><span style="width:10px;height:10px;border-radius:50%;background:var(--green);display:inline-block"></span>Democracy Valley &gt; 0.70</span>
+        <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><span style="width:10px;height:10px;border-radius:50%;background:#7ec8a0;display:inline-block"></span>Warning Zone 0.35&ndash;0.70</span>
+        <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><span style="width:10px;height:10px;border-radius:50%;background:var(--amber);display:inline-block"></span>Risk Zone 0.216&ndash;0.35</span>
+        <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><span style="width:10px;height:10px;border-radius:50%;background:var(--red);display:inline-block"></span>Autocracy Pit &lt; 0.216</span>
+      </div>
+      <div id="electionCalendar" style="display:flex;flex-direction:column;gap:0"></div>
+      <div id="emLockPrompt" style="display:none;margin-top:14px;background:var(--bg2);border:1px solid rgba(201,168,76,0.35);border-radius:10px;padding:1rem 1.1rem">
+        <div id="emLockPromptTitle" style="font-size:16px;font-family:var(--serif);color:var(--text);font-weight:500;margin-bottom:4px"></div>
+        <div id="emLockPromptMeta" style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px"></div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:6px"><strong>Step 1 &mdash; FieldShift Electoral Math Model Prediction:</strong></div>
+        <div id="emModelComparison" style="display:none;margin-bottom:10px;padding:10px 12px;border:1px solid rgba(201,168,76,0.35);border-radius:8px;background:rgba(201,168,76,0.05)">
+          <div style="font-size:11px;color:var(--gold-bright);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">Based on 8-variable triangulation</div>
+          <div id="emModelText" style="font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:8px"></div>
+          <div id="emModelVars" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px"></div>
+        </div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:6px"><strong>Step 2 &mdash; Your Individual Prediction:</strong></div>
+        <textarea id="emPredictionText" rows="3" placeholder="e.g. Opposition coalition wins majority; turnout below 60%; incumbent keeps presidency..." style="width:100%;box-sizing:border-box;border:1px solid var(--border2);background:var(--bg3);color:var(--text);padding:8px 10px;border-radius:7px;font-size:12px;line-height:1.6;resize:vertical;margin-bottom:10px"></textarea>
+        <div style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:8px"><strong>Step 3</strong> - Do you want to lock both? Type <strong>y/yes</strong> to lock or <strong>n/no</strong> to cancel.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <input id="emLockDecisionInput" type="text" placeholder="y / yes / n / no" style="flex:1;min-width:190px;border:1px solid var(--border2);background:var(--bg3);color:var(--text);padding:8px 10px;border-radius:7px;font-family:var(--mono);font-size:12px">
+          <button onclick="emSubmitLockDecision()" style="padding:8px 14px;border:1px solid rgba(201,168,76,0.45);border-radius:8px;background:rgba(201,168,76,0.08);color:var(--gold-bright);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer">Submit</button>
+          <button onclick="emCancelLockDecision()" style="padding:8px 14px;border:1px solid var(--border2);border-radius:8px;background:transparent;color:var(--text2);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer">Cancel</button>
+        </div>
+      </div>
+      <div id="emLockOutput" style="margin-top:10px"></div>
+      <div style="margin-top:10px;text-align:right">
+        <button onclick="emExportLockedPredictions()" style="padding:8px 14px;border:1px solid rgba(62,201,176,0.4);border-radius:8px;background:rgba(62,201,176,0.08);color:var(--teal);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer">Export / copy locked predictions</button>
+      </div>
+    </div>
+
+    <!-- EM: PREDICTIONS -->
+    <div id="em-predictions" class="em-panel" style="display:none">
+      <div style="margin-bottom:1.5rem">
+        <div style="font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem">FieldShift &middot; Pre-Registered Forecasts</div>
+        <div style="font-size:clamp(1.3rem,3vw,1.8rem);font-weight:500;font-family:var(--serif);color:var(--text);margin-bottom:.6rem">Predictions</div>
+        <p style="font-size:13px;color:var(--text2);line-height:1.7;max-width:700px">Pre-registered scientific hypotheses about democratic trajectories &mdash; locked before outcomes are known &mdash; and election-specific predictions built with the 8-variable triangulation model.</p>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid rgba(201,168,76,0.25);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1.75rem;font-size:13px;color:var(--text2);line-height:1.7">
+        <strong style="color:var(--gold-bright)">How to read this tab:</strong> Every entry is locked with a date. You can see <em>when</em> the prediction was made, <em>what</em> was predicted, and <em>what actually happened</em>. This is open science &mdash; the track record is public and cannot be changed after the fact.
+      </div>
+
+      <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)">A &mdash; Pre-registered scientific hypotheses <span style="font-size:11px;color:var(--text3);font-weight:400">&nbsp;&middot;&nbsp; OSF / AsPredicted &middot; locked March 2025</span></div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:2rem">
+        <div style="background:var(--bg2);border-radius:10px;padding:.9rem 1.1rem;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start">
+          <div style="font-size:11px;font-weight:600;color:var(--gold);font-family:var(--mono);padding-top:1px">H1</div>
+          <div><div style="font-size:13px;color:var(--text);margin-bottom:3px">No country with HL score &gt; 0.216 will experience democratic collapse within 5 years</div><div style="font-size:11px;color:var(--text3)">Horizon: 2025&ndash;2030 &middot; Verification: V-Dem RoW coding annual update</div></div>
+          <span style="background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);border-radius:5px;padding:2px 10px;font-size:10px;color:var(--gold);white-space:nowrap;font-weight:500">Pending</span>
+        </div>
+        <div style="background:var(--bg2);border-radius:10px;padding:.9rem 1.1rem;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start">
+          <div style="font-size:11px;font-weight:600;color:var(--gold);font-family:var(--mono);padding-top:1px">H2</div>
+          <div><div style="font-size:13px;color:var(--text);margin-bottom:3px">All countries with HL score &lt; 0.216 will show accelerated autocratisation within 5 years</div><div style="font-size:11px;color:var(--text3)">Horizon: 2025&ndash;2030 &middot; Currently: Belarus 0.12, Russia 0.08, Myanmar 0.14, Nicaragua 0.07</div></div>
+          <span style="background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);border-radius:5px;padding:2px 10px;font-size:10px;color:var(--gold);white-space:nowrap;font-weight:500">Pending</span>
+        </div>
+        <div style="background:var(--bg2);border-radius:10px;padding:.9rem 1.1rem;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start">
+          <div style="font-size:11px;font-weight:600;color:var(--gold);font-family:var(--mono);padding-top:1px">H3</div>
+          <div><div style="font-size:13px;color:var(--text);margin-bottom:3px">Poland's V-Dem score will exceed 0.45 by 2026 following the October 2023 government change</div><div style="font-size:11px;color:var(--text3)">Horizon: 2026 &middot; Verification: V-Dem v16 (expected April 2026) &middot; Current score: 0.45 (2024)</div></div>
+          <span style="background:rgba(62,201,176,0.12);border:1px solid rgba(62,201,176,0.3);border-radius:5px;padding:2px 10px;font-size:10px;color:var(--teal);white-space:nowrap;font-weight:500">On track</span>
+        </div>
+        <div style="background:var(--bg2);border-radius:10px;padding:.9rem 1.1rem;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start">
+          <div style="font-size:11px;font-weight:600;color:var(--gold);font-family:var(--mono);padding-top:1px">H4</div>
+          <div><div style="font-size:13px;color:var(--text);margin-bottom:3px">Hungary's V-Dem score will remain below 0.35 or decline further in V-Dem v16</div><div style="font-size:11px;color:var(--text3)">Horizon: 2026 &middot; Verification: V-Dem v16 (expected April 2026) &middot; Current score: 0.323</div></div>
+          <span style="background:rgba(62,201,176,0.12);border:1px solid rgba(62,201,176,0.3);border-radius:5px;padding:2px 10px;font-size:10px;color:var(--teal);white-space:nowrap;font-weight:500">On track</span>
+        </div>
+      </div>
+
+      <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)">B &mdash; Election-specific predictions <span style="font-size:11px;color:var(--text3);font-weight:400">&nbsp;&middot;&nbsp; 8-variable triangulation model &middot; locked before polling day</span></div>
+
+      <div style="background:var(--bg2);border:1px solid rgba(224,85,85,0.25);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1rem">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:.75rem">
+          <div>
+            <div style="font-size:13px;font-weight:500;color:var(--text)">Hungary &mdash; Parliamentary election</div>
+            <div style="font-size:11px;color:var(--text3)">12 April 2026 &middot; HL score 0.323 &middot; Locked: 22 March 2026</div>
+          </div>
+          <span style="background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);border-radius:5px;padding:2px 10px;font-size:10px;color:var(--gold);font-weight:500">Awaiting result</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:.75rem">
+          <div style="background:var(--bg3);border-radius:8px;padding:.7rem">
+            <div style="font-size:10px;color:var(--text3);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Prediction (locked 22 Mar)</div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.6">Tisza: 43&ndash;46% &middot; Fidesz: 40&ndash;44%<br>Tisza majority: ~64% probability<br>Hung parliament: ~10%<br>Fidesz 5th term: ~18%</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:8px;padding:.7rem">
+            <div style="font-size:10px;color:var(--text3);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em">Actual result (13 April)</div>
+            <div style="font-size:12px;color:var(--text3);font-style:italic;line-height:1.6">Result not yet entered<br>Check back 13 April 2026</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px" id="hungary-v8"></div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid rgba(62,201,176,0.25);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1rem">
+        <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:.65rem">
+          <div style="font-size:13px;font-weight:500;color:var(--text)">Auto-updating election validation dashboard</div>
+          <button onclick="emSyncElectionResultsNow()" style="padding:6px 11px;border:1px solid rgba(62,201,176,0.4);border-radius:8px;background:rgba(62,201,176,0.08);color:var(--teal);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer">Sync now</button>
+        </div>
+        <div id="emAccuracyStats" style="margin-bottom:10px;border:1px solid var(--border2);background:var(--bg3);padding:10px 12px;border-radius:8px"></div>
+        <div style="overflow:auto;border:1px solid var(--border2);border-radius:8px;margin-bottom:10px">
+          <table style="width:100%;border-collapse:collapse;min-width:640px">
+            <thead>
+              <tr style="background:rgba(255,255,255,0.02)">
+                <th style="padding:8px 10px;border-bottom:1px solid var(--border2);text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)">Election</th>
+                <th style="padding:8px 10px;border-bottom:1px solid var(--border2);text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)">FieldShift prediction</th>
+                <th style="padding:8px 10px;border-bottom:1px solid var(--border2);text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)">Actual outcome</th>
+                <th style="padding:8px 10px;border-bottom:1px solid var(--border2);text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)">Match</th>
+              </tr>
+            </thead>
+            <tbody id="emPastComparisonRows"></tbody>
+          </table>
+        </div>
+        <div id="emComparisonCharts" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin-bottom:10px">
+          <div id="emChartPredictionVsActual" style="border:1px solid var(--border2);background:var(--bg3);padding:10px;border-radius:8px"></div>
+          <div id="emChartErrorBySource" style="border:1px solid var(--border2);background:var(--bg3);padding:10px;border-radius:8px"></div>
+          <div id="emChartCalibration" style="border:1px solid var(--border2);background:var(--bg3);padding:10px;border-radius:8px"></div>
+        </div>
+        <div id="emPredictionAnalysis" style="border:1px solid var(--border2);background:var(--bg3);padding:10px 12px;border-radius:8px;font-size:12px;color:var(--text2)"></div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.2rem;margin-bottom:2rem;font-size:12px;color:var(--text3);line-height:1.7">
+        <strong style="color:var(--text2)">Countries approaching &kappa; = 0.216 (structural watch list):</strong><br>
+        Serbia 0.236 &mdash; 0.02 above threshold, downward trend, 1&ndash;2 years to &kappa; &middot;
+        Turkey 0.280 &mdash; declining, 2&ndash;3 years to &kappa; &middot;
+        Hungary 0.323 &mdash; stabilised?, 3&ndash;5 years &middot;
+        India 0.640 &mdash; gradual decline, 5&ndash;10 years &middot;
+        USA 0.710 &mdash; declining from 0.84 (2016), 10&ndash;15 years
+      </div>
+    </div><!-- end em-predictions -->
+
+    </div><!-- padding div -->
+  </div><!-- end tab-electionmath -->
+
+</div><!-- main-wrap -->
+</div><!-- outer main-wrap -->
+
+<footer class="site-footer">
+  <p><strong>FieldShift Early Warning System</strong> &mdash; The Hedlund-Leijon Principle of Democracy</p>
+  <p>Thomas Hedlund Leijon &nbsp;&middot;&nbsp; FieldShift Research, Stockholm, Sweden</p>
+  <p>Data: <a href="https://v-dem.net" target="_blank">V-Dem Institute</a>, Varieties of Democracy Dataset v15, University of Gothenburg, 2025.</p>
+  <p>Coppedge, Michael et al. "V-Dem Country-Year Dataset v15." V-Dem Project, 2025. &nbsp;&middot;&nbsp; Lührmann, A. &amp; Lindberg, S.I. "A Third Wave of Autocratization Is Here." <em>Democratization</em> 26(7), 2019.</p>
+  <p style="margin-top:.75rem;color:var(--text3)">&copy; 2025 Thomas Hedlund Leijon &nbsp;&middot;&nbsp; <a href="https://fieldshift.org">fieldshift.org</a> &nbsp;&middot;&nbsp; FieldShift Research</p>
+</footer>
+
+<script>
+const H=1.7236, K=0.216, TP=50;
+const gc='rgba(255,255,255,0.06)', tc='#9aa3b8';
+
+// Universal send helper &mdash; works in Claude.ai (sendPrompt) and standalone (opens claude.ai)
+function sendToFieldShift(query, btn){
+  if(btn){
+    const orig=btn.textContent;
+    btn.textContent='Opening...';
+    btn.style.opacity='0.6';
+    setTimeout(()=>{btn.textContent=orig;btn.style.opacity='1';},2000);
+  }
+  if(typeof sendPrompt==='function'){
+    sendPrompt(query);
+  } else {
+    window.open('https://claude.ai/new?q='+encodeURIComponent(query),'_blank');
+  }
+}
+
+Chart.defaults.font.family="'DM Sans', system-ui, sans-serif";
+Chart.defaults.font.size=11;
+Chart.defaults.color=tc;
+
+// &mdash;€&mdash;€ FIX B6: clean tab switcher, no reassignment &mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€
+function sw(name, btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+  if(name==='wave') setTimeout(drawWave,50);
+  if(name==='landscape') setTimeout(()=>drawLandscape(0.6),50);
+  if(name==='cases') setTimeout(drawDotplot,80);
+  if(name==='worldmap') setTimeout(buildWorldMap,80);
+  if(name==='electionmath') setTimeout(()=>{ emEnsureActive(); buildElectionCalendar(); },50);
+}
+
+// &mdash;€&mdash;€ FIX: Election Math tab init &mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€
+function emEnsureActive(){
+  // Make sure em-overview is visible if none are active
+  const panels = document.querySelectorAll('.em-panel');
+  const anyVisible = Array.from(panels).some(p=>p.style.display!=='none');
+  if(!anyVisible){
+    document.getElementById('em-overview').style.display='block';
+    document.querySelector('.em-tab').classList.add('active');
+  }
+}
+
+// &mdash;€&mdash;€ FIX B6 (emSw): consistent display-only approach, no classList for panels
+function emSw(name, btn){
+  document.querySelectorAll('.em-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.em-panel').forEach(p=>{ p.style.display='none'; });
+  if(btn) btn.classList.add('active');
+  const panel=document.getElementById('em-'+name);
+  if(panel) panel.style.display='block';
+  if(name==='upcoming') buildElectionCalendar();
+  if(name==='predictions') emRenderPredictionValidation();
+}
+
+// Overview chart
+new Chart(document.getElementById('overviewChart'),{
+  type:'bar',
+  data:{
+    labels:['Erosion episode','Recovery episode'],
+    datasets:[
+      {label:'Duration (years)',data:[4.7,8.3],backgroundColor:['rgba(224,85,85,.75)','rgba(76,175,130,.75)'],borderColor:['rgba(224,85,85,1)','rgba(76,175,130,1)'],borderWidth:1,borderRadius:4,yAxisID:'yDur'},
+      {label:'Magnitude (V-Dem units)',data:[63.5,109.4],backgroundColor:['rgba(224,168,85,.65)','rgba(62,201,176,.65)'],borderColor:['rgba(224,168,85,1)','rgba(62,201,176,1)'],borderWidth:1,borderRadius:4,yAxisID:'yMag'}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{
+      legend:{display:true,labels:{color:tc,boxWidth:11,font:{size:10},padding:12}},
+      tooltip:{
+        callbacks:{
+          title:ctx=>ctx[0].label==='Erosion episode'?'Democratic erosion episode (avg.)':'Democratic recovery episode (avg.)',
+          label:ctx=>{
+            if(ctx.dataset.label.startsWith('Duration')) return '  Duration: '+ctx.raw.toFixed(1)+' years';
+            return '  Magnitude: '+ctx.raw.toFixed(1)+' V-Dem units';
+          },
+          afterBody:ctx=>{
+            if(ctx.length===2&&ctx[0].label!=='Erosion episode') return ['','  Asymmetry ratio:','  Time:      8.3 &divide; 4.7 = 1.77&times;','  Distance:  109.4 &divide; 63.5 = 1.72&times;','','  Both converge on &#8459; = 1.724'];
+            return [];
+          }
+        },
+        backgroundColor:'rgba(10,14,26,0.96)',borderColor:'rgba(201,168,76,0.4)',borderWidth:1,
+        titleColor:'#e6c86e',bodyColor:'#9aa3b8',padding:12,bodyFont:{size:11},titleFont:{size:12,weight:'500'}
+      }
+    },
+    scales:{
+      x:{grid:{color:gc},ticks:{color:tc,font:{size:10}}},
+      yDur:{position:'left',grid:{color:gc},ticks:{color:'rgba(224,130,130,0.9)',font:{size:10}},title:{display:true,text:'Years',color:'rgba(224,130,130,0.9)',font:{size:10}},beginAtZero:true,max:14},
+      yMag:{position:'right',grid:{display:false},ticks:{color:'rgba(62,201,176,0.8)',font:{size:10}},title:{display:true,text:'V-Dem units (&times;100)',color:'rgba(62,201,176,0.8)',font:{size:10}},beginAtZero:true,max:140}
+    }
+  }
+});
+
+// Bootstrap chart
+const bsd=[];
+for(let i=0;i<60;i++){const x=1.0+i*(1.5/59);const mu=1.728,sd=0.110;bsd.push({x:parseFloat(x.toFixed(3)),y:parseFloat((Math.exp(-0.5*((x-mu)/sd)**2)/(sd*Math.sqrt(2*Math.PI))).toFixed(4))});}
+new Chart(document.getElementById('bootstrapChart'),{type:'line',
+  data:{labels:bsd.map(d=>d.x.toFixed(2)),datasets:[{data:bsd.map(d=>d.y),borderColor:'#9b7fe8',backgroundColor:'rgba(155,127,232,0.1)',fill:true,tension:0.4,pointRadius:0,borderWidth:2}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{x:{grid:{color:gc},ticks:{color:tc,maxTicksLimit:8},title:{display:true,text:'&#8459; value',color:tc}},
+            y:{grid:{color:gc},ticks:{color:tc},title:{display:true,text:'Density',color:tc}}}}
+});
+
+new Chart(document.getElementById('vdemCompChart'),{type:'bar',
+  data:{
+    labels:['V-Dem v15 (official)','Freedom House','Polity V'],
+    datasets:[
+      {label:'&#8459; value',data:[1.724,1.537,1.363],backgroundColor:['rgba(155,127,232,.85)','rgba(155,127,232,.5)','rgba(155,127,232,.25)'],borderRadius:4,yAxisID:'y'},
+      {label:'Indicators (approx.)',data:[500,2.5,5.5],backgroundColor:['rgba(76,175,130,.7)','rgba(76,175,130,.4)','rgba(76,175,130,.2)'],borderRadius:4,yAxisID:'y2'}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:true,labels:{color:tc,boxWidth:10,font:{size:10}}}},
+    scales:{x:{grid:{color:gc},ticks:{color:tc,font:{size:10}}},y:{grid:{color:gc},ticks:{color:tc},min:0,max:2.2,title:{display:true,text:'&#8459; value',color:tc}},y2:{position:'right',grid:{display:false},ticks:{color:tc},title:{display:true,text:'Indicators',color:tc}}}}
+});
+
+new Chart(document.getElementById('globalDistChart'),{type:'bar',
+  data:{labels:['0&ndash;0.1','0.1&ndash;0.2','0.2&ndash;0.3 (&kappa;)','0.3&ndash;0.5','0.5&ndash;0.7','> 0.7'],
+    datasets:[{label:'2010',data:[28,18,14,32,38,14],backgroundColor:'rgba(155,127,232,.5)',borderWidth:0},
+              {label:'2023',data:[32,22,22,38,35,14],backgroundColor:'rgba(224,85,85,.55)',borderWidth:0}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:tc,boxWidth:10}}},
+    scales:{x:{grid:{color:gc},ticks:{color:tc,font:{size:10}}},y:{grid:{color:gc},ticks:{color:tc},title:{display:true,text:'Countries',color:tc}}}}
+});
+
+// Wave chart
+let wChart;
+function drawWave(){
+  const Deq=parseFloat(document.getElementById('wDeq').value);
+  const A0=parseFloat(document.getElementById('wA0').value);
+  const delta=parseFloat(document.getElementById('wDelta').value);
+  const phi=parseFloat(document.getElementById('wPhi').value);
+  document.getElementById('wDeqV').textContent=Deq.toFixed(2);
+  document.getElementById('wA0V').textContent=A0.toFixed(2);
+  document.getElementById('wDeltaV').textContent=delta.toFixed(3);
+  document.getElementById('wPhiV').textContent=phi.toFixed(2);
+  const labels=[],data=[];
+  for(let t=0;t<=150;t+=0.5){labels.push(t);const D=Deq+A0*Math.exp(-delta*t)*Math.sin(H*t/TP+phi);data.push(parseFloat(Math.max(0,Math.min(1,D)).toFixed(4)));}
+  if(wChart)wChart.destroy();
+  wChart=new Chart(document.getElementById('waveChart'),{type:'line',
+    data:{labels,datasets:[
+      {data,borderColor:'#5b8ee6',backgroundColor:'rgba(91,142,230,0.07)',fill:true,tension:0.3,pointRadius:0,borderWidth:2,label:'D(t)'},
+      {data:labels.map(()=>K),borderColor:'#e05555',borderWidth:1.5,borderDash:[5,4],pointRadius:0,label:'&kappa; = 0.216'},
+      {data:labels.map(()=>0.7),borderColor:'#4caf82',borderWidth:1,borderDash:[3,3],pointRadius:0,label:'Basin &ge; 0.7'}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:tc,boxWidth:10}}},
+      scales:{x:{grid:{color:gc},ticks:{color:tc,maxTicksLimit:10},title:{display:true,text:'Time (years)',color:tc}},
+              y:{grid:{color:gc},ticks:{color:tc},min:0,max:1,title:{display:true,text:'Democracy score',color:tc}}}}
+  });
+}
+
+// Phase cards
+const phases=[
+  {n:'1',name:'Democracy Valley',score:'0.70&ndash;1.0',c:'#4caf82'},
+  {n:'2',name:'Warning Zone',score:'0.35&ndash;0.70',c:'#e0a855'},
+  {n:'3',name:'Risk Zone',score:'0.216&ndash;0.35',c:'#e05555'},
+  {n:'&kappa;',name:'Critical threshold',score:'0.216',c:'#c43535'},
+  {n:'4',name:'Autocracy Pit',score:'0&ndash;0.216',c:'#8a2020'},
+  {n:'5',name:'Recovery path',score:'variable',c:'#5b8ee6'},
+  {n:'&uarr;',name:'Poland model',score:'>0.42 &rarr; recovery',c:'#5b8ee6'},
+  {n:'&darr;',name:'Hungary model',score:'0.32 &rarr; consolidation',c:'#c97820'}
+];
+const pc=document.getElementById('phaseCards');
+phases.forEach(p=>{const d=document.createElement('div');d.className='phase-card';d.innerHTML='<div class="phase-n" style="color:'+p.c+'">'+p.n+'</div><div class="phase-name" style="color:'+p.c+'">'+p.name+'</div><div class="phase-score" style="color:'+p.c+'">'+p.score+'</div>';pc.appendChild(d);});
+
+// 17-country cases
+const cases17=[
+  {country:'Venezuela',score:0.053,bk:true,outcome:'Collapsed'},
+  {country:'Nicaragua',score:0.021,bk:true,outcome:'Collapsed'},
+  {country:'El Salvador',score:0.106,bk:true,outcome:'Collapsed'},
+  {country:'Thailand',score:0.102,bk:true,outcome:'Collapsed'},
+  {country:'Russia',score:0.065,bk:true,outcome:'Collapsed'},
+  {country:'Belarus',score:0.035,bk:true,outcome:'Collapsed'},
+  {country:'Azerbaijan',score:0.058,bk:true,outcome:'Collapsed'},
+  {country:'Myanmar',score:0.112,bk:true,outcome:'Collapsed'},
+  {country:'Hungary',score:0.323,bk:false,outcome:'Democracy (strained)'},
+  {country:'Poland',score:0.417,bk:false,outcome:'Democracy (recovering)'},
+  {country:'Guatemala',score:0.314,bk:false,outcome:'Democracy'},
+  {country:'Honduras',score:0.229,bk:false,outcome:'Democracy'},
+  {country:'Philippines',score:0.270,bk:false,outcome:'Democracy'},
+  {country:'Serbia',score:0.236,bk:false,outcome:'Democracy'},
+  {country:'Albania',score:0.394,bk:false,outcome:'Democracy'},
+  {country:'North Macedonia',score:0.270,bk:false,outcome:'Democracy'},
+  {country:'Turkey',score:0.240,bk:false,outcome:'Democracy (strained)'}
+];
+const tb=document.getElementById('casesTbody');
+cases17.forEach(c=>{
+  const tr=document.createElement('tr');
+  const ob=c.outcome.includes('Collapsed')?'b-red':(c.outcome.includes('strained')?'b-amber':'b-green');
+  tr.innerHTML='<td>'+c.country+'</td><td style="font-family:var(--mono)">'+c.score.toFixed(3)+'</td><td><span class="badge '+(c.bk?'b-red':'b-green')+'">'+(c.bk?'Yes':'No')+'</span></td><td><span class="badge '+ob+'">'+c.outcome+'</span></td>';
+  tb.appendChild(tr);
+});
+
+function drawDotplot(){
+  const canvas=document.getElementById('dotplotChart');if(!canvas)return;
+  const ctx=canvas.getContext('2d');const W=canvas.offsetWidth||700;const dpr=window.devicePixelRatio||1;
+  canvas.width=W*dpr;canvas.height=70*dpr;canvas.style.height='70px';ctx.scale(dpr,dpr);
+  const w=W,pad=30,bw=w-2*pad;
+  ctx.clearRect(0,0,w,70);
+  ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(pad,44);ctx.lineTo(w-pad,44);ctx.stroke();
+  const kx=pad+K*bw;
+  ctx.strokeStyle='#e05555';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);ctx.beginPath();ctx.moveTo(kx,10);ctx.lineTo(kx,58);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#e05555';ctx.font='9px DM Mono, monospace';ctx.textAlign='center';ctx.fillText('&kappa;=0.216',kx,8);
+  cases17.forEach(c=>{const x=pad+c.score*bw;ctx.beginPath();ctx.arc(x,44,6,0,Math.PI*2);ctx.fillStyle=c.bk?'#e05555':'#4caf82';ctx.fill();});
+  ctx.fillStyle='#6b7591';ctx.font='9px DM Sans, sans-serif';ctx.textAlign='left';ctx.fillText('0',pad-4,60);ctx.textAlign='right';ctx.fillText('1.0',w-pad+4,60);
+}
+
+new Chart(document.getElementById('hpChart'),{type:'line',
+  data:{labels:[2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
+    datasets:[
+      {label:'Hungary',data:[0.55,0.50,0.45,0.41,0.38,0.36,0.33,0.30,0.28,0.26,0.24,0.23,0.23,0.32],borderColor:'#e05555',backgroundColor:'rgba(224,85,85,0.05)',tension:0.3,pointRadius:3,borderWidth:2},
+      {label:'Poland',data:[0.72,0.72,0.72,0.72,0.72,0.65,0.55,0.48,0.44,0.42,0.41,0.40,0.40,0.55],borderColor:'#5b8ee6',backgroundColor:'rgba(91,142,230,0.05)',tension:0.3,pointRadius:3,borderWidth:2},
+      {label:'Sweden (ref.)',data:[0.91,0.91,0.92,0.91,0.91,0.91,0.91,0.92,0.92,0.92,0.92,0.92,0.92,0.92],borderColor:'#3ec9b0',borderDash:[4,4],pointRadius:0,borderWidth:1.5},
+      {data:Array(14).fill(K),label:'&kappa; = 0.216',borderColor:'#e05555',borderDash:[6,4],pointRadius:0,borderWidth:1}
+    ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:tc,boxWidth:10}}},
+    scales:{x:{grid:{color:gc},ticks:{color:tc}},y:{grid:{color:gc},ticks:{color:tc},min:0.1,max:1.0,title:{display:true,text:'V-Dem LDI score',color:tc}}}}
+});
+
+new Chart(document.getElementById('fourierChart'),{type:'bar',
+  data:{labels:['&asymp;50 yrs (primary)','22.0 yrs','19.0 yrs','14.3 yrs','11.0 yrs'],
+    datasets:[{data:[1.00,0.97,0.92,0.76,0.68],backgroundColor:['rgba(155,127,232,.85)','rgba(155,127,232,.6)','rgba(155,127,232,.45)','rgba(155,127,232,.3)','rgba(155,127,232,.18)'],borderRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{x:{grid:{color:gc},ticks:{color:tc,font:{size:10}}},y:{grid:{color:gc},ticks:{color:tc},min:0,max:1.1,title:{display:true,text:'Relative power',color:tc}}}}
+});
+
+function updateFourier(){
+  const hv=parseFloat(document.getElementById('fHL').value);
+  const kv=parseFloat(document.getElementById('fK').value);
+  document.getElementById('fHLV').textContent=hv.toFixed(3);
+  document.getElementById('fKV').textContent=kv.toFixed(1);
+  document.getElementById('fResult').textContent=(hv*hv*kv).toFixed(1)+' years';
+}
+
+function updateZone(score){
+  document.getElementById('zone-val').textContent=score.toFixed(2);
+  document.getElementById('zone-needle').style.left=(score*100)+'%';
+  const lbl=document.getElementById('zone-label');const desc=document.getElementById('zone-desc');
+  if(score<K){
+    lbl.textContent='Autocracy Pit - below κ = 0.216';lbl.style.color='#c43535';
+    desc.textContent='Accelerated autocratisation. Extraordinary mobilisation or external intervention required.';
+  } else if(score<0.35){
+    lbl.textContent='Risk Zone - 0.216-0.35';lbl.style.color='#e05555';
+    desc.textContent='High risk - acceleration begins. Recovery requires extraordinary political effort.';
+  } else if(score<0.7){
+    lbl.textContent='Warning Zone - 0.35-0.70';lbl.style.color='#e0a855';
+    desc.textContent='Fragile democracy. Elevated risk - institutional repair most cost-effective here.';
+  } else {
+    lbl.textContent='Democracy Valley - 0.70-1.0';lbl.style.color='#4caf82';
+    desc.textContent='Stable democracy. High institutional resilience - far from the κ threshold.';
+  }
+}
+updateZone(0.45);
+
+function drawLandscape(score){
+  document.getElementById('lsv').textContent=score.toFixed(2);
+  const canvas=document.getElementById('landscapeCanvas');if(!canvas)return;
+  const ctx=canvas.getContext('2d');const W=canvas.offsetWidth||700;const dpr=window.devicePixelRatio||1;
+  canvas.width=W*dpr;canvas.height=210*dpr;canvas.style.height='210px';ctx.scale(dpr,dpr);
+  const w=W,h=210,pad=30,bw=w-2*pad;
+  ctx.clearRect(0,0,w,h);
+  function xfS(s){return pad+s*bw;}
+  function potential(s){return 0.8*(s-0.35)**2*(s-1.1)**2*6-s*0.1;}
+  let vmin=Infinity,vmax=-Infinity;
+  for(let i=0;i<=100;i++){const v=potential(i/100);if(v<vmin)vmin=v;if(v>vmax)vmax=v;}
+  function yfV(v){return 28+((v-vmin)/(vmax-vmin))*(h-55);}
+  ctx.beginPath();
+  for(let i=0;i<=100;i++){const s=i/100;i===0?ctx.moveTo(xfS(s),yfV(potential(s))):ctx.lineTo(xfS(s),yfV(potential(s)));}
+  ctx.strokeStyle='#3ec9b0';ctx.lineWidth=2;ctx.stroke();
+  ctx.beginPath();
+  for(let i=0;i<=100;i++){const s=i/100;i===0?ctx.moveTo(xfS(s),yfV(potential(s))):ctx.lineTo(xfS(s),yfV(potential(s)));}
+  ctx.lineTo(xfS(1),h-8);ctx.lineTo(xfS(0),h-8);ctx.closePath();ctx.fillStyle='rgba(62,201,176,0.06)';ctx.fill();
+  const kx=xfS(K);
+  ctx.setLineDash([5,4]);ctx.strokeStyle='#e05555';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(kx,18);ctx.lineTo(kx,h-18);ctx.stroke();ctx.setLineDash([]);
+  const rx=xfS(0.35);
+  ctx.setLineDash([3,4]);ctx.strokeStyle='#c9a84c';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(rx,18);ctx.lineTo(rx,h-18);ctx.stroke();ctx.setLineDash([]);
+  ctx.font='10px DM Mono, monospace';ctx.textAlign='center';
+  ctx.fillStyle='#e05555';ctx.fillText('&kappa;=0.216',kx,16);
+  ctx.fillStyle='#c9a84c';ctx.fillText('Ridge',rx,16);
+  const bx=xfS(score),by=yfV(potential(score))-8;
+  ctx.beginPath();ctx.arc(bx,by,7,0,Math.PI*2);
+  ctx.fillStyle=score<K?'#e05555':score<0.5?'#e0a855':score<0.7?'#5b8ee6':'#4caf82';ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.4)';ctx.lineWidth=1;ctx.stroke();
+  if(score>0.1&&score<0.9){
+    const dl=0.08*bw,ul=0.08*H*bw,ay=h-32;
+    ctx.strokeStyle='#e05555';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(bx,ay);ctx.lineTo(bx-dl,ay);ctx.stroke();
+    ctx.fillStyle='#e05555';ctx.font='9px DM Mono, monospace';ctx.textAlign='right';ctx.fillText('1&times; erosion',bx-dl-2,ay+3);
+    ctx.strokeStyle='#4caf82';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(bx,ay-11);ctx.lineTo(bx+ul,ay-11);ctx.stroke();
+    ctx.fillStyle='#4caf82';ctx.textAlign='left';ctx.fillText(H.toFixed(2)+'&times; to recover',bx+ul+3,ay-9);
+  }
+}
+
+function updateCalc(){
+  const score=parseFloat(document.getElementById('cs').value)/100;
+  const decline=parseFloat(document.getElementById('cd').value)/100;
+  const et=parseInt(document.getElementById('cet').value);
+  document.getElementById('csv').textContent=score.toFixed(2);
+  document.getElementById('cdv').textContent=decline.toFixed(2);
+  document.getElementById('cetv').textContent=et+' yrs';
+  let zone,zc;
+  if(score<K){zone='Autocracy Pit';zc='#c43535';}
+  else if(score<0.35){zone='Risk Zone';zc='#e05555';}
+  else if(score<0.7){zone='Warning Zone';zc='#e0a855';}
+  else{zone='Democracy Valley';zc='#4caf82';}
+  document.getElementById('cr-zone').textContent=zone;
+  document.getElementById('cr-zone').style.color=zc;
+  document.getElementById('cr-cost').textContent=H.toFixed(3)+'&times;';
+  document.getElementById('cr-time').textContent=(et*1.77).toFixed(1)+' yrs';
+  document.getElementById('cr-mag').textContent='Δ '+(decline*H).toFixed(3);
+  const pct=Math.min(score*100,99);
+  document.getElementById('calc-needle').style.left=pct+'%';
+  if(score<K) document.getElementById('calc-needle').classList.add('needle-warn');
+  else document.getElementById('calc-needle').classList.remove('needle-warn');
+  const note=document.getElementById('calc-note');
+  if(score<K){note.className='callout callout-red';note.innerHTML='<strong>Autocracy Pit &mdash; below &kappa; = 0.216.</strong> System in crisis zone. Recovery requires extraordinary effort &mdash; &#8459; = '+H.toFixed(3)+' units per unit of erosion. All countries at this level in the 17-country test collapsed without external disruption.';}
+  else if(score<0.35){note.className='callout callout-red';note.innerHTML='<strong>Risk Zone (0.216&ndash;0.35).</strong> Above &kappa; but high risk &mdash; acceleration begins here. Poland-type recovery still possible. Every year of delay adds ~'+H.toFixed(2)+' years to recovery.';}
+  else if(score<0.7){note.className='callout callout-gold';note.innerHTML='<strong>Warning Zone (0.35&ndash;0.70).</strong> Fragile democracy. Elevated risk but recovery cost is still manageable. Institutional repair most effective at this level.';}
+  else{note.className='callout callout-green';note.innerHTML='<strong>Democracy Valley (0.70&ndash;1.0).</strong> Stable democracy. High institutional resilience. Continued monitoring recommended &mdash; erosion can accelerate faster than recovery capacity builds (&#8459; = '+H.toFixed(3)+').';
+  // Country match &mdash; find VDEM countries closest to current score
+  const matchDiv=document.getElementById('calc-country-match');
+  if(matchDiv){
+    const vdemArr=Object.values(VDEM);
+    let tol=0.03,matches=[];
+    while(tol<=0.10){
+      matches=vdemArr.filter(c=>Math.abs(c.s-score)<=tol)
+        .sort((a,b)=>Math.abs(a.s-score)-Math.abs(b.s-score)).slice(0,6);
+      if(matches.length>=3) break;
+      tol+=0.02;
+    }
+    const trendArrow={declining:'&darr;',recovering:'&uarr;',stable:'&rarr;'};
+    const trendCol={declining:'var(--red)',recovering:'var(--green)',stable:'var(--text3)'};
+    matchDiv.innerHTML=matches.length
+      ? matches.map(c=>{
+          const dist=Math.abs(c.s-score).toFixed(3);
+          const arrow=trendArrow[c.t]||'&rarr;';
+          const col=trendCol[c.t]||'var(--text3)';
+          return '<div style="background:var(--bg2);border:0.5px solid var(--border2);border-radius:8px;padding:7px 12px;font-size:12px;cursor:pointer;transition:background .12s" data-cn="'+escHtml(c.n)+'" title="Click for FieldShift analysis">'
+            +'<span style="color:var(--text);font-weight:500">'+escHtml(c.n)+'</span>'
+            +' <span style="font-family:var(--mono);color:var(--gold-bright)">'+c.s.toFixed(3)+'</span>'
+            +' <span style="color:'+col+'">'+arrow+'</span>'
+            +' <span style="font-size:10px;color:var(--text3);margin-left:2px">&Delta;'+dist+'</span>'
+            +'</div>';
+        }).join('')
+      : '<span style="font-size:12px;color:var(--text3)">No countries within range</span>';
+    matchDiv.querySelectorAll('[data-cn]').forEach(el=>{
+      el.addEventListener('mouseover',function(){this.style.background='var(--bg3)';this.style.borderColor='rgba(201,168,76,0.3)';});
+      el.addEventListener('mouseout',function(){this.style.background='var(--bg2)';this.style.borderColor='var(--border2)';});
+      el.addEventListener('click',function(){
+        sendToFieldShift('What is the democratic trajectory and HL Principle risk for '+this.getAttribute('data-cn')+'?',this);
+      });
+    });
+  }
+}
+}
+updateCalc();
+
+function updateDelay(){
+  const d=parseInt(document.getElementById('cdel').value);
+  document.getElementById('cdelv').textContent=d+' yrs';
+  document.getElementById('delay-cost').textContent='+'+(d*H).toFixed(1)+' years';
+}
+updateDelay();
+</script>
+
+<!-- D3 + TopoJSON -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+const VDEM={4:{n:'Afghanistan',s:0.071,t:'declining'},8:{n:'Albania',s:0.394,t:'recovering'},12:{n:'Algeria',s:0.118,t:'stable'},24:{n:'Angola',s:0.136,t:'stable'},32:{n:'Argentina',s:0.562,t:'stable'},36:{n:'Australia',s:0.862,t:'stable'},40:{n:'Austria',s:0.826,t:'stable'},50:{n:'Bangladesh',s:0.178,t:'declining'},56:{n:'Belgium',s:0.848,t:'stable'},64:{n:'Bhutan',s:0.421,t:'stable'},68:{n:'Bolivia',s:0.398,t:'declining'},76:{n:'Brazil',s:0.581,t:'recovering'},100:{n:'Bulgaria',s:0.524,t:'stable'},104:{n:'Myanmar',s:0.112,t:'declining'},116:{n:'Cambodia',s:0.053,t:'declining'},120:{n:'Cameroon',s:0.092,t:'stable'},124:{n:'Canada',s:0.882,t:'stable'},144:{n:'Sri Lanka',s:0.367,t:'declining'},152:{n:'Chile',s:0.671,t:'stable'},156:{n:'China',s:0.071,t:'stable'},170:{n:'Colombia',s:0.486,t:'stable'},180:{n:'DR Congo',s:0.092,t:'stable'},188:{n:'Costa Rica',s:0.743,t:'stable'},191:{n:'Croatia',s:0.651,t:'stable'},192:{n:'Cuba',s:0.055,t:'stable'},196:{n:'Cyprus',s:0.724,t:'stable'},203:{n:'Czech Republic',s:0.741,t:'stable'},204:{n:'Benin',s:0.387,t:'declining'},208:{n:'Denmark',s:0.942,t:'stable'},218:{n:'Ecuador',s:0.508,t:'stable'},818:{n:'Egypt',s:0.063,t:'declining'},222:{n:'El Salvador',s:0.106,t:'declining'},231:{n:'Ethiopia',s:0.124,t:'stable'},246:{n:'Finland',s:0.912,t:'stable'},250:{n:'France',s:0.791,t:'stable'},266:{n:'Gabon',s:0.085,t:'declining'},276:{n:'Germany',s:0.882,t:'stable'},288:{n:'Ghana',s:0.621,t:'stable'},300:{n:'Greece',s:0.673,t:'stable'},320:{n:'Guatemala',s:0.314,t:'recovering'},332:{n:'Haiti',s:0.148,t:'declining'},340:{n:'Honduras',s:0.229,t:'stable'},348:{n:'Hungary',s:0.323,t:'declining'},356:{n:'India',s:0.641,t:'declining'},360:{n:'Indonesia',s:0.461,t:'stable'},364:{n:'Iran',s:0.061,t:'stable'},368:{n:'Iraq',s:0.164,t:'stable'},372:{n:'Ireland',s:0.872,t:'stable'},376:{n:'Israel',s:0.441,t:'declining'},380:{n:'Italy',s:0.751,t:'stable'},388:{n:'Jamaica',s:0.628,t:'stable'},392:{n:'Japan',s:0.831,t:'stable'},400:{n:'Jordan',s:0.118,t:'stable'},398:{n:'Kazakhstan',s:0.086,t:'stable'},404:{n:'Kenya',s:0.348,t:'stable'},408:{n:'North Korea',s:0.016,t:'stable'},410:{n:'South Korea',s:0.741,t:'stable'},414:{n:'Kuwait',s:0.192,t:'stable'},418:{n:'Laos',s:0.028,t:'stable'},422:{n:'Lebanon',s:0.284,t:'recovering'},430:{n:'Liberia',s:0.381,t:'stable'},434:{n:'Libya',s:0.148,t:'stable'},440:{n:'Lithuania',s:0.812,t:'stable'},442:{n:'Luxembourg',s:0.872,t:'stable'},450:{n:'Madagascar',s:0.284,t:'stable'},454:{n:'Malawi',s:0.381,t:'recovering'},458:{n:'Malaysia',s:0.408,t:'recovering'},466:{n:'Mali',s:0.082,t:'declining'},484:{n:'Mexico',s:0.441,t:'declining'},496:{n:'Mongolia',s:0.554,t:'stable'},504:{n:'Morocco',s:0.214,t:'stable'},508:{n:'Mozambique',s:0.294,t:'stable'},516:{n:'Namibia',s:0.548,t:'stable'},524:{n:'Nepal',s:0.414,t:'stable'},528:{n:'Netherlands',s:0.892,t:'stable'},554:{n:'New Zealand',s:0.892,t:'stable'},558:{n:'Nicaragua',s:0.021,t:'declining'},562:{n:'Niger',s:0.082,t:'declining'},566:{n:'Nigeria',s:0.268,t:'declining'},578:{n:'Norway',s:0.931,t:'stable'},586:{n:'Pakistan',s:0.208,t:'declining'},591:{n:'Panama',s:0.618,t:'stable'},598:{n:'Papua New Guinea',s:0.371,t:'stable'},600:{n:'Paraguay',s:0.414,t:'stable'},604:{n:'Peru',s:0.441,t:'stable'},608:{n:'Philippines',s:0.268,t:'stable'},616:{n:'Poland',s:0.551,t:'recovering'},620:{n:'Portugal',s:0.791,t:'stable'},642:{n:'Romania',s:0.634,t:'stable'},643:{n:'Russia',s:0.081,t:'declining'},646:{n:'Rwanda',s:0.094,t:'stable'},682:{n:'Saudi Arabia',s:0.042,t:'stable'},686:{n:'Senegal',s:0.481,t:'recovering'},694:{n:'Sierra Leone',s:0.394,t:'stable'},703:{n:'Slovakia',s:0.674,t:'declining'},705:{n:'Slovenia',s:0.734,t:'stable'},706:{n:'Somalia',s:0.088,t:'stable'},710:{n:'South Africa',s:0.561,t:'stable'},724:{n:'Spain',s:0.771,t:'stable'},729:{n:'Sudan',s:0.062,t:'declining'},752:{n:'Sweden',s:0.921,t:'stable'},756:{n:'Switzerland',s:0.902,t:'stable'},760:{n:'Syria',s:0.048,t:'stable'},762:{n:'Tajikistan',s:0.048,t:'stable'},764:{n:'Thailand',s:0.234,t:'stable'},788:{n:'Tunisia',s:0.241,t:'declining'},792:{n:'Turkey',s:0.281,t:'declining'},800:{n:'Uganda',s:0.121,t:'stable'},804:{n:'Ukraine',s:0.484,t:'stable'},784:{n:'UAE',s:0.058,t:'stable'},826:{n:'United Kingdom',s:0.812,t:'stable'},840:{n:'United States',s:0.712,t:'declining'},858:{n:'Uruguay',s:0.741,t:'stable'},860:{n:'Uzbekistan',s:0.062,t:'stable'},862:{n:'Venezuela',s:0.053,t:'declining'},704:{n:'Vietnam',s:0.042,t:'stable'},887:{n:'Yemen',s:0.042,t:'declining'},894:{n:'Zambia',s:0.371,t:'stable'},716:{n:'Zimbabwe',s:0.182,t:'stable'},31:{n:'Azerbaijan',s:0.058,t:'stable'},51:{n:'Armenia',s:0.441,t:'recovering'},112:{n:'Belarus',s:0.035,t:'declining'},233:{n:'Estonia',s:0.848,t:'stable'},268:{n:'Georgia',s:0.401,t:'declining'},352:{n:'Iceland',s:0.841,t:'stable'},428:{n:'Latvia',s:0.791,t:'stable'},807:{n:'North Macedonia',s:0.271,t:'stable'},499:{n:'Montenegro',s:0.414,t:'stable'},688:{n:'Serbia',s:0.238,t:'declining'},70:{n:'Bosnia',s:0.314,t:'stable'}};
+
+function scoreColor(s){
+  if(s===undefined||s===null)return'rgba(255,255,255,0.06)';
+  if(s>=0.7)return'#2a5209';
+  if(s>=0.35)return'#c9a84c';
+  if(s>=0.216)return'#c04828';
+  return'#791f1f';
+}
+function scoreZone(s){
+  if(s===undefined)return'No data';
+  if(s>=0.7)return'Democracy Valley (0.70&ndash;1.0)';
+  if(s>=0.35)return'Warning Zone (0.35&ndash;0.70)';
+  if(s>=0.216)return'Risk Zone (0.216&ndash;0.35)';
+  return'Autocracy Pit &mdash; BELOW &kappa; = 0.216';
+}
+function zoneColor(s){
+  if(s===undefined)return'var(--text3)';
+  if(s>=0.7)return'#4caf82';
+  if(s>=0.35)return'#e0a855';
+  if(s>=0.216)return'#e05555';
+  return'#c43535';
+}
+function trendLabel(t){return t==='declining'?'&darr; Declining':t==='recovering'?'&uarr; Recovering':'&rarr; Stable';}
+
+let mapBuilt=false;
+function buildWorldMap(){
+  if(mapBuilt)return;
+  mapBuilt=true;
+  const container=document.getElementById('worldMapContainer');
+  const W=container.offsetWidth||900;
+  const H_map=Math.round(W*0.52);
+  container.style.height=H_map+'px';
+  const svg=d3.select('#worldMapContainer').append('svg')
+    .attr('width','100%').attr('viewBox','0 0 900 '+Math.round(900*0.52))
+    .attr('preserveAspectRatio','xMidYMid meet');
+  const projection=d3.geoNaturalEarth1().scale(145).translate([450,Math.round(900*0.52/2)+10]);
+  const path=d3.geoPath().projection(projection);
+  const tip=d3.select('#worldMapContainer').append('div')
+    .style('position','absolute').style('background','rgba(10,14,26,0.92)')
+    .style('border','1px solid rgba(201,168,76,0.4)').style('border-radius','6px')
+    .style('padding','6px 10px').style('font-size','11px').style('color','#e8eaf0')
+    .style('pointer-events','none').style('display','none').style('z-index','10');
+  d3.select('#worldMapContainer').style('position','relative');
+  d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(world=>{
+    const features=topojson.feature(world,world.objects.countries).features;
+    svg.selectAll('path').data(features).join('path')
+      .attr('d',path)
+      .attr('fill',d=>{const c=VDEM[+d.id];return scoreColor(c?c.s:undefined);})
+      .attr('stroke','rgba(255,255,255,0.12)').attr('stroke-width',0.4)
+      .style('cursor',d=>VDEM[+d.id]?'pointer':'default')
+      .on('mousemove',function(event,d){
+        const c=VDEM[+d.id];if(!c)return;
+        tip.style('display','block').style('left',(event.offsetX+12)+'px').style('top',(event.offsetY-10)+'px')
+           .html('<strong style="color:#e6c86e">'+c.n+'</strong><br>Score: '+c.s.toFixed(3)+' &nbsp;'+trendLabel(c.t));
+      })
+      .on('mouseleave',function(){tip.style('display','none');})
+      .on('click',function(event,d){const c=VDEM[+d.id];if(!c)return;tip.style('display','none');showCountryCard(c);});
+    svg.append('text').attr('x',14).attr('y',18).attr('font-size','10px')
+       .attr('fill','rgba(200,180,100,0.7)').attr('font-family','var(--mono,monospace)')
+       .text('κ = 0.216 threshold  ·  V-Dem v15 2024  ·  Click any country');
+  }).catch(()=>{container.innerHTML='<div style="padding:2rem;color:var(--text3);font-size:13px;text-align:center">Map requires internet connection to load topology data.</div>';});
+}
+
+// &mdash;€&mdash;€ FIX B3: showCountryCard &mdash; no inline onclick with embedded strings
+function showCountryCard(c){
+  document.getElementById('countryCard').style.display='block';
+  document.getElementById('ccName').textContent=c.n;
+  const zc=zoneColor(c.s);
+  document.getElementById('ccZone').innerHTML='<span style="color:'+zc+'">'+scoreZone(c.s)+'</span> &nbsp;&middot;&nbsp; <span style="color:'+zc+'">'+trendLabel(c.t)+'</span>';
+  const aboveK=c.s>=0.216;
+  const dist=Math.abs(c.s-0.216).toFixed(3);
+  document.getElementById('ccMetrics').innerHTML=
+    '<div style="background:var(--bg3);border-radius:8px;padding:.75rem"><div style="font-size:10px;color:var(--text3);margin-bottom:3px">V-Dem score</div><div style="font-size:20px;font-weight:500;font-family:var(--mono);color:'+zc+'">'+c.s.toFixed(3)+'</div></div>'+
+    '<div style="background:var(--bg3);border-radius:8px;padding:.75rem"><div style="font-size:10px;color:var(--text3);margin-bottom:3px">'+(aboveK?'Above &kappa;':'Below &kappa;')+'</div><div style="font-size:20px;font-weight:500;font-family:var(--mono);color:'+(aboveK?'#4caf82':'#e05555')+'">'+(aboveK?'+':'')+dist+'</div></div>'+
+    '<div style="background:var(--bg3);border-radius:8px;padding:.75rem"><div style="font-size:10px;color:var(--text3);margin-bottom:3px">Trend</div><div style="font-size:16px;font-weight:500;color:'+zc+'">'+trendLabel(c.t)+'</div></div>';
+  let analysis='';
+  if(c.s>=0.7)analysis=c.n+' is in the Democracy Valley (score: '+c.s.toFixed(3)+'). Institutional resilience is high - the system rests far from the κ = 0.216 threshold.';
+  else if(c.s>=0.35)analysis=c.n+' is in the Warning Zone (score: '+c.s.toFixed(3)+'). Fragile democracy - '+((c.s-0.216).toFixed(3))+' units above κ. Elevated risk but recovery cost is still manageable.';
+  else if(c.s>=0.216)analysis=c.n+' is in the Risk Zone (score: '+c.s.toFixed(3)+'), just '+((c.s-0.216).toFixed(3))+' above κ = 0.216. High risk - acceleration toward autocracy begins here. The Poland case shows recovery is still possible with extraordinary mobilisation.';
+  else analysis=c.n+' is in the Autocracy Pit - BELOW κ = 0.216 (score: '+c.s.toFixed(3)+'). In the 17-country validation test, every country that reached this level collapsed into autocracy. Recovery requires extraordinary external intervention.';
+  document.getElementById('ccAnalysis').textContent=analysis;
+
+  // FIX B3: build action buttons with data attributes, attach listener once
+  const actDiv=document.getElementById('ccActions');
+  actDiv.innerHTML='';
+  const btn1=document.createElement('button');
+  btn1.textContent='Full FieldShift analysis ↗';
+  btn1.style.cssText='font-size:11px;padding:6px 14px;border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;background:transparent;color:var(--text2);cursor:pointer';
+  btn1.setAttribute('data-q','FieldShift deep analysis: '+c.n);
+  const btn2=document.createElement('button');
+  btn2.textContent='Ask about '+c.n+' ↗';
+  btn2.style.cssText='font-size:11px;padding:6px 14px;border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;background:transparent;color:var(--text2);cursor:pointer';
+  btn2.setAttribute('data-q','What is the democratic trajectory and HL Principle risk for '+c.n+'?');
+  [btn1,btn2].forEach(b=>{
+    b.addEventListener('click',function(){
+      sendToFieldShift(this.getAttribute('data-q'), this);
+    });
+    actDiv.appendChild(b);
+  });
+  document.getElementById('countryCard').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// &mdash;€&mdash;€ KNOWLEDGE EXPLORER &mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€
+const FS_AREAS=[
+  {id:'hl',title:'The Hedlund-Leijon Principle',ic:'#EEEDFE',ac:'#534AB7',topics:[
+    {l:'What is &#8459; = 1.724?',q:'Explain the Hedlund-Leijon constant &#8459; = 1.724 &mdash; what it measures, how it was derived, and why it is the core of FieldShift'},
+    {l:'How was &#8459; calculated?',q:'Walk me through the exact mathematical derivation of &#8459; = 1.724 from V-Dem data &mdash; the formula, the sums, and the bootstrap validation'},
+    {l:'Why divide by 8 for &kappa;?',q:'Why is &kappa; = &#8459;/8 = 0.216? What is the geometric justification from sine-wave theory?'},
+    {l:'&#8459; &asymp; &radic;3 &mdash; open question',q:'The HL constant &#8459; = 1.724 is within 0.49% of &radic;3 = 1.732. What might this mean mathematically?'},
+    {l:'Period stability 1789&ndash;2024',q:'How stable is &#8459; across different historical periods &mdash; is it really the same in 1789&ndash;1900 as in 2001&ndash;2024?'},
+    {l:'Cross-dataset validation',q:'How does &#8459; compare across V-Dem (1.724), Freedom House (1.537), and Polity V (1.363) &mdash; and why the difference?'}
+  ]},
+  {id:'vdem',title:'V-Dem data & methodology',ic:'#E1F5EE',ac:'#0F6E56',topics:[
+    {l:'Why V-Dem is the primary source',q:'Why does FieldShift use V-Dem v15 rather than Freedom House or Polity V as its primary data source?'},
+    {l:'The Liberal Democracy Index',q:'What does V-Dem\'s Liberal Democracy Index measure? Explain its five components and how they are combined.'},
+    {l:'Bayesian measurement model',q:'How does V-Dem\'s Bayesian model work and why does it matter that it produces uncertainty intervals?'},
+    {l:'4,000+ experts explained',q:'How does V-Dem use over 4,000 country experts across 200 countries and how does it handle coder disagreements?'},
+    {l:'Historical data back to 1789',q:'How reliable is V-Dem data for the 1789&ndash;1900 period and how are scores estimated for pre-modern data?'},
+    {l:'1,613 erosion episodes',q:'What are the 1,613 erosion and 2,414 recovery episodes in V-Dem? How are they defined and bounded?'}
+  ]},
+  {id:'kappa',title:'The κ = 0.216 threshold',ic:'#FCEBEB',ac:'#A32D2D',topics:[
+    {l:'What happens below κ?',q:'What exactly happens structurally when a democracy\'s V-Dem score falls below κ = 0.216?'},
+    {l:'The 17-country test',q:'Explain the 17-country stress test: which countries, why perfect separation, and what are the statistical caveats?'},
+    {l:'Is crossing κ always collapse?',q:'Poland shows crossing κ does not always mean collapse. Explain when recovery below κ is still possible.'},
+    {l:'Countries nearest κ now',q:'Which countries are currently closest to the κ = 0.216 threshold in 2025? What is Serbia\'s situation?'},
+    {l:'Sensitivity m=6 to m=10',q:'Show the threshold sensitivity analysis for m=6 through m=10 and explain why m=8 was chosen.'},
+    {l:'The stability landscape',q:'Explain the two-basin potential landscape metaphor &mdash; democratic basin, autocratic basin, the ridge, and the ball.'}
+  ]},
+  {id:'cases',title:'Country cases',ic:'#FAEEDA',ac:'#854F0B',topics:[
+    {l:'Poland &mdash; recovery case',q:'How did Poland recover from democratic erosion after 2023? What does FieldShift say about how long full recovery will take?'},
+    {l:'Hungary &mdash; erosion anatomy',q:'Walk through Hungary\'s democratic erosion from 2010 to 2024 step by step using V-Dem data.'},
+    {l:'United States &mdash; 0.71 and declining',q:'The US V-Dem score is 0.71, down from 0.84 in 2016. What is causing this decline and what does the HL trajectory show?'},
+    {l:'Sweden &mdash; stable reference 0.92',q:'Why is Sweden used as a stable reference case and what does a score of 0.92 mean institutionally?'},
+    {l:'Venezuela and Nicaragua',q:'Venezuela (0.053) and Nicaragua (0.021) are in the deepest autocracy zone. What happened and why is escape so unlikely?'},
+    {l:'India approaching the slope',q:'India is at 0.641 and declining. When might it approach the warning zone and what is V-Dem measuring?'},
+    {l:'Turkey &mdash; warning zone 0.281',q:'Turkey sits at 0.281, just above &kappa; = 0.216. What is the FieldShift structural reading for Turkey?'}
+  ]},
+  {id:'waves',title:'Democratic waves & cycles',ic:'#E6F1FB',ac:'#185FA5',topics:[
+    {l:'The &asymp;50-year democratic cycle',q:'How was the primary democratic cycle of approximately 50 years found through Fourier analysis of V-Dem data?'},
+    {l:'The 22-year harmonic',q:'Why does a 22-year harmonic appear, and what is the relationship &#8459;&sup2; &times; 7 &asymp; 22?'},
+    {l:'Three waves of democratisation',q:'Explain Huntington\'s three waves and how the FieldShift wave model relates to this history.'},
+    {l:'Current autocratisation wave',q:'We are in a third wave of autocratisation (Lührmann & Lindberg 2019). What does FieldShift add to this?'},
+    {l:'The wave equation explained',q:'Explain D(t) = D_eq + A&#8320;&middot;e^(&minus;&delta;t)&middot;sin(&#8459;&middot;t/T + &phi;) in plain language &mdash; what each parameter means.'},
+    {l:'Kondratiev long waves',q:'What is the Kondratiev 50-year economic cycle and how might it connect to the primary ~50-year democratic cycle?'}
+  ]},
+  {id:'elections',title:'Elections & political systems',ic:'#EAF3DE',ac:'#3B6D11',topics:[
+    {l:'Hungary 2026 &mdash; what is at stake',q:'What is at stake in Hungary\'s April 12 2026 election? Explain Orbán vs Magyar, the electoral system, and FieldShift\'s structural analysis.'},
+    {l:'Why electoral systems matter',q:'How do electoral systems affect whether poll leads translate into parliamentary majorities? Use Hungary 2022 as example.'},
+    {l:'Why Orbán runs on Ukraine not economy',q:'Why is Orbán making the 2026 election about Ukraine rather than economic performance? Explain the agenda-setting strategy.'},
+    {l:'Electoral system amplification',q:'In Hungary 2022, Fidesz got 54% of votes but 68% of seats. How does the mixed system amplify vote shares?'},
+    {l:'US 2026 midterms',q:'What does FieldShift\'s structural reading say about the US 2026 midterm elections and democratic health trajectory?'}
+  ]},
+  {id:'asym',title:'Erosion vs recovery asymmetry',ic:'#FBEAF0',ac:'#993556',topics:[
+    {l:'Why erosion is faster than recovery',q:'Why does democracy erode faster than it recovers? Explain both temporal asymmetry (1.77&times;) and magnitude asymmetry (1.724&times;).'},
+    {l:'Institutional inertia explained',q:'What is institutional inertia and why does it make democratic recovery so much slower than erosion?'},
+    {l:'Cost of delay quantified',q:'Every year of delayed intervention adds 1.724 years to recovery time. How is this calculated and what does it mean for policy?'},
+    {l:'What counts as democratic recovery?',q:'How does FieldShift define and measure genuine democratic recovery vs temporary fluctuation in V-Dem scores?'}
+  ]},
+  {id:'research',title:'FieldShift research programme',ic:'#F1EFE8',ac:'#5F5E5A',topics:[
+    {l:'Five-phase programme overview',q:'What are the five phases of the FieldShift Institute research programme, from validating the HL Principle to the universal social science model?'},
+    {l:'Can &#8459; apply to economics?',q:'Could the HL asymmetry constant &#8459; = 1.724 apply to economic cycles &mdash; recoveries taking 1.724&times; longer than contractions?'},
+    {l:'Pre-registering predictions at OSF',q:'Why is pre-registering FieldShift predictions at OSF or AsPredicted important, and what are the four hypotheses?'},
+    {l:'Funding strategy &mdash; VR, RJ, Forte',q:'How should FieldShift approach Swedish research funding (VR, Riksbankens Jubileumsfond, Forte, MPF)? What makes a compelling application?'},
+    {l:'Doctoral projects 2026&ndash;2028',q:'What are the four planned FieldShift doctoral projects, their host institutions, and funding targets?'}
+  ]}
+];
+
+const FS_KB={
+  h1724:{title:'&#8459; = 1.724 &mdash; the Hedlund-Leijon constant',body:'<strong>&#8459; = 1.724</strong> is the ratio of cumulative democratic recovery to cumulative democratic erosion across 200 countries and 235 years of V-Dem data.<br><br>The calculation: across 25,709 country-year observations (V-Dem v15, 1789&ndash;2024), democracies cumulatively recovered <strong>109.38 units</strong> and eroded <strong>63.46 units</strong>. Ratio: 109.38 &divide; 63.46 = <strong>1.7236</strong>.<br><br>The ratio holds at 1.72&ndash;1.73 in every 50-year sub-period from 1789 to 2024. Bootstrap resampling (10,000 iterations): 95% CI [1.53, 1.96].',related:['How was &#8459; calculated?','Why divide by 8 for &kappa;?','&#8459; &asymp; &radic;3 &mdash; open question','Cross-dataset validation']},
+  kappa:{title:'κ = 0.216 &mdash; the critical threshold',body:'<strong>&kappa; = &#8459; &divide; 8 = 1.724 &divide; 8 = 0.2155 &asymp; 0.216</strong><br><br>The derivation: the point of steepest slope in a sine wave occurs at &pi;/4 radians = 1/8 of a full 2&pi; cycle. Scaled by &#8459;, this marks where democratic stabilising feedbacks begin to weaken significantly.<br><br><strong>Four zones (facit):</strong><br>&bull; Democracy Valley: 0.70&ndash;1.0 &mdash; stable democracy<br>&bull; Warning Zone: 0.35&ndash;0.70 &mdash; fragile democracy<br>&bull; Risk Zone: 0.216&ndash;0.35 &mdash; high risk, acceleration begins<br>&bull; Autocracy Pit: 0&ndash;0.216 &mdash; collapse, extraordinary effort required<br><br>Empirical validation: in the 17-country stress test, every country that fell below &kappa; collapsed (8/8), and every country above survived (9/9). p = 1.72&times;10<sup>-9</sup>, Cohen d = 3.57.',related:['What happens below κ?','The 17-country test','Countries nearest κ now','The stability landscape']},
+  poland:{title:'Poland &mdash; the key FieldShift recovery case',body:'Poland declined from ~0.72 (2015) to ~0.42 (2019&ndash;2022) as PiS captured courts, public media, and electoral administration. It entered the warning zone but never crossed &kappa; = 0.216.<br><br>Reversal: <strong>October 2023</strong> &mdash; 74% voter turnout (highest since 1919) produced a Tusk-led majority. V-Dem score recovering toward 0.55 by 2024.<br><br><strong>HL interpretation:</strong> Returning to 0.72 requires &#8459; = 1.724&times; more institutional rebuilding than the erosion &mdash; approximately 8&ndash;12 years of sustained effort.',related:['Hungary &mdash; erosion anatomy','Is crossing &kappa; always collapse?','Cost of delay quantified','What counts as democratic recovery?']},
+  hungary:{title:'Hungary &mdash; primary erosion case',body:'Hungary\'s V-Dem score: 0.55 (2010) &rarr; 0.323 (2024), a decline of 0.23 points over 14 years &mdash; the most sustained democratic erosion in the EU this period.<br><br>Key steps: 2011 new constitution; 2013 courts packed; 2014 redistricting; 2018 independent media captured; 2022 Fidesz won 68% of seats with only 54% of votes.<br><br><strong>2026 election:</strong> First genuine challenge in 16 years. Tisza leads in independent polls (~44.9% vs Fidesz 41.9%) but needs 3&ndash;5pt overperformance due to structural factors.',related:['Hungary 2026 &mdash; what is at stake','Electoral system amplification','Why Orbán runs on Ukraine not economy','Poland &mdash; recovery case']},
+  usa:{title:'United States &mdash; V-Dem score 0.712, declining',body:'The United States has a V-Dem Liberal Democracy Index score of <strong>0.712</strong> (2024), down from 0.842 in 2016. V-Dem measures the decline through: executive constraints weakening, judicial independence under pressure, civil liberties concerns, and electoral integrity questions.<br><br>The US remains well above &kappa; = 0.216 with a distance of +0.496. At ~0.016/year decline rate, FieldShift structural projection: US reaches 0.5 in ~13 years, &kappa; in ~31 years &mdash; assuming no reversal.',related:['US 2026 midterms','14 anchor democracies','India approaching the slope']},
+  vdem:{title:'Why V-Dem is FieldShift\'s primary dataset',body:'V-Dem is FieldShift\'s official source because:<br><br>&bull; <strong>235 years</strong> of data (1789&ndash;2024) &mdash; same period as Freedom House in the validation dataset<br>&bull; <strong>500+ indicators</strong> vs Freedom House\'s 2&ndash;3<br>&bull; <strong>4,000+ country experts</strong> with Bayesian uncertainty intervals per observation<br>&bull; <strong>5 democracy principles</strong>: electoral, liberal, participatory, deliberative, egalitarian<br><br>The higher &#8459; from V-Dem (1.724) vs Freedom House (1.537) or Polity V (1.363) reflects V-Dem\'s broader definition &mdash; more democratic dimensions must be rebuilt in recovery.',related:['The Liberal Democracy Index explained','Bayesian measurement model','1,613 erosion episodes','Cross-dataset validation']}
+};
+
+function fsKb(q){
+  const ql=q.toLowerCase();
+  if(ql.match(/1\.724|constant|&#8459;|ℋ|asymmetry constant/))return FS_KB.h1724;
+  if(ql.match(/0\.216|threshold|kappa|&kappa;|κ/))return FS_KB.kappa;
+  if(ql.match(/poland|polish/))return FS_KB.poland;
+  if(ql.match(/hungary|hungarian|orbán|orban|tisza/))return FS_KB.hungary;
+  if(ql.match(/united states|usa|america|0\.71/))return FS_KB.usa;
+  if(ql.match(/v-dem|vdem|varieties of democracy|liberal democracy index/))return FS_KB.vdem;
+  return null;
+}
+
+// &mdash;€&mdash;€ FIX B2: fsShowResult &mdash; related buttons use data attributes, no inline quotes
+function fsShowResult(title,q){
+  const kb=fsKb(q);
+  const panel=document.getElementById('fsResultPanel');
+  panel.style.display='block';
+  const normalizedTitle=fsDecodeEntities(title);
+  document.getElementById('fsResultTitle').textContent=normalizedTitle.length>70?normalizedTitle.slice(0,67)+'...':normalizedTitle;
+  const actDiv=document.getElementById('fsResultActions');
+  actDiv.innerHTML='';
+  if(kb){
+    document.getElementById('fsResultBody').innerHTML=kb.body;
+    kb.related.forEach(r=>{
+      const btn=document.createElement('button');
+      btn.textContent=fsDecodeEntities(r);
+      btn.style.cssText='font-size:11px;padding:4px 11px;border:0.5px solid rgba(255,255,255,0.12);border-radius:20px;background:transparent;color:var(--text3);cursor:pointer;font-family:var(--sans)';
+      btn.setAttribute('data-q',r);
+      btn.addEventListener('click',function(){fsQuick(this.getAttribute('data-q'));});
+      actDiv.appendChild(btn);
+    });
+    const deepBtn=document.createElement('button');
+    deepBtn.textContent='Ask for deeper analysis ↗';
+    deepBtn.style.cssText='font-size:11px;padding:5px 14px;border:0.5px solid rgba(201,168,76,0.3);border-radius:8px;background:rgba(201,168,76,0.06);color:var(--gold-bright);cursor:pointer;font-family:var(--sans)';
+    deepBtn.setAttribute('data-q',q);
+    deepBtn.addEventListener('click',function(){
+      sendToFieldShift('FieldShift deep analysis: '+this.getAttribute('data-q'), this);
+    });
+    actDiv.appendChild(deepBtn);
+  } else {
+    document.getElementById('fsResultBody').textContent='Routing to full FieldShift analyst - click below for a complete response.';
+    const fullBtn=document.createElement('button');
+    fullBtn.textContent='Full analysis ↗';
+    fullBtn.style.cssText='font-size:11px;padding:5px 14px;border:0.5px solid rgba(201,168,76,0.3);border-radius:8px;background:rgba(201,168,76,0.06);color:var(--gold-bright);cursor:pointer;font-family:var(--sans)';
+    fullBtn.setAttribute('data-q',q);
+    fullBtn.addEventListener('click',function(){
+      sendToFieldShift('FieldShift: '+this.getAttribute('data-q'), this);
+    });
+    actDiv.appendChild(fullBtn);
+  }
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function fsDoSearch(){
+  const v=document.getElementById('fsSearch').value.trim();
+  if(!v)return;
+  fsShowResult(v,v);
+  document.getElementById('fsSearch').value='';
+}
+
+// &mdash;€&mdash;€ FIX B1+B5: fsQuick &mdash; simple function call, chips use data attributes
+function fsQuick(q){fsShowResult(q,q);}
+
+// &mdash;€&mdash;€ FIX B1: fsBuildGrid &mdash; event delegation, no inline onclick with strings
+function fsBuildGrid(){
+  const grid=document.getElementById('fsAreaGrid');
+  if(!grid)return;
+  grid.innerHTML='';
+  FS_AREAS.forEach((area,aIdx)=>{
+    const card=document.createElement('div');
+    card.className='fs-area-card';
+    card.id='fsa-'+area.id;
+    const topicHtml=area.topics.map((t,tIdx)=>'<div class="fs-topic-item" data-aidx="'+aIdx+'" data-tidx="'+tIdx+'"><div class="fs-topic-dot"></div>'+escHtml(t.l)+'</div>').join('');
+    card.innerHTML=
+      '<div class="fs-area-header">'+
+        '<div class="fs-area-icon" style="background:'+area.ic+'">'+
+          '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color:'+area.ac+'">'+
+            '<rect x="2" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/>'+
+            '<rect x="8" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/>'+
+            '<rect x="2" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/>'+
+            '<rect x="8" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/>'+
+          '</svg>'+
+        '</div>'+
+        '<div class="fs-area-title">'+escHtml(area.title)+'</div>'+
+        '<div class="fs-area-arrow">&rsaquo;</div>'+
+      '</div>'+
+      '<div class="fs-topic-list">'+topicHtml+'</div>';
+    // Header click -> toggle
+    card.querySelector('.fs-area-header').addEventListener('click',function(){fsTog(area.id);});
+    // Topic item clicks via event delegation on the list
+    card.querySelector('.fs-topic-list').addEventListener('click',function(e){
+      const item=e.target.closest('.fs-topic-item');
+      if(!item)return;
+      const ai=parseInt(item.getAttribute('data-aidx'));
+      const ti=parseInt(item.getAttribute('data-tidx'));
+      if(FS_AREAS[ai]&&FS_AREAS[ai].topics[ti]) fsShowResult(FS_AREAS[ai].topics[ti].l,FS_AREAS[ai].topics[ti].q);
+    });
+    grid.appendChild(card);
+  });
+}
+
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function fsDecodeEntities(s){
+  const t=document.createElement('textarea');
+  t.innerHTML=String(s||'');
+  return t.value;
+}
+
+function fsTog(id){
+  const card=document.getElementById('fsa-'+id);
+  if(!card)return;
+  const wasOpen=card.classList.contains('fsopen');
+  document.querySelectorAll('.fs-area-card').forEach(c=>c.classList.remove('fsopen'));
+  if(!wasOpen)card.classList.add('fsopen');
+}
+
+function initKnowledgeExplorer(){
+  fsBuildGrid();
+  document.querySelectorAll('.fs-chip').forEach(btn=>{
+    if(btn.dataset.boundFsChip==='1')return;
+    btn.dataset.boundFsChip='1';
+    btn.addEventListener('click',function(){fsQuick(this.getAttribute('data-q'));});
+  });
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',initKnowledgeExplorer);
+}else{
+  initKnowledgeExplorer();
+}
+
+// &mdash;€&mdash;€ V8 GRID (Election Math overview) &mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€&mdash;€
+const V8_VARS=[
+  {id:'V1',title:'Poll consensus',desc:'Independent pollsters weighted average &mdash; excludes regime-aligned pollsters'},
+  {id:'V2',title:'Structural amplification factor',desc:'How the electoral system converts vote leads into seat leads &mdash; calibrated from historical elections'},
+  {id:'V3',title:'Diaspora / structural bias',desc:'Voting blocs not captured in domestic polls &mdash; e.g. Hungarian diaspora votes ~88% Fidesz'},
+  {id:'V4',title:'Gerrymander geometry',desc:'Redistricting effects &mdash; seats gained or lost independent of vote share'},
+  {id:'V5',title:'Turnout differential',desc:'Difference in turnout intention between party bases &mdash; and reserve mobilisation capacity'},
+  {id:'V6',title:'Prediction market signal',desc:'Aggregated win probabilities from prediction markets &mdash; independent of campaign narrative'},
+  {id:'V7',title:'FieldShift HL score',desc:'V-Dem democratic health score and erosion trajectory &mdash; structural context for the election'},
+  {id:'V8',title:'Historical incumbent pattern',desc:'Country-specific historical over- or underperformance relative to polls'}
+];
+const v8grid=document.getElementById('v8grid');
+if(v8grid){
+  V8_VARS.forEach(v=>{
+    const el=document.createElement('div');
+    el.style.cssText='display:flex;gap:10px;align-items:flex-start';
+    el.innerHTML='<div style="min-width:22px;height:22px;background:rgba(201,168,76,0.15);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--gold);flex-shrink:0">'+v.id+'</div>'+
+      '<div><div style="font-size:12px;font-weight:500;color:var(--text)">'+escHtml(v.title)+'</div><div style="font-size:11px;color:var(--text3)">'+escHtml(v.desc)+'</div></div>';
+    v8grid.appendChild(el);
+  });
+}
+
+// Hungary V8 variables (predictions tab)
+const HUN_V8=[
+  {id:'V1',label:'Poll consensus',val:'Tisza +8 pts',c:'var(--blue)'},
+  {id:'V2',label:'Structural amp.',val:'+15pt correction',c:'var(--amber)'},
+  {id:'V3',label:'Diaspora',val:'Fidesz +3.5&ndash;4.5%',c:'var(--red)'},
+  {id:'V4',label:'Gerrymander',val:'+2&ndash;4 Fidesz seats',c:'var(--red)'},
+  {id:'V5',label:'Turnout',val:'Tisza 98% intent',c:'var(--blue)'},
+  {id:'V6',label:'Pred. market',val:'57% Tisza win',c:'var(--blue)'},
+  {id:'V7',label:'HL score',val:'0.323 &middot; Warning',c:'var(--amber)'},
+  {id:'V8',label:'Incumbent hist.',val:'Fidesz +10&ndash;20pt',c:'var(--red)'}
+];
+
+// Electoral Math model predictions for Hungary and Ecuador
+const MODEL_PREDICTIONS={
+  'Hungary|2026-04-12|Parliamentary':{
+    title:'Hungary Parliamentary Election',
+    modelConclusion:'FS model projection: Tisza-led opposition 43-46% vote share, Fidesz 40-44%, other lists 10-14%. Mandate projection in 199-seat parliament: opposition bloc 100-112 mandates, Fidesz bloc 84-95, others 0-8. Party distribution indicates Tisza as largest party, but final majority resilience depends on district conversion, turnout asymmetry, and diaspora margin effects.',
+    variables:[
+      {label:'Tisza vote (model)',val:'43&ndash;46%',c:'var(--blue)'},
+      {label:'Fidesz vote (model)',val:'40&ndash;44%',c:'var(--red)'},
+      {label:'Mandates (Opposition bloc)',val:'100&ndash;112 of 199',c:'var(--blue)'},
+      {label:'Mandates (Fidesz bloc)',val:'84&ndash;95 of 199',c:'var(--red)'},
+      {label:'Other parties',val:'0&ndash;8 mandates',c:'var(--amber)'},
+      {label:'Party distribution',val:'Tisza largest; coalition margin tight',c:'var(--gold-bright)'}
+    ]
+  },
+  'Ecuador|2026-04-19|Presidential':{
+    title:'Ecuador Presidential Election',
+    modelConclusion:'FS model projection: first-round distribution center-right 38-42%, left coalition 26-31%, anti-system/others 20-26%. Runoff probability 70-75%. Mandate distribution expectation for post-election governing coalition is 44-52% of assembly mandates, with minor-party bargaining decisive for cabinet and legislative stability.',
+    variables:[
+      {label:'Center-right (model)',val:'38&ndash;42% (R1)',c:'var(--blue)'},
+      {label:'Left coalition',val:'26&ndash;31% (R1)',c:'var(--red)'},
+      {label:'Other blocs',val:'20&ndash;26% (R1)',c:'var(--text2)'},
+      {label:'Runoff probability',val:'70&ndash;75%',c:'var(--amber)'},
+      {label:'Governing mandate share',val:'44&ndash;52%',c:'var(--gold-bright)'},
+      {label:'Party distribution',val:'Fragmented; coalition bargaining pivotal',c:'var(--gold-bright)'}
+    ]
+  }
+};
+const hv8=document.getElementById('hungary-v8');
+if(hv8){
+  HUN_V8.forEach(v=>{
+    const el=document.createElement('div');
+    el.style.cssText='background:var(--bg3);border-radius:6px;padding:.5rem .7rem';
+    el.innerHTML='<div style="font-size:9px;color:var(--text3);margin-bottom:2px">'+escHtml(v.label)+'</div><div style="font-size:11px;color:'+v.c+';font-weight:500">'+escHtml(v.val)+'</div>';
+    hv8.appendChild(el);
+  });
+}
+
+// &mdash;€&mdash;€ FIX B4: Election calendar &mdash; no dataset.built guard; rebuild each call
+const ELECTIONS=[
+  {date:'2026-04-12',country:'Hungary',flag:'HU',type:'Parliamentary',score:0.323,exact:true},
+  {date:'2026-04-19',country:'Ecuador',flag:'EC',type:'Presidential',score:0.584,exact:false},
+  {date:'2026-05-01',country:'Lebanon',flag:'LB',type:'Parliamentary',score:0.356,exact:false},
+  {date:'2026-05-01',country:'Philippines',flag:'PH',type:'Midterm',score:0.273,exact:false},
+  {date:'2026-05-17',country:'Vietnam',flag:'VN',type:'Parliamentary',score:0.043,exact:false},
+  {date:'2026-06-01',country:'Colombia',flag:'CO',type:'Parliamentary',score:0.582,exact:false},
+  {date:'2026-06-01',country:'Israel',flag:'IL',type:'Parliamentary',score:0.449,exact:false},
+  {date:'2026-06-01',country:'South Korea',flag:'KR',type:'Presidential',score:0.731,exact:false},
+  {date:'2026-07-05',country:'Mexico',flag:'MX',type:'Midterm',score:0.482,exact:false},
+  {date:'2026-07-01',country:'Bangladesh',flag:'BD',type:'Parliamentary',score:0.298,exact:false},
+  {date:'2026-08-01',country:'Zimbabwe',flag:'ZW',type:'Parliamentary',score:0.182,exact:false},
+  {date:'2026-09-01',country:'Russia',flag:'RU',type:'Duma election',score:0.080,exact:false},
+  {date:'2026-09-01',country:'Armenia',flag:'AM',type:'Parliamentary',score:0.511,exact:false},
+  {date:'2026-09-20',country:'Sweden',flag:'SE',type:'General',score:0.918,exact:false},
+  {date:'2026-10-04',country:'Brazil',flag:'BR',type:'General',score:0.622,exact:false},
+  {date:'2026-03-24',country:'Denmark',flag:'DK',type:'General',score:0.936,exact:true},
+  {date:'2026-10-01',country:'Bosnia & Herz.',flag:'BA',type:'General',score:0.345,exact:false},
+  {date:'2026-11-03',country:'USA',flag:'US',type:'Midterm',score:0.710,exact:true},
+  {date:'2026-11-01',country:'Bulgaria',flag:'BG',type:'Presidential',score:0.621,exact:false},
+  {date:'2026-12-01',country:'South Sudan',flag:'SS',type:'General',score:0.065,exact:false},
+  {date:'2026-12-01',country:'Chile',flag:'CL',type:'Presidential',score:0.772,exact:false},
+  {date:'2027-01-01',country:'Kenya',flag:'KE',type:'General',score:0.426,exact:false},
+  {date:'2027-03-01',country:'Nigeria',flag:'NG',type:'General',score:0.383,exact:false},
+  {date:'2027-03-01',country:'Australia',flag:'AU',type:'General',score:0.860,exact:false},
+  {date:'2027-04-01',country:'France',flag:'FR',type:'Presidential',score:0.791,exact:false},
+  {date:'2027-05-01',country:'Serbia',flag:'RS',type:'Parliamentary',score:0.236,exact:false},
+  {date:'2027-05-01',country:'Ethiopia',flag:'ET',type:'General',score:0.163,exact:false},
+  {date:'2027-06-01',country:'Italy',flag:'IT',type:'Parliamentary',score:0.802,exact:false},
+  {date:'2027-09-01',country:'Norway',flag:'NO',type:'General',score:0.929,exact:false},
+  {date:'2027-10-01',country:'Argentina',flag:'AR',type:'Midterm',score:0.610,exact:false},
+  {date:'2027-11-01',country:'Iran',flag:'IR',type:'Parliamentary',score:0.105,exact:false},
+  {date:'2027-12-01',country:'Morocco',flag:'MA',type:'Parliamentary',score:0.321,exact:false}
+];
+
+const emLockState=(function(){
+  try{
+    const raw=localStorage.getItem('emLockedPredictions');
+    return {selectedKey:'',lockedByKey:raw?JSON.parse(raw):{}};
+  }catch(e){
+    return {selectedKey:'',lockedByKey:{}};
+  }
+})();
+
+function emElectionKey(e){return e.country+'|'+e.date+'|'+e.type;}
+function emFindElectionByKey(key){
+  for(let i=0;i<ELECTIONS.length;i++){if(emElectionKey(ELECTIONS[i])===key)return ELECTIONS[i];}
+  return null;
+}
+function emFmtDate(e){
+  if(e.exact)return new Date(e.date).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  return new Date(e.date.slice(0,7)+'-01').toLocaleDateString('en-GB',{month:'long',year:'numeric'})+' (estimated)';
+}
+function emScoreBand(score){
+  if(score>0.70)return {label:'Democracy Valley',risk:'Low manipulation risk',c:'var(--green)',outcome:'Competitive result expected; final winner likely decided by campaign dynamics and coalition math.'};
+  if(score>=0.35)return {label:'Warning Zone',risk:'Moderate institutional stress',c:'var(--amber)',outcome:'Competitive election likely, but incumbency and institutional bias may still shape seat conversion.'};
+  if(score>=0.216)return {label:'Risk Zone',risk:'High democratic erosion risk',c:'var(--red)',outcome:'Distorted competition likely; establishment or regime-aligned blocs are structurally advantaged.'};
+  return {label:'Autocracy Pit',risk:'Very high authoritarian control risk',c:'#c43535',outcome:'Outcome likely pre-structured; regime-aligned forces expected to retain dominance.'};
+}
+
+const EM_ELECTION_PROFILES={
+  'Hungary':{opp:'TISZA + DK/Momentum/Jobbik opposition bloc',inc:'Fidesz-KDNP',other:'Mi Hazank + small lists',chamber:'199-seat National Assembly',partyMap:'TISZA, Fidesz-KDNP, DK, Momentum, Jobbik, Mi Hazank'},
+  'Ecuador':{lead:'ADN/center-right camp',second:'RC (Revolucion Ciudadana) camp',other:'PK + PSC + minor blocs',chamber:'137-seat National Assembly',partyMap:'ADN, RC, PK, PSC, local lists'},
+  'Lebanon':{opp:'LF/Kataeb reform-opposition lists',inc:'Hezbollah-Amal/FPM aligned establishment',other:'independent confessional lists',chamber:'128-seat Parliament',partyMap:'LF, Kataeb, Hezbollah, Amal, FPM, independents'},
+  'Philippines':{opp:'LP/Akbayan and reform slates',inc:'PFP-Lakas-CMD aligned administration slate',other:'NPC/NUP/regional dynasties',chamber:'24-seat Senate cycle and 317-seat House',partyMap:'PFP, Lakas-CMD, LP, Akbayan, NPC, NUP'},
+  'Vietnam':{opp:'independent reformist candidates',inc:'CPV/VFF aligned candidates',other:'mass-organization affiliates',chamber:'500-seat National Assembly',partyMap:'CPV/VFF lists, independents, mass organizations'},
+  'Colombia':{opp:'PH + Verde + opposition coalition blocs',inc:'government-aligned coalition blocs',other:'Liberal/Conservative/CR regional parties',chamber:'295-seat Congress',partyMap:'PH, CD, Partido Liberal, Partido Conservador, CR, Verde'},
+  'Israel':{opp:'Yesh Atid/NU opposition bloc',inc:'Likud + Shas + UTJ + Otzma Yehudit bloc',other:'Arab/sectoral parties',chamber:'120-seat Knesset',partyMap:'Likud, YA, NU, Shas, UTJ, Otzma, Raam, Hadash-Taal'},
+  'South Korea':{lead:'DPK-liberal presidential camp',second:'PPP-conservative presidential camp',other:'RKP/Justice/independent swing',chamber:'300-seat National Assembly context',partyMap:'DPK, PPP, RKP, Justice, independents'},
+  'Bangladesh':{opp:'BNP-aligned opposition bloc',inc:'AL establishment bloc',other:'JP + smaller parties',chamber:'350-seat Jatiya Sangsad',partyMap:'AL, BNP, JP, Islamic + regional parties'},
+  'Mexico':{opp:'PAN-PRI-PRD opposition bloc',inc:'MORENA-PVEM-PT bloc',other:'MC + regional forces',chamber:'500-seat Chamber and 128-seat Senate cycle',partyMap:'MORENA, PVEM, PT, PAN, PRI, PRD, MC'},
+  'Zimbabwe':{opp:'CCC-aligned bloc',inc:'ZANU-PF',other:'minor parties and independents',chamber:'280-seat National Assembly',partyMap:'ZANU-PF, CCC, MDC fragments, independents'},
+  'Russia':{opp:'CPRF/Yabloko + anti-Kremlin fragments',inc:'United Russia regime bloc',other:'LDPR/New People/system satellites',chamber:'450-seat State Duma',partyMap:'ER, CPRF, LDPR, New People, Yabloko'},
+  'Armenia':{opp:'Armenia Alliance + I Have Honor bloc',inc:'Civil Contract (KP)',other:'smaller parties/independents',chamber:'107-seat National Assembly',partyMap:'KP, Armenia Alliance, I Have Honor, others'},
+  'Sweden':{opp:'SAP-V-MP-C bloc',inc:'M-KD-L governing bloc',other:'SD + minor lists',chamber:'349-seat Riksdag',partyMap:'SAP, M, SD, V, MP, C, KD, L'},
+  'Denmark':{opp:'V-LA-DF-EL opposition poles',inc:'S-V-M governing core',other:'SF-RV-DD and smaller parties',chamber:'179-seat Folketing',partyMap:'S, V, M, SF, LA, DF, EL, RV, DD'},
+  'Bosnia & Herz.':{opp:'NiP/SDP and civic coalitions',inc:'SNSD/SDA/HDZ BiH incumbent nationalist blocs',other:'minor ethnic-civic lists',chamber:'42-seat state-level House of Representatives',partyMap:'SDA, SNSD, HDZ BiH, SDP, NiP, DF'},
+  'Brazil':{opp:'PL + center-right opposition bloc',inc:'PT-led governing bloc',other:'MDB/PSD/Uniao/PSDB/PSOL centrao mix',chamber:'513-seat Chamber and Senate renewal cycle',partyMap:'PT, PL, MDB, PSD, Uniao, PSDB, PSOL'},
+  'USA':{opp:'DEM coalition',inc:'GOP coalition',other:'IND + minor parties',chamber:'435-seat House and 35-seat Senate cycle',partyMap:'DEM, GOP, IND, Libertarian, Green'},
+  'Bulgaria':{lead:'GERB-SDS / PP-DB reformist camp',second:'Vazrazhdane/BSP nationalist-social camp',other:'DPS/ITN and protest channels',chamber:'240-seat National Assembly context',partyMap:'GERB-SDS, PP-DB, DPS, Vazrazhdane, BSP, ITN'},
+  'South Sudan':{opp:'SPLM-IO/SSOA opposition alliances',inc:'SPLM establishment bloc',other:'regional armed-political actors',chamber:'550-seat Transitional National Legislative Assembly',partyMap:'SPLM, SPLM-IO, SSOA, regional blocs'},
+  'Chile':{lead:'FA-PS-PPD center-left camp',second:'UDI-RN-Evopoli right coalition camp',other:'Republicans/PDG/left dissidents',chamber:'155-seat Chamber and 50-seat Senate context',partyMap:'FA, PS, PPD, UDI, RN, Evopoli, Republicans, PDG'},
+  'Kenya':{opp:'ODM-Wiper-Azimio bloc',inc:'UDA-Kenya Kwanza bloc',other:'Jubilee/regional kingmakers',chamber:'349-seat National Assembly and 67-seat Senate',partyMap:'UDA, ODM, Wiper, Jubilee, regional parties'},
+  'Nigeria':{opp:'PDP-LP opposition alignment',inc:'APC governing bloc',other:'NNPP + regional parties',chamber:'360-seat House and 109-seat Senate',partyMap:'APC, PDP, LP, NNPP, regional parties'},
+  'Australia':{opp:'Liberal-National Coalition',inc:'ALP governing bloc',other:'Greens + independents',chamber:'151-seat House and 76-seat Senate',partyMap:'ALP, LNP, Greens, independents'},
+  'France':{lead:'Renaissance/centrist presidential camp',second:'RN presidential camp',other:'LFI-PS-LR-EELV field',chamber:'577-seat National Assembly context',partyMap:'Renaissance, RN, LFI, PS, LR, EELV'},
+  'Serbia':{opp:'SSP/NADA and democratic alliances',inc:'SNS-SPS governing bloc',other:'nationalist/local parties',chamber:'250-seat National Assembly',partyMap:'SNS, SPS, SSP, NADA, others'},
+  'Ethiopia':{opp:'TPLF/OLF/NAMA regional fronts',inc:'PP governing bloc',other:'EZEMA and regional lists',chamber:'547-seat House of Peoples Representatives',partyMap:'PP, TPLF, OLF, NAMA, EZEMA'},
+  'Italy':{opp:'PD-M5S opposition axis',inc:'FdI-Lega-FI governing coalition',other:'Azione/IV and regional parties',chamber:'400-seat Chamber and 200-seat Senate',partyMap:'FdI, PD, M5S, Lega, FI, Azione, IV'},
+  'Norway':{opp:'Hoyre-FrP opposition bloc',inc:'Ap-Sp governing bloc',other:'SV-V-KrF-R parties',chamber:'169-seat Storting',partyMap:'Ap, Hoyre, FrP, Sp, SV, V, KrF, R'},
+  'Argentina':{opp:'UP/Peronist opposition bloc',inc:'LLA-Pro aligned governing camp',other:'UCR/FIT-U/provincial blocs',chamber:'257-seat Chamber and Senate renewal cycle',partyMap:'LLA, UP, PRO, UCR, FIT-U, provincial parties'},
+  'Iran':{opp:'reformist-moderate currents',inc:'principalist establishment bloc',other:'independent/local patronage lists',chamber:'290-seat Majles',partyMap:'Principalists, Reformists, Independents'},
+  'Morocco':{opp:'PJD-USFP opposition alliances',inc:'RNI-PAM-Istiqlal governing coalition',other:'MP and regional parties',chamber:'395-seat House of Representatives',partyMap:'RNI, PAM, Istiqlal, PJD, USFP, MP'}
+};
+
+const EM_CHAMBER_SEAT_BASE={
+  'Hungary':199,'Ecuador':137,'Lebanon':128,'Philippines':317,'Vietnam':500,'Colombia':188,
+  'Israel':120,'South Korea':300,'Bangladesh':350,'Mexico':500,'Zimbabwe':280,'Russia':450,
+  'Armenia':107,'Sweden':349,'Denmark':179,'Bosnia & Herz.':42,'Brazil':513,'USA':435,
+  'Bulgaria':240,'South Sudan':550,'Chile':155,'Kenya':349,'Nigeria':360,'Australia':151,
+  'France':577,'Serbia':250,'Ethiopia':547,'Italy':400,'Norway':169,'Argentina':257,
+  'Iran':290,'Morocco':395
+};
+
+function emElectionProfile(election){
+  const p=EM_ELECTION_PROFILES[election.country]||{};
+  return {
+    opp:p.opp||'reform/opposition bloc',
+    inc:p.inc||'incumbent/state-aligned bloc',
+    other:p.other||'other parties',
+    lead:p.lead||'establishment-leaning lead camp',
+    second:p.second||'main challenger camp',
+    chamber:p.chamber||'national legislature context',
+    seatBase:EM_CHAMBER_SEAT_BASE[election.country]||null,
+    partyMap:p.partyMap||'Major parties not yet mapped'
+  };
+}
+
+function emSeatRangeFromPct(rangeText,seatBase){
+  if(!seatBase)return null;
+  const m=String(rangeText||'').match(/(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)%/);
+  if(!m)return null;
+  const lo=Math.round((Number(m[1])/100)*seatBase);
+  const hi=Math.round((Number(m[2])/100)*seatBase);
+  return lo+'-'+hi+' seats';
+}
+
+function emFormatPartyMap(raw){
+  return String(raw||'')
+    .split(',')
+    .map(function(part){
+      const t=part.trim().replace(/\s+/g,' ');
+      if(/^[A-Za-z-]{2,6}$/.test(t))return t.toUpperCase();
+      return t;
+    })
+    .filter(Boolean)
+    .join(' | ');
+}
+
+function emBuildBandForecast(score,isLegislative){
+  if(isLegislative){
+    if(score>=0.70)return {vote:{opp:'44-48%',inc:'38-42%',other:'10-16%'},mandates:{opp:'48-54%',inc:'38-45%',other:'4-12%'},distribution:'Largest party likely from the opposition/reform side; coalition arithmetic remains decisive.'};
+    if(score>=0.35)return {vote:{opp:'40-45%',inc:'40-46%',other:'8-14%'},mandates:{opp:'43-50%',inc:'44-53%',other:'3-10%'},distribution:'Two-bloc parity expected; mandate conversion edge slightly favors incumbency.'};
+    if(score>=0.216)return {vote:{opp:'36-42%',inc:'44-51%',other:'7-12%'},mandates:{opp:'35-44%',inc:'50-60%',other:'2-8%'},distribution:'Incumbent-aligned bloc favored to lead in mandates despite competitive vote totals.'};
+    return {vote:{opp:'28-36%',inc:'52-62%',other:'5-10%'},mandates:{opp:'20-32%',inc:'64-78%',other:'2-8%'},distribution:'Dominant-party concentration likely with fragmented opposition.'};
+  }
+  if(score>=0.70)return {vote:{lead:'30-36%',second:'30-36%',other:'15-22%'},mandates:{gov:'48-56%'},distribution:'Winner likely needs coalition support from centrist or regional actors.'};
+  if(score>=0.35)return {vote:{lead:'34-40%',second:'28-34%',other:'24-32%'},mandates:{gov:'44-52%'},distribution:'Fragmented field; transfer dynamics and coalition deals determine governability.'};
+  if(score>=0.216)return {vote:{lead:'36-43%',second:'24-31%',other:'22-30%'},mandates:{gov:'50-60%'},distribution:'Institutional bias increases mandate conversion for incumbent-side actors.'};
+  return {vote:{lead:'45-55%',second:'18-28%',other:'15-24%'},mandates:{gov:'62-75%'},distribution:'Power concentration likely; opposition influence constrained.'};
+}
+
+function emBuildFallbackPrediction(election){
+  const band=emScoreBand(election.score);
+  const isLegislative=/parliamentary|general|midterm|duma/i.test(String(election.type||''));
+  const profile=emElectionProfile(election);
+  const fc=emBuildBandForecast(election.score,isLegislative);
+  const voteSplit=isLegislative
+    ? profile.opp+' '+fc.vote.opp+', '+profile.inc+' '+fc.vote.inc+', '+profile.other+' '+fc.vote.other
+    : profile.lead+' '+fc.vote.lead+', '+profile.second+' '+fc.vote.second+', '+profile.other+' '+fc.vote.other+' (round-1 baseline)';
+  const oppSeats=isLegislative?emSeatRangeFromPct(fc.mandates.opp,profile.seatBase):null;
+  const incSeats=isLegislative?emSeatRangeFromPct(fc.mandates.inc,profile.seatBase):null;
+  const otherSeats=isLegislative?emSeatRangeFromPct(fc.mandates.other,profile.seatBase):null;
+  const govSeats=!isLegislative?emSeatRangeFromPct(fc.mandates.gov,profile.seatBase):null;
+  const mandateSplit=isLegislative
+    ? profile.opp+' '+fc.mandates.opp+(oppSeats?' ['+oppSeats+']':'')+', '
+      +profile.inc+' '+fc.mandates.inc+(incSeats?' ['+incSeats+']':'')+', '
+      +profile.other+' '+fc.mandates.other+(otherSeats?' ['+otherSeats+']':'')+' ('+profile.chamber+')'
+    : 'Projected governing coalition mandate share '+fc.mandates.gov+(govSeats?' ['+govSeats+']':'')+' ('+profile.chamber+')';
+  const distribution=fc.distribution;
+  const partyMap=emFormatPartyMap(profile.partyMap);
+  return {
+    title:election.country+' '+election.type,
+    modelConclusion:
+      'FS model baseline forecast for '+election.country+': HL score '+election.score.toFixed(3)+' ('+band.label+'). '
+      +'Vote split: '+voteSplit+'. Mandate split: '+mandateSplit+'. Party distribution: '+distribution+'. '
+      +'Party map (acronym-first): '+partyMap+'. '
+      +'Scientific confidence: medium (score-based baseline; full 8-variable triangulation not yet registered).',
+    variables:[
+      {label:'HL structural score',val:election.score.toFixed(3)+' &middot; '+band.label,c:band.c},
+      {label:'Vote share forecast',val:voteSplit,c:'var(--text2)'},
+      {label:'Mandate forecast',val:mandateSplit,c:'var(--gold-bright)'},
+      {label:'Party distribution',val:distribution,c:'var(--text2)'},
+      {label:'Party map (acronym-first)',val:partyMap,c:'var(--text2)'},
+      {label:'Institutional risk',val:band.risk,c:band.c},
+      {label:'Election type',val:election.type,c:'var(--text2)'},
+      {label:'Model status',val:'Fallback baseline active',c:'var(--gold-bright)'}
+    ]
+  };
+}
+function emGetModelPrediction(election){
+  const key=emElectionKey(election);
+  return MODEL_PREDICTIONS[key]||emBuildFallbackPrediction(election);
+}
+function emShowLockPrompt(election){
+  const prompt=document.getElementById('emLockPrompt');
+  const title=document.getElementById('emLockPromptTitle');
+  const meta=document.getElementById('emLockPromptMeta');
+  const input=document.getElementById('emLockDecisionInput');
+  const ptxt=document.getElementById('emPredictionText');
+  const out=document.getElementById('emLockOutput');
+  const modelComp=document.getElementById('emModelComparison');
+  const modelText=document.getElementById('emModelText');
+  const modelVars=document.getElementById('emModelVars');
+  if(!prompt||!title||!meta||!input)return;
+  const key=emElectionKey(election);
+  emLockState.selectedKey=key;
+  title.textContent=election.flag+' '+election.country+' &middot; '+election.type;
+  meta.textContent='Election date: '+emFmtDate(election)+' &middot; HL score '+election.score.toFixed(3);
+  input.value='';
+  if(ptxt)ptxt.value='';
+  prompt.style.display='block';
+  const pred=emGetModelPrediction(election);
+  if(pred&&modelComp&&modelText&&modelVars){
+    modelComp.style.display='block';
+    modelText.textContent=pred.modelConclusion;
+    modelVars.innerHTML='';
+    pred.variables.forEach(v=>{
+      const el=document.createElement('div');
+      el.style.cssText='background:var(--bg3);border-radius:6px;padding:7px 8px';
+      el.innerHTML='<div style="font-size:10px;color:var(--text3);margin-bottom:2px">'+escHtml(v.label)+'</div><div style="font-size:11px;color:'+v.c+';font-weight:500">'+escHtml(v.val)+'</div>';
+      modelVars.appendChild(el);
+    });
+  }else if(modelComp){
+    modelComp.style.display='none';
+  }
+  if(ptxt)ptxt.focus(); else input.focus();
+  if(out&&emLockState.lockedByKey[key]){
+    out.innerHTML='<div style="border:1px solid rgba(62,201,176,0.45);background:rgba(62,201,176,0.07);padding:10px 12px;border-radius:8px;font-size:12px;color:var(--teal)">Already locked for this election on '+emLockState.lockedByKey[key].lockedAtText+'.</div>';
+  }else if(out){
+    out.innerHTML='';
+  }
+}
+
+window.emCancelLockDecision=function(){
+  const prompt=document.getElementById('emLockPrompt');
+  const out=document.getElementById('emLockOutput');
+  if(prompt)prompt.style.display='none';
+  if(out)out.innerHTML='<div style="border:1px solid var(--border2);background:var(--bg2);padding:10px 12px;border-radius:8px;font-size:12px;color:var(--text3)">Lock canceled. Select any country to try again.</div>';
+  emLockState.selectedKey='';
+};
+
+window.emSubmitLockDecision=function(){
+  const key=emLockState.selectedKey;
+  const input=document.getElementById('emLockDecisionInput');
+  const ptxt=document.getElementById('emPredictionText');
+  const prompt=document.getElementById('emLockPrompt');
+  const out=document.getElementById('emLockOutput');
+  if(!key||!input||!out)return;
+  const decision=(input.value||'').trim().toLowerCase();
+  const yes=decision==='y'||decision==='yes';
+  const no=decision==='n'||decision==='no';
+  if(!yes&&!no){
+    out.innerHTML='<div style="border:1px solid rgba(224,85,85,0.45);background:rgba(224,85,85,0.07);padding:10px 12px;border-radius:8px;font-size:12px;color:var(--red)">Invalid input. Use y/yes to lock or n/no to cancel.</div>';
+    return;
+  }
+  const election=emFindElectionByKey(key);
+  if(!election)return;
+  if(no){
+    if(prompt)prompt.style.display='none';
+    out.innerHTML='<div style="border:1px solid var(--border2);background:var(--bg2);padding:10px 12px;border-radius:8px;font-size:12px;color:var(--text3)">Lock skipped for '+escHtml(election.country)+'.</div>';
+    emLockState.selectedKey='';
+    return;
+  }
+  const now=new Date();
+  const predictionText=ptxt?(ptxt.value||'').trim():'';
+  const modelPred=emGetModelPrediction(election);
+  emLockState.lockedByKey[key]={
+    lockedAtISO:now.toISOString(),
+    lockedAtText:now.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}),
+    predictionText:predictionText,
+    modelConclusion:modelPred?modelPred.modelConclusion:''
+  };
+  try{localStorage.setItem('emLockedPredictions',JSON.stringify(emLockState.lockedByKey));}catch(e){}
+  if(prompt)prompt.style.display='none';
+  const safePred=predictionText?escHtml(predictionText).replace(/\n/g,'<br>'):'';  const safeModel=modelPred&&modelPred.modelConclusion?escHtml(modelPred.modelConclusion).replace(/\n/g,'<br>'):'';
+  out.innerHTML='<div style="border:1px solid rgba(62,201,176,0.45);background:rgba(62,201,176,0.07);padding:12px 14px;border-radius:8px;color:var(--teal)">'
+    +'<div style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Dual prediction locked</div>'
+    +'<div style="font-size:13px;line-height:1.7;color:var(--text)">'+election.flag+' '+escHtml(election.country)+' &middot; '+escHtml(election.type)+' &middot; '+emFmtDate(election)+'</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">'
+    +(safeModel?'<div style="border-left:3px solid var(--gold);background:rgba(201,168,76,0.08);padding:8px 10px;border-radius:4px"><div style="font-size:10px;color:var(--gold-bright);font-weight:600;margin-bottom:3px">FieldShift Model</div><div style="font-size:11px;color:var(--text2);line-height:1.65">'+safeModel+'</div></div>':'')
+    +(safePred?'<div style="border-left:3px solid var(--blue);background:rgba(91,142,230,0.08);padding:8px 10px;border-radius:4px"><div style="font-size:10px;color:var(--blue);font-weight:600;margin-bottom:3px">Your Prediction</div><div style="font-size:11px;color:var(--text2);line-height:1.65">'+safePred+'</div></div>':'<div style="border-left:3px solid var(--text3);background:rgba(100,100,100,0.08);padding:8px 10px;border-radius:4px"><div style="font-size:10px;color:var(--text3);font-weight:600;margin-bottom:3px">Your Prediction</div><div style="font-size:11px;color:var(--text3);font-style:italic">None entered</div></div>')
+    +'</div>'
+    +'<div style="font-size:11px;color:var(--text3);margin-top:5px">Locked on '+emLockState.lockedByKey[key].lockedAtText+'. Both model and personal predictions are now frozen for verification after election results are published.</div>'
+    +'</div>';
+  emLockState.selectedKey='';
+};
+
+window.emExportLockedPredictions=function(){
+  const out=document.getElementById('emLockOutput');
+  const keys=Object.keys(emLockState.lockedByKey||{});
+  if(!keys.length){
+    if(out)out.innerHTML='<div style="border:1px solid var(--border2);background:var(--bg2);padding:10px 12px;border-radius:8px;font-size:12px;color:var(--text3)">No locked predictions yet.</div>';
+    return;
+  }
+  const lines=[];
+  lines.push('FieldShift Election Math - Locked Predictions Report');
+  lines.push('Generated: '+new Date().toLocaleString('en-GB'));
+  lines.push('------------------------------------------------------------');
+  lines.push('');
+  keys.sort().forEach(function(key,idx){
+    const election=emFindElectionByKey(key);
+    const rec=emLockState.lockedByKey[key]||{};
+    if(!election)return;
+    const resolvedModel=rec.modelConclusion||emGetModelPrediction(election).modelConclusion;
+    lines.push((idx+1)+'. '+election.country+' - '+election.type);
+    lines.push('   Election date: '+emFmtDate(election));
+    lines.push('   HL score: '+election.score.toFixed(3));
+    lines.push('   Locked on: '+(rec.lockedAtText||'unknown'));
+    if(resolvedModel)lines.push('   Model conclusion: '+resolvedModel.replace(/\r?\n/g,' '));
+    if(rec.predictionText)lines.push('   Your prediction: '+rec.predictionText.replace(/\r?\n/g,' '));
+    lines.push('');
+  });
+  const text=lines.join('\n');
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).catch(function(){});
+  }
+  if(out){
+    out.innerHTML='<div style="border:1px solid rgba(62,201,176,0.45);background:rgba(62,201,176,0.07);padding:10px 12px;border-radius:8px;font-size:12px;color:var(--teal);margin-bottom:8px">Report generated and copied to clipboard.</div>'
+      +'<pre style="margin:0;background:#0f1117;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px 12px;color:#dbe5ff;font-family:var(--mono);font-size:11px;line-height:1.6;white-space:pre-wrap">'+escHtml(text)+'</pre>';
+  }
+};
+
+function emFmt(v,d){
+  return (+v).toFixed(d!=null?d:2);
+}
+function emPct(v){
+  return emFmt((Math.max(0,Math.min(1,+v||0))*100),1)+'%';
+}
+function emRenderPredictionValidation(){
+  if(!window.hlGraphUtils)return;
+  let payload=window.hlGraphUtils.loadAccuracy();
+  if(!payload){
+    const computed=window.hlGraphUtils.computeAccuracy();
+    payload=window.hlGraphUtils.persistAccuracy(computed);
+  }
+  const stats=document.getElementById('emAccuracyStats');
+  const rows=document.getElementById('emPastComparisonRows');
+  const c1=document.getElementById('emChartPredictionVsActual');
+  const c2=document.getElementById('emChartErrorBySource');
+  const c3=document.getElementById('emChartCalibration');
+  const analysis=document.getElementById('emPredictionAnalysis');
+  if(!stats||!rows||!c1||!c2||!c3||!analysis)return;
+
+  const raw=+payload.accuracyPctRaw||0;
+  const cal=+payload.accuracyPctCalibrated||0;
+  const col=raw>=90?'var(--green)':(raw>=70?'var(--amber)':'var(--red)');
+  stats.innerHTML='<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:end">'
+    +'<div><div style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:3px">FieldShift prediction accuracy</div>'
+    +'<div style="font-size:22px;font-family:var(--serif);font-weight:700;color:'+col+'">'+emFmt(raw,1)+'% <span style="font-size:13px;color:var(--text3)">raw</span></div>'
+    +'<div style="font-size:15px;font-family:var(--serif);font-weight:700;color:var(--blue)">'+emFmt(cal,1)+'% <span style="font-size:11px;color:var(--text3)">calibrated</span></div>'
+    +'<div style="font-size:11px;color:var(--text3);margin-top:2px">Raw: '+payload.formulaRaw+' &middot; Calibrated: '+payload.formulaCalibrated+'</div></div>'
+    +'<div style="text-align:right"><div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Last saved</div><div style="font-size:12px;color:var(--text2)">'+(payload.updatedAtText||'&mdash;')+'</div></div>'
+    +'</div>';
+
+  const outcomes=Array.isArray(payload.outcomes)?payload.outcomes:[];
+  if(!outcomes.length){
+    rows.innerHTML='<tr><td colspan="4" style="padding:10px;color:var(--text3);font-size:12px">No validated outcomes available yet.</td></tr>';
+    c1.innerHTML='<div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Graph 1</div><div style="font-size:12px;color:var(--text3);margin-top:6px">No data</div>';
+    c2.innerHTML='<div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Graph 2</div><div style="font-size:12px;color:var(--text3);margin-top:6px">No data</div>';
+    c3.innerHTML='<div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Graph 3</div><div style="font-size:12px;color:var(--text3);margin-top:6px">No data</div>';
+    analysis.textContent='No election outcomes to analyze yet.';
+    return;
+  }
+
+  rows.innerHTML=outcomes.map(function(item){
+    const ok=item.analysis&&item.analysis.fsHitRaw;
+    const badge=ok
+      ?'<span style="display:inline-block;padding:2px 8px;border-radius:2px;background:var(--green-dim);color:var(--green);font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase">Correct</span>'
+      :'<span style="display:inline-block;padding:2px 8px;border-radius:2px;background:var(--red-dim);color:var(--red);font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase">Missed</span>';
+    return '<tr>'
+      +'<td style="padding:9px 10px;border-bottom:1px solid var(--border2)"><div style="font-size:13px;color:var(--text)">'+item.country+'</div><div style="font-size:11px;color:var(--text3)">'+item.type+' &middot; '+item.date+'</div></td>'
+      +'<td style="padding:9px 10px;border-bottom:1px solid var(--border2);font-size:12px;color:var(--text2)">'+item.fieldshiftPrediction+'<div style="margin-top:3px;font-family:var(--mono);font-size:10px;color:var(--blue)">FS '+emPct(item.fsPredictionScore)+' &middot; Polls '+emPct(item.pollInstitutionsScore)+' &middot; Users '+emPct(item.userSubmittedScore)+'</div></td>'
+      +'<td style="padding:9px 10px;border-bottom:1px solid var(--border2);font-size:12px;color:var(--text2)">'+item.actualOutcome+'<div style="margin-top:3px;font-family:var(--mono);font-size:10px;color:var(--green)">Validated: '+emPct(item.actualValidatedScore)+'</div></td>'
+      +'<td style="padding:9px 10px;border-bottom:1px solid var(--border2)">'+badge+'</td>'
+      +'</tr>';
+  }).join('');
+
+  c1.innerHTML='<div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Graph 1 &middot; Predictions vs actual</div>'
+    +outcomes.map(function(r){
+      return '<div style="margin:4px 0">'
+        +'<div style="font-size:11px;color:var(--text2);margin-bottom:2px">'+r.country+'</div>'
+        +'<div style="display:grid;grid-template-columns:52px 1fr 36px;gap:6px;align-items:center;font-family:var(--mono);font-size:10px;color:var(--text3)"><span>FS</span><div style="height:6px;background:var(--bg);border-radius:2px"><div style="height:100%;width:'+emPct(r.fsPredictionScore)+';background:var(--blue)"></div></div><span>'+emPct(r.fsPredictionScore)+'</span></div>'
+        +'<div style="display:grid;grid-template-columns:52px 1fr 36px;gap:6px;align-items:center;font-family:var(--mono);font-size:10px;color:var(--text3)"><span>Actual</span><div style="height:6px;background:var(--bg);border-radius:2px"><div style="height:100%;width:'+emPct(r.actualValidatedScore)+';background:var(--green)"></div></div><span>'+emPct(r.actualValidatedScore)+'</span></div>'
+        +'</div>';
+    }).join('');
+
+  c2.innerHTML='<div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Graph 2 &middot; Absolute error by source</div>'
+    +outcomes.map(function(r){
+      const fs=r.analysis?+r.analysis.fsErr:0;
+      const poll=r.analysis?+r.analysis.pollErr:0;
+      const user=r.analysis?+r.analysis.userErr:0;
+      const width=function(v){return Math.min(100,(+v||0)*250);};
+      const row=function(label,val,color){
+        return '<div style="display:grid;grid-template-columns:52px 1fr 36px;gap:6px;align-items:center;font-family:var(--mono);font-size:10px;color:var(--text3);margin:2px 0"><span>'+label+'</span><div style="height:6px;background:var(--bg);border-radius:2px"><div style="height:100%;width:'+emFmt(width(val),1)+'%;background:'+color+'"></div></div><span>'+emFmt(val,3)+'</span></div>';
+      };
+      return '<div style="margin:4px 0"><div style="font-size:11px;color:var(--text2);margin-bottom:2px">'+r.country+'</div>'+row('FS',fs,'var(--blue)')+row('Poll',poll,'var(--amber)')+row('User',user,'var(--purple)')+'</div>';
+    }).join('');
+
+  const cali=payload.calibration||{};
+  c3.innerHTML='<div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Graph 3 &middot; Calibration summary</div>'
+    +'<div style="font-size:11px;color:var(--text2);line-height:1.65">Bias: '+emFmt(cali.bias||0,3)+' &middot; FS MAE: '+emFmt(cali.fsMae||0,3)+' &middot; Poll MAE: '+emFmt(cali.pollMae||0,3)+' &middot; User MAE: '+emFmt(cali.userMae||0,3)+'</div>'
+    +'<div style="margin-top:8px;font-family:var(--mono);font-size:10px;color:var(--text3)">Calibrated accuracy: '+emFmt(+payload.accuracyPctCalibrated||0,1)+'%</div>';
+
+  analysis.innerHTML='<div style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:4px">Outcome analysis</div>'
+    +outcomes.map(function(r){
+      const a=r.analysis||{};
+      return '<div style="margin:6px 0"><strong style="color:var(--text)">'+r.country+':</strong> '
+        +'<span style="color:var(--text2)">closest source: '+(a.winner||'FieldShift')+'. '+(a.reason||'')+'</span></div>';
+    }).join('');
+}
+
+window.emSyncElectionResultsNow=function(){
+  if(!window.hlGraphUtils||!window.hlGraphUtils.syncResultsFeed){
+    emRenderPredictionValidation();
+    return;
+  }
+  window.hlGraphUtils.syncResultsFeed().then(function(){
+    emRenderPredictionValidation();
+  }).catch(function(){
+    emRenderPredictionValidation();
+  });
+};
+
+window.addEventListener('hlPredictionDataUpdated',function(){
+  const panel=document.getElementById('em-predictions');
+  if(panel&&panel.style.display!=='none') emRenderPredictionValidation();
+});
+
+setTimeout(function(){
+  try{emRenderPredictionValidation();}catch(e){}
+},0);
+
+function buildElectionCalendar(){
+  // FIX B4: removed dataset.built guard &mdash; always rebuild
+  const container=document.getElementById('electionCalendar');
+  if(!container)return;
+  const today=new Date();
+  const cutoff=new Date(today);
+  cutoff.setMonth(cutoff.getMonth()+24);
+  const seen={};
+  const filtered=ELECTIONS.filter(e=>{
+    const d=new Date(e.date+(e.date.length===7?'-01':''));
+    if(d<today||d>cutoff)return false;
+    const key=e.country+'-'+e.date.slice(0,7);
+    if(seen[key])return false;
+    seen[key]=true;
+    return true;
+  }).sort((a,b)=>new Date(a.date)-new Date(b.date));
+  const byMonth={};
+  filtered.forEach(e=>{const key=e.date.slice(0,7);if(!byMonth[key])byMonth[key]=[];byMonth[key].push(e);});
+  let html='';
+  Object.keys(byMonth).sort().forEach(ym=>{
+    const d=new Date(ym+'-01');
+    const monthName=d.toLocaleString('en-GB',{month:'long',year:'numeric'});
+    html+='<div class="ec-month">'+monthName+'</div>';
+    byMonth[ym].forEach(e=>{
+      let dot,scoreColor;
+      if(e.score>0.70){dot='var(--green)';scoreColor='var(--green)';}
+      else if(e.score>=0.35){dot='var(--amber)';scoreColor='var(--amber)';}
+      else if(e.score>=0.216){dot='var(--red)';scoreColor='var(--red)';}
+      else{dot='#791f1f';scoreColor='#c43535';}
+      let dateStr;
+      if(e.exact){const dd=new Date(e.date);dateStr=dd.toLocaleString('en-GB',{day:'numeric',month:'short'});}
+      else{const dd2=new Date(e.date.slice(0,7)+'-01');dateStr=dd2.toLocaleString('en-GB',{month:'short'})+' ~';}
+      const daysAway=Math.round((new Date(e.date)-today)/86400000);
+      const daysStr=daysAway<=14?'<span style="color:var(--red);font-size:10px;font-weight:600"> &middot; '+daysAway+' days</span>':daysAway<=60?'<span style="color:var(--amber);font-size:10px"> &middot; '+daysAway+' days</span>':'';
+      html+='<div class="ec-row" data-country="'+escHtml(e.country)+'" data-election-key="'+escHtml(emElectionKey(e))+'" style="cursor:pointer">'+
+        '<div class="ec-date">'+dateStr+'</div>'+
+        '<div><div class="ec-country">['+e.flag+'] '+escHtml(e.country)+daysStr+'</div>'+
+        '<div class="ec-type">'+escHtml(e.type)+'</div></div>'+
+        '<div class="ec-score" style="color:'+scoreColor+'">'+e.score.toFixed(3)+'</div>'+
+        '<div class="ec-dot" style="background:'+dot+'"></div>'+
+        '</div>';
+    });
+  });
+  if(filtered.length===0) html='<div style="color:var(--text3);font-size:13px;padding:2rem 0">No elections found in the next 24 months.</div>';
+  container.innerHTML=html;
+  // Click delegation &mdash; each row opens lock prompt for selected election; guard against duplicate listeners
+  if(!container._ecClickBound){
+    container._ecClickBound=true;
+    container.addEventListener('click',function(e){
+      const row=e.target.closest('.ec-row[data-country]');
+      if(!row)return;
+      const key=row.getAttribute('data-election-key')||'';
+      const election=emFindElectionByKey(key);
+      if(!election)return;
+      emShowLockPrompt(election);
+    });
+  }
+}
+</script>
+</body>
+</html>
+
+
+
