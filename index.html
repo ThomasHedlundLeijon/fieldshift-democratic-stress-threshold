@@ -4527,7 +4527,7 @@ var RFS_INDICATORS = [
     timeframes: ['PREVENTIVE','LONG','MEDIUM','SHORT','IMMEDIATE'],
     prescribed: ['Maintain — mechanisms are deteriorating evenly if at all','Monitor which mechanism is leading and why','Commission targeted mechanism review immediately','Mechanism-specific emergency defense — deliberate erosion is likely','Crisis: targeted institutional attack confirmed — mechanism-specific emergency response'] },
 
-  { id:'S4',
+ { id:'S4',
     sub:'FSI COMPOSITE SIGNALS',
     name:'Time-to-Threshold',
     plainName:'How many years before the situation becomes a crisis if nothing changes?',
@@ -4536,14 +4536,40 @@ var RFS_INDICATORS = [
     sources:'Derived from composite score and composite trajectory (S1 and S2).',
     formula:'If slope > 0: Time-to-threshold = (0.50 - current composite) / slope. If slope <= 0 (improving): displays as >10yr. Critical threshold of 0.50 from O5/S1 evidence base.',
     thresholdBasis:'2-year threshold: the Gap Reduction Sequence Phase 1 (fiscal rebalancing) requires a minimum of 12-18 months to show measurable effect. Countries with less than 2 years before threshold crossing cannot complete Phase 1 before reaching crisis — making emergency protocols mandatory.',
-    inverted:true, unit:'yrs',
+    inverted:true, 
+    unit:'yrs',
     desc:'Years until composite crosses 0.50 (CRITICAL) at current trajectory. Below 2 years: mandatory Gap Reduction Sequence. Below 0.5: emergency protocols.',
     thresholds:[99, 8, 4, 2, 0.5],
-    getValue: function(c,fsi,yrs){ var slope=layerSlope(c,yrs,'composite'); var val=latestLayerVal(c,yrs,'composite'); if(val===null||slope===null||slope<=0) return 99; var dist=0.50-val; if(dist<=0) return 0; return Math.min(99, dist/slope); },
+    getValue: function(c,fsi,yrs){ 
+        var slope = layerSlope(c, yrs, 'composite'); 
+        var val = latestLayerVal(c, yrs, 'composite'); 
+        if(val === null || slope === null || slope <= 0) return 99; 
+        var dist = 0.50 - val; 
+        if(dist <= 0) return 0; 
+        var time = dist / slope;
+        if(time >= 8) return 99;
+        if(time >= 4) return 8;
+        if(time >= 2) return 4;
+        if(time >= 0.5) return 2;
+        return 0.5;
+    },
+    getTimeframe: function(value) {
+        if(value === 99 || value >= 8) return 'PREVENTIVE';
+        if(value >= 4) return 'LONG';
+        if(value >= 2) return 'MEDIUM';
+        if(value >= 0.5) return 'SHORT';
+        return 'IMMEDIATE';
+    },
+    getActionLabel: function(value) {
+        if(value === 99 || value >= 8) return 'No immediate action';
+        if(value >= 4) return 'Act within 12 months';
+        if(value >= 2) return 'Act within 6 months';
+        if(value >= 0.5) return 'Act within 30 days';
+        return 'EMERGENCY: Act now';
+    },
     timeframes: ['PREVENTIVE','LONG','MEDIUM','SHORT','IMMEDIATE'],
-    prescribed: ['No action required — ample time available','Monitor trajectory — plan preventive measures','Initiate Gap Reduction Sequence planning now','Mandatory GRM Phase 1 start — window is closing','IMMEDIATE: All six GRM phases activated — crisis threshold within months'] }
-
-];
+    prescribed: ['No action required — ample time available','Monitor trajectory — plan preventive measures','Initiate Gap Reduction Sequence planning now','Mandatory GRM Phase 1 start — window is closing','IMMEDIATE: All six GRM phases activated — crisis threshold within months']
+}
 
 // ── Helper functions ──────────────────────────────────────────
 
