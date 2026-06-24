@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PollShift · Valprognos</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3250;
+    --text: #e8eaf6;
+    --muted: #8892b0;
+    --red: #e53935;
+    --blue: #1e88e5;
+    --yellow: #fdd835;
+    --green: #43a047;
+    --orange: #fb8c00;
+    --accent: #7c83fd;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; }
+
+  /* Layout */
+  .shell { display: flex; min-height: 100vh; }
+  .sidebar { width: 240px; background: var(--surface); border-right: 1px solid var(--border); padding: 24px 16px; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+  .main { flex: 1; padding: 32px 40px; max-width: 1200px; }
+
+  /* Sidebar */
+  .logo { font-size: 22px; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
+  .tagline { font-size: 11px; color: var(--muted); line-height: 1.5; margin-bottom: 20px; }
+  .nav-item { display: block; padding: 10px 12px; border-radius: 8px; cursor: pointer; color: var(--muted); font-size: 13px; margin-bottom: 4px; transition: all .15s; border: none; background: none; width: 100%; text-align: left; }
+  .nav-item:hover { background: var(--surface2); color: var(--text); }
+  .nav-item.active { background: var(--accent); color: #fff; font-weight: 600; }
+  .sidebar-meta { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); font-size: 11px; color: var(--muted); line-height: 1.8; }
+
+  /* Header */
+  .page-header { margin-bottom: 28px; }
+  .page-header h1 { font-size: 26px; font-weight: 800; }
+  .page-header p { color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+  /* Cards */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; }
+  .card h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+
+  /* Metric grid */
+  .metrics { display: grid; gap: 14px; }
+  .metrics.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .metrics.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .metrics.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .metric { background: var(--surface2); border-radius: 10px; padding: 16px 18px; }
+  .metric-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+  .metric-value { font-size: 22px; font-weight: 800; }
+  .metric-delta { font-size: 12px; margin-top: 4px; }
+  .delta-pos { color: var(--green); }
+  .delta-neg { color: var(--red); }
+
+  /* Zone badge */
+  .zone-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+  .zone-left_stable  { background: #b71c1c33; color: #ef9a9a; border: 1px solid #b71c1c; }
+  .zone-left_lean    { background: #c6282833; color: #ffcdd2; border: 1px solid #c62828; }
+  .zone-threshold    { background: #f9a82533; color: #fff176; border: 1px solid #f9a825; }
+  .zone-right_lean   { background: #1565c033; color: #90caf9; border: 1px solid #1565c0; }
+  .zone-right_stable { background: #0d47a133; color: #bbdefb; border: 1px solid #0d47a1; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 10px 14px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--border); }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--border)20; }
+  tr:hover td { background: var(--surface2); }
+  .party-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+
+  /* Block bars */
+  .block-bar-wrap { margin: 12px 0; }
+  .block-bar-label { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .block-bar { height: 28px; border-radius: 6px; display: flex; overflow: hidden; }
+  .block-bar-left  { background: var(--red); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; transition: width .6s; }
+  .block-bar-right { background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; transition: width .6s; }
+
+  /* PSI meter */
+  .psi-track { height: 20px; border-radius: 10px; background: linear-gradient(to right, #b71c1c, #e57373, #fff176, #64b5f6, #1565c0); position: relative; margin: 10px 0 20px; }
+  .psi-needle { position: absolute; top: -4px; width: 3px; height: 28px; background: #fff; border-radius: 2px; transform: translateX(-50%); transition: left .6s; box-shadow: 0 0 8px #fff8; }
+  .psi-zones { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  /* Charts */
+  .chart-wrap { position: relative; height: 260px; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 0; }
+  .tab { padding: 8px 16px; cursor: pointer; color: var(--muted); font-size: 13px; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+  /* Scenario sliders */
+  .slider-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .slider-row { display: flex; flex-direction: column; gap: 4px; }
+  .slider-row label { font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+
+  /* Alerts */
+  .alert { padding: 12px 16px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
+  .alert-info    { background: #1e88e520; border: 1px solid #1e88e540; color: #90caf9; }
+  .alert-warning { background: #f9a82520; border: 1px solid #f9a82540; color: #fff176; }
+  .alert-success { background: #43a04720; border: 1px solid #43a04740; color: #a5d6a7; }
+  .alert-error   { background: #e5393520; border: 1px solid #e5393540; color: #ef9a9a; }
+
+  /* Hash display */
+  .hash-box { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 12px; color: var(--accent); word-break: break-all; }
+
+  /* Page visibility */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* Footer */
+  .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 11px; color: var(--muted); line-height: 1.8; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { padding: 20px 16px; }
+    .metrics.cols-4 { grid-template-columns: repeat(2, 1fr); }
+    .slider-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar">
+  <div class="logo">🗳️ PollShift</div>
+  <div class="tagline">Valprognoser med<br>Geometric Threshold Theory<br>FieldShift Research Institute</div>
+
+  <nav id="nav">
+    <button class="nav-item active" onclick="showPage('prognos')">📊 Prognos</button>
+    <button class="nav-item" onclick="showPage('diagnostik')">🔬 GTT-diagnostik</button>
+    <button class="nav-item" onclick="showPage('scenario')">📈 Scenario-explorer</button>
+    <button class="nav-item" onclick="showPage('backtest')">📚 Backtest</button>
+    <button class="nav-item" onclick="showPage('arkiv')">🗃️ Prognosarkiv</button>
+    <button class="nav-item" onclick="showPage('hashkedja')">🔗 Hashkedja</button>
+    <button class="nav-item" onclick="showPage('metod')">📖 Metod</button>
+  </nav>
+
+  <div class="sidebar-meta">
+    <div>Läge: <strong>Demo</strong></div>
+    <div>PollShift v15.0</div>
+    <div>GTT v1.0</div>
+    <div id="days-left">Räknar dagar…</div>
+    <div style="margin-top:8px;color:#555">Val: 2026-09-13</div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<main class="main">
+
+<!-- ════════════════════════════════════════
+     SIDA 1: PROGNOS
+════════════════════════════════════════ -->
+<div id="page-prognos" class="page active">
+  <div class="page-header">
+    <h1>📊 Valprognos — Sverige 2026</h1>
+    <p>Vetenskapligt spårbar valprognos baserad på Geometric Threshold Theory · Demo-läge</p>
+  </div>
+
+  <div class="alert alert-info">⚠️ Demo-läge — Syntetisk exempeldata. Inga verkliga prognoser.</div>
+
+  <!-- Main forecast card -->
+  <div class="card">
+    <h2>Prognossammanfattning</h2>
+    <div class="metrics cols-4">
+      <div class="metric">
+        <div class="metric-label">Prognostiserat vinnande block</div>
+        <div class="metric-value" id="m-winner">—</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Blockgap (H−V)</div>
+        <div class="metric-value" id="m-blockgap">—</div>
+        <div class="metric-delta" id="m-blockgap-note" style="color:var(--muted);font-size:11px"></div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">PSI</div>
+        <div class="metric-value" id="m-psi">—</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">GTT-zon</div>
+        <div class="metric-value" id="m-zone">—</div>
+      </div>
+    </div>
+    <div class="metrics cols-3" style="margin-top:14px">
+      <div class="metric">
+        <div class="metric-label">Avstånd till tröskel</div>
+        <div class="metric-value" id="m-dist">—</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Kalibrerad vinstsannolikhet</div>
+        <div class="metric-value" id="m-winprob">Kalibrering pågår</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Prognosstatus</div>
+        <div class="metric-value">🔵 Utkast</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PSI meter -->
+  <div class="card">
+    <h2>PSI — Pressure Sensitivity Index</h2>
+    <div class="psi-track">
+      <div class="psi-needle" id="psi-needle"></div>
+    </div>
+    <div class="psi-zones">
+      <span>🔴 V. stabil</span>
+      <span>V. lutar</span>
+      <span>⚡ Tröskel</span>
+      <span>H. lutar</span>
+      <span>🔵 H. stabil</span>
+    </div>
+    <div style="margin-top:16px">
+      <div class="block-bar-label">
+        <span id="left-label">Vänsterblock</span>
+        <span id="right-label">Högerblock</span>
+      </div>
+      <div class="block-bar">
+        <div class="block-bar-left" id="bar-left">—</div>
+        <div class="block-bar-right" id="bar-right">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Party table -->
+  <div class="card">
+    <h2>📋 Partiprognos</h2>
+    <table id="party-table">
+      <thead>
+        <tr>
+          <th>Parti</th>
+          <th>Prognos %</th>
+          <th>Förändring</th>
+          <th>Momentum</th>
+          <th>Mandat (prel.)</th>
+          <th>Block</th>
+        </tr>
+      </thead>
+      <tbody id="party-tbody"></tbody>
+    </table>
+    <div class="alert alert-warning" style="margin-top:14px;margin-bottom:0">
+      ⚠️ Mandatberäkningen är preliminär och förenklad tills full svensk mandatmodell är implementerad.
+    </div>
+  </div>
+
+  <!-- Party bar chart -->
+  <div class="card">
+    <h2>Partiernas stöd</h2>
+    <div class="chart-wrap"><canvas id="party-bar-chart"></canvas></div>
+  </div>
+
+  <!-- Trend chart -->
+  <div class="card">
+    <h2>Trender över tid</h2>
+    <div class="tabs">
+      <div class="tab active" onclick="switchTrendTab('parties',this)">Partier</div>
+      <div class="tab" onclick="switchTrendTab('blocks',this)">Block</div>
+      <div class="tab" onclick="switchTrendTab('psi',this)">PSI</div>
+    </div>
+    <div class="chart-wrap"><canvas id="trend-chart"></canvas></div>
+  </div>
+
+  <!-- Block summary -->
+  <div class="card">
+    <h2>🏛️ Blocköversikt</h2>
+    <div class="metrics cols-4">
+      <div class="metric">
+        <div class="metric-label">Vänsterblock %</div>
+        <div class="metric-value" id="b-left-pct" style="color:var(--red)">—</div>
+        <div class="metric-delta" id="b-left-seats" style="color:var(--muted)"></div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Högerblock %</div>
+        <div class="metric-value" id="b-right-pct" style="color:var(--blue)">—</div>
+        <div class="metric-delta" id="b-right-seats" style="color:var(--muted)"></div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Blockgap</div>
+        <div class="metric-value" id="b-gap">—</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Tröskelkänslighet</div>
+        <div class="metric-value" id="b-sens">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lock forecast button -->
+  <div class="card">
+    <h2>🔐 Lås prognos</h2>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Skapar ett SHA-256-hashvärde av nuvarande prognos och sparar i arkivet.</p>
+    <button onclick="lockForecast()" style="background:var(--accent);color:#fff;border:none;padding:10px 22px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600">
+      Lås och arkivera
+    </button>
+    <div id="lock-result" style="margin-top:12px"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SIDA 2: GTT-DIAGNOSTIK
+════════════════════════════════════════ -->
+<div id="page-diagnostik" class="page">
+  <div class="page-header">
+    <h1>🔬 GTT-diagnostik</h1>
+    <p>Geometric Threshold Theory — strukturella indikatorer</p>
+  </div>
+
+  <div class="metrics cols-2">
+    <div class="card">
+      <h2>Kärnindikatorer</h2>
+      <table>
+        <tr><td style="color:var(--muted)">PSI</td><td id="d-psi" style="font-weight:700"></td></tr>
+        <tr><td style="color:var(--muted)">GTT-zon</td><td id="d-zone"></td></tr>
+        <tr><td style="color:var(--muted)">Avstånd till tröskel</td><td id="d-dist"></td></tr>
+        <tr><td style="color:var(--muted)">Tröskelkänslighet</td><td id="d-sens"></td></tr>
+        <tr><td style="color:var(--muted)">K (kalibreringskonstant)</td><td>20.0 (standard)</td></tr>
+        <tr><td style="color:var(--muted)">Kalibreringsstatus</td><td style="color:var(--yellow)">⏳ Kalibrering pågår</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h2>Dynamiska indikatorer</h2>
+      <table>
+        <tr><td style="color:var(--muted)">Blockmomentum</td><td id="d-bmomentum"></td></tr>
+        <tr><td style="color:var(--muted)">Blockvariabilitet</td><td id="d-vol"></td></tr>
+        <tr><td style="color:var(--muted)">Volatilitetsnivå</td><td id="d-vollabel"></td></tr>
+        <tr><td style="color:var(--muted)">Övergångsrisk</td><td id="d-risk"></td></tr>
+        <tr><td style="color:var(--muted)">Riskpoäng [0–1]</td><td id="d-riskscore"></td></tr>
+        <tr><td style="color:var(--muted)">Dagar till valet</td><td id="d-days"></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Partimomentum (senaste snitt → nu)</h2>
+    <div class="chart-wrap" style="height:200px"><canvas id="momentum-chart"></canvas></div>
+  </div>
+
+  <div class="card">
+    <h2>Partivolatilitet (standardavvikelse)</h2>
+    <div class="chart-wrap" style="height:200px"><canvas id="volatility-chart"></canvas></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SIDA 3: SCENARIO-EXPLORER
+════════════════════════════════════════ -->
+<div id="page-scenario" class="page">
+  <div class="page-header">
+    <h1>📈 Scenario-explorer</h1>
+    <p>Utforska hur förändringar i partiernas stöd påverkar PSI och blockresultat</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div class="card">
+      <h2>Förinställda scenarier</h2>
+      <select id="preset-select" onchange="applyPreset()" style="width:100%;padding:10px;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;margin-bottom:16px">
+        <option value="none">Ingen justering</option>
+        <option value="s_plus">S +1%, M −1%</option>
+        <option value="s_minus">S −1%, M +1%</option>
+        <option value="sd_plus">SD +2%, L −2%</option>
+        <option value="mp_out">MP under 4% (MP→0)</option>
+        <option value="left_plus">Vänsterblock +2%</option>
+        <option value="right_plus">Högerblock +2%</option>
+      </select>
+
+      <h2 style="margin-bottom:12px">Manuella justeringar (pp)</h2>
+      <div class="slider-grid" id="sliders"></div>
+    </div>
+
+    <div class="card">
+      <h2>Scenarioresultat</h2>
+      <div class="metrics cols-2" style="margin-bottom:14px">
+        <div class="metric">
+          <div class="metric-label">PSI (scenario)</div>
+          <div class="metric-value" id="sc-psi">—</div>
+          <div class="metric-delta" id="sc-psi-delta"></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Blockgap</div>
+          <div class="metric-value" id="sc-gap">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">GTT-zon</div>
+          <div class="metric-value" id="sc-zone">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Vinnande block</div>
+          <div class="metric-value" id="sc-winner">—</div>
+        </div>
+      </div>
+      <div class="chart-wrap" style="height:220px"><canvas id="scenario-chart"></canvas></div>
+      <div class="alert alert-warning" style="margin-top:14px;margin-bottom:0;font-size:11px">
+        ⚠️ Mandatberäkning preliminär och förenklad.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SIDA 4: BACKTEST
+════════════════════════════════════════ -->
+<div id="page-backtest" class="page">
+  <div class="page-header">
+    <h1>📚 Backtest & Historisk kalibrering</h1>
+    <p>Historiska valresultat 2002–2022 — referensdata</p>
+  </div>
+
+  <div class="alert alert-warning">
+    ⏳ Kalibrering pågår — historiska opinionsundersökningar saknas. MAE kan inte beräknas.
+    Lägg till data i <code>data/polls.json</code> för att aktivera backtest.
+  </div>
+
+  <div class="card">
+    <h2>Historiska valresultat (Valmyndigheten)</h2>
+    <table id="hist-table">
+      <thead>
+        <tr>
+          <th>Val</th><th>Datum</th>
+          <th>Vänster %</th><th>Höger %</th>
+          <th>Blockgap</th><th>Vinnare</th>
+          <th>PSI (beräknad)</th>
+        </tr>
+      </thead>
+      <tbody id="hist-tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Blockgap per val</h2>
+    <div class="chart-wrap"><canvas id="hist-chart"></canvas></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SIDA 5: PROGNOSARKIV
+════════════════════════════════════════ -->
+<div id="page-arkiv" class="page">
+  <div class="page-header">
+    <h1>🗃️ Prognosarkiv</h1>
+    <p>Låsta prognoser med SHA-256-hashvärden</p>
+  </div>
+
+  <div id="arkiv-empty" class="alert alert-info">
+    Inga låsta prognoser ännu. Lås en prognos från Prognossidan.
+  </div>
+
+  <div class="card" id="arkiv-card" style="display:none">
+    <h2>Arkiverade prognoser</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Datum</th><th>Vinnare</th><th>PSI</th><th>Hash (kort)</th><th>Status</th></tr>
+      </thead>
+      <tbody id="arkiv-tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Verifiera prognos</h2>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Klistra in ett prognos-ID för att verifiera hashvärdet.</p>
+    <input id="verify-input" type="text" placeholder="Prognos-ID…" style="width:100%;padding:10px;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;font-size:13px;margin-bottom:10px">
+    <button onclick="verifyForecast()" style="background:var(--accent);color:#fff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;font-size:13px">
+      Verifiera
+    </button>
+    <div id="verify-result" style="margin-top:12px"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SIDA 6: HASHKEDJA
+════════════════════════════════════════ -->
+<div id="page-hashkedja" class="page">
+  <div class="page-header">
+    <h1>🔗 Kryptografisk hashkedja</h1>
+    <p>Tamper-evident audit trail för alla prognoser</p>
+  </div>
+
+  <div id="chain-status" class="alert alert-info">Kedjan är tom — inga poster ännu.</div>
+
+  <div class="card">
+    <h2>Kedjeposter</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Tidpunkt</th><th>Aktuell hash</th><th>Föregående hash</th></tr>
+      </thead>
+      <tbody id="chain-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SIDA 7: METOD
+════════════════════════════════════════ -->
+<div id="page-metod" class="page">
+  <div class="page-header">
+    <h1>📖 Metod & Begränsningar</h1>
+  </div>
+
+  <div class="card">
+    <h2>Geometric Threshold Theory (GTT)</h2>
+    <p style="color:var(--muted);font-size:14px;line-height:1.8">
+      PollShift använder <strong>Geometric Threshold Theory</strong> som kärnmodell för valprognos.
+      GTT modellerar valsystemet som ett strukturellt tröskelssystem.
+    </p>
+    <br>
+    <table style="margin-bottom:16px">
+      <tr><td style="color:var(--muted);padding:8px 12px;font-size:13px"><strong>P_t</strong></td><td style="padding:8px 12px;font-size:13px">Politisk tillståndsvektor [S, V, C, MP, M, SD, KD, L] vid tidpunkt t</td></tr>
+      <tr><td style="color:var(--muted);padding:8px 12px;font-size:13px"><strong>B_t</strong></td><td style="padding:8px 12px;font-size:13px">Blockmarginal = R_t − L_t (positiv = högerblock leder)</td></tr>
+      <tr><td style="color:var(--muted);padding:8px 12px;font-size:13px"><strong>PSI_t</strong></td><td style="padding:8px 12px;font-size:13px">= clip(0.5 + B_t / K, 0, 1) — normaliserat strukturellt tryck</td></tr>
+      <tr><td style="color:var(--muted);padding:8px 12px;font-size:13px"><strong>D_t</strong></td><td style="padding:8px 12px;font-size:13px">= |PSI_t − 0.5| — geometriskt avstånd till tröskel</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Tröskelzoner</h2>
+    <table>
+      <thead><tr><th>Zon</th><th>PSI-intervall</th><th>Tolkning</th></tr></thead>
+      <tbody>
+        <tr><td><span class="zone-badge zone-left_stable">Vänster stabil</span></td><td>&lt; 0.42</td><td>Tydlig vänsterfördel</td></tr>
+        <tr><td><span class="zone-badge zone-left_lean">Vänster lutar</span></td><td>0.42 – 0.48</td><td>Svag vänsterlutning</td></tr>
+        <tr><td><span class="zone-badge zone-threshold">Tröskelzon</span></td><td>0.48 – 0.52</td><td>Kritisk osäkerhetszon</td></tr>
+        <tr><td><span class="zone-badge zone-right_lean">Höger lutar</span></td><td>0.52 – 0.58</td><td>Svag högerlutning</td></tr>
+        <tr><td><span class="zone-badge zone-right_stable">Höger stabil</span></td><td>&gt; 0.58</td><td>Tydlig högerfördel</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Begränsningar</h2>
+    <ul style="color:var(--muted);font-size:13px;line-height:2;padding-left:20px">
+      <li>Opinionsundersökningar innehåller systematiska och slumpmässiga fel</li>
+      <li>Modellen fångar inte strukturella förändringar som sker utan varsel</li>
+      <li>Mandatberäkning är förenklad — full modifierad Sainte-Laguë ej implementerad</li>
+      <li>MAE och RMSE redovisas öppet från historiska backtests — ingen garanti om framtida prestanda</li>
+      <li>PSI-kalibreringskonstanten K baseras på begränsad historisk data (6 val 2002–2022)</li>
+      <li>Om kalibreringsstatus är "Kalibrering pågår" visas inga noggrannhetspåståenden</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Reproducerbarhet & Audit</h2>
+    <p style="color:var(--muted);font-size:13px;line-height:1.8">
+      Varje prognos låses med ett <strong>SHA-256-hashvärde</strong> före valdagen.
+      Kryptografisk hashkedja möjliggör fullständig granskning bakåt i tid.
+      Samma indata ger alltid exakt samma PSI, zonklassificering och mandatprognos.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Modellversion</h2>
+    <div class="hash-box">PollShift v15.0 · GTT v1.0 · Läge: Demo · FieldShift Research Institute</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  PollShift är en probabilistisk valprognos baserad på Geometric Threshold Theory.
+  Opinionsundersökningar kan vara felaktiga. Modellens osäkerhet är verklig.
+  MAE redovisas från historiska backtests och är inte en garanti om framtida träffsäkerhet.
+  FieldShift Research Institute · Vetenskaplig valprognoser
+</div>
+
+</main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     JAVASCRIPT — GTT ENGINE + UI
+═══════════════════════════════════════════════════════ -->
+<script>
+// ════════════════════════════════════════
+// DATA
+// ════════════════════════════════════════
+
+const PARTIES = ['S','V','C','MP','M','SD','KD','L'];
+const PARTY_NAMES = { S:'Socialdemokraterna', V:'Vänsterpartiet', C:'Centerpartiet',
+  MP:'Miljöpartiet', M:'Moderaterna', SD:'Sverigedemokraterna', KD:'Kristdemokraterna', L:'Liberalerna' };
+const PARTY_COLORS = { S:'#E8112d', V:'#AF0000', C:'#009933', MP:'#83CF39',
+  M:'#1B49A4', SD:'#DDDD00', KD:'#0F4EA3', L:'#006AB3' };
+const LEFT  = ['S','V','C','MP'];
+const RIGHT = ['M','SD','KD','L'];
+const SEATS = 349;
+const THRESHOLD = 4.0;
+const K = 20.0;
+const EPSILON = 0.5;
+const ELECTION_DATE = '2026-09-13';
+
+// Demo polls (chronological)
+const DEMO_POLLS = [
+  { id:'p1', name:'Demo Novus Jun 2024', date:'2024-06-15', weight:1.0,
+    shares:{S:33.2,V:8.1,C:5.4,MP:4.8,M:19.1,SD:19.5,KD:4.2,L:3.9} },
+  { id:'p2', name:'Demo Sifo Sep 2024', date:'2024-09-10', weight:1.0,
+    shares:{S:32.8,V:8.4,C:5.1,MP:4.5,M:19.8,SD:20.2,KD:4.0,L:3.7} },
+  { id:'p3', name:'Demo Novus Jan 2025', date:'2025-01-20', weight:1.0,
+    shares:{S:34.1,V:8.6,C:5.3,MP:4.2,M:19.3,SD:19.8,KD:4.1,L:3.6} },
+  { id:'p4', name:'Demo Sifo Jun 2025', date:'2025-06-05', weight:1.2,
+    shares:{S:34.5,V:8.9,C:5.5,MP:4.3,M:18.9,SD:20.1,KD:4.0,L:3.4} },
+  { id:'p5', name:'Demo Novus Mar 2026', date:'2026-03-15', weight:1.5,
+    shares:{S:34.8,V:9.1,C:5.7,MP:4.4,M:18.7,SD:19.9,KD:4.1,L:3.3} },
+];
+
+const HISTORICAL = [
+  { id:'SE-2002', date:'2002-09-15', winner:'left',
+    actual:{S:39.85,V:8.30,C:6.19,MP:4.65,M:15.26,SD:1.44,KD:9.15,L:13.39} },
+  { id:'SE-2006', date:'2006-09-17', winner:'right',
+    actual:{S:34.99,V:5.84,C:7.88,MP:5.24,M:26.23,SD:2.93,KD:6.59,L:7.54} },
+  { id:'SE-2010', date:'2010-09-19', winner:'right',
+    actual:{S:30.66,V:5.60,C:6.56,MP:7.34,M:30.06,SD:5.70,KD:5.60,L:7.06} },
+  { id:'SE-2014', date:'2014-09-14', winner:'left',
+    actual:{S:31.01,V:5.72,C:6.11,MP:6.89,M:23.33,SD:12.86,KD:4.57,L:5.42} },
+  { id:'SE-2018', date:'2018-09-09', winner:'left',
+    actual:{S:28.26,V:7.90,C:8.61,MP:4.41,M:19.84,SD:17.53,KD:6.37,L:5.49} },
+  { id:'SE-2022', date:'2022-09-11', winner:'right',
+    actual:{S:30.33,V:6.75,C:6.71,MP:5.08,M:19.10,SD:20.54,KD:5.34,L:4.73} },
+];
+
+// ════════════════════════════════════════
+// GTT ENGINE
+// ════════════════════════════════════════
+
+function blockTotals(shares) {
+  const left  = LEFT.reduce((s,p) => s + (shares[p]||0), 0);
+  const right = RIGHT.reduce((s,p) => s + (shares[p]||0), 0);
+  return { left, right, margin: right - left };
+}
+
+function computePSI(margin, k=K) {
+  return Math.max(0, Math.min(1, 0.5 + margin / k));
+}
+
+function classifyZone(psi) {
+  if (psi < 0.42) return 'left_stable';
+  if (psi < 0.48) return 'left_lean';
+  if (psi <= 0.52) return 'threshold';
+  if (psi <= 0.58) return 'right_lean';
+  return 'right_stable';
+}
+
+const ZONE_LABELS = {
+  left_stable:'Vänster stabil', left_lean:'Vänster lutar',
+  threshold:'Tröskelzon', right_lean:'Höger lutar', right_stable:'Höger stabil'
+};
+
+function sensitivityLabel(margin) {
+  const s = 1 / (EPSILON + Math.abs(margin));
+  if (s < 1.0) return 'Låg känslighet';
+  if (s < 3.0) return 'Måttlig känslighet';
+  if (s < 8.0) return 'Hög känslighet';
+  return 'Kritisk tröskelkänslighet';
+}
+
+function volatilityLabel(std) {
+  if (std < 0.5) return 'Låg';
+  if (std < 1.5) return 'Medel';
+  if (std < 3.0) return 'Hög';
+  return 'Kritisk';
+}
+
+function stdDev(arr) {
+  if (arr.length < 2) return 0;
+  const m = arr.reduce((a,b)=>a+b,0)/arr.length;
+  return Math.sqrt(arr.reduce((s,x)=>s+(x-m)**2,0)/arr.length);
+}
+
+function computeMandates(shares) {
+  const eligible = PARTIES.filter(p => (shares[p]||0) >= THRESHOLD);
+  const total = eligible.reduce((s,p)=>s+(shares[p]||0),0);
+  if (total === 0) return Object.fromEntries(PARTIES.map(p=>[p,0]));
+
+  const raw = {};
+  const floors = {};
+  const rems = {};
+  eligible.forEach(p => { raw[p] = (shares[p]/total)*SEATS; floors[p] = Math.floor(raw[p]); rems[p] = raw[p]-floors[p]; });
+  let allocated = eligible.reduce((s,p)=>s+floors[p],0);
+  let remaining = SEATS - allocated;
+  eligible.sort((a,b)=>rems[b]-rems[a]).slice(0,remaining).forEach(p=>floors[p]++);
+  const result = Object.fromEntries(PARTIES.map(p=>[p,0]));
+  eligible.forEach(p=>result[p]=floors[p]);
+  return result;
+}
+
+function weightedMean(polls) {
+  const totalW = polls.reduce((s,p)=>s+p.weight,0);
+  const result = {};
+  PARTIES.forEach(p => {
+    result[p] = polls.reduce((s,poll)=>s+(poll.shares[p]||0)*poll.weight,0)/totalW;
+  });
+  return result;
+}
+
+function transitionRisk(psi, volBlock, momentum, daysLeft) {
+  const distFactor = Math.max(0, 1 - Math.abs(psi-0.5)/0.5);
+  const volFactor  = Math.min(1, volBlock/3.0);
+  const towardThreshold = (psi>0.5&&momentum<0)||(psi<0.5&&momentum>0);
+  const momFactor  = (momentum!==null&&towardThreshold) ? Math.min(1,Math.abs(momentum)/2.0) : 0;
+  const timeFactor = Math.max(0, Math.min(1, 1 - daysLeft/365));
+  const score = 0.40*distFactor + 0.25*volFactor + 0.20*momFactor + 0.15*timeFactor;
+  const labels = [[0.25,'Låg övergångsrisk'],[0.50,'Måttlig övergångsrisk'],[0.75,'Hög övergångsrisk'],[1.1,'Kritisk övergångsrisk']];
+  return { score: Math.round(score*1000)/1000, label: labels.find(([t])=>score<t)[1] };
+}
+
+// ════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════
+
+const currentShares  = weightedMean(DEMO_POLLS);
+const blocks         = blockTotals(currentShares);
+const psi            = computePSI(blocks.margin);
+const zone           = classifyZone(psi);
+const mandates       = computeMandates(currentShares);
+const leftMandates   = LEFT.reduce((s,p)=>s+mandates[p],0);
+const rightMandates  = RIGHT.reduce((s,p)=>s+mandates[p],0);
+
+// Momentum (last 2 polls)
+const prev   = DEMO_POLLS[DEMO_POLLS.length-2].shares;
+const latest = DEMO_POLLS[DEMO_POLLS.length-1].shares;
+const momentum = {};
+PARTIES.forEach(p => momentum[p] = latest[p] - prev[p]);
+const leftMom  = LEFT.reduce((s,p)=>s+momentum[p],0);
+const rightMom = RIGHT.reduce((s,p)=>s+momentum[p],0);
+const blockMom = rightMom - leftMom;
+
+// Volatility (all polls)
+const volBlock = stdDev(DEMO_POLLS.map(p => blockTotals(p.shares).margin));
+
+// Days to election
+function daysToElection() {
+  const d = Math.ceil((new Date(ELECTION_DATE) - new Date()) / 86400000);
+  return Math.max(0, d);
+}
+
+const risk = transitionRisk(psi, volBlock, blockMom, daysToElection());
+
+// Forecast archive
+let forecastArchive = JSON.parse(localStorage.getItem('pollshift-archive')||'[]');
+let hashChain       = JSON.parse(localStorage.getItem('pollshift-chain')||'[]');
+
+// ════════════════════════════════════════
+// SHA-256 (Web Crypto)
+// ════════════════════════════════════════
+
+async function sha256(obj) {
+  const str = JSON.stringify(obj, Object.keys(obj).sort());
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+// ════════════════════════════════════════
+// CHARTS (global refs for updates)
+// ════════════════════════════════════════
+
+let partyBarChart, trendChart, momentumChart, volatilityChart, scenarioChart, histChart;
+let currentTrendMetric = 'parties';
+
+function initCharts() {
+  Chart.defaults.color = '#8892b0';
+  Chart.defaults.borderColor = '#2e3250';
+
+  // Party bar
+  partyBarChart = new Chart(document.getElementById('party-bar-chart'), {
+    type: 'bar',
+    data: {
+      labels: PARTIES.map(p => PARTY_NAMES[p]),
+      datasets: [{
+        data: PARTIES.map(p => currentShares[p]),
+        backgroundColor: PARTIES.map(p => PARTY_COLORS[p]),
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+        annotation: { annotations: { line1: { type:'line', yMin:4, yMax:4, borderColor:'#e53935', borderWidth:2, borderDash:[6,4], label:{content:'4% spärr', display:true, position:'end', color:'#e53935', font:{size:11}} } } }
+      },
+      scales: { y: { beginAtZero: true, max: 40 }, x: { grid: { display: false } } }
+    }
+  });
+
+  // Trend chart
+  buildTrendChart('parties');
+
+  // Momentum chart
+  momentumChart = new Chart(document.getElementById('momentum-chart'), {
+    type: 'bar',
+    data: {
+      labels: PARTIES.map(p => p),
+      datasets: [{
+        data: PARTIES.map(p => momentum[p]),
+        backgroundColor: PARTIES.map(p => momentum[p]>=0 ? '#43a047' : '#e53935'),
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { title:{display:true,text:'pp'} }, x:{grid:{display:false}} }
+    }
+  });
+
+  // Volatility chart
+  const partyVols = PARTIES.map(p => stdDev(DEMO_POLLS.map(pl=>pl.shares[p])));
+  volatilityChart = new Chart(document.getElementById('volatility-chart'), {
+    type: 'bar',
+    data: {
+      labels: PARTIES.map(p=>p),
+      datasets: [{ data: partyVols, backgroundColor: '#7c83fd88', borderColor:'#7c83fd', borderWidth:1, borderRadius:4 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { title:{display:true,text:'Std.avv.'} }, x:{grid:{display:false}} }
+    }
+  });
+
+  // Scenario chart (initial = current)
+  scenarioChart = new Chart(document.getElementById('scenario-chart'), {
+    type: 'bar',
+    data: {
+      labels: PARTIES.map(p => PARTY_NAMES[p]),
+      datasets: [{
+        label: 'Scenario',
+        data: PARTIES.map(p => currentShares[p]),
+        backgroundColor: PARTIES.map(p => PARTY_COLORS[p]),
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend:{display:false} },
+      scales: { y:{beginAtZero:true,max:40}, x:{grid:{display:false}} }
+    }
+  });
+
+  // Historical chart
+  const histLabels = HISTORICAL.map(e => e.id);
+  const leftPcts  = HISTORICAL.map(e => LEFT.reduce((s,p)=>s+(e.actual[p]||0),0));
+  const rightPcts = HISTORICAL.map(e => RIGHT.reduce((s,p)=>s+(e.actual[p]||0),0));
+  histChart = new Chart(document.getElementById('hist-chart'), {
+    type: 'bar',
+    data: {
+      labels: histLabels,
+      datasets: [
+        { label:'Vänsterblock', data:leftPcts, backgroundColor:'#e5393580', borderColor:'#e53935', borderWidth:1, borderRadius:4 },
+        { label:'Högerblock', data:rightPcts, backgroundColor:'#1e88e580', borderColor:'#1e88e5', borderWidth:1, borderRadius:4 },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend:{display:true,labels:{color:'#8892b0'}} },
+      scales: { y:{min:40,max:60,title:{display:true,text:'%'}}, x:{grid:{display:false}} }
+    }
+  });
+}
+
+function buildTrendChart(metric) {
+  if (trendChart) trendChart.destroy();
+
+  const labels = DEMO_POLLS.map(p => p.date);
+
+  let datasets = [];
+  if (metric === 'parties') {
+    datasets = PARTIES.map(p => ({
+      label: PARTY_NAMES[p],
+      data: DEMO_POLLS.map(pl => pl.shares[p]),
+      borderColor: PARTY_COLORS[p],
+      backgroundColor: 'transparent',
+      tension: 0.3, pointRadius: 4, borderWidth: 2,
+    }));
+  } else if (metric === 'blocks') {
+    datasets = [
+      { label:'Vänsterblock', data: DEMO_POLLS.map(p=>LEFT.reduce((s,q)=>s+p.shares[q],0)), borderColor:'#e53935', backgroundColor:'transparent', tension:0.3, pointRadius:4, borderWidth:2 },
+      { label:'Högerblock',   data: DEMO_POLLS.map(p=>RIGHT.reduce((s,q)=>s+p.shares[q],0)), borderColor:'#1e88e5', backgroundColor:'transparent', tension:0.3, pointRadius:4, borderWidth:2 },
+    ];
+  } else {
+    const psiData = DEMO_POLLS.map(p => {
+      const b = blockTotals(p.shares);
+      return Math.round(computePSI(b.margin)*1000)/1000;
+    });
+    datasets = [
+      { label:'PSI', data:psiData, borderColor:'#7c83fd', backgroundColor:'transparent', tension:0.3, pointRadius:4, borderWidth:2 }
+    ];
+  }
+
+  trendChart = new Chart(document.getElementById('trend-chart'), {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend:{labels:{color:'#8892b0',boxWidth:12}} },
+      scales: {
+        y: { beginAtZero: metric==='psi', min: metric==='psi'?0:0, title:{display:true,text:metric==='psi'?'PSI':'%'} },
+        x: { grid:{display:false} }
+      }
+    }
+  });
+}
+
+function switchTrendTab(metric, el) {
+  document.querySelectorAll('.tabs .tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  currentTrendMetric = metric;
+  buildTrendChart(metric);
+}
+
+// ════════════════════════════════════════
+// UI UPDATES
+// ════════════════════════════════════════
+
+function updateUI() {
+  // Days left
+  document.getElementById('days-left').textContent = `Dagar till valet: ${daysToElection()}`;
+
+  // Winner
+  const winner = blocks.margin > 0 ? '🔵 Högerblock' : blocks.margin < 0 ? '🔴 Vänsterblock' : '⚖️ Jämnt';
+  document.getElementById('m-winner').textContent = winner;
+
+  // Block gap
+  document.getElementById('m-blockgap').textContent = (blocks.margin>0?'+':'')+blocks.margin.toFixed(2)+' pp';
+  document.getElementById('m-blockgap-note').textContent = 'Höger − Vänster';
+
+  // PSI
+  document.getElementById('m-psi').textContent = psi.toFixed(3);
+
+  // Zone
+  const zoneEl = document.getElementById('m-zone');
+  zoneEl.innerHTML = `<span class="zone-badge zone-${zone}">${ZONE_LABELS[zone]}</span>`;
+
+  // Distance
+  document.getElementById('m-dist').textContent = Math.abs(psi-0.5).toFixed(3);
+
+  // PSI needle
+  document.getElementById('psi-needle').style.left = (psi*100)+'%';
+
+  // Block bars
+  const total = blocks.left + blocks.right;
+  const leftPct = (blocks.left/total*100).toFixed(1);
+  const rightPct= (blocks.right/total*100).toFixed(1);
+  document.getElementById('bar-left').style.width  = leftPct+'%';
+  document.getElementById('bar-right').style.width = rightPct+'%';
+  document.getElementById('bar-left').textContent  = blocks.left.toFixed(1)+'%';
+  document.getElementById('bar-right').textContent = blocks.right.toFixed(1)+'%';
+  document.getElementById('left-label').textContent  = `Vänster ${blocks.left.toFixed(1)}%`;
+  document.getElementById('right-label').textContent = `Höger ${blocks.right.toFixed(1)}%`;
+
+  // Party table
+  const tbody = document.getElementById('party-tbody');
+  tbody.innerHTML = '';
+  [...LEFT, ...RIGHT].forEach(p => {
+    const isLeft = LEFT.includes(p);
+    const m = momentum[p];
+    const arrow = m > 0.1 ? '▲' : m < -0.1 ? '▼' : '→';
+    const arrowColor = m > 0.1 ? '#43a047' : m < -0.1 ? '#e53935' : '#8892b0';
+    const below = currentShares[p] < THRESHOLD;
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td><span class="party-dot" style="background:${PARTY_COLORS[p]}"></span>${PARTY_NAMES[p]}${below?' <span style="color:#e53935;font-size:10px">(u. spärr)</span>':''}</td>
+      <td style="font-weight:700">${currentShares[p].toFixed(1)}%</td>
+      <td style="color:${arrowColor}">${m>=0?'+':''}${m.toFixed(2)} pp</td>
+      <td style="color:${arrowColor}">${arrow}</td>
+      <td>${mandates[p]}</td>
+      <td style="color:${isLeft?'var(--red)':'var(--blue)'}">${isLeft?'Vänster':'Höger'}</td>
+    `;
+    tbody.appendChild(row);
+  });
+
+  // Block summary
+  document.getElementById('b-left-pct').textContent  = blocks.left.toFixed(1)+'%';
+  document.getElementById('b-right-pct').textContent = blocks.right.toFixed(1)+'%';
+  document.getElementById('b-left-seats').textContent  = `${leftMandates} mandat`;
+  document.getElementById('b-right-seats').textContent = `${rightMandates} mandat`;
+  document.getElementById('b-gap').textContent = (blocks.margin>0?'+':'')+blocks.margin.toFixed(2)+' pp';
+  document.getElementById('b-sens').textContent = sensitivityLabel(blocks.margin);
+
+  // GTT diagnostics
+  document.getElementById('d-psi').textContent  = psi.toFixed(4);
+  document.getElementById('d-zone').innerHTML   = `<span class="zone-badge zone-${zone}">${ZONE_LABELS[zone]}</span>`;
+  document.getElementById('d-dist').textContent = Math.abs(psi-0.5).toFixed(4);
+  document.getElementById('d-sens').textContent = sensitivityLabel(blocks.margin);
+  document.getElementById('d-bmomentum').textContent  = (blockMom>=0?'+':'')+blockMom.toFixed(3)+' pp';
+  document.getElementById('d-vol').textContent    = volBlock.toFixed(4);
+  document.getElementById('d-vollabel').textContent = volatilityLabel(volBlock);
+  document.getElementById('d-risk').textContent   = risk.label;
+  document.getElementById('d-riskscore').textContent = risk.score.toFixed(3);
+  document.getElementById('d-days').textContent   = daysToElection();
+
+  // Historical table
+  const htbody = document.getElementById('hist-tbody');
+  htbody.innerHTML = '';
+  HISTORICAL.forEach(e => {
+    const l = LEFT.reduce((s,p)=>s+(e.actual[p]||0),0);
+    const r = RIGHT.reduce((s,p)=>s+(e.actual[p]||0),0);
+    const bm = r-l;
+    const epsi = computePSI(bm);
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${e.id}</td>
+      <td>${e.date}</td>
+      <td style="color:var(--red)">${l.toFixed(2)}%</td>
+      <td style="color:var(--blue)">${r.toFixed(2)}%</td>
+      <td>${(bm>=0?'+':'')+bm.toFixed(2)} pp</td>
+      <td>${e.winner==='right'?'🔵 Höger':'🔴 Vänster'}</td>
+      <td>${epsi.toFixed(3)}</td>
+    `;
+    htbody.appendChild(row);
+  });
+
+  updateArchiveUI();
+  updateChainUI();
+}
+
+// ════════════════════════════════════════
+// SCENARIO ENGINE
+// ════════════════════════════════════════
+
+const PRESETS = {
+  none: {},
+  s_plus:    {S:1.0,M:-1.0},
+  s_minus:   {S:-1.0,M:1.0},
+  sd_plus:   {SD:2.0,L:-2.0},
+  mp_out:    {MP:-10.0},
+  left_plus: {S:0.5,V:0.5,C:0.5,MP:0.5},
+  right_plus:{M:0.5,SD:0.5,KD:0.5,L:0.5},
+};
+
+function buildSliders() {
+  const grid = document.getElementById('sliders');
+  grid.innerHTML = '';
+  PARTIES.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'slider-row';
+    div.innerHTML = `
+      <label><span style="color:${PARTY_COLORS[p]}">${PARTY_NAMES[p]}</span><span id="sl-val-${p}">0.0 pp</span></label>
+      <input type="range" id="sl-${p}" min="-10" max="10" step="0.5" value="0" oninput="updateScenario()">
+    `;
+    grid.appendChild(div);
+  });
+}
+
+function applyPreset() {
+  const preset = PRESETS[document.getElementById('preset-select').value] || {};
+  PARTIES.forEach(p => {
+    const sl = document.getElementById(`sl-${p}`);
+    sl.value = preset[p] || 0;
+    document.getElementById(`sl-val-${p}`).textContent = (preset[p]||0) >= 0 ? `+${(preset[p]||0).toFixed(1)} pp` : `${(preset[p]||0).toFixed(1)} pp`;
+  });
+  updateScenario();
+}
+
+function getSliderValues() {
+  const adj = {};
+  PARTIES.forEach(p => { adj[p] = parseFloat(document.getElementById(`sl-${p}`).value)||0; });
+  return adj;
+}
+
+function updateScenario() {
+  const adj = getSliderValues();
+  PARTIES.forEach(p => {
+    const v = adj[p];
+    document.getElementById(`sl-val-${p}`).textContent = v>=0?`+${v.toFixed(1)} pp`:`${v.toFixed(1)} pp`;
+  });
+
+  // Apply and renormalize
+  let sc = {};
+  PARTIES.forEach(p => sc[p] = Math.max(0, (currentShares[p]||0) + (adj[p]||0)));
+  const tot = Object.values(sc).reduce((a,b)=>a+b,0);
+  if (tot > 0) PARTIES.forEach(p => sc[p] = sc[p]*100/tot);
+
+  const sb = blockTotals(sc);
+  const spsi = computePSI(sb.margin);
+  const szone = classifyZone(spsi);
+  const basePsi = psi;
+
+  document.getElementById('sc-psi').textContent = spsi.toFixed(4);
+  const delta = spsi - basePsi;
+  const deltaEl = document.getElementById('sc-psi-delta');
+  deltaEl.textContent = (delta>=0?'+':'')+delta.toFixed(4);
+  deltaEl.className = 'metric-delta ' + (delta>=0?'delta-pos':'delta-neg');
+  document.getElementById('sc-gap').textContent = (sb.margin>=0?'+':'')+sb.margin.toFixed(2)+' pp';
+  document.getElementById('sc-zone').innerHTML = `<span class="zone-badge zone-${szone}">${ZONE_LABELS[szone]}</span>`;
+  document.getElementById('sc-winner').textContent = sb.margin>0?'🔵 Höger':'🔴 Vänster';
+
+  if (scenarioChart) {
+    scenarioChart.data.datasets[0].data = PARTIES.map(p=>sc[p]);
+    scenarioChart.update();
+  }
+}
+
+// ════════════════════════════════════════
+// FORECAST LOCKING
+// ════════════════════════════════════════
+
+async function lockForecast() {
+  const prevHash = hashChain.length > 0 ? hashChain[hashChain.length-1].current_hash : null;
+
+  const payload = {
+    forecast_id: crypto.randomUUID(),
+    model_version: '15.0.0',
+    gtt_version: '1.0.0',
+    election_id: 'SE-2026',
+    timestamp: new Date().toISOString(),
+    party_shares: currentShares,
+    left_pct: blocks.left,
+    right_pct: blocks.right,
+    block_margin: blocks.margin,
+    psi: psi,
+    zone: zone,
+    predicted_winner: blocks.margin > 0 ? 'right' : 'left',
+    previous_forecast_hash: prevHash,
+  };
+
+  const hash = await sha256(payload);
+  payload.forecast_hash = hash;
+  payload.status = 'locked';
+
+  forecastArchive.push(payload);
+  localStorage.setItem('pollshift-archive', JSON.stringify(forecastArchive));
+
+  // Chain entry
+  const chainEntry = {
+    snapshot_id: payload.forecast_id,
+    timestamp: payload.timestamp,
+    previous_hash: prevHash,
+    current_hash: hash,
+  };
+  hashChain.push(chainEntry);
+  localStorage.setItem('pollshift-chain', JSON.stringify(hashChain));
+
+  document.getElementById('lock-result').innerHTML = `
+    <div class="alert alert-success">
+      ✅ Prognos låst.<br>
+      <strong>ID:</strong> ${payload.forecast_id}<br>
+      <div class="hash-box" style="margin-top:8px">SHA-256: ${hash}</div>
+    </div>
+  `;
+
+  updateArchiveUI();
+  updateChainUI();
+}
+
+function updateArchiveUI() {
+  const tbody = document.getElementById('arkiv-tbody');
+  const empty = document.getElementById('arkiv-empty');
+  const card  = document.getElementById('arkiv-card');
+
+  if (forecastArchive.length === 0) {
+    empty.style.display = 'block';
+    card.style.display  = 'none';
+    return;
+  }
+  empty.style.display = 'none';
+  card.style.display  = 'block';
+
+  tbody.innerHTML = '';
+  forecastArchive.forEach(e => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td style="font-family:monospace;font-size:11px">${e.forecast_id.slice(0,8)}…</td>
+      <td>${(e.timestamp||'').slice(0,10)}</td>
+      <td>${e.predicted_winner==='right'?'🔵 Höger':'🔴 Vänster'}</td>
+      <td>${(e.psi||0).toFixed(3)}</td>
+      <td style="font-family:monospace;font-size:11px">${(e.forecast_hash||'').slice(0,12)}…</td>
+      <td>🔐 Låst</td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
+async function verifyForecast() {
+  const id = document.getElementById('verify-input').value.trim();
+  const entry = forecastArchive.find(e => e.forecast_id === id);
+  const resultEl = document.getElementById('verify-result');
+
+  if (!entry) {
+    resultEl.innerHTML = `<div class="alert alert-error">❌ Prognos-ID hittades inte.</div>`;
+    return;
+  }
+
+  const storedHash = entry.forecast_hash;
+  const toHash = {...entry};
+  delete toHash.forecast_hash;
+  delete toHash.status;
+  const recomputed = await sha256(toHash);
+
+  if (recomputed === storedHash) {
+    resultEl.innerHTML = `
+      <div class="alert alert-success">
+        ✅ Hashvärdet stämmer — prognosen är oförändrad.<br>
+        <div class="hash-box" style="margin-top:8px">${storedHash}</div>
+      </div>`;
+  } else {
+    resultEl.innerHTML = `<div class="alert alert-error">❌ Hashvärdet stämmer inte — prognosen kan ha ändrats.</div>`;
+  }
+}
+
+function updateChainUI() {
+  const tbody  = document.getElementById('chain-tbody');
+  const status = document.getElementById('chain-status');
+
+  if (hashChain.length === 0) {
+    status.textContent = 'Kedjan är tom — inga poster ännu.';
+    status.className = 'alert alert-info';
+    tbody.innerHTML = '';
+    return;
+  }
+
+  status.textContent = `✅ Kedjan är giltig. ${hashChain.length} poster verifierade.`;
+  status.className = 'alert alert-success';
+
+  tbody.innerHTML = '';
+  hashChain.forEach(e => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td style="font-family:monospace;font-size:11px">${(e.snapshot_id||'').slice(0,8)}…</td>
+      <td>${(e.timestamp||'').slice(0,19)}</td>
+      <td style="font-family:monospace;font-size:11px;color:var(--accent)">${(e.current_hash||'').slice(0,20)}…</td>
+      <td style="font-family:monospace;font-size:11px;color:var(--muted)">${e.previous_hash ? e.previous_hash.slice(0,20)+'…' : '(genesis)'}</td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
+// ════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+// ════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════
+
+window.addEventListener('DOMContentLoaded', () => {
+  updateUI();
+  initCharts();
+  buildSliders();
+  updateScenario();
+});
+</script>
+</body>
+</html>
