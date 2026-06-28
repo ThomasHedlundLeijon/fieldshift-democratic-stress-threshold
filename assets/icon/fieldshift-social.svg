@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="FieldShift Research Institute">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8c96e"/>
+      <stop offset="100%" stop-color="#b8922a"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a3a6b"/>
+      <stop offset="100%" stop-color="#0a0f1a"/>
+    </linearGradient>
+    <linearGradient id="hexFill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e4a8a"/>
+      <stop offset="100%" stop-color="#0d2247"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bgGrad)"/>
+
+  <!-- Outer decorative ring (very subtle) -->
+  <circle cx="200" cy="200" r="185" fill="none" stroke="#b8922a" stroke-width="0.8" opacity="0.18"/>
+  <circle cx="200" cy="200" r="178" fill="none" stroke="#b8922a" stroke-width="0.4" opacity="0.12"/>
+
+  <!-- === HEXAGON MARK centered at (200,190), R=130 flat-top === -->
+  <!-- flat-top: angles 30,90,150,210,270,330 -->
+  <!-- R=130: (200+130cos30, 190+130sin30) = (312.6, 255) -->
+  <polygon
+    points="312.6,255 200,320 87.4,255 87.4,125 200,60 312.6,125"
+    fill="url(#hexFill)"
+    stroke="url(#goldGrad)"
+    stroke-width="5"
+    stroke-linejoin="round"/>
+
+  <!-- Inner hexagon (pointy-top, R=78) -->
+  <polygon
+    points="278,190 239,257.1 161,257.1 122,190 161,122.9 239,122.9"
+    fill="none"
+    stroke="#b8922a"
+    stroke-width="2.5"
+    opacity="0.35"/>
+
+  <!-- Radial spokes to alternating outer vertices -->
+  <line x1="200" y1="190" x2="312.6" y2="255" stroke="#b8922a" stroke-width="1.5" opacity="0.22"/>
+  <line x1="200" y1="190" x2="87.4"  y2="255" stroke="#b8922a" stroke-width="1.5" opacity="0.22"/>
+  <line x1="200" y1="190" x2="200"   y2="60"  stroke="#b8922a" stroke-width="1.5" opacity="0.22"/>
+
+  <!-- Baseline rule -->
+  <line x1="96" y1="210" x2="304" y2="210" stroke="#b8922a" stroke-width="1.8" opacity="0.28"/>
+
+  <!-- Threshold / field-shift polyline -->
+  <polyline
+    points="100,210 132,210 152,148 248,148 268,210 300,210"
+    fill="none"
+    stroke="url(#goldGrad)"
+    stroke-width="8"
+    stroke-linejoin="round"
+    stroke-linecap="round"/>
+
+  <!-- Observer dot -->
+  <circle cx="248" cy="148" r="11" fill="#e8c96e"/>
+  <!-- Observer halo -->
+  <circle cx="248" cy="148" r="20" fill="none" stroke="#e8c96e" stroke-width="2.5" opacity="0.38"/>
+
+  <!-- FS monogram wordmark below -->
+  <text x="200" y="358"
+        font-family="'Libre Baskerville', Georgia, serif"
+        font-size="22"
+        font-weight="700"
+        letter-spacing="0.14em"
+        text-anchor="middle"
+        fill="#b8922a"
+        opacity="0.7">FIELDSHIFT</text>
+</svg>

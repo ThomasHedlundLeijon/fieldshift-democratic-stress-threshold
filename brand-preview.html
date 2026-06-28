@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FieldShift Research Institute — Brand Identity Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS (inline — no external dependency)
+   ============================================================ */
+:root {
+  --navy-900:#060d1a; --navy-800:#0a0f1a; --navy-700:#0d2247;
+  --navy-600:#102a58; --navy-500:#1a3a6b; --navy-400:#1e4a8a;
+  --navy-300:#2e5fa0; --navy-200:#5b8db8; --navy-100:#a8c4e0;
+  --gold-700:#b8922a; --gold-400:#e8c96e;
+  --paper-2:#f9f6f1; --paper-3:#f2ede5; --paper-4:#e8e0d4; --paper-5:#d8cfc3;
+  --ink-800:#1a1a1a; --ink-500:#4a4a4a; --ink-300:#7a7a7a; --ink-200:#b0b0b0;
+  --danger:#c0392b; --warn:#d68910; --ok:#1e8449; --info:#1a5276;
+  --teal:#2a7f7a; --sage:#4a7a50; --terra:#a04a38; --slate:#5a6a7a;
+  --serif:'Libre Baskerville',Georgia,serif;
+  --sans:'Source Sans 3',system-ui,sans-serif;
+  --mono:'JetBrains Mono','Courier New',monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{
+  font-family:var(--sans);
+  background:var(--paper-2);
+  color:var(--ink-800);
+  line-height:1.6;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.page-header{
+  background:var(--navy-700);
+  border-bottom:3px solid var(--gold-700);
+  padding:28px 48px 24px;
+}
+.page-header-inner{
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:24px;
+}
+.page-header-title{
+  font-family:var(--serif);
+  font-size:13px;
+  font-weight:400;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--navy-100);
+  margin-bottom:6px;
+}
+.page-header-doc{
+  font-family:var(--serif);
+  font-size:26px;
+  font-weight:700;
+  color:#f0ece4;
+  letter-spacing:-0.02em;
+  line-height:1.1;
+}
+.page-header-doc span{color:var(--gold-400)}
+.page-header-meta{
+  text-align:right;
+  font-family:var(--mono);
+  font-size:10px;
+  color:var(--navy-100);
+  line-height:1.9;
+  letter-spacing:0.08em;
+}
+.page-header-meta strong{
+  display:block;
+  font-size:11px;
+  color:var(--gold-400);
+  letter-spacing:0.12em;
+}
+
+main{max-width:1200px;margin:0 auto;padding:56px 48px 100px}
+
+/* Section scaffold */
+.section{margin-bottom:72px}
+.section-label{
+  font-family:var(--mono);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:0.16em;
+  color:var(--ink-300);
+  margin-bottom:6px;
+}
+.section-title{
+  font-family:var(--serif);
+  font-size:24px;
+  font-weight:700;
+  color:var(--ink-800);
+  margin-bottom:4px;
+  letter-spacing:-0.02em;
+}
+.section-rule{
+  border:none;
+  border-top:2px solid var(--ink-800);
+  margin:0 0 32px;
+}
+
+/* ============================================================
+   LOGO SECTION
+   ============================================================ */
+.logo-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2px;
+}
+.logo-cell{
+  padding:48px 40px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+}
+.logo-cell.dark{background:var(--navy-700)}
+.logo-cell.dark-alt{background:var(--navy-500)}
+.logo-cell.light{background:#ffffff;border:1px solid var(--paper-4)}
+.logo-cell.paper{background:var(--paper-2);border:1px solid var(--paper-4)}
+.logo-cell-label{
+  font-family:var(--mono);
+  font-size:9.5px;
+  text-transform:uppercase;
+  letter-spacing:0.14em;
+}
+.logo-cell.dark .logo-cell-label,
+.logo-cell.dark-alt .logo-cell-label{color:var(--navy-100)}
+.logo-cell.light .logo-cell-label,
+.logo-cell.paper .logo-cell-label{color:var(--ink-300)}
+.logo-cell img,.logo-cell svg{max-width:100%;height:auto}
+
+/* Stacked logos row */
+.stacked-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:2px;
+  margin-top:2px;
+}
+
+/* ============================================================
+   ICON ROW
+   ============================================================ */
+.icon-row{
+  display:flex;
+  gap:32px;
+  flex-wrap:wrap;
+  align-items:flex-start;
+}
+.icon-cell{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+.icon-cell-bg-dark{
+  background:var(--navy-700);
+  padding:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.icon-cell-bg-light{
+  background:white;
+  border:1px solid var(--paper-4);
+  padding:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.icon-cell-label{
+  font-family:var(--mono);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:0.12em;
+  color:var(--ink-300);
+  text-align:center;
+}
+
+/* ============================================================
+   COLOR PALETTE
+   ============================================================ */
+.palette-section{margin-bottom:40px}
+.palette-group-title{
+  font-family:var(--mono);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:0.16em;
+  color:var(--ink-300);
+  margin-bottom:12px;
+  padding-bottom:6px;
+  border-bottom:1px solid var(--paper-4);
+}
+.swatch-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:24px;
+}
+.swatch{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  width:72px;
+}
+.swatch-block{
+  width:72px;
+  height:52px;
+  border:1px solid rgba(0,0,0,0.08);
+}
+.swatch-hex{
+  font-family:var(--mono);
+  font-size:8.5px;
+  color:var(--ink-300);
+  letter-spacing:0.04em;
+}
+.swatch-name{
+  font-family:var(--mono);
+  font-size:8px;
+  color:var(--ink-200);
+  letter-spacing:0.04em;
+  text-align:center;
+}
+
+/* ============================================================
+   TYPOGRAPHY SCALE
+   ============================================================ */
+.type-scale{display:flex;flex-direction:column;gap:0}
+.type-row{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:24px;
+  align-items:baseline;
+  padding:14px 0;
+  border-bottom:1px solid var(--paper-4);
+}
+.type-meta{
+  font-family:var(--mono);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  color:var(--ink-300);
+  padding-top:2px;
+}
+.type-meta span{
+  display:block;
+  color:var(--ink-200);
+  font-size:8.5px;
+  margin-top:2px;
+}
+.type-h1{font-family:var(--serif);font-size:clamp(32px,5vw,52px);font-weight:700;color:var(--ink-800);letter-spacing:-0.03em;line-height:1.15}
+.type-h2{font-family:var(--serif);font-size:clamp(26px,3.5vw,38px);font-weight:700;color:var(--ink-800);letter-spacing:-0.02em;line-height:1.2}
+.type-h3{font-family:var(--serif);font-size:clamp(20px,2.5vw,28px);font-weight:400;color:var(--ink-800);letter-spacing:-0.01em;line-height:1.25}
+.type-h4{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--ink-800);line-height:1.3}
+.type-h5{font-family:'EB Garamond',var(--serif);font-size:18px;font-weight:600;color:var(--ink-800);letter-spacing:0.01em}
+.type-h6{font-family:'EB Garamond',var(--serif);font-size:15px;font-weight:400;font-style:italic;color:var(--ink-500)}
+.type-body{font-family:var(--sans);font-size:16px;color:var(--ink-800);line-height:1.65}
+.type-body-sm{font-family:var(--sans);font-size:13px;color:var(--ink-500);line-height:1.6}
+.type-caption{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-300)}
+.type-mono{font-family:var(--mono);font-size:14px;color:var(--navy-400)}
+.type-quote{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink-600, #3a3a3a);line-height:1.75;border-left:3px solid var(--gold-700);padding-left:20px}
+
+/* ============================================================
+   TAGLINE DISPLAY
+   ============================================================ */
+.tagline-grid{display:flex;flex-direction:column;gap:0}
+.tagline-row{
+  padding:20px 0;
+  border-bottom:1px solid var(--paper-4);
+  display:grid;
+  grid-template-columns:180px 1fr;
+  gap:24px;
+  align-items:start;
+}
+.tagline-context{
+  font-family:var(--mono);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:0.12em;
+  color:var(--ink-300);
+  padding-top:3px;
+}
+.tagline-primary{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:22px;
+  color:var(--ink-800);
+  letter-spacing:0.01em;
+}
+.tagline-motto{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:14px;
+  color:var(--ink-500);
+  line-height:1.7;
+  max-width:640px;
+}
+.tagline-short{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:18px;
+  color:var(--ink-800);
+  letter-spacing:0.04em;
+}
+
+/* ============================================================
+   RESEARCH CARD
+   ============================================================ */
+.research-card{
+  background:white;
+  border:1px solid var(--paper-4);
+  border-top:4px solid var(--navy-700);
+  padding:28px 32px;
+  max-width:680px;
+}
+.rc-discipline{
+  font-family:var(--mono);
+  font-size:9.5px;
+  text-transform:uppercase;
+  letter-spacing:0.16em;
+  color:var(--gold-700);
+  margin-bottom:10px;
+}
+.rc-title{
+  font-family:var(--serif);
+  font-size:22px;
+  font-weight:700;
+  color:var(--ink-800);
+  line-height:1.25;
+  margin-bottom:10px;
+  letter-spacing:-0.01em;
+}
+.rc-authors{
+  font-family:var(--sans);
+  font-size:12px;
+  color:var(--ink-300);
+  margin-bottom:16px;
+  letter-spacing:0.02em;
+}
+.rc-authors span{color:var(--navy-400);font-style:italic}
+.rc-rule{border:none;border-top:1px solid var(--paper-4);margin:0 0 16px}
+.rc-abstract-label{
+  font-family:var(--mono);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:0.14em;
+  color:var(--ink-200);
+  margin-bottom:8px;
+}
+.rc-abstract{
+  font-family:var(--sans);
+  font-size:13px;
+  color:var(--ink-500);
+  line-height:1.7;
+}
+.rc-meta{
+  margin-top:20px;
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.rc-meta-item{
+  font-family:var(--mono);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  color:var(--ink-200);
+}
+.rc-meta-item strong{color:var(--ink-400, #6a6a6a);font-weight:500}
+
+/* ============================================================
+   PAPER COVER HEADER
+   ============================================================ */
+.paper-cover{
+  background:var(--navy-700);
+  padding:48px 56px;
+  max-width:760px;
+}
+.paper-cover-logo-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:40px;
+  padding-bottom:20px;
+  border-bottom:1px solid rgba(184,146,42,0.4);
+}
+.paper-cover-issue{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--navy-100);
+  text-align:right;
+  line-height:1.9;
+}
+.paper-cover-series{
+  font-family:var(--mono);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:0.18em;
+  color:var(--gold-700);
+  margin-bottom:16px;
+}
+.paper-cover-title{
+  font-family:var(--serif);
+  font-size:clamp(22px,3vw,36px);
+  font-weight:700;
+  color:#f0ece4;
+  line-height:1.2;
+  letter-spacing:-0.02em;
+  margin-bottom:16px;
+  max-width:560px;
+}
+.paper-cover-subtitle{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:16px;
+  color:var(--navy-100);
+  margin-bottom:28px;
+  max-width:520px;
+}
+.paper-cover-authors{
+  font-family:var(--sans);
+  font-size:13px;
+  color:var(--navy-100);
+  margin-bottom:6px;
+}
+.paper-cover-affil{
+  font-family:var(--sans);
+  font-size:11px;
+  color:var(--gold-700);
+  letter-spacing:0.04em;
+}
+.paper-cover-doi{
+  margin-top:28px;
+  padding-top:20px;
+  border-top:1px solid rgba(184,146,42,0.3);
+  font-family:var(--mono);
+  font-size:9.5px;
+  letter-spacing:0.08em;
+  color:rgba(168,196,224,0.6);
+}
+
+/* ============================================================
+   DASHBOARD METRIC CARD
+   ============================================================ */
+.dashboard-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  max-width:780px;
+}
+.metric-card{
+  background:white;
+  border:1px solid var(--paper-4);
+  border-top:3px solid var(--navy-700);
+  padding:20px 22px;
+}
+.metric-card.danger{border-top-color:var(--danger)}
+.metric-card.warn  {border-top-color:var(--warn)}
+.metric-card.ok    {border-top-color:var(--ok)}
+.metric-label{
+  font-family:var(--mono);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:0.14em;
+  color:var(--ink-300);
+  margin-bottom:10px;
+}
+.metric-value{
+  font-family:var(--serif);
+  font-size:38px;
+  font-weight:700;
+  color:var(--navy-700);
+  line-height:1;
+  letter-spacing:-0.03em;
+}
+.metric-card.danger .metric-value{color:var(--danger)}
+.metric-card.warn   .metric-value{color:var(--warn)}
+.metric-card.ok     .metric-value{color:var(--ok)}
+.metric-unit{
+  font-family:var(--sans);
+  font-size:11px;
+  color:var(--ink-300);
+  margin-top:4px;
+}
+.metric-delta{
+  font-family:var(--mono);
+  font-size:9.5px;
+  margin-top:8px;
+  color:var(--danger);
+  letter-spacing:0.04em;
+}
+.metric-delta.pos{color:var(--ok)}
+
+/* ============================================================
+   SEAL DISPLAY
+   ============================================================ */
+.seal-display{
+  display:flex;
+  gap:48px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.seal-bg-dark{
+  background:var(--navy-700);
+  padding:32px;
+  display:inline-flex;
+}
+.seal-bg-paper{
+  background:var(--paper-2);
+  border:1px solid var(--paper-4);
+  padding:32px;
+  display:inline-flex;
+}
+
+/* ============================================================
+   MERCHANDISE MOCK
+   ============================================================ */
+.merch-row{
+  display:flex;
+  gap:32px;
+  flex-wrap:wrap;
+  align-items:stretch;
+}
+.merch-item{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+}
+.merch-label{
+  font-family:var(--mono);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:0.14em;
+  color:var(--ink-300);
+}
+.hoodie-mock{
+  background:#1a1c1e;
+  width:220px;
+  height:200px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  border-radius:4px;
+  padding:28px;
+}
+.hoodie-logo-text{
+  font-family:var(--serif);
+  font-size:20px;
+  font-weight:700;
+  color:#f0ece4;
+  letter-spacing:-0.02em;
+}
+.hoodie-logo-text em{color:var(--gold-400);font-style:normal}
+.hoodie-sub{
+  font-family:var(--sans);
+  font-size:8.5px;
+  color:rgba(168,196,224,0.7);
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+}
+.hoodie-rule{
+  width:80px;
+  height:1px;
+  background:rgba(184,146,42,0.45);
+}
+.hoodie-tagline{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:9px;
+  color:rgba(232,201,110,0.7);
+  letter-spacing:0.06em;
+  text-align:center;
+}
+
+.hat-mock{
+  background:#111214;
+  width:220px;
+  height:130px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:4px;
+  position:relative;
+  overflow:hidden;
+}
+.hat-brim{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:28px;
+  background:#0d0e10;
+  border-top:1px solid #2a2a2a;
+}
+
+.sticker-mock{
+  background:var(--navy-700);
+  width:130px;
+  height:130px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  border-radius:3px;
+  border:2px solid var(--gold-700);
+  padding:16px;
+}
+.sticker-tag{
+  font-family:var(--mono);
+  font-size:8.5px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--gold-700);
+}
+
+/* ============================================================
+   SCIENTIFIC ACCENT PALETTE DEMO
+   ============================================================ */
+.state-diagram{
+  background:var(--navy-700);
+  padding:32px;
+  max-width:520px;
+}
+.state-diagram-title{
+  font-family:var(--mono);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:0.16em;
+  color:var(--navy-100);
+  margin-bottom:20px;
+}
+.state-bars{display:flex;flex-direction:column;gap:10px}
+.state-bar-row{
+  display:grid;
+  grid-template-columns:90px 1fr 48px;
+  align-items:center;
+  gap:12px;
+}
+.state-bar-label{
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--navy-100);
+  letter-spacing:0.08em;
+}
+.state-bar-track{
+  height:10px;
+  background:rgba(255,255,255,0.07);
+  position:relative;
+}
+.state-bar-fill{
+  position:absolute;
+  top:0;left:0;bottom:0;
+}
+.state-bar-val{
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--navy-100);
+  text-align:right;
+}
+
+/* ============================================================
+   PAGE FOOTER
+   ============================================================ */
+.page-footer{
+  background:var(--navy-700);
+  border-top:2px solid var(--gold-700);
+  padding:24px 48px;
+  text-align:center;
+}
+.page-footer-text{
+  font-family:var(--mono);
+  font-size:9.5px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--navy-100);
+}
+.page-footer-text span{color:var(--gold-700)}
+
+/* ============================================================
+   INLINE SVGs (hex mark reused across page)
+   ============================================================ */
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PAGE HEADER
+     ============================================================ -->
+<header class="page-header">
+  <div class="page-header-inner">
+    <div>
+      <div class="page-header-title">Brand Identity Reference</div>
+      <div class="page-header-doc">Field<span>Shift</span> Research Institute</div>
+    </div>
+    <div class="page-header-meta">
+      <strong>Brand System v1.0</strong>
+      Internal Design Reference<br>
+      FieldShift Research Institute<br>
+      Est. MMXXV
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================================================
+     SECTION 1: LOGO SYSTEM
+     ============================================================ -->
+<section class="section">
+  <div class="section-label">Section 01</div>
+  <div class="section-title">Logo System</div>
+  <hr class="section-rule">
+
+  <!-- Primary logo on dark/light backgrounds -->
+  <div class="logo-grid">
+
+    <!-- Dark navy — primary context -->
+    <div class="logo-cell dark">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" width="320" height="auto" role="img" aria-label="FieldShift Research Institute">
+        <defs>
+          <linearGradient id="gG1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+          <linearGradient id="hF1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+        </defs>
+        <polygon points="79.5,50 67.0,72.4 41.5,72.4 29.0,50 41.5,27.6 67.0,27.6" fill="url(#hF1)" stroke="url(#gG1)" stroke-width="1.8" stroke-linejoin="round"/>
+        <polygon points="70,50 60,67.3 40,67.3 30,50 40,32.7 60,32.7" fill="none" stroke="#b8922a" stroke-width="0.8" opacity="0.35"/>
+        <line x1="50" y1="50" x2="79.5" y2="50" stroke="#b8922a" stroke-width="0.6" opacity="0.22"/>
+        <line x1="50" y1="50" x2="41.5" y2="72.4" stroke="#b8922a" stroke-width="0.6" opacity="0.22"/>
+        <line x1="50" y1="50" x2="41.5" y2="27.6" stroke="#b8922a" stroke-width="0.6" opacity="0.22"/>
+        <line x1="32" y1="57" x2="68" y2="57" stroke="#b8922a" stroke-width="0.6" opacity="0.3"/>
+        <polyline points="33,57 40,57 44,43 56,43 60,57 67,57" fill="none" stroke="url(#gG1)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="56" cy="43" r="2.8" fill="#e8c96e"/>
+        <circle cx="56" cy="43" r="5" fill="none" stroke="#e8c96e" stroke-width="0.7" opacity="0.4"/>
+        <text x="100" y="44" font-family="'Libre Baskerville',Georgia,serif" font-size="26" font-weight="700" letter-spacing="-0.5" fill="#f0ece4">Field<tspan fill="#e8c96e">Shift</tspan></text>
+        <text x="101" y="62" font-family="'Source Sans 3',system-ui,sans-serif" font-size="10.5" letter-spacing="0.16em" fill="#7aabcf">RESEARCH INSTITUTE</text>
+        <line x1="101" y1="72" x2="346" y2="72" stroke="#b8922a" stroke-width="0.7" opacity="0.6"/>
+        <text x="101" y="86" font-family="'Libre Baskerville',Georgia,serif" font-size="9.5" font-style="italic" letter-spacing="0.04em" fill="#a8c4e0">Advancing the Science of State</text>
+      </svg>
+      <div class="logo-cell-label">Primary — Dark Navy Background</div>
+    </div>
+
+    <!-- Light / paper background — mono-black -->
+    <div class="logo-cell paper">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" width="320" height="auto" role="img" aria-label="FieldShift Research Institute">
+        <polygon points="79.5,50 67.0,72.4 41.5,72.4 29.0,50 41.5,27.6 67.0,27.6" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5" stroke-linejoin="round"/>
+        <polygon points="70,50 60,67.3 40,67.3 30,50 40,32.7 60,32.7" fill="none" stroke="#ffffff" stroke-width="0.8" opacity="0.5"/>
+        <line x1="50" y1="50" x2="79.5" y2="50" stroke="#ffffff" stroke-width="0.6" opacity="0.4"/>
+        <line x1="50" y1="50" x2="41.5" y2="72.4" stroke="#ffffff" stroke-width="0.6" opacity="0.4"/>
+        <line x1="50" y1="50" x2="41.5" y2="27.6" stroke="#ffffff" stroke-width="0.6" opacity="0.4"/>
+        <line x1="32" y1="57" x2="68" y2="57" stroke="#ffffff" stroke-width="0.6" opacity="0.35"/>
+        <polyline points="33,57 40,57 44,43 56,43 60,57 67,57" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="56" cy="43" r="2.8" fill="#ffffff"/>
+        <circle cx="56" cy="43" r="5" fill="none" stroke="#ffffff" stroke-width="0.7" opacity="0.5"/>
+        <text x="100" y="44" font-family="'Libre Baskerville',Georgia,serif" font-size="26" font-weight="700" letter-spacing="-0.5" fill="#1a1a1a">FieldShift</text>
+        <text x="101" y="62" font-family="'Source Sans 3',system-ui,sans-serif" font-size="10.5" letter-spacing="0.16em" fill="#4a4a4a">RESEARCH INSTITUTE</text>
+        <line x1="101" y1="72" x2="346" y2="72" stroke="#1a1a1a" stroke-width="0.7" opacity="0.4"/>
+        <text x="101" y="86" font-family="'Libre Baskerville',Georgia,serif" font-size="9.5" font-style="italic" letter-spacing="0.04em" fill="#4a4a4a">Advancing the Science of State</text>
+      </svg>
+      <div class="logo-cell-label">Mono Black — Light Background</div>
+    </div>
+  </div>
+
+  <!-- Stacked / vertical logos -->
+  <div class="stacked-grid">
+
+    <div class="logo-cell dark" style="padding:32px 24px">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 200" width="150" height="auto">
+        <defs>
+          <linearGradient id="gG2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+          <linearGradient id="hF2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+        </defs>
+        <polygon points="152,58 131,94.4 89,94.4 68,58 89,21.6 131,21.6" fill="url(#hF2)" stroke="url(#gG2)" stroke-width="2" stroke-linejoin="round"/>
+        <polygon points="135,58 122.5,79.6 97.5,79.6 85,58 97.5,36.4 122.5,36.4" fill="none" stroke="#b8922a" stroke-width="0.9" opacity="0.35"/>
+        <line x1="110" y1="58" x2="152" y2="58" stroke="#b8922a" stroke-width="0.7" opacity="0.22"/>
+        <line x1="110" y1="58" x2="89" y2="94.4" stroke="#b8922a" stroke-width="0.7" opacity="0.22"/>
+        <line x1="110" y1="58" x2="89" y2="21.6" stroke="#b8922a" stroke-width="0.7" opacity="0.22"/>
+        <line x1="74" y1="65" x2="146" y2="65" stroke="#b8922a" stroke-width="0.7" opacity="0.28"/>
+        <polyline points="76,65 87,65 96,44 124,44 133,65 144,65" fill="none" stroke="url(#gG2)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="124" cy="44" r="3.4" fill="#e8c96e"/>
+        <circle cx="124" cy="44" r="6.2" fill="none" stroke="#e8c96e" stroke-width="0.8" opacity="0.38"/>
+        <text x="110" y="128" font-family="'Libre Baskerville',Georgia,serif" font-size="28" font-weight="700" letter-spacing="-0.5" text-anchor="middle" fill="#f0ece4">Field<tspan fill="#e8c96e">Shift</tspan></text>
+        <line x1="30" y1="138" x2="190" y2="138" stroke="#b8922a" stroke-width="0.7" opacity="0.55"/>
+        <text x="110" y="152" font-family="'Source Sans 3',system-ui,sans-serif" font-size="9" letter-spacing="0.2em" text-anchor="middle" fill="#7aabcf">RESEARCH INSTITUTE</text>
+        <text x="110" y="175" font-family="'Libre Baskerville',Georgia,serif" font-size="9" font-style="italic" letter-spacing="0.04em" text-anchor="middle" fill="#a8c4e0">Advancing the Science of State</text>
+      </svg>
+      <div class="logo-cell-label">Stacked — Dark</div>
+    </div>
+
+    <div class="logo-cell dark-alt" style="padding:32px 24px">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 200" width="150" height="auto">
+        <defs>
+          <linearGradient id="gG3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+          <linearGradient id="hF3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+        </defs>
+        <polygon points="152,58 131,94.4 89,94.4 68,58 89,21.6 131,21.6" fill="url(#hF3)" stroke="url(#gG3)" stroke-width="2" stroke-linejoin="round"/>
+        <polygon points="135,58 122.5,79.6 97.5,79.6 85,58 97.5,36.4 122.5,36.4" fill="none" stroke="#b8922a" stroke-width="0.9" opacity="0.35"/>
+        <polyline points="76,65 87,65 96,44 124,44 133,65 144,65" fill="none" stroke="url(#gG3)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="124" cy="44" r="3.4" fill="#e8c96e"/>
+        <text x="110" y="128" font-family="'Libre Baskerville',Georgia,serif" font-size="28" font-weight="700" letter-spacing="-0.5" text-anchor="middle" fill="#f0ece4">Field<tspan fill="#e8c96e">Shift</tspan></text>
+        <line x1="30" y1="138" x2="190" y2="138" stroke="#b8922a" stroke-width="0.7" opacity="0.55"/>
+        <text x="110" y="152" font-family="'Source Sans 3',system-ui,sans-serif" font-size="9" letter-spacing="0.2em" text-anchor="middle" fill="#7aabcf">RESEARCH INSTITUTE</text>
+        <text x="110" y="175" font-family="'Libre Baskerville',Georgia,serif" font-size="9" font-style="italic" letter-spacing="0.04em" text-anchor="middle" fill="#a8c4e0">Advancing the Science of State</text>
+      </svg>
+      <div class="logo-cell-label">Stacked — Navy Alt</div>
+    </div>
+
+    <div class="logo-cell light" style="padding:32px 24px">
+      <!-- Mono black stacked -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 200" width="150" height="auto">
+        <polygon points="152,58 131,94.4 89,94.4 68,58 89,21.6 131,21.6" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
+        <polygon points="135,58 122.5,79.6 97.5,79.6 85,58 97.5,36.4 122.5,36.4" fill="none" stroke="#ffffff" stroke-width="0.9" opacity="0.5"/>
+        <polyline points="76,65 87,65 96,44 124,44 133,65 144,65" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="124" cy="44" r="3.4" fill="#ffffff"/>
+        <text x="110" y="128" font-family="'Libre Baskerville',Georgia,serif" font-size="28" font-weight="700" letter-spacing="-0.5" text-anchor="middle" fill="#1a1a1a">FieldShift</text>
+        <line x1="30" y1="138" x2="190" y2="138" stroke="#1a1a1a" stroke-width="0.7" opacity="0.35"/>
+        <text x="110" y="152" font-family="'Source Sans 3',system-ui,sans-serif" font-size="9" letter-spacing="0.2em" text-anchor="middle" fill="#4a4a4a">RESEARCH INSTITUTE</text>
+        <text x="110" y="175" font-family="'Libre Baskerville',Georgia,serif" font-size="9" font-style="italic" letter-spacing="0.04em" text-anchor="middle" fill="#4a4a4a">Advancing the Science of State</text>
+      </svg>
+      <div class="logo-cell-label">Mono Black — White</div>
+    </div>
+
+    <div class="logo-cell dark" style="padding:32px 24px;background:#0a0f1a">
+      <!-- Mono white stacked -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 200" width="150" height="auto">
+        <polygon points="152,58 131,94.4 89,94.4 68,58 89,21.6 131,21.6" fill="rgba(255,255,255,0.06)" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
+        <polygon points="135,58 122.5,79.6 97.5,79.6 85,58 97.5,36.4 122.5,36.4" fill="none" stroke="#ffffff" stroke-width="0.9" opacity="0.35"/>
+        <polyline points="76,65 87,65 96,44 124,44 133,65 144,65" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="124" cy="44" r="3.4" fill="#ffffff"/>
+        <text x="110" y="128" font-family="'Libre Baskerville',Georgia,serif" font-size="28" font-weight="700" letter-spacing="-0.5" text-anchor="middle" fill="#ffffff">FieldShift</text>
+        <line x1="30" y1="138" x2="190" y2="138" stroke="#ffffff" stroke-width="0.7" opacity="0.4"/>
+        <text x="110" y="152" font-family="'Source Sans 3',system-ui,sans-serif" font-size="9" letter-spacing="0.2em" text-anchor="middle" fill="rgba(255,255,255,0.6)">RESEARCH INSTITUTE</text>
+        <text x="110" y="175" font-family="'Libre Baskerville',Georgia,serif" font-size="9" font-style="italic" letter-spacing="0.04em" text-anchor="middle" fill="rgba(255,255,255,0.65)">Advancing the Science of State</text>
+      </svg>
+      <div class="logo-cell-label">Mono White — Deep Dark</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2: ICON MARKS
+     ============================================================ -->
+<section class="section">
+  <div class="section-label">Section 02</div>
+  <div class="section-title">Icon Marks</div>
+  <hr class="section-rule">
+
+  <div class="icon-row">
+
+    <!-- 100px icon -->
+    <div class="icon-cell">
+      <div class="icon-cell-bg-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+          <defs>
+            <linearGradient id="gG4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+            <linearGradient id="hF4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+          </defs>
+          <polygon points="88.1,50 72.0,79.1 27.9,79.1 11.9,50 27.9,20.9 72.0,20.9" fill="url(#hF4)" stroke="url(#gG4)" stroke-width="2.4" stroke-linejoin="round"/>
+          <polygon points="76,50 63,72.5 37,72.5 24,50 37,27.5 63,27.5" fill="none" stroke="#b8922a" stroke-width="1.1" opacity="0.38"/>
+          <line x1="50" y1="50" x2="88.1" y2="50" stroke="#b8922a" stroke-width="0.9" opacity="0.24"/>
+          <line x1="50" y1="50" x2="27.9" y2="79.1" stroke="#b8922a" stroke-width="0.9" opacity="0.24"/>
+          <line x1="50" y1="50" x2="27.9" y2="20.9" stroke="#b8922a" stroke-width="0.9" opacity="0.24"/>
+          <line x1="16" y1="60" x2="84" y2="60" stroke="#b8922a" stroke-width="0.9" opacity="0.28"/>
+          <polyline points="18,60 31,60 38,38 62,38 69,60 82,60" fill="none" stroke="url(#gG4)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="62" cy="38" r="4" fill="#e8c96e"/>
+          <circle cx="62" cy="38" r="7.5" fill="none" stroke="#e8c96e" stroke-width="1" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="icon-cell-label">Icon Mark<br>100×100</div>
+    </div>
+
+    <!-- 64px icon -->
+    <div class="icon-cell">
+      <div class="icon-cell-bg-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="64" height="64">
+          <defs>
+            <linearGradient id="gG5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+            <linearGradient id="hF5" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+          </defs>
+          <polygon points="88.1,50 72.0,79.1 27.9,79.1 11.9,50 27.9,20.9 72.0,20.9" fill="url(#hF5)" stroke="url(#gG5)" stroke-width="2.4" stroke-linejoin="round"/>
+          <polygon points="76,50 63,72.5 37,72.5 24,50 37,27.5 63,27.5" fill="none" stroke="#b8922a" stroke-width="1.1" opacity="0.38"/>
+          <line x1="50" y1="50" x2="88.1" y2="50" stroke="#b8922a" stroke-width="0.9" opacity="0.24"/>
+          <line x1="50" y1="50" x2="27.9" y2="79.1" stroke="#b8922a" stroke-width="0.9" opacity="0.24"/>
+          <line x1="50" y1="50" x2="27.9" y2="20.9" stroke="#b8922a" stroke-width="0.9" opacity="0.24"/>
+          <line x1="16" y1="60" x2="84" y2="60" stroke="#b8922a" stroke-width="0.9" opacity="0.28"/>
+          <polyline points="18,60 31,60 38,38 62,38 69,60 82,60" fill="none" stroke="url(#gG5)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="62" cy="38" r="4" fill="#e8c96e"/>
+          <circle cx="62" cy="38" r="7.5" fill="none" stroke="#e8c96e" stroke-width="1" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="icon-cell-label">Icon Mark<br>64px</div>
+    </div>
+
+    <!-- 32px favicon -->
+    <div class="icon-cell">
+      <div class="icon-cell-bg-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+          <defs>
+            <linearGradient id="gG6" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+            <linearGradient id="hF6" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+          </defs>
+          <polygon points="28.1,23 16,30 3.9,23 3.9,9 16,2 28.1,9" fill="url(#hF6)" stroke="url(#gG6)" stroke-width="1.4" stroke-linejoin="round"/>
+          <polygon points="24,16 20,22.9 12,22.9 8,16 12,9.1 20,9.1" fill="none" stroke="#b8922a" stroke-width="0.6" opacity="0.4"/>
+          <polyline points="6,19 12,19 13.5,12 18.5,12 20,19 26,19" fill="none" stroke="url(#gG6)" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="18.5" cy="12" r="1.8" fill="#e8c96e"/>
+        </svg>
+      </div>
+      <div class="icon-cell-label">Favicon<br>32×32</div>
+    </div>
+
+    <!-- 16px favicon -->
+    <div class="icon-cell">
+      <div class="icon-cell-bg-dark" style="padding:24px">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16">
+          <defs>
+            <linearGradient id="gG7" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+            <linearGradient id="hF7" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+          </defs>
+          <polygon points="28.1,23 16,30 3.9,23 3.9,9 16,2 28.1,9" fill="url(#hF7)" stroke="url(#gG7)" stroke-width="1.4" stroke-linejoin="round"/>
+          <polyline points="6,19 12,19 13.5,12 18.5,12 20,19 26,19" fill="none" stroke="url(#gG7)" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="18.5" cy="12" r="1.8" fill="#e8c96e"/>
+        </svg>
+      </div>
+      <div class="icon-cell-label">Favicon<br>16×16 simulated</div>
+    </div>
+
+    <!-- Social 100px preview -->
+    <div class="icon-cell">
+      <div class="icon-cell-bg-dark" style="padding:0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100" height="100">
+          <defs>
+            <linearGradient id="gG8" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+            <linearGradient id="bgG8" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1a3a6b"/><stop offset="100%" stop-color="#0a0f1a"/></linearGradient>
+            <linearGradient id="hF8" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+          </defs>
+          <rect width="400" height="400" fill="url(#bgG8)"/>
+          <circle cx="200" cy="200" r="185" fill="none" stroke="#b8922a" stroke-width="0.8" opacity="0.18"/>
+          <polygon points="312.6,255 200,320 87.4,255 87.4,125 200,60 312.6,125" fill="url(#hF8)" stroke="url(#gG8)" stroke-width="5" stroke-linejoin="round"/>
+          <polygon points="278,190 239,257.1 161,257.1 122,190 161,122.9 239,122.9" fill="none" stroke="#b8922a" stroke-width="2.5" opacity="0.35"/>
+          <line x1="200" y1="190" x2="312.6" y2="255" stroke="#b8922a" stroke-width="1.5" opacity="0.22"/>
+          <line x1="200" y1="190" x2="87.4" y2="255" stroke="#b8922a" stroke-width="1.5" opacity="0.22"/>
+          <line x1="200" y1="190" x2="200" y2="60" stroke="#b8922a" stroke-width="1.5" opacity="0.22"/>
+          <line x1="96" y1="210" x2="304" y2="210" stroke="#b8922a" stroke-width="1.8" opacity="0.28"/>
+          <polyline points="100,210 132,210 152,148 248,148 268,210 300,210" fill="none" stroke="url(#gG8)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="248" cy="148" r="11" fill="#e8c96e"/>
+          <circle cx="248" cy="148" r="20" fill="none" stroke="#e8c96e" stroke-width="2.5" opacity="0.38"/>
+          <text x="200" y="358" font-family="'Libre Baskerville',Georgia,serif" font-size="22" font-weight="700" letter-spacing="0.14em" text-anchor="middle" fill="#b8922a" opacity="0.7">FIELDSHIFT</text>
+        </svg>
+      </div>
+      <div class="icon-cell-label">Social Profile<br>400×400 (preview)</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3: ACADEMIC SEAL
+     ============================================================ -->
+<section class="section">
+  <div class="section-label">Section 03</div>
+  <div class="section-title">Academic Seal</div>
+  <hr class="section-rule">
+
+  <div class="seal-display">
+    <div>
+      <div class="seal-bg-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="240" height="240">
+          <defs>
+            <linearGradient id="gGS" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+            <linearGradient id="hFS" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+            <path id="topArcP" d="M 40,150 A 110,110 0 0,1 260,150"/>
+            <path id="bottomArcP" d="M 68,210 A 110,110 0 0,0 232,210"/>
+            <path id="mottoArcP" d="M 58,150 A 92,92 0 0,1 242,150"/>
+          </defs>
+          <circle cx="150" cy="150" r="142" fill="#0d2247"/>
+          <circle cx="150" cy="150" r="142" fill="none" stroke="url(#gGS)" stroke-width="3"/>
+          <circle cx="150" cy="150" r="134" fill="none" stroke="#b8922a" stroke-width="0.8" opacity="0.5"/>
+          <circle cx="150" cy="150" r="108" fill="none" stroke="#b8922a" stroke-width="1" opacity="0.4"/>
+          <polygon points="212.4,184 150,220 87.6,184 87.6,112 150,76 212.4,112" fill="url(#hFS)" stroke="url(#gGS)" stroke-width="2.5" stroke-linejoin="round"/>
+          <polygon points="193,148 171.5,185.3 128.5,185.3 107,148 128.5,110.7 171.5,110.7" fill="none" stroke="#b8922a" stroke-width="1.2" opacity="0.35"/>
+          <line x1="150" y1="148" x2="212.4" y2="184" stroke="#b8922a" stroke-width="0.9" opacity="0.22"/>
+          <line x1="150" y1="148" x2="87.6" y2="184" stroke="#b8922a" stroke-width="0.9" opacity="0.22"/>
+          <line x1="150" y1="148" x2="150" y2="76" stroke="#b8922a" stroke-width="0.9" opacity="0.22"/>
+          <line x1="94" y1="158" x2="206" y2="158" stroke="#b8922a" stroke-width="1" opacity="0.28"/>
+          <polyline points="96,158 115,158 126,126 174,126 185,158 204,158" fill="none" stroke="url(#gGS)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="174" cy="126" r="5.5" fill="#e8c96e"/>
+          <circle cx="174" cy="126" r="10" fill="none" stroke="#e8c96e" stroke-width="1.4" opacity="0.38"/>
+          <text font-family="'Libre Baskerville',Georgia,serif" font-size="14" font-weight="700" letter-spacing="0.12em" fill="#e8c96e">
+            <textPath href="#topArcP" startOffset="50%" text-anchor="middle">FIELDSHIFT RESEARCH INSTITUTE</textPath>
+          </text>
+          <text font-family="'Libre Baskerville',Georgia,serif" font-size="11" letter-spacing="0.2em" fill="#b8922a">
+            <textPath href="#bottomArcP" startOffset="50%" text-anchor="middle">EST. MMXXV</textPath>
+          </text>
+          <text font-family="'Libre Baskerville',Georgia,serif" font-size="8.5" font-style="italic" letter-spacing="0.06em" fill="#7aabcf" opacity="0.9">
+            <textPath href="#mottoArcP" startOffset="50%" text-anchor="middle">Advancing the Science of State</textPath>
+          </text>
+          <text x="98" y="232" font-family="Georgia,serif" font-size="10" fill="#b8922a" opacity="0.6" text-anchor="middle">&#x2022;</text>
+          <text x="202" y="232" font-family="Georgia,serif" font-size="10" fill="#b8922a" opacity="0.6" text-anchor="middle">&#x2022;</text>
+        </svg>
+      </div>
+      <div style="margin-top:10px;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-300);text-align:center">On dark background</div>
+    </div>
+    <div>
+      <div class="seal-bg-paper">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="180" height="180">
+          <defs>
+            <linearGradient id="gGS2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+            <linearGradient id="hFS2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+            <path id="topArcP2" d="M 40,150 A 110,110 0 0,1 260,150"/>
+            <path id="bottomArcP2" d="M 68,210 A 110,110 0 0,0 232,210"/>
+            <path id="mottoArcP2" d="M 58,150 A 92,92 0 0,1 242,150"/>
+          </defs>
+          <circle cx="150" cy="150" r="142" fill="#0d2247"/>
+          <circle cx="150" cy="150" r="142" fill="none" stroke="url(#gGS2)" stroke-width="3"/>
+          <circle cx="150" cy="150" r="134" fill="none" stroke="#b8922a" stroke-width="0.8" opacity="0.5"/>
+          <circle cx="150" cy="150" r="108" fill="none" stroke="#b8922a" stroke-width="1" opacity="0.4"/>
+          <polygon points="212.4,184 150,220 87.6,184 87.6,112 150,76 212.4,112" fill="url(#hFS2)" stroke="url(#gGS2)" stroke-width="2.5" stroke-linejoin="round"/>
+          <polygon points="193,148 171.5,185.3 128.5,185.3 107,148 128.5,110.7 171.5,110.7" fill="none" stroke="#b8922a" stroke-width="1.2" opacity="0.35"/>
+          <line x1="94" y1="158" x2="206" y2="158" stroke="#b8922a" stroke-width="1" opacity="0.28"/>
+          <polyline points="96,158 115,158 126,126 174,126 185,158 204,158" fill="none" stroke="url(#gGS2)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="174" cy="126" r="5.5" fill="#e8c96e"/>
+          <circle cx="174" cy="126" r="10" fill="none" stroke="#e8c96e" stroke-width="1.4" opacity="0.38"/>
+          <text font-family="'Libre Baskerville',Georgia,serif" font-size="14" font-weight="700" letter-spacing="0.12em" fill="#e8c96e">
+            <textPath href="#topArcP2" startOffset="50%" text-anchor="middle">FIELDSHIFT RESEARCH INSTITUTE</textPath>
+          </text>
+          <text font-family="'Libre Baskerville',Georgia,serif" font-size="11" letter-spacing="0.2em" fill="#b8922a">
+            <textPath href="#bottomArcP2" startOffset="50%" text-anchor="middle">EST. MMXXV</textPath>
+          </text>
+          <text font-family="'Libre Baskerville',Georgia,serif" font-size="8.5" font-style="italic" letter-spacing="0.06em" fill="#7aabcf" opacity="0.9">
+            <textPath href="#mottoArcP2" startOffset="50%" text-anchor="middle">Advancing the Science of State</textPath>
+          </text>
+          <text x="98" y="232" font-family="Georgia,serif" font-size="10" fill="#b8922a" opacity="0.6" text-anchor="middle">&#x2022;</text>
+          <text x="202" y="232" font-family="Georgia,serif" font-size="10" fill="#b8922a" opacity="0.6" text-anchor="middle">&#x2022;</text>
+        </svg>
+      </div>
+      <div style="margin-top:10px;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-300);text-align:center">On paper — 60% size</div>
+    </div>
+    <div style="max-width:280px">
+      <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-300);margin-bottom:12px">Seal usage note</div>
+      <p style="font-family:var(--sans);font-size:13px;color:var(--ink-500);line-height:1.7">For formal institutional use only: diplomas, certificates, official correspondence, legal documents, and ceremonial publications. The seal should not replace the standard wordmark logo in routine communications.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4: COLOR PALETTE
+     ============================================================ -->
+<section class="section">
+  <div class="section-label">Section 04</div>
+  <div class="section-title">Color Palette</div>
+  <hr class="section-rule">
+
+  <div class="palette-section">
+    <div class="palette-group-title">Brand Primaries</div>
+    <div class="swatch-row">
+      <div class="swatch"><div class="swatch-block" style="background:#060d1a"></div><div class="swatch-hex">#060d1a</div><div class="swatch-name">Navy 900</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#0a0f1a"></div><div class="swatch-hex">#0a0f1a</div><div class="swatch-name">Navy 800</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#0d2247"></div><div class="swatch-hex">#0d2247</div><div class="swatch-name">Navy 700 ★</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#1a3a6b"></div><div class="swatch-hex">#1a3a6b</div><div class="swatch-name">Navy 500</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#1e4a8a"></div><div class="swatch-hex">#1e4a8a</div><div class="swatch-name">Navy 400</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#2e5fa0"></div><div class="swatch-hex">#2e5fa0</div><div class="swatch-name">Navy 300</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#5b8db8"></div><div class="swatch-hex">#5b8db8</div><div class="swatch-name">Navy 200</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#a8c4e0"></div><div class="swatch-hex">#a8c4e0</div><div class="swatch-name">Navy 100</div></div>
+    </div>
+    <div class="swatch-row">
+      <div class="swatch"><div class="swatch-block" style="background:#7a5a00"></div><div class="swatch-hex">#7a5a00</div><div class="swatch-name">Gold 900</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#9a7010"></div><div class="swatch-hex">#9a7010</div><div class="swatch-name">Gold 800</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#b8922a"></div><div class="swatch-hex">#b8922a</div><div class="swatch-name">Gold 700 ★</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#c9a840"></div><div class="swatch-hex">#c9a840</div><div class="swatch-name">Gold 600</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#e8c96e"></div><div class="swatch-hex">#e8c96e</div><div class="swatch-name">Gold 400 ★</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#f0d88a"></div><div class="swatch-hex">#f0d88a</div><div class="swatch-name">Gold 300</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#f7e9b8"></div><div class="swatch-hex">#f7e9b8</div><div class="swatch-name">Gold 200</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#fbf5e0"></div><div class="swatch-hex">#fbf5e0</div><div class="swatch-name">Gold 100</div></div>
+    </div>
+  </div>
+
+  <div class="palette-section">
+    <div class="palette-group-title">Paper &amp; Ink</div>
+    <div class="swatch-row">
+      <div class="swatch"><div class="swatch-block" style="background:#f9f6f1;border-color:#d8cfc3"></div><div class="swatch-hex">#f9f6f1</div><div class="swatch-name">Paper ★</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#f2ede5;border-color:#d8cfc3"></div><div class="swatch-hex">#f2ede5</div><div class="swatch-name">Paper 3</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#e8e0d4;border-color:#d8cfc3"></div><div class="swatch-hex">#e8e0d4</div><div class="swatch-name">Paper 4</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#d8cfc3"></div><div class="swatch-hex">#d8cfc3</div><div class="swatch-name">Rule</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#1a1a1a"></div><div class="swatch-hex">#1a1a1a</div><div class="swatch-name">Ink ★</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#4a4a4a"></div><div class="swatch-hex">#4a4a4a</div><div class="swatch-name">Ink 500</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#7a7a7a"></div><div class="swatch-hex">#7a7a7a</div><div class="swatch-name">Ink 300</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#b0b0b0"></div><div class="swatch-hex">#b0b0b0</div><div class="swatch-name">Ink 200</div></div>
+    </div>
+  </div>
+
+  <div class="palette-section">
+    <div class="palette-group-title">Scientific Accent — State Diagrams &amp; Charts Only</div>
+    <div class="swatch-row">
+      <div class="swatch"><div class="swatch-block" style="background:#1a5f5a"></div><div class="swatch-hex">#1a5f5a</div><div class="swatch-name">Teal 700</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#2a7f7a"></div><div class="swatch-hex">#2a7f7a</div><div class="swatch-name">Teal 500</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#5aada8"></div><div class="swatch-hex">#5aada8</div><div class="swatch-name">Teal 300</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#3a5a3a"></div><div class="swatch-hex">#3a5a3a</div><div class="swatch-name">Sage 700</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#4a7a50"></div><div class="swatch-hex">#4a7a50</div><div class="swatch-name">Sage 500</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#7a3a2a"></div><div class="swatch-hex">#7a3a2a</div><div class="swatch-name">Terra 700</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#a04a38"></div><div class="swatch-hex">#a04a38</div><div class="swatch-name">Terra 500</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#5a6a7a"></div><div class="swatch-hex">#5a6a7a</div><div class="swatch-name">Slate 500</div></div>
+    </div>
+  </div>
+
+  <div class="palette-section">
+    <div class="palette-group-title">Status — FSI / SCIA Dashboard</div>
+    <div class="swatch-row">
+      <div class="swatch"><div class="swatch-block" style="background:#c0392b"></div><div class="swatch-hex">#c0392b</div><div class="swatch-name">Danger</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#d68910"></div><div class="swatch-hex">#d68910</div><div class="swatch-name">Warning</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#1e8449"></div><div class="swatch-hex">#1e8449</div><div class="swatch-name">OK</div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#1a5276"></div><div class="swatch-hex">#1a5276</div><div class="swatch-name">Info</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5: TYPOGRAPHY SCALE
+     ============================================================ -->
+<section class="section">
+  <div class="section-label">Section 05</div>
+  <div class="section-title">Typography Scale</div>
+  <hr class="section-rule">
+
+  <div class="type-scale">
+    <div class="type-row">
+      <div class="type-meta">H1 Display<span>Libre Baskerville Bold · ~52px · –3%</span></div>
+      <div class="type-h1">The Science of State</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">H2 Section<span>Libre Baskerville Bold · ~38px · –2%</span></div>
+      <div class="type-h2">Fractal State Theory</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">H3 Subsection<span>Libre Baskerville Regular · ~28px · –1%</span></div>
+      <div class="type-h3">Observer Theory and State-Dependent Inference</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">H4 Card title<span>Libre Baskerville Bold · 20px</span></div>
+      <div class="type-h4">Democratic Stress Indicators</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">H5 Label<span>EB Garamond Semibold · 18px · +1%</span></div>
+      <div class="type-h5">Working Paper Series — State Dynamics</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">H6 Small label<span>EB Garamond Regular Italic · 15px</span></div>
+      <div class="type-h6">Appendix B: Methodology and Variable Construction</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">Body<span>Source Sans 3 Regular · 16px · 1.6 leading</span></div>
+      <div class="type-body">The core challenge in state-based inference is not signal detection, but state identification. A system generating an apparently anomalous signal may simply be in a different state than the observer assumed. FieldShift's methodological framework addresses this systematically.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">Body small<span>Source Sans 3 Regular · 13px · 1.6 leading</span></div>
+      <div class="type-body-sm">V-Dem dataset v16 (2024), covering 202 countries over the period 1789–2024. Electoral democracy index (v2x_polyarchy) used as primary operationalization.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">Pull quote<span>Libre Baskerville Italic · 19px · 1.75 leading</span></div>
+      <div class="type-quote">Before interpreting a signal, determine the state of the system that generated it.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">Caption/label<span>JetBrains Mono · 10px · ALL CAPS · +14%</span></div>
+      <div class="type-caption">Figure 3 — FSI Score Distribution, N=47 Countries, 2000–2023</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">Monospace<span>JetBrains Mono Regular · 14px</span></div>
+      <div class="type-mono">FSI_SCORE = 0.734 · V2X_POLYARCHY − 0.218 · LGDP + ε</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6: TAGLINE SYSTEM
+     ============================================================ -->
+<section class="section">
+  <div class="section-label">Section 06</div>
+  <div class="section-title">Tagline System</div>
+  <hr class="section-rule">
+
+  <div class="tagline-grid">
+    <div class="tagline-row">
+      <div class="tagline-context">Primary Institutional<br>Website · Papers · Presentations</div>
+      <div class="tagline-primary">Advancing the Science of State</div>
+    </div>
+    <div class="tagline-row">
+      <div class="tagline-context">Scientific Motto<br>About pages · Abstracts · Colophons</div>
+      <div class="tagline-motto">"Before interpreting a signal, determine the state of the system that generated it."</div>
+    </div>
+    <div class="tagline-row">
+      <div class="tagline-context">Short — Merchandise<br>Apparel · Pins · Mugs</div>
+      <div class="tagline-short">State Matters</div>
+    </div>
+    <div class="tagline-row">
+      <div class="tagline-context">Technical Short<br>Research audience · Stickers</div>
+      <div class="tagline-short" style="font-family:var(--mono);font-size:16px;letter-spacing:0.08em;color:var(--navy-500)">State Before Signal</div>
+    </div>
+    <div class="tagline-row">
+      <div class="tagline-context">Icon-only context<br>Favicon · App nav</div>
+      <div style="font-family:var(--sans);font-size:13px;color:var(--ink-300);font-style:italic">No tagline — symbol mark only</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 7: RESEARCH CARD
+     ============================================================ -->
+<section class="section">
+  <div class="section-label">Section 07</div>
+  <div class="section-title">Research Card Component</div>
+  <hr class="section-rule">
+
+  <div class="research-card">
+    <div class="rc-discipline">Fractal State Theory · Working Paper</div>
+    <div class="rc-title">State-Dependent Threshold Detection in Democratic Systems: A Fractal State Theory Approach</div>
+    <div class="rc-authors">
+      T. Hedlund-Leijon,&nbsp;
+      <span>FieldShift Research Institute</span>
+    </div>
+    <hr class="rc-rule">
+    <div class="rc-abstract-label">Abstract</div>
+    <div class="rc-abstract">We propose a state-theoretic framework for identifying democratic fragility thresholds. Classical early warning models treat democratic decline as a continuous process; we demonstrate that the underlying dynamic is better characterized as a system occupying discrete states, with transitions concentrated at threshold crossings. Using V-Dem data (v16, 1900–2024, N=202 countries), we show that the FSI score discriminates pre-transition from stable states with AUC 0.87 at five-year forecast horizons. Crucially, predictive accuracy depends on correctly identifying the system's current state before applying the model — consistent with the central premise of Fractal State Theory.</div>
+    <div class="rc-meta">
+      <div class="rc-meta-item">DOI <strong>10.xxxx/fst.2025.001</strong></div>
+      <div class="rc-meta-item">Date <strong>June 2025</strong></div>
+      <div class="rc-meta-item">Pages <strong>38</strong></div>
+      <div class="rc-meta-item">Dataset <strong>V-Dem v16</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 8: PAPER COVER HEADER
+     ============================================================ -->
+<section class="section">
+  <div class="section-label">Section 08</div>
+  <div class="section-title">Paper Cover Header</div>
+  <hr class="section-rule">
+
+  <div class="paper-cover">
+    <div class="paper-cover-logo-row">
+      <!-- Inline compact logo -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 72" width="220" height="auto">
+        <defs>
+          <linearGradient id="gGPC" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+          <linearGradient id="hFPC" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+        </defs>
+        <polygon points="54,36 45.5,51.9 28.5,51.9 20,36 28.5,20.1 45.5,20.1" fill="url(#hFPC)" stroke="url(#gGPC)" stroke-width="1.4" stroke-linejoin="round"/>
+        <polygon points="48,36 42,46.4 30,46.4 24,36 30,25.6 42,25.6" fill="none" stroke="#b8922a" stroke-width="0.6" opacity="0.35"/>
+        <line x1="37" y1="36" x2="54" y2="36" stroke="#b8922a" stroke-width="0.5" opacity="0.22"/>
+        <line x1="37" y1="36" x2="28.5" y2="51.9" stroke="#b8922a" stroke-width="0.5" opacity="0.22"/>
+        <line x1="37" y1="36" x2="28.5" y2="20.1" stroke="#b8922a" stroke-width="0.5" opacity="0.22"/>
+        <line x1="22" y1="41" x2="52" y2="41" stroke="#b8922a" stroke-width="0.5" opacity="0.28"/>
+        <polyline points="22,41 28,41 31,30 43,30 46,41 52,41" fill="none" stroke="url(#gGPC)" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="43" cy="30" r="2.2" fill="#e8c96e"/>
+        <text x="66" y="32" font-family="'Libre Baskerville',Georgia,serif" font-size="19" font-weight="700" letter-spacing="-0.5" fill="#f0ece4">Field<tspan fill="#e8c96e">Shift</tspan></text>
+        <text x="67" y="46" font-family="'Source Sans 3',system-ui,sans-serif" font-size="8" letter-spacing="0.16em" fill="#7aabcf">RESEARCH INSTITUTE</text>
+        <line x1="67" y1="54" x2="250" y2="54" stroke="#b8922a" stroke-width="0.6" opacity="0.55"/>
+        <text x="67" y="65" font-family="'Libre Baskerville',Georgia,serif" font-size="7.5" font-style="italic" letter-spacing="0.04em" fill="#a8c4e0">Advancing the Science of State</text>
+      </svg>
+      <div class="paper-cover-issue">
+        Working Paper · WP-2025-001<br>
+        Fractal State Theory Series<br>
+        Submitted: June 2025
+      </div>
+    </div>
+
+    <div class="paper-cover-series">FST Working Paper Series</div>
+    <div class="paper-cover-title">State-Dependent Threshold Detection in Democratic Systems: A Fractal State Theory Approach</div>
+    <div class="paper-cover-subtitle">With empirical application to V-Dem electoral democracy data, 202 countries, 1900–2024</div>
+
+    <div class="paper-cover-authors">T. Hedlund-Leijon</div>
+    <div class="paper-cover-affil">FieldShift Research Institute · Advancing the Science of State</div>
+
+    <div class="paper-cover-doi">
+      DOI: 10.xxxx/fst.2025.001 &nbsp;·&nbsp; ISSN: XXXX-XXXX &nbsp;·&nbsp;
+      © 2025 FieldShift Research Institute. All rights reserved.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 9: DASHBOARD METRIC CARDS
+     ============================================================ -->
+<section class="section">
+  <div class="section-label">Section 09</div>
+  <div class="section-title">Dashboard Metric Cards</div>
+  <hr class="section-rule">
+
+  <div class="dashboard-row">
+    <div class="metric-card ok">
+      <div class="metric-label">FSI Score — Norway</div>
+      <div class="metric-value">0.94</div>
+      <div class="metric-unit">Electoral democracy index</div>
+      <div class="metric-delta pos">+0.02 vs prior year</div>
+    </div>
+    <div class="metric-card warn">
+      <div class="metric-label">FSI Score — Brazil</div>
+      <div class="metric-value">0.61</div>
+      <div class="metric-unit">Electoral democracy index</div>
+      <div class="metric-delta">−0.08 vs prior year</div>
+    </div>
+    <div class="metric-card danger">
+      <div class="metric-label">FSI Score — Hungary</div>
+      <div class="metric-value">0.33</div>
+      <div class="metric-unit">Electoral democracy index</div>
+      <div class="metric-delta">−0.14 vs prior year</div>
+    </div>
+  </div>
+
+  <!-- Scientific state diagram -->
+  <div style="margin-top:24px">
+    <div class="state-diagram">
+      <div class="state-diagram-title">Regional FSI State Distribution — 2024</div>
+      <div class="state-bars">
+        <div class="state-bar-row">
+          <div class="state-bar-label">W. Europe</div>
+          <div class="state-bar-track"><div class="state-bar-fill" style="width:88%;background:#2a7f7a"></div></div>
+          <div class="state-bar-val">0.88</div>
+        </div>
+        <div class="state-bar-row">
+          <div class="state-bar-label">N. America</div>
+          <div class="state-bar-track"><div class="state-bar-fill" style="width:75%;background:#2a7f7a"></div></div>
+          <div class="state-bar-val">0.75</div>
+        </div>
+        <div class="state-bar-row">
+          <div class="state-bar-label">L. America</div>
+          <div class="state-bar-track"><div class="state-bar-fill" style="width:54%;background:#b8922a"></div></div>
+          <div class="state-bar-val">0.54</div>
+        </div>
+        <div class="state-bar-row">
+          <div class="state-bar-label">E. Europe</div>
+          <div class="state-bar-track"><div class="state-bar-fill" style="width:42%;background:#d68910"></div></div>
+          <div class="state-bar-val">0.42</div>
+        </div>
+        <div class="state-bar-row">
+          <div class="state-bar-label">Middle East</div>
+          <div class="state-bar-track"><div class="state-bar-fill" style="width:22%;background:#a04a38"></div></div>
+          <div class="state-bar-val">0.22</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 10: MERCHANDISE
+     ============================================================ -->
+<section class="section">
+  <div class="section-label">Section 10</div>
+  <div class="section-title">Merchandise Mock</div>
+  <hr class="section-rule">
+
+  <div class="merch-row">
+
+    <!-- Dark hoodie -->
+    <div class="merch-item">
+      <div class="hoodie-mock">
+        <!-- Inline hex mark (small) -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="52" height="52">
+          <defs>
+            <linearGradient id="gGM1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+            <linearGradient id="hFM1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+          </defs>
+          <polygon points="88.1,50 72,79.1 28,79.1 11.9,50 28,20.9 72,20.9" fill="url(#hFM1)" stroke="url(#gGM1)" stroke-width="2.4" stroke-linejoin="round"/>
+          <polygon points="76,50 63,72.5 37,72.5 24,50 37,27.5 63,27.5" fill="none" stroke="#b8922a" stroke-width="1.1" opacity="0.38"/>
+          <line x1="16" y1="60" x2="84" y2="60" stroke="#b8922a" stroke-width="0.9" opacity="0.28"/>
+          <polyline points="18,60 31,60 38,38 62,38 69,60 82,60" fill="none" stroke="url(#gGM1)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="62" cy="38" r="4" fill="#e8c96e"/>
+        </svg>
+        <div class="hoodie-logo-text">Field<em>Shift</em></div>
+        <div class="hoodie-sub">Research Institute</div>
+        <div class="hoodie-rule"></div>
+        <div class="hoodie-tagline">Advancing the Science of State</div>
+      </div>
+      <div class="merch-label">Dark Hoodie — Full logo</div>
+    </div>
+
+    <!-- Hat / cap -->
+    <div class="merch-item">
+      <div class="hat-mock">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="58" height="58" style="position:relative;z-index:1">
+          <defs>
+            <linearGradient id="gGM2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+            <linearGradient id="hFM2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+          </defs>
+          <polygon points="88.1,50 72,79.1 28,79.1 11.9,50 28,20.9 72,20.9" fill="url(#hFM2)" stroke="url(#gGM2)" stroke-width="2.4" stroke-linejoin="round"/>
+          <polyline points="18,60 31,60 38,38 62,38 69,60 82,60" fill="none" stroke="url(#gGM2)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="62" cy="38" r="4" fill="#e8c96e"/>
+        </svg>
+        <div class="hat-brim"></div>
+      </div>
+      <div class="merch-label">Cap — Symbol only<br>(embroidered)</div>
+    </div>
+
+    <!-- Sticker -->
+    <div class="merch-item">
+      <div class="sticker-mock">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="54" height="54">
+          <defs>
+            <linearGradient id="gGM3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c96e"/><stop offset="100%" stop-color="#b8922a"/></linearGradient>
+            <linearGradient id="hFM3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1e4a8a"/><stop offset="100%" stop-color="#0d2247"/></linearGradient>
+          </defs>
+          <polygon points="88.1,50 72,79.1 28,79.1 11.9,50 28,20.9 72,20.9" fill="url(#hFM3)" stroke="url(#gGM3)" stroke-width="2.4" stroke-linejoin="round"/>
+          <polygon points="76,50 63,72.5 37,72.5 24,50 37,27.5 63,27.5" fill="none" stroke="#b8922a" stroke-width="1.1" opacity="0.38"/>
+          <polyline points="18,60 31,60 38,38 62,38 69,60 82,60" fill="none" stroke="url(#gGM3)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="62" cy="38" r="4" fill="#e8c96e"/>
+          <circle cx="62" cy="38" r="7.5" fill="none" stroke="#e8c96e" stroke-width="1" opacity="0.4"/>
+        </svg>
+        <div class="sticker-tag">State Before Signal</div>
+      </div>
+      <div class="merch-label">Sticker — Technical tagline</div>
+    </div>
+
+    <!-- Mug -->
+    <div class="merch-item">
+      <div style="background:#1a1c1e;width:140px;height:120px;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px">
+        <div style="font-family:var(--serif);font-size:15px;font-weight:700;color:#f0ece4;letter-spacing:-0.02em">Field<span style="color:#e8c96e">Shift</span></div>
+        <div style="width:60px;height:1px;background:rgba(184,146,42,0.45)"></div>
+        <div style="font-family:var(--serif);font-style:italic;font-size:8px;color:rgba(232,201,110,0.7);letter-spacing:0.06em;text-align:center">State Matters</div>
+      </div>
+      <div class="merch-label">Mug — Short tagline</div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     PAGE FOOTER
+     ============================================================ -->
+<footer class="page-footer">
+  <div class="page-footer-text">
+    <span>FieldShift Research Institute</span> — Brand Identity Reference v1.0 — 2025 —
+    "Before interpreting a signal, determine the state of the system that generated it."
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" width="360" height="100" role="img" aria-label="FieldShift Research Institute">
+
+  <!-- White background -->
+  <rect width="360" height="100" fill="#ffffff"/>
+
+  <!-- === HEXAGON MARK at (50,50), R=34 flat-top === -->
+  <polygon
+    points="79.5,50 67.0,72.4 41.5,72.4 29.0,50 41.5,27.6 67.0,27.6"
+    fill="#1a1a1a"
+    stroke="#1a1a1a"
+    stroke-width="1.5"
+    stroke-linejoin="round"/>
+
+  <!-- Inner hexagon (rotated 30°, R=20) -->
+  <polygon
+    points="70,50 60,67.3 40,67.3 30,50 40,32.7 60,32.7"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="0.8"
+    opacity="0.5"/>
+
+  <!-- Radial spokes -->
+  <line x1="50" y1="50" x2="79.5" y2="50"  stroke="#ffffff" stroke-width="0.6" opacity="0.4"/>
+  <line x1="50" y1="50" x2="41.5" y2="72.4" stroke="#ffffff" stroke-width="0.6" opacity="0.4"/>
+  <line x1="50" y1="50" x2="41.5" y2="27.6" stroke="#ffffff" stroke-width="0.6" opacity="0.4"/>
+
+  <!-- Baseline rule -->
+  <line x1="32" y1="57" x2="68" y2="57" stroke="#ffffff" stroke-width="0.6" opacity="0.35"/>
+
+  <!-- Threshold polyline -->
+  <polyline
+    points="33,57 40,57 44,43 56,43 60,57 67,57"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="2.2"
+    stroke-linejoin="round"
+    stroke-linecap="round"/>
+
+  <!-- Observer dot -->
+  <circle cx="56" cy="43" r="2.8" fill="#ffffff"/>
+  <circle cx="56" cy="43" r="5" fill="none" stroke="#ffffff" stroke-width="0.7" opacity="0.5"/>
+
+  <!-- === WORDMARK === -->
+  <text x="100" y="44"
+        font-family="'Libre Baskerville', Georgia, serif"
+        font-size="26"
+        font-weight="700"
+        letter-spacing="-0.5"
+        fill="#1a1a1a">FieldShift</text>
+
+  <text x="101" y="62"
+        font-family="'Source Sans 3', system-ui, sans-serif"
+        font-size="10.5"
+        font-weight="400"
+        letter-spacing="0.16em"
+        fill="#4a4a4a">RESEARCH INSTITUTE</text>
+
+  <!-- Divider rule -->
+  <line x1="101" y1="72" x2="346" y2="72" stroke="#1a1a1a" stroke-width="0.7" opacity="0.4"/>
+
+  <!-- Tagline -->
+  <text x="101" y="86"
+        font-family="'Libre Baskerville', Georgia, serif"
+        font-size="9.5"
+        font-style="italic"
+        letter-spacing="0.04em"
+        fill="#4a4a4a">Advancing the Science of State</text>
+</svg>
