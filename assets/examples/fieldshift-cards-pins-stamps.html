@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FieldShift — Cards, Pins &amp; Stamps · Thomas Hedlund Leijon</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d2247;--navy-mid:#1a3a6b;
+  --gold:#b8922a;--gold-lt:#c9a84c;--gold-pale:#e8c96e;
+  --paper:#f9f6f1;--paper-2:#f2ede5;--rule:#d8cfc3;
+  --ink:#1a1a1a;--ink-soft:#4a4a4a;--ink-light:#7a7a7a;
+  --serif:'Libre Baskerville',Georgia,serif;
+  --sans:'Source Sans 3',system-ui,sans-serif;
+  --mono:'JetBrains Mono','Courier New',monospace;
+}
+body{background:#dedad4;font-family:var(--sans);min-height:100vh;padding:0 0 80px}
+
+.page-header{background:var(--navy);border-bottom:3px solid var(--gold-lt);padding:24px 48px 20px}
+.page-header h1{font-family:var(--serif);font-size:20px;font-weight:700;color:#f0ece4;letter-spacing:-.3px}
+.page-header h1 span{color:var(--gold-pale)}
+.page-header p{font-size:10px;letter-spacing:.2em;color:#7aabcf;margin-top:4px;text-transform:uppercase;font-family:var(--mono)}
+
+.sheet{max-width:1240px;margin:0 auto;padding:52px 40px}
+.section{margin-bottom:64px}
+.section-label{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:#7a7a7a;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid #ccc8c0}
+.row{display:flex;gap:40px;align-items:flex-end;flex-wrap:wrap}
+.item{display:flex;flex-direction:column;align-items:center;gap:9px}
+.item svg{border-radius:5px;box-shadow:0 5px 20px rgba(0,0,0,.2),0 1px 4px rgba(0,0,0,.12);display:block}
+.item svg.light{box-shadow:0 5px 20px rgba(0,0,0,.12),0 1px 4px rgba(0,0,0,.06),0 0 0 1px #d0cbc3}
+.lbl{font-family:var(--mono);font-size:8px;letter-spacing:.16em;color:#8a8a7a;text-align:center;text-transform:uppercase}
+
+.footer{border-top:1px solid #ccc8c0;margin-top:20px;padding-top:18px;
+  display:flex;justify-content:space-between;align-items:center}
+.footer-brand{font-family:var(--serif);font-size:13px;font-weight:700;color:var(--ink-soft)}
+.footer-brand span{color:var(--gold)}
+.footer-note{font-family:var(--mono);font-size:9px;color:var(--ink-light);letter-spacing:.08em}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Field<span>Shift</span> Research Institute</h1>
+  <p>Business Cards · Lapel Pins · Stamps · Thomas Hedlund Leijon</p>
+</div>
+
+<div class="sheet">
+
+<!-- ═══════════════════════════════════════════════
+     1. BUSINESS CARDS — revised
+═══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Business Card — Revised · Dark &amp; Light · Front &amp; Back</div>
+  <div class="row">
+
+    <!-- DARK FRONT -->
+    <div class="item">
+      <svg viewBox="0 0 850 500" width="408" height="240" xmlns="http://www.w3.org/2000/svg">
+        <rect width="850" height="500" rx="10" fill="#0d2247"/>
+        <rect x="0" y="0"   width="850" height="5" fill="#c9a84c"/>
+        <rect x="0" y="495" width="850" height="5" fill="#c9a84c"/>
+
+        <!-- Institute name -->
+        <text x="52" y="70"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="14.5" font-weight="400" letter-spacing="4.5"
+              fill="#7aabcf">FIELDSHIFT RESEARCH INSTITUTE</text>
+        <line x1="52" y1="82" x2="798" y2="82" stroke="#c9a84c" stroke-width=".7" opacity=".35"/>
+
+        <!-- Name — refined, smaller -->
+        <text x="52" y="168"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="48" font-weight="700" letter-spacing="-.8"
+              fill="#f0ece4">Thomas Hedlund Leijon</text>
+
+        <!-- Thin rule -->
+        <line x1="52" y1="188" x2="480" y2="188" stroke="#c9a84c" stroke-width=".6" opacity=".3"/>
+
+        <!-- Roles -->
+        <text x="52" y="218"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="18" font-weight="300" letter-spacing="2"
+              fill="#a8c4e0">Founder · Research Director</text>
+
+        <!-- Originator -->
+        <text x="52" y="256"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="16" font-style="italic" letter-spacing=".2"
+              fill="#7aabcf">Originator of Fractal State Theory</text>
+
+        <!-- Motto right-aligned, lower -->
+        <text x="798" y="390"
+              text-anchor="end"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="12" font-style="italic" letter-spacing=".3"
+              fill="#3a5a7a">Advancing the Science of State</text>
+
+        <!-- Website -->
+        <text x="52" y="434"
+              font-family="'JetBrains Mono','Courier New',monospace"
+              font-size="13" fill="#4a6a8a" letter-spacing=".5">fieldshift.institute</text>
+
+        <!-- Gold dot accent -->
+        <circle cx="798" cy="434" r="4" fill="#c9a84c" opacity=".6"/>
+        <circle cx="782" cy="434" r="4" fill="#c9a84c" opacity=".25"/>
+        <circle cx="766" cy="434" r="4" fill="#c9a84c" opacity=".1"/>
+      </svg>
+      <div class="lbl">Dark · Front</div>
+    </div>
+
+    <!-- DARK BACK -->
+    <div class="item">
+      <svg viewBox="0 0 850 500" width="408" height="240" xmlns="http://www.w3.org/2000/svg">
+        <rect width="850" height="500" rx="10" fill="#0d2247"/>
+        <rect x="0" y="0"   width="850" height="5" fill="#c9a84c"/>
+        <rect x="0" y="495" width="850" height="5" fill="#c9a84c"/>
+
+        <text x="425" y="214"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="72" font-weight="700" letter-spacing="-2"
+              fill="#f0ece4">Field<tspan fill="#c9a84c">Shift</tspan></text>
+        <line x1="140" y1="238" x2="710" y2="238" stroke="#c9a84c" stroke-width=".9" opacity=".4"/>
+        <text x="425" y="278"
+              text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="16" font-weight="300" letter-spacing="7"
+              fill="#7aabcf">RESEARCH INSTITUTE</text>
+        <text x="425" y="334"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="13" font-style="italic" letter-spacing=".4"
+              fill="#4a6a8a">Advancing the Science of State</text>
+      </svg>
+      <div class="lbl">Dark · Back</div>
+    </div>
+
+    <!-- LIGHT FRONT -->
+    <div class="item">
+      <svg viewBox="0 0 850 500" width="408" height="240" class="light" xmlns="http://www.w3.org/2000/svg">
+        <rect width="850" height="500" rx="10" fill="#ffffff"/>
+        <rect x="0" y="0"   width="850" height="6" fill="#0d2247"/>
+        <rect x="0" y="494" width="850" height="6" fill="#c9a84c"/>
+
+        <text x="52" y="70"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="14.5" font-weight="400" letter-spacing="4.5"
+              fill="#1a3a6b">FIELDSHIFT RESEARCH INSTITUTE</text>
+        <line x1="52" y1="82" x2="798" y2="82" stroke="#b8922a" stroke-width=".7" opacity=".3"/>
+
+        <text x="52" y="168"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="48" font-weight="700" letter-spacing="-.8"
+              fill="#0d2247">Thomas Hedlund Leijon</text>
+
+        <line x1="52" y1="188" x2="480" y2="188" stroke="#b8922a" stroke-width=".6" opacity=".28"/>
+
+        <text x="52" y="218"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="18" font-weight="300" letter-spacing="2"
+              fill="#4a4a4a">Founder · Research Director</text>
+
+        <text x="52" y="256"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="16" font-style="italic" letter-spacing=".2"
+              fill="#4a6080">Originator of Fractal State Theory</text>
+
+        <text x="798" y="390"
+              text-anchor="end"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="12" font-style="italic" letter-spacing=".3"
+              fill="#9aabba">Advancing the Science of State</text>
+
+        <text x="52" y="434"
+              font-family="'JetBrains Mono','Courier New',monospace"
+              font-size="13" fill="#7a7a7a" letter-spacing=".5">fieldshift.institute</text>
+
+        <circle cx="798" cy="434" r="4" fill="#b8922a" opacity=".5"/>
+        <circle cx="782" cy="434" r="4" fill="#b8922a" opacity=".22"/>
+        <circle cx="766" cy="434" r="4" fill="#b8922a" opacity=".09"/>
+      </svg>
+      <div class="lbl">Light · Front</div>
+    </div>
+
+    <!-- LIGHT BACK -->
+    <div class="item">
+      <svg viewBox="0 0 850 500" width="408" height="240" class="light" xmlns="http://www.w3.org/2000/svg">
+        <rect width="850" height="500" rx="10" fill="#ffffff"/>
+        <rect x="0" y="0"   width="850" height="6" fill="#0d2247"/>
+        <rect x="0" y="494" width="850" height="6" fill="#c9a84c"/>
+
+        <text x="425" y="214"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="72" font-weight="700" letter-spacing="-2"
+              fill="#0d2247">Field<tspan fill="#b8922a">Shift</tspan></text>
+        <line x1="140" y1="238" x2="710" y2="238" stroke="#b8922a" stroke-width=".9" opacity=".3"/>
+        <text x="425" y="278"
+              text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="16" font-weight="300" letter-spacing="7"
+              fill="#1a3a6b">RESEARCH INSTITUTE</text>
+        <text x="425" y="334"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="13" font-style="italic" letter-spacing=".4"
+              fill="#6a8aaa">Advancing the Science of State</text>
+      </svg>
+      <div class="lbl">Light · Back</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     2. LAPEL PINS
+═══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Lapel Pins — Kavajslaget</div>
+  <div class="row" style="align-items:center;gap:48px">
+
+    <!-- Pin 1: Round seal pin 28mm -->
+    <div class="item">
+      <svg viewBox="0 0 220 260" width="160" height="190" xmlns="http://www.w3.org/2000/svg">
+        <!-- Shadow -->
+        <ellipse cx="110" cy="250" rx="60" ry="7" fill="#b0a898" opacity=".35"/>
+        <!-- Needle -->
+        <line x1="110" y1="200" x2="110" y2="248" stroke="#8a8a7a" stroke-width="1.5"/>
+        <circle cx="110" cy="200" r="3.5" fill="#a8a09a"/>
+        <rect x="96" y="236" width="28" height="9" rx="2" fill="#a8a09a"/>
+
+        <!-- Gold outer ring (pin metal frame) -->
+        <circle cx="110" cy="104" r="98" fill="#c9a84c"/>
+        <!-- Navy enamel body -->
+        <circle cx="110" cy="104" r="92" fill="#0d2247"/>
+        <!-- Inner gold rings -->
+        <circle cx="110" cy="104" r="92" fill="none" stroke="#c9a84c" stroke-width="2.5"/>
+        <circle cx="110" cy="104" r="84" fill="none" stroke="#c9a84c" stroke-width=".7" opacity=".4"/>
+
+        <!-- Compass dots -->
+        <circle cx="110" cy="14" r="2"  fill="#c9a84c" opacity=".6"/>
+        <circle cx="110" cy="194" r="2" fill="#c9a84c" opacity=".6"/>
+        <circle cx="20"  cy="104" r="2" fill="#c9a84c" opacity=".6"/>
+        <circle cx="200" cy="104" r="2" fill="#c9a84c" opacity=".6"/>
+
+        <!-- Text arc paths -->
+        <defs>
+          <path id="p1t" d="M 22,104 A 88,88 0 0,1 198,104"/>
+          <path id="p1b" d="M 44,160 A 88,88 0 0,0 176,160"/>
+        </defs>
+        <text font-family="'Libre Baskerville',Georgia,serif" font-size="12" font-weight="700"
+              letter-spacing=".14em" fill="#c9a84c">
+          <textPath href="#p1t" startOffset="50%" text-anchor="middle">FIELDSHIFT · RESEARCH</textPath>
+        </text>
+        <text font-family="'Libre Baskerville',Georgia,serif" font-size="11" letter-spacing=".14em"
+              fill="#c9a84c" opacity=".75">
+          <textPath href="#p1b" startOffset="50%" text-anchor="middle">INSTITUTE · EST. MMXXV</textPath>
+        </text>
+
+        <!-- Centre wordmark -->
+        <text x="110" y="114"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="26" font-weight="700" letter-spacing="-1"
+              fill="#f0ece4">Field<tspan fill="#c9a84c">Shift</tspan></text>
+        <line x1="56" y1="120" x2="164" y2="120" stroke="#c9a84c" stroke-width=".6" opacity=".3"/>
+      </svg>
+      <div class="lbl">Round Seal Pin · 28 mm</div>
+    </div>
+
+    <!-- Pin 2: Round name pin — personal -->
+    <div class="item">
+      <svg viewBox="0 0 220 260" width="160" height="190" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="110" cy="250" rx="60" ry="7" fill="#b0a898" opacity=".35"/>
+        <line x1="110" y1="200" x2="110" y2="248" stroke="#8a8a7a" stroke-width="1.5"/>
+        <circle cx="110" cy="200" r="3.5" fill="#a8a09a"/>
+        <rect x="96" y="236" width="28" height="9" rx="2" fill="#a8a09a"/>
+
+        <circle cx="110" cy="104" r="98" fill="#c9a84c"/>
+        <circle cx="110" cy="104" r="92" fill="#0d2247"/>
+        <circle cx="110" cy="104" r="92" fill="none" stroke="#c9a84c" stroke-width="2.5"/>
+        <circle cx="110" cy="104" r="84" fill="none" stroke="#c9a84c" stroke-width=".7" opacity=".4"/>
+
+        <circle cx="110" cy="14" r="2"  fill="#c9a84c" opacity=".6"/>
+        <circle cx="110" cy="194" r="2" fill="#c9a84c" opacity=".6"/>
+        <circle cx="20"  cy="104" r="2" fill="#c9a84c" opacity=".6"/>
+        <circle cx="200" cy="104" r="2" fill="#c9a84c" opacity=".6"/>
+
+        <defs>
+          <path id="p2t" d="M 22,104 A 88,88 0 0,1 198,104"/>
+          <path id="p2b" d="M 44,160 A 88,88 0 0,0 176,160"/>
+        </defs>
+        <text font-family="'Source Sans 3',Arial,sans-serif" font-size="11" font-weight="600"
+              letter-spacing=".18em" fill="#c9a84c">
+          <textPath href="#p2t" startOffset="50%" text-anchor="middle">THOMAS HEDLUND LEIJON</textPath>
+        </text>
+        <text font-family="'Source Sans 3',Arial,sans-serif" font-size="10" letter-spacing=".12em"
+              fill="#7aabcf" opacity=".85">
+          <textPath href="#p2b" startOffset="50%" text-anchor="middle">FOUNDER · RESEARCH DIRECTOR</textPath>
+        </text>
+
+        <!-- Centre: initials THL -->
+        <text x="110" y="120"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="44" font-weight="700" letter-spacing="-1"
+              fill="#c9a84c">THL</text>
+        <line x1="56" y1="128" x2="164" y2="128" stroke="#c9a84c" stroke-width=".6" opacity=".28"/>
+      </svg>
+      <div class="lbl">Personal Pin · THL · 28 mm</div>
+    </div>
+
+    <!-- Pin 3: Rectangular bar pin -->
+    <div class="item">
+      <svg viewBox="0 0 320 120" width="260" height="96" xmlns="http://www.w3.org/2000/svg">
+        <!-- Shadow -->
+        <rect x="16" y="98" width="290" height="6" rx="3" fill="#b0a898" opacity=".3"/>
+        <!-- Gold outer frame -->
+        <rect x="4" y="8" width="312" height="80" rx="8" fill="#c9a84c"/>
+        <!-- Navy body -->
+        <rect x="8" y="12" width="304" height="72" rx="6" fill="#0d2247"/>
+        <!-- Inner rule lines -->
+        <rect x="8" y="12" width="304" height="72" rx="6" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+        <line x1="18" y1="48" x2="302" y2="48" stroke="#c9a84c" stroke-width=".5" opacity=".15"/>
+
+        <!-- Wordmark left -->
+        <text x="24" y="38"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="18" font-weight="700" letter-spacing="-.4"
+              fill="#f0ece4">Field<tspan fill="#c9a84c">Shift</tspan></text>
+        <!-- Institute name -->
+        <text x="24" y="57"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="7.5" font-weight="300" letter-spacing=".22em"
+              fill="#7aabcf">RESEARCH INSTITUTE</text>
+
+        <!-- Vertical divider -->
+        <line x1="196" y1="20" x2="196" y2="76" stroke="#c9a84c" stroke-width=".7" opacity=".3"/>
+
+        <!-- Name right -->
+        <text x="208" y="38"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="13" font-weight="700" letter-spacing="-.2"
+              fill="#f0ece4">Thomas Hedlund Leijon</text>
+        <text x="208" y="54"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="7.5" font-weight="300" letter-spacing=".12em"
+              fill="#a8c4e0">Founder · Research Director</text>
+        <text x="208" y="68"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="6.5" font-style="italic" letter-spacing=".1em"
+              fill="#5a7a9a">Originator, Fractal State Theory</text>
+
+        <!-- Needle back -->
+        <line x1="80"  y1="84" x2="80"  y2="100" stroke="#8a8a7a" stroke-width="1.2"/>
+        <line x1="160" y1="84" x2="160" y2="100" stroke="#8a8a7a" stroke-width="1.2"/>
+        <line x1="240" y1="84" x2="240" y2="100" stroke="#8a8a7a" stroke-width="1.2"/>
+      </svg>
+      <div class="lbl">Bar Pin · Rectangular · 70 mm</div>
+    </div>
+
+    <!-- Pin 4: Small white round pin -->
+    <div class="item">
+      <svg viewBox="0 0 180 220" width="130" height="158" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="90" cy="212" rx="46" ry="6" fill="#b0a898" opacity=".3"/>
+        <line x1="90" y1="164" x2="90" y2="210" stroke="#8a8a7a" stroke-width="1.2"/>
+        <circle cx="90" cy="164" r="3" fill="#a8a09a"/>
+        <rect x="78" y="198" width="24" height="8" rx="2" fill="#a8a09a"/>
+
+        <!-- White enamel pin -->
+        <circle cx="90" cy="84" r="78" fill="#d8cfc3"/>
+        <circle cx="90" cy="84" r="74" fill="#ffffff"/>
+        <circle cx="90" cy="84" r="74" fill="none" stroke="#0d2247" stroke-width="2.5"/>
+        <circle cx="90" cy="84" r="67" fill="none" stroke="#0d2247" stroke-width=".6" opacity=".35"/>
+
+        <defs>
+          <path id="p4t" d="M 18,84 A 72,72 0 0,1 162,84"/>
+          <path id="p4b" d="M 36,136 A 72,72 0 0,0 144,136"/>
+        </defs>
+        <text font-family="'Libre Baskerville',Georgia,serif" font-size="10" font-weight="700"
+              letter-spacing=".13em" fill="#0d2247">
+          <textPath href="#p4t" startOffset="50%" text-anchor="middle">FIELDSHIFT · RESEARCH</textPath>
+        </text>
+        <text font-family="'Libre Baskerville',Georgia,serif" font-size="9" letter-spacing=".13em"
+              fill="#0d2247" opacity=".65">
+          <textPath href="#p4b" startOffset="50%" text-anchor="middle">INSTITUTE · EST. MMXXV</textPath>
+        </text>
+
+        <text x="90" y="94"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="22" font-weight="700" letter-spacing="-.8"
+              fill="#0d2247">Field<tspan fill="#b8922a">Shift</tspan></text>
+        <line x1="44" y1="100" x2="136" y2="100" stroke="#b8922a" stroke-width=".6" opacity=".3"/>
+      </svg>
+      <div class="lbl">Round Pin · White · 22 mm</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     3. STAMPS
+═══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Stamps — Stämplar</div>
+  <div class="row" style="align-items:flex-start;gap:52px">
+
+    <!-- Stamp 1: Round seal stamp (ink impression) -->
+    <div class="item">
+      <!-- The stamp die face (rubber face) -->
+      <svg viewBox="0 0 300 340" width="240" height="272" xmlns="http://www.w3.org/2000/svg">
+        <!-- Rubber mount body -->
+        <rect x="20" y="220" width="260" height="28" rx="4" fill="#8a5c3a"/>
+        <rect x="30" y="214" width="240" height="14" rx="3" fill="#6b4228"/>
+        <!-- Handle wood -->
+        <rect x="90" y="140" width="120" height="80" rx="6" fill="#c8943a"/>
+        <rect x="90" y="140" width="120" height="12" rx="4" fill="#b07820"/>
+        <rect x="90" y="208" width="120" height="12" rx="0" fill="#b07820"/>
+        <!-- Handle grip bands -->
+        <line x1="90" y1="165" x2="210" y2="165" stroke="#b07820" stroke-width="2" opacity=".5"/>
+        <line x1="90" y1="182" x2="210" y2="182" stroke="#b07820" stroke-width="2" opacity=".5"/>
+        <!-- Mount base (rubber holder) -->
+        <rect x="10" y="222" width="280" height="6" rx="2" fill="#6b4228"/>
+
+        <!-- === STAMP IMPRESSION (below mount) === -->
+        <!-- ink pad colour: deep navy-blue ink impression -->
+        <g transform="translate(150, 320)" opacity=".92">
+          <circle r="98" fill="none" stroke="#0d2247" stroke-width="3"/>
+          <circle r="90" fill="none" stroke="#0d2247" stroke-width=".8" opacity=".5"/>
+
+          <!-- Arc text -->
+          <defs>
+            <path id="s1t" d="M -88,0 A 88,88 0 0,1 88,0"/>
+            <path id="s1b" d="M -70,54 A 88,88 0 0,0 70,54"/>
+          </defs>
+          <text font-family="'Libre Baskerville',Georgia,serif" font-size="13" font-weight="700"
+                letter-spacing=".14em" fill="#0d2247">
+            <textPath href="#s1t" startOffset="50%" text-anchor="middle">FIELDSHIFT RESEARCH INSTITUTE</textPath>
+          </text>
+          <text font-family="'Libre Baskerville',Georgia,serif" font-size="10" letter-spacing=".14em"
+                fill="#0d2247" opacity=".7">
+            <textPath href="#s1b" startOffset="50%" text-anchor="middle">EST. MMXXV · SCIENCE OF STATE</textPath>
+          </text>
+
+          <!-- Centre -->
+          <text y="10" text-anchor="middle"
+                font-family="'Libre Baskerville',Georgia,serif"
+                font-size="28" font-weight="700" letter-spacing="-1"
+                fill="#0d2247">Field<tspan>Shift</tspan></text>
+          <line x1="-52" y1="18" x2="52" y2="18" stroke="#0d2247" stroke-width=".8" opacity=".4"/>
+        </g>
+      </svg>
+      <div class="lbl">Round Seal Stamp · 40 mm diameter</div>
+    </div>
+
+    <!-- Stamp 2: Rectangular wordmark stamp -->
+    <div class="item">
+      <svg viewBox="0 0 380 300" width="304" height="240" xmlns="http://www.w3.org/2000/svg">
+        <!-- Handle -->
+        <rect x="130" y="20" width="120" height="70" rx="6" fill="#c8943a"/>
+        <rect x="130" y="20"  width="120" height="10" rx="4" fill="#b07820"/>
+        <rect x="130" y="80"  width="120" height="10" rx="0" fill="#b07820"/>
+        <line x1="130" y1="42" x2="250" y2="42" stroke="#b07820" stroke-width="2" opacity=".5"/>
+        <line x1="130" y1="60" x2="250" y2="60" stroke="#b07820" stroke-width="2" opacity=".5"/>
+        <!-- Mount -->
+        <rect x="20"  y="88" width="340" height="24" rx="4" fill="#8a5c3a"/>
+        <rect x="25"  y="84" width="330" height="12" rx="3" fill="#6b4228"/>
+        <rect x="20"  y="108" width="340" height="6" rx="2" fill="#6b4228"/>
+
+        <!-- === STAMP IMPRESSION === -->
+        <!-- Outer rect border -->
+        <rect x="24" y="134" width="332" height="140" rx="6"
+              fill="none" stroke="#0d2247" stroke-width="2.5"/>
+        <rect x="30" y="140" width="320" height="128" rx="4"
+              fill="none" stroke="#0d2247" stroke-width=".7" opacity=".4"/>
+
+        <!-- Wordmark centred -->
+        <text x="190" y="194"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="40" font-weight="700" letter-spacing="-1"
+              fill="#0d2247">FieldShift</text>
+
+        <!-- Rule -->
+        <line x1="60" y1="206" x2="320" y2="206" stroke="#0d2247" stroke-width=".9" opacity=".35"/>
+
+        <!-- RESEARCH INSTITUTE -->
+        <text x="190" y="226"
+              text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="11.5" font-weight="400" letter-spacing=".32em"
+              fill="#0d2247">RESEARCH INSTITUTE</text>
+
+        <!-- Motto -->
+        <text x="190" y="252"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="9" font-style="italic" letter-spacing=".2em"
+              fill="#0d2247" opacity=".65">Advancing the Science of State</text>
+      </svg>
+      <div class="lbl">Rectangular Wordmark Stamp · 70 × 30 mm</div>
+    </div>
+
+    <!-- Stamp 3: Personal name stamp -->
+    <div class="item">
+      <svg viewBox="0 0 360 300" width="288" height="240" xmlns="http://www.w3.org/2000/svg">
+        <!-- Handle -->
+        <rect x="120" y="20" width="120" height="70" rx="6" fill="#c8943a"/>
+        <rect x="120" y="20" width="120" height="10" rx="4" fill="#b07820"/>
+        <rect x="120" y="80" width="120" height="10" rx="0" fill="#b07820"/>
+        <line x1="120" y1="42" x2="240" y2="42" stroke="#b07820" stroke-width="2" opacity=".5"/>
+        <line x1="120" y1="60" x2="240" y2="60" stroke="#b07820" stroke-width="2" opacity=".5"/>
+        <!-- Mount -->
+        <rect x="20"  y="88" width="320" height="24" rx="4" fill="#8a5c3a"/>
+        <rect x="25"  y="84" width="310" height="12" rx="3" fill="#6b4228"/>
+        <rect x="20"  y="108" width="320" height="6" rx="2" fill="#6b4228"/>
+
+        <!-- === IMPRESSION === -->
+        <rect x="24" y="134" width="312" height="146" rx="6"
+              fill="none" stroke="#0d2247" stroke-width="2.5"/>
+        <rect x="30" y="140" width="300" height="134" rx="4"
+              fill="none" stroke="#0d2247" stroke-width=".7" opacity=".4"/>
+
+        <!-- Name -->
+        <text x="180" y="182"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="24" font-weight="700" letter-spacing="-.4"
+              fill="#0d2247">Thomas Hedlund Leijon</text>
+        <line x1="48" y1="192" x2="312" y2="192" stroke="#0d2247" stroke-width=".8" opacity=".3"/>
+
+        <!-- Title -->
+        <text x="180" y="213"
+              text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="10" font-weight="400" letter-spacing=".22em"
+              fill="#0d2247">FOUNDER · RESEARCH DIRECTOR</text>
+
+        <!-- Originator italic -->
+        <text x="180" y="232"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="9" font-style="italic" letter-spacing=".15em"
+              fill="#0d2247" opacity=".7">Originator of Fractal State Theory</text>
+
+        <!-- Institute name -->
+        <text x="180" y="256"
+              text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="9" font-weight="300" letter-spacing=".3em"
+              fill="#0d2247" opacity=".55">FIELDSHIFT RESEARCH INSTITUTE</text>
+      </svg>
+      <div class="lbl">Personal Stamp · 65 × 32 mm</div>
+    </div>
+
+    <!-- Stamp 4: Ink impression on paper (result) -->
+    <div class="item">
+      <svg viewBox="0 0 260 300" width="200" height="230" xmlns="http://www.w3.org/2000/svg">
+        <!-- Paper sheet -->
+        <rect x="10" y="10" width="240" height="280" rx="3" fill="#fdfbf8" stroke="#d8cfc3" stroke-width="1"/>
+        <!-- Paper texture lines -->
+        <line x1="30" y1="200" x2="230" y2="200" stroke="#e8e0d4" stroke-width=".5"/>
+        <line x1="30" y1="218" x2="230" y2="218" stroke="#e8e0d4" stroke-width=".5"/>
+        <line x1="30" y1="236" x2="230" y2="236" stroke="#e8e0d4" stroke-width=".5"/>
+        <line x1="30" y1="254" x2="230" y2="254" stroke="#e8e0d4" stroke-width=".5"/>
+
+        <!-- Stamped impression — slightly imperfect, offset, ink-like -->
+        <g transform="translate(130, 114)" opacity=".82">
+          <circle r="80" fill="none" stroke="#1a3a6b" stroke-width="2.2"/>
+          <circle r="73" fill="none" stroke="#1a3a6b" stroke-width=".6" opacity=".4"/>
+
+          <defs>
+            <path id="imp_t" d="M -71,0 A 71,71 0 0,1 71,0"/>
+            <path id="imp_b" d="M -56,44 A 71,71 0 0,0 56,44"/>
+          </defs>
+          <text font-family="'Libre Baskerville',Georgia,serif" font-size="10.5" font-weight="700"
+                letter-spacing=".14em" fill="#1a3a6b">
+            <textPath href="#imp_t" startOffset="50%" text-anchor="middle">FIELDSHIFT RESEARCH INSTITUTE</textPath>
+          </text>
+          <text font-family="'Libre Baskerville',Georgia,serif" font-size="8.5" letter-spacing=".12em"
+                fill="#1a3a6b" opacity=".65">
+            <textPath href="#imp_b" startOffset="50%" text-anchor="middle">EST. MMXXV · SCIENCE OF STATE</textPath>
+          </text>
+
+          <text y="8" text-anchor="middle"
+                font-family="'Libre Baskerville',Georgia,serif"
+                font-size="22" font-weight="700" letter-spacing="-.8"
+                fill="#1a3a6b">FieldShift</text>
+          <line x1="-42" y1="14" x2="42" y2="14" stroke="#1a3a6b" stroke-width=".7" opacity=".35"/>
+        </g>
+      </svg>
+      <div class="lbl">Ink Impression · on Paper</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-brand">Field<span>Shift</span> Research Institute</div>
+  <div class="footer-note">BRAND SYSTEM v1.0 · CARDS · PINS · STAMPS</div>
+</div>
+
+</div><!-- /sheet -->
+</body>
+</html>

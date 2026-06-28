@@ -1,0 +1,332 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" width="900" height="640" role="img" aria-label="FieldShift Research Institute — Official Color Palette">
+  <defs>
+    <style>
+      .label-family {
+        font: 700 11px 'Source Sans 3', Arial, sans-serif;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        fill: #4a4a4a;
+      }
+      .label-name {
+        font: 400 10px 'Source Sans 3', Arial, sans-serif;
+        fill: #7a7a7a;
+      }
+      .label-hex {
+        font: 500 9.5px 'JetBrains Mono', 'Courier New', monospace;
+        fill: #4a4a4a;
+      }
+      .swatch-label-light {
+        font: 700 12px 'Libre Baskerville', Georgia, serif;
+        fill: rgba(255,255,255,0.9);
+      }
+      .swatch-label-dark {
+        font: 700 12px 'Libre Baskerville', Georgia, serif;
+        fill: rgba(0,0,0,0.55);
+      }
+      .page-title {
+        font: 700 18px 'Libre Baskerville', Georgia, serif;
+        fill: #0d2247;
+        letter-spacing: -0.3px;
+      }
+      .page-sub {
+        font: 400 10.5px 'Source Sans 3', Arial, sans-serif;
+        fill: #7a7a7a;
+        letter-spacing: 0.12em;
+      }
+    </style>
+  </defs>
+
+  <!-- Paper background -->
+  <rect width="900" height="640" fill="#f9f6f1"/>
+
+  <!-- Top border rule in navy -->
+  <rect x="0" y="0" width="900" height="4" fill="#0d2247"/>
+
+  <!-- Header -->
+  <text x="40" y="38" class="page-title">FieldShift Research Institute — Color System</text>
+  <text x="40" y="54" class="page-sub">OFFICIAL BRAND PALETTE · v1.0 · 2025</text>
+  <!-- Gold accent under title -->
+  <line x1="40" y1="62" x2="860" y2="62" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- ════════════════════════════════════════════
+       ROW 1 — Navy scale (col x: 40–500)
+       ════════════════════════════════════════════ -->
+  <text x="40" y="88" class="label-family">Navy</text>
+
+  <!-- Navy swatches: 7 steps, w=64 each, gap=4, start x=40 -->
+  <!-- 900 → #060d1a -->
+  <rect x="40"  y="96" width="64" height="52" rx="2" fill="#060d1a"/>
+  <text x="72"  y="115" text-anchor="middle" class="swatch-label-light">900</text>
+  <text x="72"  y="156" text-anchor="middle" class="label-hex">#060d1a</text>
+
+  <!-- 800 → #0a0f1a -->
+  <rect x="108" y="96" width="64" height="52" rx="2" fill="#0a0f1a"/>
+  <text x="140" y="115" text-anchor="middle" class="swatch-label-light">800</text>
+  <text x="140" y="156" text-anchor="middle" class="label-hex">#0a0f1a</text>
+
+  <!-- 700 → #0d2247  PRIMARY -->
+  <rect x="176" y="92" width="64" height="60" rx="2" fill="#0d2247" stroke="#c9a84c" stroke-width="2"/>
+  <text x="208" y="112" text-anchor="middle" class="swatch-label-light">700</text>
+  <text x="208" y="127" text-anchor="middle" font-family="'Source Sans 3',Arial,sans-serif" font-size="8" fill="#c9a84c" letter-spacing="0.1em">PRIMARY</text>
+  <text x="208" y="160" text-anchor="middle" class="label-hex">#0d2247</text>
+
+  <!-- 500 → #1a3a6b -->
+  <rect x="244" y="96" width="64" height="52" rx="2" fill="#1a3a6b"/>
+  <text x="276" y="115" text-anchor="middle" class="swatch-label-light">500</text>
+  <text x="276" y="156" text-anchor="middle" class="label-hex">#1a3a6b</text>
+
+  <!-- 400 → #1e4a8a -->
+  <rect x="312" y="96" width="64" height="52" rx="2" fill="#1e4a8a"/>
+  <text x="344" y="115" text-anchor="middle" class="swatch-label-light">400</text>
+  <text x="344" y="156" text-anchor="middle" class="label-hex">#1e4a8a</text>
+
+  <!-- 200 → #5b8db8 -->
+  <rect x="380" y="96" width="64" height="52" rx="2" fill="#5b8db8"/>
+  <text x="412" y="115" text-anchor="middle" class="swatch-label-light">200</text>
+  <text x="412" y="156" text-anchor="middle" class="label-hex">#5b8db8</text>
+
+  <!-- 100 → #a8c4e0 -->
+  <rect x="448" y="96" width="64" height="52" rx="2" fill="#a8c4e0"/>
+  <text x="480" y="115" text-anchor="middle" class="swatch-label-dark">100</text>
+  <text x="480" y="156" text-anchor="middle" class="label-hex">#a8c4e0</text>
+
+  <!-- ════════════════════════════════════════════
+       ROW 1 — Gold scale (col x: 540–860)
+       ════════════════════════════════════════════ -->
+  <text x="540" y="88" class="label-family">Gold</text>
+
+  <!-- 900 → #7a5a00 -->
+  <rect x="540" y="96" width="64" height="52" rx="2" fill="#7a5a00"/>
+  <text x="572" y="115" text-anchor="middle" class="swatch-label-light">900</text>
+  <text x="572" y="156" text-anchor="middle" class="label-hex">#7a5a00</text>
+
+  <!-- 700 → #b8922a PRIMARY -->
+  <rect x="608" y="92" width="64" height="60" rx="2" fill="#b8922a" stroke="#0d2247" stroke-width="2"/>
+  <text x="640" y="112" text-anchor="middle" class="swatch-label-light">700</text>
+  <text x="640" y="127" text-anchor="middle" font-family="'Source Sans 3',Arial,sans-serif" font-size="8" fill="#0d2247" letter-spacing="0.1em">PRIMARY</text>
+  <text x="640" y="160" text-anchor="middle" class="label-hex">#b8922a</text>
+
+  <!-- 500 → #c9a84c -->
+  <rect x="676" y="96" width="64" height="52" rx="2" fill="#c9a84c"/>
+  <text x="708" y="115" text-anchor="middle" class="swatch-label-light">500</text>
+  <text x="708" y="156" text-anchor="middle" class="label-hex">#c9a84c</text>
+
+  <!-- 400 → #e8c96e -->
+  <rect x="744" y="96" width="64" height="52" rx="2" fill="#e8c96e"/>
+  <text x="776" y="115" text-anchor="middle" class="swatch-label-dark">400</text>
+  <text x="776" y="156" text-anchor="middle" class="label-hex">#e8c96e</text>
+
+  <!-- 100 → #fbf5e0 -->
+  <rect x="812" y="96" width="48" height="52" rx="2" fill="#fbf5e0" stroke="#d8cfc3" stroke-width="0.8"/>
+  <text x="836" y="115" text-anchor="middle" class="swatch-label-dark">100</text>
+  <text x="836" y="156" text-anchor="middle" class="label-hex">#fbf5e0</text>
+
+  <!-- divider -->
+  <line x1="40" y1="176" x2="860" y2="176" stroke="#d8cfc3" stroke-width="0.6"/>
+
+  <!-- ════════════════════════════════════════════
+       ROW 2 — Paper  + Ink scale
+       ════════════════════════════════════════════ -->
+  <text x="40"  y="200" class="label-family">Paper</text>
+  <text x="460" y="200" class="label-family">Ink</text>
+
+  <!-- Paper swatches -->
+  <rect x="40"  y="208" width="64" height="40" rx="2" fill="#ffffff" stroke="#d8cfc3" stroke-width="0.8"/>
+  <text x="72"  y="256" text-anchor="middle" class="label-hex">#ffffff</text>
+
+  <rect x="108" y="208" width="64" height="40" rx="2" fill="#fdfbf8" stroke="#d8cfc3" stroke-width="0.8"/>
+  <text x="140" y="256" text-anchor="middle" class="label-hex">#fdfbf8</text>
+
+  <!-- paper-2 primary -->
+  <rect x="176" y="204" width="64" height="48" rx="2" fill="#f9f6f1" stroke="#c9a84c" stroke-width="1.5"/>
+  <text x="208" y="222" text-anchor="middle" font-family="'Source Sans 3',Arial,sans-serif" font-size="7.5" fill="#7a5a00" letter-spacing="0.1em">PRIMARY</text>
+  <text x="208" y="258" text-anchor="middle" class="label-hex">#f9f6f1</text>
+
+  <rect x="244" y="208" width="64" height="40" rx="2" fill="#f2ede5" stroke="#d8cfc3" stroke-width="0.5"/>
+  <text x="276" y="256" text-anchor="middle" class="label-hex">#f2ede5</text>
+
+  <rect x="312" y="208" width="64" height="40" rx="2" fill="#e8e0d4" stroke="#d8cfc3" stroke-width="0.5"/>
+  <text x="344" y="256" text-anchor="middle" class="label-hex">#e8e0d4</text>
+
+  <rect x="380" y="208" width="64" height="40" rx="2" fill="#d8cfc3" stroke="#ccc5b7" stroke-width="0.5"/>
+  <text x="412" y="256" text-anchor="middle" class="label-hex">#d8cfc3</text>
+
+  <!-- Ink swatches -->
+  <rect x="460" y="208" width="56" height="40" rx="2" fill="#0a0a0a"/>
+  <text x="488" y="256" text-anchor="middle" class="label-hex">#0a0a0a</text>
+
+  <rect x="520" y="208" width="56" height="40" rx="2" fill="#1a1a1a"/>
+  <text x="548" y="256" text-anchor="middle" class="label-hex">#1a1a1a</text>
+
+  <rect x="580" y="208" width="56" height="40" rx="2" fill="#4a4a4a"/>
+  <text x="608" y="256" text-anchor="middle" class="label-hex">#4a4a4a</text>
+
+  <rect x="640" y="208" width="56" height="40" rx="2" fill="#7a7a7a"/>
+  <text x="668" y="256" text-anchor="middle" class="label-hex">#7a7a7a</text>
+
+  <rect x="700" y="208" width="56" height="40" rx="2" fill="#b0b0b0"/>
+  <text x="728" y="256" text-anchor="middle" class="label-hex">#b0b0b0</text>
+
+  <rect x="760" y="208" width="56" height="40" rx="2" fill="#d8d8d8"/>
+  <text x="788" y="256" text-anchor="middle" class="label-hex">#d8d8d8</text>
+
+  <rect x="820" y="208" width="40" height="40" rx="2" fill="#e8e4de" stroke="#d8cfc3" stroke-width="0.5"/>
+  <text x="840" y="256" text-anchor="middle" class="label-hex">#e8e4de</text>
+
+  <!-- divider -->
+  <line x1="40" y1="272" x2="860" y2="272" stroke="#d8cfc3" stroke-width="0.6"/>
+
+  <!-- ════════════════════════════════════════════
+       ROW 3 — Scientific accent colours
+       ════════════════════════════════════════════ -->
+  <text x="40" y="296" class="label-family">Scientific Accents — State Diagrams</text>
+
+  <!-- Teal family -->
+  <rect x="40"  y="304" width="56" height="44" rx="2" fill="#1a5f5a"/>
+  <text x="68"  y="320" text-anchor="middle" class="swatch-label-light" font-size="9">Teal 700</text>
+  <text x="68"  y="356" text-anchor="middle" class="label-hex">#1a5f5a</text>
+
+  <rect x="100" y="304" width="56" height="44" rx="2" fill="#2a7f7a"/>
+  <text x="128" y="356" text-anchor="middle" class="label-hex">#2a7f7a</text>
+
+  <rect x="160" y="304" width="56" height="44" rx="2" fill="#5aada8"/>
+  <text x="188" y="356" text-anchor="middle" class="label-hex">#5aada8</text>
+
+  <rect x="220" y="304" width="56" height="44" rx="2" fill="#c0e4e2" stroke="#d8cfc3" stroke-width="0.5"/>
+  <text x="248" y="356" text-anchor="middle" class="label-hex">#c0e4e2</text>
+
+  <!-- spacer -->
+  <line x1="288" y1="304" x2="288" y2="348" stroke="#d8cfc3" stroke-width="0.6"/>
+
+  <!-- Sage family -->
+  <rect x="296" y="304" width="56" height="44" rx="2" fill="#3a5a3a"/>
+  <text x="324" y="320" text-anchor="middle" class="swatch-label-light" font-size="9">Sage 700</text>
+  <text x="324" y="356" text-anchor="middle" class="label-hex">#3a5a3a</text>
+
+  <rect x="356" y="304" width="56" height="44" rx="2" fill="#4a7a50"/>
+  <text x="384" y="356" text-anchor="middle" class="label-hex">#4a7a50</text>
+
+  <rect x="416" y="304" width="56" height="44" rx="2" fill="#7aaa80"/>
+  <text x="444" y="356" text-anchor="middle" class="label-hex">#7aaa80</text>
+
+  <rect x="476" y="304" width="56" height="44" rx="2" fill="#c8e4ca" stroke="#d8cfc3" stroke-width="0.5"/>
+  <text x="504" y="356" text-anchor="middle" class="label-hex">#c8e4ca</text>
+
+  <!-- spacer -->
+  <line x1="544" y1="304" x2="544" y2="348" stroke="#d8cfc3" stroke-width="0.6"/>
+
+  <!-- Terracotta family -->
+  <rect x="552" y="304" width="56" height="44" rx="2" fill="#7a3a2a"/>
+  <text x="580" y="320" text-anchor="middle" class="swatch-label-light" font-size="9">Terra 700</text>
+  <text x="580" y="356" text-anchor="middle" class="label-hex">#7a3a2a</text>
+
+  <rect x="612" y="304" width="56" height="44" rx="2" fill="#a04a38"/>
+  <text x="640" y="356" text-anchor="middle" class="label-hex">#a04a38</text>
+
+  <rect x="672" y="304" width="56" height="44" rx="2" fill="#c87a68"/>
+  <text x="700" y="356" text-anchor="middle" class="label-hex">#c87a68</text>
+
+  <rect x="732" y="304" width="56" height="44" rx="2" fill="#f0cec8" stroke="#d8cfc3" stroke-width="0.5"/>
+  <text x="760" y="356" text-anchor="middle" class="label-hex">#f0cec8</text>
+
+  <!-- Slate family -->
+  <rect x="800" y="304" width="60" height="44" rx="2" fill="#3a4a5a"/>
+  <text x="830" y="320" text-anchor="middle" class="swatch-label-light" font-size="9">Slate</text>
+  <text x="830" y="356" text-anchor="middle" class="label-hex">#3a4a5a</text>
+
+  <!-- divider -->
+  <line x1="40" y1="372" x2="860" y2="372" stroke="#d8cfc3" stroke-width="0.6"/>
+
+  <!-- ════════════════════════════════════════════
+       ROW 4 — Status / FSI warning colours
+       ════════════════════════════════════════════ -->
+  <text x="40" y="396" class="label-family">Status &amp; FSI Warning</text>
+
+  <!-- Danger -->
+  <rect x="40"  y="404" width="100" height="52" rx="2" fill="#c0392b"/>
+  <text x="90"  y="428" text-anchor="middle" class="swatch-label-light">Danger</text>
+  <text x="90"  y="442" text-anchor="middle" font-family="'Source Sans 3',Arial,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.75)">High Alert / Crisis</text>
+  <text x="90"  y="464" text-anchor="middle" class="label-hex">#c0392b</text>
+
+  <rect x="144" y="404" width="64" height="52" rx="2" fill="#e8786e"/>
+  <text x="176" y="428" text-anchor="middle" class="swatch-label-light" font-size="10">Light</text>
+  <text x="176" y="464" text-anchor="middle" class="label-hex">#e8786e</text>
+
+  <!-- spacer -->
+  <line x1="220" y1="410" x2="220" y2="452" stroke="#d8cfc3" stroke-width="0.6"/>
+
+  <!-- Warning -->
+  <rect x="228" y="404" width="100" height="52" rx="2" fill="#d68910"/>
+  <text x="278" y="428" text-anchor="middle" class="swatch-label-light">Warning</text>
+  <text x="278" y="442" text-anchor="middle" font-family="'Source Sans 3',Arial,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.75)">Stress / Elevated</text>
+  <text x="278" y="464" text-anchor="middle" class="label-hex">#d68910</text>
+
+  <rect x="332" y="404" width="64" height="52" rx="2" fill="#f0b840"/>
+  <text x="364" y="428" text-anchor="middle" class="swatch-label-dark" font-size="10">Light</text>
+  <text x="364" y="464" text-anchor="middle" class="label-hex">#f0b840</text>
+
+  <!-- spacer -->
+  <line x1="408" y1="410" x2="408" y2="452" stroke="#d8cfc3" stroke-width="0.6"/>
+
+  <!-- OK -->
+  <rect x="416" y="404" width="100" height="52" rx="2" fill="#1e8449"/>
+  <text x="466" y="428" text-anchor="middle" class="swatch-label-light">Stable</text>
+  <text x="466" y="442" text-anchor="middle" font-family="'Source Sans 3',Arial,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.75)">OK / Resilient</text>
+  <text x="466" y="464" text-anchor="middle" class="label-hex">#1e8449</text>
+
+  <rect x="520" y="404" width="64" height="52" rx="2" fill="#52a87a"/>
+  <text x="552" y="428" text-anchor="middle" class="swatch-label-light" font-size="10">Light</text>
+  <text x="552" y="464" text-anchor="middle" class="label-hex">#52a87a</text>
+
+  <!-- spacer -->
+  <line x1="596" y1="410" x2="596" y2="452" stroke="#d8cfc3" stroke-width="0.6"/>
+
+  <!-- Info -->
+  <rect x="604" y="404" width="100" height="52" rx="2" fill="#1a5276"/>
+  <text x="654" y="428" text-anchor="middle" class="swatch-label-light">Info</text>
+  <text x="654" y="442" text-anchor="middle" font-family="'Source Sans 3',Arial,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.75)">Data / Reference</text>
+  <text x="654" y="464" text-anchor="middle" class="label-hex">#1a5276</text>
+
+  <rect x="708" y="404" width="64" height="52" rx="2" fill="#4a82a6"/>
+  <text x="740" y="428" text-anchor="middle" class="swatch-label-light" font-size="10">Light</text>
+  <text x="740" y="464" text-anchor="middle" class="label-hex">#4a82a6</text>
+
+  <!-- ── Demo strip at bottom ── navy + gold in context -->
+  <rect x="0" y="496" width="900" height="144" fill="#0d2247"/>
+
+  <!-- "FieldShift" wordmark in the context strip -->
+  <text x="40" y="556"
+        font-family="'Libre Baskerville', Georgia, serif"
+        font-size="36" font-weight="700" letter-spacing="-0.5"
+        fill="#f0ece4">Field<tspan fill="#c9a84c">Shift</tspan></text>
+
+  <text x="42" y="576"
+        font-family="'Source Sans 3', Arial, sans-serif"
+        font-size="10" letter-spacing="0.26em"
+        fill="#7aabcf">RESEARCH INSTITUTE</text>
+
+  <line x1="42" y1="585" x2="360" y2="585" stroke="#c9a84c" stroke-width="0.6" opacity="0.55"/>
+
+  <text x="42" y="598"
+        font-family="'Libre Baskerville', Georgia, serif"
+        font-size="10" font-style="italic" letter-spacing="0.02em"
+        fill="#8eafc8">Advancing the Science of State</text>
+
+  <!-- Colour dots in demo strip -->
+  <circle cx="460" cy="548" r="26" fill="#c9a84c"/>
+  <circle cx="524" cy="548" r="26" fill="#1a3a6b"/>
+  <circle cx="588" cy="548" r="26" fill="#f0ece4"/>
+  <circle cx="652" cy="548" r="26" fill="#7aabcf"/>
+  <circle cx="716" cy="548" r="26" fill="#2a7f7a"/>
+  <circle cx="780" cy="548" r="26" fill="#c0392b"/>
+
+  <text x="460" y="590" text-anchor="middle" font-family="'JetBrains Mono','Courier New',monospace" font-size="8" fill="#8eafc8">#c9a84c</text>
+  <text x="524" y="590" text-anchor="middle" font-family="'JetBrains Mono','Courier New',monospace" font-size="8" fill="#8eafc8">#1a3a6b</text>
+  <text x="588" y="590" text-anchor="middle" font-family="'JetBrains Mono','Courier New',monospace" font-size="8" fill="#8eafc8">#f0ece4</text>
+  <text x="652" y="590" text-anchor="middle" font-family="'JetBrains Mono','Courier New',monospace" font-size="8" fill="#8eafc8">#7aabcf</text>
+  <text x="716" y="590" text-anchor="middle" font-family="'JetBrains Mono','Courier New',monospace" font-size="8" fill="#8eafc8">#2a7f7a</text>
+  <text x="780" y="590" text-anchor="middle" font-family="'JetBrains Mono','Courier New',monospace" font-size="8" fill="#8eafc8">#c0392b</text>
+
+  <!-- Bottom rule in gold -->
+  <rect x="0" y="636" width="900" height="4" fill="#c9a84c"/>
+</svg>

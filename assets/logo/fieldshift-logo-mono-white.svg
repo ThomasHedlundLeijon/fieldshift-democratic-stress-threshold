@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 110" width="400" height="110" role="img" aria-label="FieldShift Research Institute">
+  <!-- Transparent background — white marks only -->
+
+  <!-- "FieldShift" — all white -->
+  <text x="32" y="54"
+        font-family="'Libre Baskerville', Georgia, serif"
+        font-size="38"
+        font-weight="700"
+        letter-spacing="-0.8"
+        fill="#ffffff">FieldShift</text>
+
+  <!-- "RESEARCH INSTITUTE" -->
+  <text x="34" y="74"
+        font-family="'Source Sans 3', 'Helvetica Neue', Arial, sans-serif"
+        font-size="11"
+        font-weight="400"
+        letter-spacing="0.28em"
+        fill="rgba(255,255,255,0.75)">RESEARCH INSTITUTE</text>
+
+  <!-- Rule -->
+  <line x1="34" y1="83" x2="366" y2="83" stroke="#ffffff" stroke-width="0.6" opacity="0.35"/>
+
+  <!-- Motto -->
+  <text x="34" y="97"
+        font-family="'Libre Baskerville', Georgia, serif"
+        font-size="10"
+        font-style="italic"
+        letter-spacing="0.02em"
+        fill="rgba(255,255,255,0.6)">Advancing the Science of State</text>
+</svg>

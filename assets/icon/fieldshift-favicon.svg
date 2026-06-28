@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="FieldShift">
+  <!-- Navy background -->
+  <rect width="32" height="32" rx="4" ry="4" fill="#0d2247"/>
+
+  <!-- "FS" monogram -->
+  <text x="16" y="22"
+        text-anchor="middle"
+        font-family="Georgia, serif"
+        font-size="17"
+        font-weight="700"
+        letter-spacing="-1"
+        fill="#c9a84c">FS</text>
+</svg>
