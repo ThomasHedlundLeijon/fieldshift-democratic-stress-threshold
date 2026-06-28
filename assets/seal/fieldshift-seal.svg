@@ -1,92 +1,57 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300" role="img" aria-label="FieldShift Research Institute Seal">
   <defs>
-    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#e8c96e"/>
-      <stop offset="100%" stop-color="#b8922a"/>
-    </linearGradient>
-    <linearGradient id="hexFill" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1e4a8a"/>
-      <stop offset="100%" stop-color="#0d2247"/>
-    </linearGradient>
     <!-- Text path for top arc -->
     <path id="topArc" d="M 40,150 A 110,110 0 0,1 260,150"/>
     <!-- Text path for bottom arc -->
     <path id="bottomArc" d="M 68,210 A 110,110 0 0,0 232,210"/>
-    <!-- Inner text path for motto -->
+    <!-- Inner motto arc -->
     <path id="mottoArc" d="M 58,150 A 92,92 0 0,1 242,150"/>
   </defs>
 
-  <!-- Outer ring fills -->
+  <!-- Navy background -->
   <circle cx="150" cy="150" r="142" fill="#0d2247"/>
 
   <!-- Outer border rings -->
-  <circle cx="150" cy="150" r="142" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
-  <circle cx="150" cy="150" r="134" fill="none" stroke="#b8922a" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="150" cy="150" r="142" fill="none" stroke="#c9a84c" stroke-width="3"/>
+  <circle cx="150" cy="150" r="134" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.4"/>
 
-  <!-- Decorative dots at compass points on outer ring -->
-  <circle cx="150" cy="10"  r="2.5" fill="#b8922a" opacity="0.7"/>
-  <circle cx="150" cy="290" r="2.5" fill="#b8922a" opacity="0.7"/>
-  <circle cx="10"  cy="150" r="2.5" fill="#b8922a" opacity="0.7"/>
-  <circle cx="290" cy="150" r="2.5" fill="#b8922a" opacity="0.7"/>
+  <!-- Compass-point dots -->
+  <circle cx="150" cy="10"  r="2.5" fill="#c9a84c" opacity="0.6"/>
+  <circle cx="150" cy="290" r="2.5" fill="#c9a84c" opacity="0.6"/>
+  <circle cx="10"  cy="150" r="2.5" fill="#c9a84c" opacity="0.6"/>
+  <circle cx="290" cy="150" r="2.5" fill="#c9a84c" opacity="0.6"/>
 
   <!-- Inner separator ring -->
-  <circle cx="150" cy="150" r="108" fill="none" stroke="#b8922a" stroke-width="1" opacity="0.4"/>
+  <circle cx="150" cy="150" r="108" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.35"/>
 
-  <!-- === HEXAGON MARK centered at (150,148), R=72 flat-top === -->
-  <!-- flat-top: angles 30,90,150,210,270,330 -->
-  <polygon
-    points="212.4,184 150,220 87.6,184 87.6,112 150,76 212.4,112"
-    fill="url(#hexFill)"
-    stroke="url(#goldGrad)"
-    stroke-width="2.5"
-    stroke-linejoin="round"/>
+  <!-- "FS" monogram centered — serif, gold -->
+  <text x="150" y="172"
+        text-anchor="middle"
+        font-family="'Libre Baskerville', Georgia, serif"
+        font-size="80"
+        font-weight="700"
+        letter-spacing="-4"
+        fill="#c9a84c">FS</text>
 
-  <!-- Inner hexagon (pointy-top, R=43) -->
-  <polygon
-    points="193,148 171.5,185.3 128.5,185.3 107,148 128.5,110.7 171.5,110.7"
-    fill="none"
-    stroke="#b8922a"
-    stroke-width="1.2"
-    opacity="0.35"/>
+  <!-- Fine horizontal rule through center -->
+  <line x1="80" y1="162" x2="220" y2="162" stroke="#c9a84c" stroke-width="0.6" opacity="0.25"/>
 
-  <!-- Radial spokes -->
-  <line x1="150" y1="148" x2="212.4" y2="184" stroke="#b8922a" stroke-width="0.9" opacity="0.22"/>
-  <line x1="150" y1="148" x2="87.6"  y2="184" stroke="#b8922a" stroke-width="0.9" opacity="0.22"/>
-  <line x1="150" y1="148" x2="150"   y2="76"  stroke="#b8922a" stroke-width="0.9" opacity="0.22"/>
-
-  <!-- Baseline rule -->
-  <line x1="94" y1="158" x2="206" y2="158" stroke="#b8922a" stroke-width="1" opacity="0.28"/>
-
-  <!-- Threshold / field-shift polyline -->
-  <polyline
-    points="96,158 115,158 126,126 174,126 185,158 204,158"
-    fill="none"
-    stroke="url(#goldGrad)"
-    stroke-width="4"
-    stroke-linejoin="round"
-    stroke-linecap="round"/>
-
-  <!-- Observer dot -->
-  <circle cx="174" cy="126" r="5.5" fill="#e8c96e"/>
-  <circle cx="174" cy="126" r="10"  fill="none" stroke="#e8c96e" stroke-width="1.4" opacity="0.38"/>
-
-  <!-- === RING TEXT === -->
-  <!-- Top arc: FIELDSHIFT RESEARCH INSTITUTE -->
-  <text font-family="'Libre Baskerville', Georgia, serif" font-size="14" font-weight="700" letter-spacing="0.12em" fill="#e8c96e">
+  <!-- RING TEXT: top arc -->
+  <text font-family="'Libre Baskerville', Georgia, serif" font-size="14" font-weight="700" letter-spacing="0.12em" fill="#c9a84c">
     <textPath href="#topArc" startOffset="50%" text-anchor="middle">FIELDSHIFT RESEARCH INSTITUTE</textPath>
   </text>
 
-  <!-- Bottom arc: EST. MMXXV -->
-  <text font-family="'Libre Baskerville', Georgia, serif" font-size="11" font-weight="400" letter-spacing="0.2em" fill="#b8922a">
+  <!-- RING TEXT: bottom arc — EST. MMXXV -->
+  <text font-family="'Libre Baskerville', Georgia, serif" font-size="11" font-weight="400" letter-spacing="0.2em" fill="#c9a84c" opacity="0.75">
     <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">EST. MMXXV</textPath>
   </text>
 
-  <!-- Inner motto arc (between inner rings) -->
-  <text font-family="'Libre Baskerville', Georgia, serif" font-size="8.5" font-style="italic" letter-spacing="0.06em" fill="#7aabcf" opacity="0.9">
+  <!-- Inner motto arc -->
+  <text font-family="'Libre Baskerville', Georgia, serif" font-size="8.5" font-style="italic" letter-spacing="0.06em" fill="#7aabcf" opacity="0.85">
     <textPath href="#mottoArc" startOffset="50%" text-anchor="middle">Advancing the Science of State</textPath>
   </text>
 
-  <!-- Small decorative separators flanking bottom text -->
-  <text x="98" y="232" font-family="Georgia, serif" font-size="10" fill="#b8922a" opacity="0.6" text-anchor="middle">&#x2022;</text>
-  <text x="202" y="232" font-family="Georgia, serif" font-size="10" fill="#b8922a" opacity="0.6" text-anchor="middle">&#x2022;</text>
+  <!-- Decorative dots flanking bottom text -->
+  <text x="98"  y="232" font-family="Georgia,serif" font-size="10" fill="#c9a84c" opacity="0.5" text-anchor="middle">&#x2022;</text>
+  <text x="202" y="232" font-family="Georgia,serif" font-size="10" fill="#c9a84c" opacity="0.5" text-anchor="middle">&#x2022;</text>
 </svg>

@@ -1,66 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" width="360" height="100" role="img" aria-label="FieldShift Research Institute">
-  <!-- No background rect — transparent, white marks only -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 110" width="400" height="110" role="img" aria-label="FieldShift Research Institute">
+  <!-- Transparent background — white marks only -->
 
-  <!-- === HEXAGON MARK at (50,50), R=34 flat-top === -->
-  <polygon
-    points="79.5,50 67.0,72.4 41.5,72.4 29.0,50 41.5,27.6 67.0,27.6"
-    fill="rgba(255,255,255,0.08)"
-    stroke="#ffffff"
-    stroke-width="1.8"
-    stroke-linejoin="round"/>
-
-  <!-- Inner hexagon (rotated 30°, R=20) -->
-  <polygon
-    points="70,50 60,67.3 40,67.3 30,50 40,32.7 60,32.7"
-    fill="none"
-    stroke="#ffffff"
-    stroke-width="0.8"
-    opacity="0.35"/>
-
-  <!-- Radial spokes -->
-  <line x1="50" y1="50" x2="79.5" y2="50"  stroke="#ffffff" stroke-width="0.6" opacity="0.22"/>
-  <line x1="50" y1="50" x2="41.5" y2="72.4" stroke="#ffffff" stroke-width="0.6" opacity="0.22"/>
-  <line x1="50" y1="50" x2="41.5" y2="27.6" stroke="#ffffff" stroke-width="0.6" opacity="0.22"/>
-
-  <!-- Baseline rule -->
-  <line x1="32" y1="57" x2="68" y2="57" stroke="#ffffff" stroke-width="0.6" opacity="0.3"/>
-
-  <!-- Threshold polyline -->
-  <polyline
-    points="33,57 40,57 44,43 56,43 60,57 67,57"
-    fill="none"
-    stroke="#ffffff"
-    stroke-width="2.2"
-    stroke-linejoin="round"
-    stroke-linecap="round"/>
-
-  <!-- Observer dot -->
-  <circle cx="56" cy="43" r="2.8" fill="#ffffff"/>
-  <circle cx="56" cy="43" r="5" fill="none" stroke="#ffffff" stroke-width="0.7" opacity="0.45"/>
-
-  <!-- === WORDMARK === -->
-  <text x="100" y="44"
+  <!-- "FieldShift" — all white -->
+  <text x="32" y="54"
         font-family="'Libre Baskerville', Georgia, serif"
-        font-size="26"
+        font-size="38"
         font-weight="700"
-        letter-spacing="-0.5"
+        letter-spacing="-0.8"
         fill="#ffffff">FieldShift</text>
 
-  <text x="101" y="62"
-        font-family="'Source Sans 3', system-ui, sans-serif"
-        font-size="10.5"
+  <!-- "RESEARCH INSTITUTE" -->
+  <text x="34" y="74"
+        font-family="'Source Sans 3', 'Helvetica Neue', Arial, sans-serif"
+        font-size="11"
         font-weight="400"
-        letter-spacing="0.16em"
-        fill="rgba(255,255,255,0.65)">RESEARCH INSTITUTE</text>
+        letter-spacing="0.28em"
+        fill="rgba(255,255,255,0.75)">RESEARCH INSTITUTE</text>
 
-  <!-- Divider rule -->
-  <line x1="101" y1="72" x2="346" y2="72" stroke="#ffffff" stroke-width="0.7" opacity="0.4"/>
+  <!-- Rule -->
+  <line x1="34" y1="83" x2="366" y2="83" stroke="#ffffff" stroke-width="0.6" opacity="0.35"/>
 
-  <!-- Tagline -->
-  <text x="101" y="86"
+  <!-- Motto -->
+  <text x="34" y="97"
         font-family="'Libre Baskerville', Georgia, serif"
-        font-size="9.5"
+        font-size="10"
         font-style="italic"
-        letter-spacing="0.04em"
-        fill="rgba(255,255,255,0.7)">Advancing the Science of State</text>
+        letter-spacing="0.02em"
+        fill="rgba(255,255,255,0.6)">Advancing the Science of State</text>
 </svg>

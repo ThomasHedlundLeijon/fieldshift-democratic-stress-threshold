@@ -1,89 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" width="360" height="100" role="img" aria-label="FieldShift Research Institute — Advancing the Science of State">
-  <defs>
-    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#e8c96e"/>
-      <stop offset="100%" stop-color="#b8922a"/>
-    </linearGradient>
-    <linearGradient id="hexFill" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1e4a8a"/>
-      <stop offset="100%" stop-color="#0d2247"/>
-    </linearGradient>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 110" width="400" height="110" role="img" aria-label="FieldShift Research Institute — Advancing the Science of State">
+  <!-- Navy background -->
+  <rect width="400" height="110" fill="#0d2247"/>
 
-  <!-- Dark navy background -->
-  <rect width="360" height="100" fill="#0d2247"/>
-
-  <!-- === HEXAGON MARK (flat-top, centered at 50,50, r≈34) === -->
-  <!-- Outer hexagon: flat-top means vertices at top/bottom edges -->
-  <!-- cx=50 cy=50 R=34: points at angles 0,60,120,180,240,300 from top -->
-  <!-- flat-top: angles offset by 30° so flat side on top/bottom -->
-  <!-- vertices: (cx+R·cos(θ), cy+R·sin(θ)) for θ = 30,90,150,210,270,330 -->
-  <polygon
-    points="79.5,50 67.0,72.4 41.5,72.4 29.0,50 41.5,27.6 67.0,27.6"
-    fill="url(#hexFill)"
-    stroke="url(#goldGrad)"
-    stroke-width="1.8"
-    stroke-linejoin="round"/>
-
-  <!-- Inner hexagon rotated 30° (pointy-top), ~60% size, R≈20 -->
-  <!-- pointy-top: angles 0,60,120,180,240,300 -->
-  <!-- vertices: (50+20·cos(θ), 50+20·sin(θ)) for θ=0,60,120,180,240,300 -->
-  <polygon
-    points="70,50 60,67.3 40,67.3 30,50 40,32.7 60,32.7"
-    fill="none"
-    stroke="#b8922a"
-    stroke-width="0.8"
-    stroke-linejoin="round"
-    opacity="0.35"/>
-
-  <!-- Radial spokes from center to alternating outer vertices (state transition graph) -->
-  <!-- Alternating outer vertices: (79.5,50), (41.5,72.4), (41.5,27.6) -->
-  <line x1="50" y1="50" x2="79.5" y2="50"  stroke="#b8922a" stroke-width="0.6" opacity="0.22"/>
-  <line x1="50" y1="50" x2="41.5" y2="72.4" stroke="#b8922a" stroke-width="0.6" opacity="0.22"/>
-  <line x1="50" y1="50" x2="41.5" y2="27.6" stroke="#b8922a" stroke-width="0.6" opacity="0.22"/>
-
-  <!-- Threshold / state-shift polyline (the fieldshift signature) -->
-  <!-- Rises from left to right through center, clipped to hex interior -->
-  <polyline
-    points="33,57 40,57 44,43 56,43 60,57 67,57"
-    fill="none"
-    stroke="url(#goldGrad)"
-    stroke-width="2.2"
-    stroke-linejoin="round"
-    stroke-linecap="round"
-    clip-path="url(#hexClip)"/>
-
-  <!-- Baseline rule inside hex -->
-  <line x1="32" y1="57" x2="68" y2="57" stroke="#b8922a" stroke-width="0.6" opacity="0.3"/>
-
-  <!-- Observer dot at inflection point -->
-  <circle cx="56" cy="43" r="2.8" fill="#e8c96e"/>
-  <!-- Small halo ring around observer dot (observatory/lens suggestion) -->
-  <circle cx="56" cy="43" r="5" fill="none" stroke="#e8c96e" stroke-width="0.7" opacity="0.4"/>
-
-  <!-- === WORDMARK === -->
-  <text x="100" y="44"
+  <!-- WORDMARK -->
+  <!-- "FieldShift" — serif, Field in cream, Shift in gold -->
+  <text x="32" y="54"
         font-family="'Libre Baskerville', Georgia, serif"
-        font-size="26"
+        font-size="38"
         font-weight="700"
-        letter-spacing="-0.5"
-        fill="#f0ece4">Field<tspan fill="#e8c96e">Shift</tspan></text>
+        letter-spacing="-0.8"
+        fill="#f0ece4">Field<tspan fill="#c9a84c">Shift</tspan></text>
 
-  <text x="101" y="62"
-        font-family="'Source Sans 3', system-ui, sans-serif"
-        font-size="10.5"
+  <!-- "RESEARCH INSTITUTE" — spaced small caps -->
+  <text x="34" y="74"
+        font-family="'Source Sans 3', 'Helvetica Neue', Arial, sans-serif"
+        font-size="11"
         font-weight="400"
-        letter-spacing="0.16em"
+        letter-spacing="0.28em"
         fill="#7aabcf">RESEARCH INSTITUTE</text>
 
-  <!-- Divider rule -->
-  <line x1="101" y1="72" x2="346" y2="72" stroke="#b8922a" stroke-width="0.7" opacity="0.6"/>
+  <!-- Thin gold rule -->
+  <line x1="34" y1="83" x2="366" y2="83" stroke="#c9a84c" stroke-width="0.6" opacity="0.55"/>
 
-  <!-- Tagline -->
-  <text x="101" y="86"
+  <!-- Motto — italic serif -->
+  <text x="34" y="97"
         font-family="'Libre Baskerville', Georgia, serif"
-        font-size="9.5"
+        font-size="10"
         font-style="italic"
-        letter-spacing="0.04em"
-        fill="#a8c4e0">Advancing the Science of State</text>
+        letter-spacing="0.02em"
+        fill="#8eafc8">Advancing the Science of State</text>
 </svg>

@@ -1,52 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="FieldShift Research Institute mark">
-  <defs>
-    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#e8c96e"/>
-      <stop offset="100%" stop-color="#b8922a"/>
-    </linearGradient>
-    <linearGradient id="hexFill" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1e4a8a"/>
-      <stop offset="100%" stop-color="#0d2247"/>
-    </linearGradient>
-  </defs>
+  <!-- Navy background -->
+  <rect width="100" height="100" fill="#0d2247"/>
 
-  <!-- === HEXAGON MARK centered at (50,50), R=44 flat-top === -->
-  <!-- flat-top vertices at angles: 30,90,150,210,270,330 degrees -->
-  <polygon
-    points="88.1,50 72.0,79.1 27.9,79.1 11.9,50 27.9,20.9 72.0,20.9"
-    fill="url(#hexFill)"
-    stroke="url(#goldGrad)"
-    stroke-width="2.4"
-    stroke-linejoin="round"/>
+  <!-- "FS" ligature monogram — serif, gold -->
+  <text x="50" y="64"
+        text-anchor="middle"
+        font-family="'Libre Baskerville', Georgia, serif"
+        font-size="52"
+        font-weight="700"
+        letter-spacing="-3"
+        fill="#c9a84c">FS</text>
 
-  <!-- Inner hexagon (pointy-top, rotated 30°), R=26 -->
-  <!-- vertices at angles: 0,60,120,180,240,300 -->
-  <polygon
-    points="76,50 63,72.5 37,72.5 24,50 37,27.5 63,27.5"
-    fill="none"
-    stroke="#b8922a"
-    stroke-width="1.1"
-    opacity="0.38"/>
+  <!-- Bottom rule -->
+  <line x1="16" y1="76" x2="84" y2="76" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
 
-  <!-- Radial spokes center → alternating outer vertices (right, lower-left, upper-left) -->
-  <line x1="50" y1="50" x2="88.1" y2="50"  stroke="#b8922a" stroke-width="0.9" opacity="0.24"/>
-  <line x1="50" y1="50" x2="27.9" y2="79.1" stroke="#b8922a" stroke-width="0.9" opacity="0.24"/>
-  <line x1="50" y1="50" x2="27.9" y2="20.9" stroke="#b8922a" stroke-width="0.9" opacity="0.24"/>
-
-  <!-- Baseline rule -->
-  <line x1="16" y1="60" x2="84" y2="60" stroke="#b8922a" stroke-width="0.9" opacity="0.28"/>
-
-  <!-- Threshold / field-shift polyline -->
-  <polyline
-    points="18,60 31,60 38,38 62,38 69,60 82,60"
-    fill="none"
-    stroke="url(#goldGrad)"
-    stroke-width="3"
-    stroke-linejoin="round"
-    stroke-linecap="round"/>
-
-  <!-- Observer dot at inflection point (upper-right of step) -->
-  <circle cx="62" cy="38" r="4" fill="#e8c96e"/>
-  <!-- Observer halo ring -->
-  <circle cx="62" cy="38" r="7.5" fill="none" stroke="#e8c96e" stroke-width="1" opacity="0.4"/>
+  <!-- "FIELDSHIFT" micro text -->
+  <text x="50" y="88"
+        text-anchor="middle"
+        font-family="'Source Sans 3', Arial, sans-serif"
+        font-size="7.5"
+        letter-spacing="0.18em"
+        fill="#7aabcf">FIELDSHIFT</text>
 </svg>
