@@ -20,8 +20,11 @@
 }
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;min-height:100vh}
 .masthead{background:var(--ink);color:var(--paper);border-bottom:3px solid var(--gold)}
-.masthead-inner{max-width:1400px;margin:0 auto;padding:32px 40px 24px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
-.masthead-title{font-family:var(--serif);font-size:clamp(28px,4vw,52px);font-weight:700;letter-spacing:-0.02em;line-height:1}
+.masthead-inner{max-width:1400px;margin:0 auto;padding:28px 40px 22px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.masthead-brand{display:flex;align-items:center;gap:24px}
+.masthead-logo{flex-shrink:0;display:block;width:clamp(200px,28vw,300px);height:auto}
+.masthead-divider{width:1px;align-self:stretch;background:linear-gradient(to bottom,transparent,#b8922a 30%,#b8922a 70%,transparent);opacity:.45;flex-shrink:0}
+.masthead-title{font-family:var(--serif);font-size:clamp(22px,3vw,40px);font-weight:700;letter-spacing:-0.02em;line-height:1}
 .masthead-title span{color:var(--gold-lt)}
 .masthead-sub{font-size:13px;color:#b0a898;margin-top:8px;font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
 .masthead-meta{text-align:right;font-family:var(--mono);font-size:11px;color:#888;line-height:1.8}
@@ -1027,9 +1030,15 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 
 <div class="masthead">
   <div class="masthead-inner">
-    <div>
-      <a class="masthead-title" href="index.html" style="text-decoration:none;color:inherit;cursor:pointer">FieldShift <span>Early Warning System</span></a>
-      <div class="masthead-sub">Democratic Erosion &middot; Institutional Resilience &middot; Governing Capacity</div>
+    <div class="masthead-brand">
+      <a href="index.html" aria-label="FieldShift Research Institute — home">
+        <img src="fieldshift-logo.svg" alt="FieldShift Research Institute — Advancing the Science of State" class="masthead-logo">
+      </a>
+      <div class="masthead-divider" aria-hidden="true"></div>
+      <div>
+        <a class="masthead-title" href="index.html" style="text-decoration:none;color:inherit;cursor:pointer">FieldShift <span>Early Warning System</span></a>
+        <div class="masthead-sub">Democratic Erosion &middot; Institutional Resilience &middot; Governing Capacity</div>
+      </div>
     </div>
     <div class="masthead-meta">
       <strong data-tip="199 countries in V-Dem v16 covering 1790–2025. Country-years used for the validation analyses: ~25,500.">199</strong>countries (V-Dem v16)<br>
