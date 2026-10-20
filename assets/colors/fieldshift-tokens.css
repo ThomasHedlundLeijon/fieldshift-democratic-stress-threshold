@@ -1,0 +1,280 @@
+/**
+ * FieldShift Research Institute — Design Tokens
+ * Brand System v1.0 — 2025
+ *
+ * Usage: Import this file before all other stylesheets.
+ * All semantic values reference primitives where possible.
+ */
+
+/* ============================================================
+   PRIMITIVE COLOR PALETTE
+   ============================================================ */
+:root {
+
+  /* --- Navy scale --- */
+  --color-navy-900: #060d1a;   /* darkest — near-black navy, dark mode canvas */
+  --color-navy-800: #0a0f1a;   /* dark mode deep background */
+  --color-navy-700: #0d2247;   /* PRIMARY NAVY — main brand navy */
+  --color-navy-600: #102a58;   /* navy mid-dark */
+  --color-navy-500: #1a3a6b;   /* navy mid — secondary backgrounds */
+  --color-navy-400: #1e4a8a;   /* navy accent — interactive / highlight */
+  --color-navy-300: #2e5fa0;   /* navy lighter — hover states */
+  --color-navy-200: #5b8db8;   /* navy pale — subtle tints */
+  --color-navy-100: #a8c4e0;   /* navy very pale — text on dark */
+
+  /* --- Gold scale --- */
+  --color-gold-900: #7a5a00;   /* darkest gold — text on light */
+  --color-gold-800: #9a7010;   /* deep gold dark */
+  --color-gold-700: #b8922a;   /* PRIMARY GOLD — strokes, rules, accents */
+  --color-gold-600: #c9a840;   /* gold mid */
+  --color-gold-500: #d4b94a;   /* gold standard */
+  --color-gold-400: #e8c96e;   /* LIGHT GOLD — highlights, wordmark */
+  --color-gold-300: #f0d88a;   /* gold pale */
+  --color-gold-200: #f7e9b8;   /* gold very pale — tint backgrounds */
+  --color-gold-100: #fbf5e0;   /* gold near-white */
+
+  /* --- Paper / warm white scale --- */
+  --color-paper-0:  #ffffff;   /* pure white */
+  --color-paper-1:  #fdfbf8;   /* almost white warm */
+  --color-paper-2:  #f9f6f1;   /* PRIMARY PAPER — main background */
+  --color-paper-3:  #f2ede5;   /* paper secondary */
+  --color-paper-4:  #e8e0d4;   /* paper tertiary / borders */
+  --color-paper-5:  #d8cfc3;   /* paper rule color */
+
+  /* --- Neutral / ink scale --- */
+  --color-ink-900: #0a0a0a;   /* near-black */
+  --color-ink-800: #1a1a1a;   /* PRIMARY INK — body text */
+  --color-ink-700: #2a2a2a;   /* ink dark */
+  --color-ink-600: #3a3a3a;   /* ink medium-dark */
+  --color-ink-500: #4a4a4a;   /* ink medium — secondary text */
+  --color-ink-400: #6a6a6a;   /* ink medium-light */
+  --color-ink-300: #7a7a7a;   /* ink light — captions, metadata */
+  --color-ink-200: #b0b0b0;   /* ink pale — disabled, rules */
+  --color-ink-100: #d8d8d8;   /* near-white ink — subtle dividers */
+  --color-ink-50:  #e8e4de;   /* ACADEMIC GREY — UI surfaces */
+
+  /* --- Scientific accent palette (state diagrams, charts) --- */
+  /* Muted, academic — never neon */
+  --color-teal-700: #1a5f5a;   /* deep teal — state A */
+  --color-teal-500: #2a7f7a;   /* teal mid */
+  --color-teal-300: #5aada8;   /* teal light */
+  --color-teal-100: #c0e4e2;   /* teal pale tint */
+
+  --color-sage-700: #3a5a3a;   /* deep sage — state B */
+  --color-sage-500: #4a7a50;   /* sage mid */
+  --color-sage-300: #7aaa80;   /* sage light */
+  --color-sage-100: #c8e4ca;   /* sage pale tint */
+
+  --color-terra-700: #7a3a2a;  /* deep terracotta — state C / stress */
+  --color-terra-500: #a04a38;  /* terracotta mid */
+  --color-terra-300: #c87a68;  /* terracotta light */
+  --color-terra-100: #f0cec8;  /* terracotta pale tint */
+
+  --color-slate-700: #3a4a5a;  /* slate — neutral state */
+  --color-slate-500: #5a6a7a;  /* slate mid */
+  --color-slate-300: #8a9aaa;  /* slate light */
+  --color-slate-100: #d0d8e0;  /* slate pale tint */
+
+  /* --- Status / FSI warning colors --- */
+  --color-danger:   #c0392b;   /* high-alert red */
+  --color-danger-lt:#e8786e;   /* danger light */
+  --color-warn:     #d68910;   /* warning amber */
+  --color-warn-lt:  #f0b840;   /* warning light */
+  --color-ok:       #1e8449;   /* ok green */
+  --color-ok-lt:    #52a87a;   /* ok light */
+  --color-info:     #1a5276;   /* info blue */
+  --color-info-lt:  #4a82a6;   /* info light */
+
+
+  /* ============================================================
+     SEMANTIC TOKENS — light mode (paper)
+     ============================================================ */
+
+  /* Surfaces */
+  --surface-canvas:   var(--color-paper-2);
+  --surface-raised:   var(--color-paper-1);
+  --surface-sunken:   var(--color-paper-3);
+  --surface-overlay:  rgba(249, 246, 241, 0.96);
+  --surface-dark:     var(--color-navy-700);
+  --surface-dark-alt: var(--color-navy-500);
+
+  /* Text */
+  --text-primary:     var(--color-ink-800);
+  --text-secondary:   var(--color-ink-500);
+  --text-tertiary:    var(--color-ink-300);
+  --text-disabled:    var(--color-ink-200);
+  --text-on-dark:     var(--color-paper-2);
+  --text-on-dark-soft:var(--color-navy-100);
+  --text-link:        var(--color-navy-400);
+  --text-link-hover:  var(--color-navy-300);
+  --text-accent:      var(--color-gold-700);
+  --text-accent-lt:   var(--color-gold-400);
+
+  /* Borders / rules */
+  --border-strong:    var(--color-ink-800);
+  --border-default:   var(--color-paper-5);
+  --border-subtle:    var(--color-paper-4);
+  --border-accent:    var(--color-gold-700);
+
+  /* Brand */
+  --brand-navy:       var(--color-navy-700);
+  --brand-navy-mid:   var(--color-navy-500);
+  --brand-navy-accent:var(--color-navy-400);
+  --brand-gold:       var(--color-gold-700);
+  --brand-gold-light: var(--color-gold-400);
+
+  /* Status (FSI / SCIA dashboard) */
+  --status-danger:    var(--color-danger);
+  --status-warn:      var(--color-warn);
+  --status-ok:        var(--color-ok);
+  --status-info:      var(--color-info);
+  --status-danger-bg: rgba(192, 57, 43, 0.08);
+  --status-warn-bg:   rgba(214, 137, 16, 0.08);
+  --status-ok-bg:     rgba(30, 132, 73, 0.08);
+  --status-info-bg:   rgba(26, 82, 118, 0.08);
+
+
+  /* ============================================================
+     TYPOGRAPHY TOKENS
+     ============================================================ */
+
+  /* Font families */
+  --font-serif:   'Libre Baskerville', 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans:    'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  /* Type scale (major third, 1.25 ratio base 16px) */
+  --text-xs:   0.64rem;   /* 10.2px — labels, micro */
+  --text-sm:   0.8rem;    /* 12.8px — captions, metadata */
+  --text-base: 1rem;      /* 16px   — body */
+  --text-md:   1.25rem;   /* 20px   — large body / intro */
+  --text-lg:   1.563rem;  /* 25px   — H4 */
+  --text-xl:   1.953rem;  /* 31.25px — H3 */
+  --text-2xl:  2.441rem;  /* 39px   — H2 */
+  --text-3xl:  3.052rem;  /* 48.8px — H1 */
+  --text-4xl:  3.815rem;  /* 61px   — display */
+
+  /* Line heights */
+  --leading-tight:  1.2;
+  --leading-snug:   1.35;
+  --leading-normal: 1.6;
+  --leading-relaxed:1.75;
+
+  /* Letter spacing */
+  --tracking-tight:  -0.02em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.05em;
+  --tracking-wider:   0.1em;
+  --tracking-widest:  0.18em;
+
+  /* Font weights */
+  --weight-light:   300;
+  --weight-normal:  400;
+  --weight-medium:  500;
+  --weight-semibold:600;
+  --weight-bold:    700;
+
+
+  /* ============================================================
+     SPACING TOKENS
+     ============================================================ */
+
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+
+  /* ============================================================
+     COMPONENT TOKENS
+     ============================================================ */
+
+  --radius-none:  0;
+  --radius-sm:    2px;
+  --radius-md:    4px;
+  --radius-lg:    8px;
+  --radius-full:  9999px;
+
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.12);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,0.16);
+  --shadow-xl:  0 16px 48px rgba(0,0,0,0.20);
+
+  /* Transitions */
+  --transition-fast:   150ms ease;
+  --transition-normal: 220ms ease;
+  --transition-slow:   350ms ease;
+
+  /* Max content widths */
+  --width-narrow:  680px;
+  --width-text:    780px;
+  --width-content: 1100px;
+  --width-wide:    1400px;
+}
+
+
+/* ============================================================
+   DARK MODE OVERRIDES
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-canvas:   var(--color-navy-800);
+    --surface-raised:   var(--color-navy-700);
+    --surface-sunken:   var(--color-navy-900);
+    --surface-overlay:  rgba(10, 15, 26, 0.96);
+
+    --text-primary:     var(--color-paper-2);
+    --text-secondary:   var(--color-navy-100);
+    --text-tertiary:    var(--color-ink-300);
+    --text-disabled:    var(--color-ink-400);
+    --text-link:        var(--color-navy-100);
+    --text-link-hover:  var(--color-gold-400);
+
+    --border-strong:    var(--color-paper-4);
+    --border-default:   var(--color-navy-500);
+    --border-subtle:    var(--color-navy-600);
+  }
+}
+
+/* ============================================================
+   DARK MODE DATA-ATTRIBUTE OVERRIDE (explicit toggle)
+   ============================================================ */
+[data-theme="dark"] {
+  --surface-canvas:   var(--color-navy-800);
+  --surface-raised:   var(--color-navy-700);
+  --surface-sunken:   var(--color-navy-900);
+
+  --text-primary:     var(--color-paper-2);
+  --text-secondary:   var(--color-navy-100);
+  --text-tertiary:    var(--color-ink-300);
+  --text-link:        var(--color-navy-100);
+  --text-link-hover:  var(--color-gold-400);
+
+  --border-strong:    var(--color-paper-4);
+  --border-default:   var(--color-navy-500);
+  --border-subtle:    var(--color-navy-600);
+}
+
+[data-theme="light"] {
+  --surface-canvas:   var(--color-paper-2);
+  --surface-raised:   var(--color-paper-1);
+  --surface-sunken:   var(--color-paper-3);
+
+  --text-primary:     var(--color-ink-800);
+  --text-secondary:   var(--color-ink-500);
+  --text-tertiary:    var(--color-ink-300);
+  --text-link:        var(--color-navy-400);
+  --text-link-hover:  var(--color-navy-300);
+
+  --border-strong:    var(--color-ink-800);
+  --border-default:   var(--color-paper-5);
+  --border-subtle:    var(--color-paper-4);
+}

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="FieldShift Research Institute">
+  <!-- Navy background -->
+  <rect width="400" height="400" fill="#0d2247"/>
+
+  <!-- "FieldShift" wordmark centered -->
+  <text x="200" y="192"
+        text-anchor="middle"
+        font-family="'Libre Baskerville', Georgia, serif"
+        font-size="64"
+        font-weight="700"
+        letter-spacing="-1.5"
+        fill="#f0ece4">Field<tspan fill="#c9a84c">Shift</tspan></text>
+
+  <!-- Rule -->
+  <line x1="60" y1="216" x2="340" y2="216" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+
+  <!-- "RESEARCH INSTITUTE" -->
+  <text x="200" y="242"
+        text-anchor="middle"
+        font-family="'Source Sans 3', Arial, sans-serif"
+        font-size="18"
+        font-weight="400"
+        letter-spacing="0.28em"
+        fill="#7aabcf">RESEARCH INSTITUTE</text>
+</svg>

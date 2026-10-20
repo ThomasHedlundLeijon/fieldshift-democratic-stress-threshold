@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FieldShift — Business Card · Thomas Hedlund Leijon</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d2247;--navy-mid:#1a3a6b;
+  --gold:#b8922a;--gold-lt:#c9a84c;--gold-pale:#e8c96e;
+  --paper:#f9f6f1;--paper-2:#f2ede5;--rule:#d8cfc3;
+  --ink:#1a1a1a;--ink-soft:#4a4a4a;--ink-light:#7a7a7a;
+  --serif:'Libre Baskerville',Georgia,serif;
+  --sans:'Source Sans 3',system-ui,sans-serif;
+  --mono:'JetBrains Mono','Courier New',monospace;
+}
+body{background:#e8e4de;font-family:var(--sans);min-height:100vh;padding:48px 40px 80px}
+
+.page-header{background:var(--navy);border-bottom:3px solid var(--gold-lt);
+  padding:24px 48px 20px;margin:-48px -40px 52px;
+}
+.page-header h1{font-family:var(--serif);font-size:20px;font-weight:700;color:#f0ece4;letter-spacing:-.3px}
+.page-header h1 span{color:var(--gold-pale)}
+.page-header p{font-size:10px;letter-spacing:.2em;color:#7aabcf;margin-top:4px;text-transform:uppercase;font-family:var(--mono)}
+
+.section{max-width:1200px;margin:0 auto 60px}
+.section-label{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:#7a7a7a;margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid #ccc8c0}
+
+.cards-row{display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap}
+
+/* Card drop shadow */
+.card-wrap{display:flex;flex-direction:column;gap:10px;align-items:center}
+.card-wrap svg{
+  border-radius:6px;
+  box-shadow:0 6px 24px rgba(0,0,0,.22), 0 1px 4px rgba(0,0,0,.14);
+  display:block;
+}
+.card-wrap svg.white-card{
+  box-shadow:0 6px 24px rgba(0,0,0,.14), 0 1px 4px rgba(0,0,0,.08), 0 0 0 1px #d8cfc3;
+}
+.card-side-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;color:#8a8a7a;text-align:center}
+
+.spec-table{margin-top:40px;border-collapse:collapse;width:100%;max-width:700px}
+.spec-table td,.spec-table th{padding:8px 14px;text-align:left;font-size:10.5px;border-bottom:1px solid #d8cfc3;font-family:var(--sans)}
+.spec-table th{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--ink-light);text-transform:uppercase;background:#f2ede5}
+.spec-table td:first-child{color:var(--ink-light);width:180px}
+
+.footer{margin-top:60px;padding-top:20px;border-top:1px solid #ccc8c0;
+  display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin-left:auto;margin-right:auto}
+.footer-brand{font-family:var(--serif);font-size:13px;font-weight:700;color:var(--ink-soft)}
+.footer-brand span{color:var(--gold)}
+.footer-note{font-family:var(--mono);font-size:9px;color:var(--ink-light);letter-spacing:.08em}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Field<span>Shift</span> Research Institute</h1>
+  <p>Business Card — Thomas Hedlund Leijon · Brand System v1.0</p>
+</div>
+
+<div class="section">
+  <div class="section-label">Dark Edition — Navy · Front &amp; Back</div>
+  <div class="cards-row">
+
+    <!-- ════════════════════════════
+         DARK FRONT
+    ════════════════════════════ -->
+    <div class="card-wrap">
+      <svg viewBox="0 0 850 500" width="425" height="250" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Background -->
+        <rect width="850" height="500" rx="10" fill="#0d2247"/>
+
+        <!-- Gold top border rule -->
+        <rect x="0" y="0" width="850" height="5" rx="0" fill="#c9a84c"/>
+        <!-- Gold bottom border rule -->
+        <rect x="0" y="495" width="850" height="5" fill="#c9a84c"/>
+
+        <!-- Subtle vertical gold rule (right column divider) -->
+        <line x1="560" y1="40" x2="560" y2="460" stroke="#c9a84c" stroke-width=".8" opacity=".18"/>
+
+        <!-- ── LEFT COLUMN ── -->
+
+        <!-- Institute name top-left — small, tracked -->
+        <text x="52" y="72"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="16" font-weight="400" letter-spacing="4"
+              fill="#7aabcf">FIELDSHIFT RESEARCH INSTITUTE</text>
+
+        <!-- Thin rule under institute name -->
+        <line x1="52" y1="84" x2="530" y2="84" stroke="#c9a84c" stroke-width=".8" opacity=".4"/>
+
+        <!-- NAME — largest element -->
+        <text x="52" y="178"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="62" font-weight="700" letter-spacing="-1"
+              fill="#f0ece4">Thomas Hedlund Leijon</text>
+
+        <!-- Roles — Source Sans 3, light tracking -->
+        <text x="54" y="218"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="20" font-weight="300" letter-spacing="1.5"
+              fill="#a8c4e0">Founder · Research Director</text>
+
+        <!-- Thin rule -->
+        <line x1="52" y1="238" x2="380" y2="238" stroke="#c9a84c" stroke-width=".7" opacity=".35"/>
+
+        <!-- Originator line — italic Baskerville, lighter colour -->
+        <text x="54" y="272"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="18" font-style="italic" font-weight="400" letter-spacing=".3"
+              fill="#8eafc8">Originator of Fractal State Theory</text>
+
+        <!-- ── BOTTOM LEFT: contact ── -->
+        <text x="52" y="430"
+              font-family="'JetBrains Mono','Courier New',monospace"
+              font-size="14" fill="#5a7a9a" letter-spacing=".5">fieldshift.institute</text>
+
+        <!-- ── RIGHT COLUMN: Motto / seal mark ── -->
+
+        <!-- "FS" monogram top-right -->
+        <text x="703" y="130"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="72" font-weight="700" letter-spacing="-4"
+              fill="#c9a84c" opacity=".9">FS</text>
+
+        <!-- Rule under monogram -->
+        <line x1="618" y1="142" x2="788" y2="142" stroke="#c9a84c" stroke-width=".8" opacity=".3"/>
+
+        <!-- Motto — italic, small -->
+        <text x="703" y="200"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="13" font-style="italic" letter-spacing=".3"
+              fill="#7aabcf" opacity=".85">Advancing the</text>
+        <text x="703" y="220"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="13" font-style="italic" letter-spacing=".3"
+              fill="#7aabcf" opacity=".85">Science of State</text>
+
+      </svg>
+      <div class="card-side-label">FRONT</div>
+    </div>
+
+    <!-- ════════════════════════════
+         DARK BACK
+    ════════════════════════════ -->
+    <div class="card-wrap">
+      <svg viewBox="0 0 850 500" width="425" height="250" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Background -->
+        <rect width="850" height="500" rx="10" fill="#0d2247"/>
+
+        <!-- Gold rules top and bottom -->
+        <rect x="0" y="0" width="850" height="5" fill="#c9a84c"/>
+        <rect x="0" y="495" width="850" height="5" fill="#c9a84c"/>
+
+        <!-- Centred wordmark -->
+        <text x="425" y="220"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="68" font-weight="700" letter-spacing="-2"
+              fill="#f0ece4">Field<tspan fill="#c9a84c">Shift</tspan></text>
+
+        <!-- Rule -->
+        <line x1="160" y1="244" x2="690" y2="244" stroke="#c9a84c" stroke-width="1" opacity=".45"/>
+
+        <!-- Research Institute centred -->
+        <text x="425" y="284"
+              text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="18" font-weight="300" letter-spacing="6"
+              fill="#7aabcf">RESEARCH INSTITUTE</text>
+
+        <!-- Motto centred below -->
+        <text x="425" y="340"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="14" font-style="italic" letter-spacing=".4"
+              fill="#5a7a9a">Advancing the Science of State</text>
+
+      </svg>
+      <div class="card-side-label">BACK</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     WHITE EDITION
+══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Light Edition — White · Front &amp; Back</div>
+  <div class="cards-row">
+
+    <!-- ════════════════════════════
+         WHITE FRONT
+    ════════════════════════════ -->
+    <div class="card-wrap">
+      <svg viewBox="0 0 850 500" width="425" height="250" class="white-card" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Background white -->
+        <rect width="850" height="500" rx="10" fill="#ffffff"/>
+
+        <!-- Navy top border -->
+        <rect x="0" y="0" width="850" height="6" fill="#0d2247"/>
+        <!-- Gold bottom rule -->
+        <rect x="0" y="494" width="850" height="6" fill="#c9a84c"/>
+
+        <!-- Subtle column divider -->
+        <line x1="560" y1="40" x2="560" y2="460" stroke="#d8cfc3" stroke-width=".8"/>
+
+        <!-- Institute name top-left -->
+        <text x="52" y="72"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="16" font-weight="400" letter-spacing="4"
+              fill="#1a3a6b">FIELDSHIFT RESEARCH INSTITUTE</text>
+
+        <!-- Rule -->
+        <line x1="52" y1="84" x2="530" y2="84" stroke="#b8922a" stroke-width=".8" opacity=".35"/>
+
+        <!-- NAME navy -->
+        <text x="52" y="178"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="62" font-weight="700" letter-spacing="-1"
+              fill="#0d2247">Thomas Hedlund Leijon</text>
+
+        <!-- Roles -->
+        <text x="54" y="218"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="20" font-weight="300" letter-spacing="1.5"
+              fill="#4a4a4a">Founder · Research Director</text>
+
+        <!-- Rule -->
+        <line x1="52" y1="238" x2="380" y2="238" stroke="#b8922a" stroke-width=".7" opacity=".3"/>
+
+        <!-- Originator italic -->
+        <text x="54" y="272"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="18" font-style="italic" font-weight="400" letter-spacing=".3"
+              fill="#4a6080">Originator of Fractal State Theory</text>
+
+        <!-- Contact -->
+        <text x="52" y="430"
+              font-family="'JetBrains Mono','Courier New',monospace"
+              font-size="14" fill="#7a7a7a" letter-spacing=".5">fieldshift.institute</text>
+
+        <!-- FS monogram right col, navy -->
+        <text x="703" y="130"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="72" font-weight="700" letter-spacing="-4"
+              fill="#0d2247" opacity=".85">FS</text>
+
+        <line x1="618" y1="142" x2="788" y2="142" stroke="#b8922a" stroke-width=".8" opacity=".25"/>
+
+        <text x="703" y="200"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="13" font-style="italic" letter-spacing=".3"
+              fill="#6a8aaa" opacity=".9">Advancing the</text>
+        <text x="703" y="220"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="13" font-style="italic" letter-spacing=".3"
+              fill="#6a8aaa" opacity=".9">Science of State</text>
+
+      </svg>
+      <div class="card-side-label">FRONT</div>
+    </div>
+
+    <!-- ════════════════════════════
+         WHITE BACK
+    ════════════════════════════ -->
+    <div class="card-wrap">
+      <svg viewBox="0 0 850 500" width="425" height="250" class="white-card" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Background white -->
+        <rect width="850" height="500" rx="10" fill="#ffffff"/>
+
+        <!-- Navy top border -->
+        <rect x="0" y="0" width="850" height="6" fill="#0d2247"/>
+        <!-- Gold bottom rule -->
+        <rect x="0" y="494" width="850" height="6" fill="#c9a84c"/>
+
+        <!-- Wordmark centred navy -->
+        <text x="425" y="220"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="68" font-weight="700" letter-spacing="-2"
+              fill="#0d2247">Field<tspan fill="#b8922a">Shift</tspan></text>
+
+        <!-- Rule -->
+        <line x1="160" y1="244" x2="690" y2="244" stroke="#b8922a" stroke-width="1" opacity=".35"/>
+
+        <!-- Research Institute centred navy -->
+        <text x="425" y="284"
+              text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="18" font-weight="300" letter-spacing="6"
+              fill="#1a3a6b">RESEARCH INSTITUTE</text>
+
+        <!-- Motto centred -->
+        <text x="425" y="340"
+              text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="14" font-style="italic" letter-spacing=".4"
+              fill="#6a8aaa">Advancing the Science of State</text>
+
+      </svg>
+      <div class="card-side-label">BACK</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SPEC TABLE
+══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Production Specifications</div>
+  <table class="spec-table">
+    <tr><th>Element</th><th>Specification</th></tr>
+    <tr><td>Format</td><td>85 × 55 mm (ISO standard) — or 88 × 58 mm with bleed</td></tr>
+    <tr><td>Stock</td><td>400 gsm uncoated (matte); cotton rag preferred for academic/diplomatic use</td></tr>
+    <tr><td>Dark edition print</td><td>CMYK offset or digital; navy background requires full-bleed flood coat</td></tr>
+    <tr><td>Light edition print</td><td>2-colour offset (Pantone 289 C navy + Pantone 872 C metallic gold) or CMYK</td></tr>
+    <tr><td>Name typeface</td><td>Libre Baskerville Bold — 62 pt (at 850 px viewBox)</td></tr>
+    <tr><td>Title typeface</td><td>Source Sans 3 Light — 20 pt, tracking +150</td></tr>
+    <tr><td>Originator line</td><td>Libre Baskerville Italic — 18 pt</td></tr>
+    <tr><td>Institute name</td><td>Source Sans 3 Regular — 16 pt, tracking +400 (small caps style)</td></tr>
+    <tr><td>Colours (dark)</td><td>Navy #0d2247 · Gold #c9a84c · Cream #f0ece4 · Steel-blue #7aabcf</td></tr>
+    <tr><td>Colours (light)</td><td>White #ffffff · Navy #0d2247 · Gold #b8922a · Slate #4a6080</td></tr>
+    <tr><td>Finishing</td><td>Soft-touch laminate (dark); no laminate or satin UV spot on wordmark (light)</td></tr>
+  </table>
+</div>
+
+<div class="footer">
+  <div class="footer-brand">Field<span>Shift</span> Research Institute</div>
+  <div class="footer-note">BRAND SYSTEM v1.0 · BUSINESS CARD · THOMAS HEDLUND LEIJON</div>
+</div>
+
+</body>
+</html>

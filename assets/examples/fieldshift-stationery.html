@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FieldShift — Stationery Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d2247;--navy-mid:#1a3a6b;
+  --gold:#b8922a;--gold-lt:#c9a84c;
+  --paper:#f9f6f1;--paper-2:#f2ede5;--rule:#d8cfc3;
+  --ink:#1a1a1a;--ink-soft:#4a4a4a;--ink-light:#7a7a7a;
+  --serif:'Libre Baskerville',Georgia,serif;
+  --sans:'Source Sans 3',system-ui,sans-serif;
+  --mono:'JetBrains Mono','Courier New',monospace;
+}
+body{background:#cdc8c0;font-family:var(--sans);min-height:100vh;padding:0 0 100px}
+
+.page-header{background:var(--navy);border-bottom:3px solid var(--gold-lt);padding:24px 48px 20px}
+.page-header h1{font-family:var(--serif);font-size:20px;font-weight:700;color:#f0ece4}
+.page-header h1 span{color:var(--gold-lt)}
+.page-header p{font-size:10px;letter-spacing:.2em;color:#7aabcf;margin-top:4px;text-transform:uppercase;font-family:var(--mono)}
+
+.sheet{max-width:1360px;margin:0 auto;padding:52px 40px}
+.section{margin-bottom:72px}
+.section-label{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:#6a6560;margin-bottom:22px;padding-bottom:8px;border-bottom:1px solid #b8b4ae}
+.row{display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap}
+.item{display:flex;flex-direction:column;align-items:center;gap:10px}
+.item svg{display:block;box-shadow:0 8px 32px rgba(0,0,0,.22),0 2px 6px rgba(0,0,0,.14)}
+.lbl{font-family:var(--mono);font-size:8px;letter-spacing:.18em;color:#7a7872;text-align:center;text-transform:uppercase}
+
+.footer{border-top:1px solid #b8b4ae;margin-top:20px;padding-top:18px;
+  display:flex;justify-content:space-between;align-items:center}
+.footer-brand{font-family:var(--serif);font-size:13px;font-weight:700;color:var(--ink-soft)}
+.footer-brand span{color:var(--gold)}
+.footer-note{font-family:var(--mono);font-size:9px;color:var(--ink-light);letter-spacing:.08em}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Field<span>Shift</span> Research Institute</h1>
+  <p>Stationery Suite — Brand System v1.0 · Thomas Hedlund Leijon</p>
+</div>
+
+<div class="sheet">
+
+<!-- ═══════════════════════════════════════════════════
+     1. A4 LETTERHEAD
+═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">A4 Letterhead — First Page</div>
+  <div class="row">
+
+    <!-- DARK LETTERHEAD -->
+    <div class="item">
+      <!-- A4 ratio 210:297 → 500:708 -->
+      <svg viewBox="0 0 500 708" width="380" height="538" xmlns="http://www.w3.org/2000/svg">
+        <!-- Paper -->
+        <rect width="500" height="708" fill="#fdfbf8"/>
+
+        <!-- Navy top bar -->
+        <rect x="0" y="0" width="500" height="88" fill="#0d2247"/>
+
+        <!-- Gold rule below navy bar -->
+        <rect x="0" y="88" width="500" height="3" fill="#c9a84c"/>
+
+        <!-- Wordmark in header -->
+        <text x="36" y="42"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="28" font-weight="700" letter-spacing="-.5"
+              fill="#f0ece4">Field<tspan fill="#c9a84c">Shift</tspan></text>
+
+        <!-- RESEARCH INSTITUTE -->
+        <text x="37" y="62"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="9" font-weight="300" letter-spacing=".28em"
+              fill="#7aabcf">RESEARCH INSTITUTE</text>
+
+        <!-- Right header block: address -->
+        <text x="464" y="30" text-anchor="end"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8" fill="#a8c4e0" letter-spacing=".06em">fieldshift.institute</text>
+        <text x="464" y="44" text-anchor="end"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8" fill="#7aabcf" letter-spacing=".04em">thomas.hedlundleijon@fieldshift.institute</text>
+        <text x="464" y="58" text-anchor="end"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8" fill="#5a7a9a" letter-spacing=".04em">ORCID 0000-0000-0000-0000</text>
+        <text x="464" y="72" text-anchor="end"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8" fill="#5a7a9a" letter-spacing=".04em">Stockholm, Sweden</text>
+
+        <!-- Motto below gold rule, paper background -->
+        <text x="36" y="106"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="7.5" font-style="italic" letter-spacing=".04em"
+              fill="#9aabba">Advancing the Science of State</text>
+
+        <!-- Date field -->
+        <text x="36" y="148"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8.5" fill="#7a7a7a" letter-spacing=".06em">28 June 2025</text>
+
+        <!-- Recipient block -->
+        <text x="36" y="178"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8.5" font-weight="600" fill="#1a1a1a">Professor [Name]</text>
+        <text x="36" y="190"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8.5" fill="#4a4a4a">[Department / Institution]</text>
+        <text x="36" y="202"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8.5" fill="#4a4a4a">[City, Country]</text>
+
+        <!-- Subject line -->
+        <text x="36" y="228"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="9.5" font-weight="700" fill="#0d2247">Re: [Subject of Correspondence]</text>
+        <line x1="36" y1="234" x2="464" y2="234" stroke="#d8cfc3" stroke-width=".6"/>
+
+        <!-- Body text placeholder lines -->
+        <text x="36" y="256"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="8" fill="#1a1a1a">Dear Professor [Name],</text>
+
+        <!-- Simulated body text -->
+        <g fill="#c8c0b8">
+          <rect x="36" y="270" width="420" height="5" rx="1"/>
+          <rect x="36" y="280" width="428" height="5" rx="1"/>
+          <rect x="36" y="290" width="390" height="5" rx="1"/>
+          <rect x="36" y="300" width="428" height="5" rx="1"/>
+          <rect x="36" y="310" width="410" height="5" rx="1"/>
+          <rect x="36" y="320" width="152" height="5" rx="1"/>
+
+          <rect x="36" y="340" width="428" height="5" rx="1"/>
+          <rect x="36" y="350" width="418" height="5" rx="1"/>
+          <rect x="36" y="360" width="428" height="5" rx="1"/>
+          <rect x="36" y="370" width="320" height="5" rx="1"/>
+
+          <rect x="36" y="390" width="428" height="5" rx="1"/>
+          <rect x="36" y="400" width="380" height="5" rx="1"/>
+          <rect x="36" y="410" width="428" height="5" rx="1"/>
+          <rect x="36" y="420" width="270" height="5" rx="1"/>
+        </g>
+
+        <!-- Closing -->
+        <text x="36" y="452"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="8" fill="#1a1a1a">Yours sincerely,</text>
+
+        <!-- Signature block -->
+        <!-- Simulated signature -->
+        <path d="M36,482 Q52,465 72,472 Q92,480 108,468 Q120,460 136,470"
+              fill="none" stroke="#0d2247" stroke-width="1.5" stroke-linecap="round"/>
+
+        <text x="36" y="506"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="9.5" font-weight="700" fill="#0d2247">Thomas Hedlund Leijon</text>
+        <text x="36" y="520"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8" fill="#4a4a4a" letter-spacing=".06em">Founder &amp; Research Director</text>
+        <text x="36" y="532"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="8" font-style="italic" fill="#6a8aaa">Originator of Fractal State Theory</text>
+        <text x="36" y="546"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8" fill="#7a7a7a" letter-spacing=".06em">FieldShift Research Institute</text>
+
+        <!-- Footer rule -->
+        <line x1="36" y1="624" x2="464" y2="624" stroke="#d8cfc3" stroke-width=".6"/>
+        <!-- Footer text -->
+        <text x="36" y="636"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="6.5" fill="#b0a898" letter-spacing=".08em">FIELDSHIFT RESEARCH INSTITUTE</text>
+        <text x="464" y="636" text-anchor="end"
+              font-family="'JetBrains Mono','Courier New',monospace"
+              font-size="6.5" fill="#b0a898">fieldshift.institute</text>
+
+        <!-- Bottom gold rule -->
+        <rect x="0" y="700" width="500" height="4" fill="#c9a84c" opacity=".6"/>
+
+        <!-- Page number -->
+        <text x="250" y="695" text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="7" fill="#c8c0b8" letter-spacing=".1em">1</text>
+      </svg>
+      <div class="lbl">A4 · Dark Header · Letterhead</div>
+    </div>
+
+    <!-- LIGHT / MINIMAL LETTERHEAD -->
+    <div class="item">
+      <svg viewBox="0 0 500 708" width="380" height="538" xmlns="http://www.w3.org/2000/svg">
+        <rect width="500" height="708" fill="#fdfbf8"/>
+
+        <!-- Top gold rule only -->
+        <rect x="0" y="0" width="500" height="4" fill="#0d2247"/>
+        <rect x="0" y="4" width="500" height="2" fill="#c9a84c"/>
+
+        <!-- Wordmark — navy on paper, top left -->
+        <text x="36" y="46"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="26" font-weight="700" letter-spacing="-.5"
+              fill="#0d2247">Field<tspan fill="#b8922a">Shift</tspan></text>
+        <text x="37" y="62"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8.5" font-weight="300" letter-spacing=".28em"
+              fill="#4a6080">RESEARCH INSTITUTE</text>
+
+        <!-- Right address -->
+        <text x="464" y="30" text-anchor="end"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8" fill="#7a7a7a" letter-spacing=".04em">fieldshift.institute</text>
+        <text x="464" y="42" text-anchor="end"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8" fill="#7a7a7a" letter-spacing=".04em">thomas.hedlundleijon@fieldshift.institute</text>
+        <text x="464" y="54" text-anchor="end"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8" fill="#9a9a9a" letter-spacing=".04em">ORCID 0000-0000-0000-0000</text>
+        <text x="464" y="66" text-anchor="end"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8" fill="#9a9a9a" letter-spacing=".04em">Stockholm, Sweden</text>
+
+        <!-- Full-width rule below header -->
+        <line x1="36" y1="78" x2="464" y2="78" stroke="#d8cfc3" stroke-width=".7"/>
+
+        <!-- Motto -->
+        <text x="36" y="92"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="7.5" font-style="italic" fill="#9aabba" letter-spacing=".03em">Advancing the Science of State</text>
+
+        <!-- Date -->
+        <text x="36" y="130"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8.5" fill="#7a7a7a" letter-spacing=".06em">28 June 2025</text>
+
+        <!-- Recipient -->
+        <text x="36" y="158" font-family="'Source Sans 3',Arial,sans-serif" font-size="8.5" font-weight="600" fill="#1a1a1a">Professor [Name]</text>
+        <text x="36" y="170" font-family="'Source Sans 3',Arial,sans-serif" font-size="8.5" fill="#4a4a4a">[Department / Institution]</text>
+        <text x="36" y="182" font-family="'Source Sans 3',Arial,sans-serif" font-size="8.5" fill="#4a4a4a">[City, Country]</text>
+
+        <!-- Subject -->
+        <text x="36" y="208" font-family="'Libre Baskerville',Georgia,serif" font-size="9.5" font-weight="700" fill="#0d2247">Re: [Subject of Correspondence]</text>
+        <line x1="36" y1="214" x2="464" y2="214" stroke="#d8cfc3" stroke-width=".6"/>
+
+        <text x="36" y="234" font-family="'Libre Baskerville',Georgia,serif" font-size="8" fill="#1a1a1a">Dear Professor [Name],</text>
+
+        <g fill="#d0c8c0">
+          <rect x="36" y="248" width="420" height="5" rx="1"/>
+          <rect x="36" y="258" width="428" height="5" rx="1"/>
+          <rect x="36" y="268" width="390" height="5" rx="1"/>
+          <rect x="36" y="278" width="428" height="5" rx="1"/>
+          <rect x="36" y="288" width="180" height="5" rx="1"/>
+
+          <rect x="36" y="306" width="428" height="5" rx="1"/>
+          <rect x="36" y="316" width="400" height="5" rx="1"/>
+          <rect x="36" y="326" width="428" height="5" rx="1"/>
+          <rect x="36" y="336" width="300" height="5" rx="1"/>
+
+          <rect x="36" y="354" width="428" height="5" rx="1"/>
+          <rect x="36" y="364" width="360" height="5" rx="1"/>
+          <rect x="36" y="374" width="428" height="5" rx="1"/>
+          <rect x="36" y="384" width="240" height="5" rx="1"/>
+        </g>
+
+        <text x="36" y="412" font-family="'Libre Baskerville',Georgia,serif" font-size="8" fill="#1a1a1a">Yours sincerely,</text>
+
+        <path d="M36,436 Q52,419 72,426 Q92,434 108,422 Q120,414 136,424"
+              fill="none" stroke="#0d2247" stroke-width="1.5" stroke-linecap="round"/>
+
+        <text x="36" y="460" font-family="'Libre Baskerville',Georgia,serif" font-size="9.5" font-weight="700" fill="#0d2247">Thomas Hedlund Leijon</text>
+        <text x="36" y="474" font-family="'Source Sans 3',Arial,sans-serif" font-size="8" fill="#4a4a4a" letter-spacing=".06em">Founder &amp; Research Director</text>
+        <text x="36" y="486" font-family="'Libre Baskerville',Georgia,serif" font-size="8" font-style="italic" fill="#6a8aaa">Originator of Fractal State Theory</text>
+        <text x="36" y="498" font-family="'Source Sans 3',Arial,sans-serif" font-size="8" fill="#7a7a7a" letter-spacing=".06em">FieldShift Research Institute</text>
+
+        <!-- Footer -->
+        <line x1="36" y1="660" x2="464" y2="660" stroke="#d8cfc3" stroke-width=".6"/>
+        <text x="36" y="672" font-family="'Source Sans 3',Arial,sans-serif" font-size="6.5" fill="#b0a898" letter-spacing=".08em">FIELDSHIFT RESEARCH INSTITUTE</text>
+        <text x="464" y="672" text-anchor="end" font-family="'JetBrains Mono','Courier New',monospace" font-size="6.5" fill="#b0a898">fieldshift.institute</text>
+
+        <!-- Bottom rule pair -->
+        <rect x="0" y="702" width="500" height="2" fill="#0d2247"/>
+        <rect x="0" y="704" width="500" height="2" fill="#c9a84c"/>
+
+        <text x="250" y="697" text-anchor="middle" font-family="'Source Sans 3',Arial,sans-serif" font-size="7" fill="#c8c0b8" letter-spacing=".1em">1</text>
+      </svg>
+      <div class="lbl">A4 · Light Header · Letterhead</div>
+    </div>
+
+    <!-- CONTINUATION PAGE -->
+    <div class="item">
+      <svg viewBox="0 0 500 708" width="280" height="397" xmlns="http://www.w3.org/2000/svg">
+        <rect width="500" height="708" fill="#fdfbf8"/>
+        <rect x="0" y="0" width="500" height="2" fill="#0d2247"/>
+        <rect x="0" y="2" width="500" height="1.5" fill="#c9a84c"/>
+
+        <!-- Minimal header: wordmark left, page number right -->
+        <text x="36" y="30"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="13" font-weight="700" letter-spacing="-.3"
+              fill="#0d2247">Field<tspan fill="#b8922a">Shift</tspan></text>
+        <text x="36" y="42"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="6.5" font-weight="300" letter-spacing=".22em"
+              fill="#9aabba">RESEARCH INSTITUTE</text>
+
+        <text x="464" y="30" text-anchor="end"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="7.5" fill="#9a9a9a" letter-spacing=".08em">Page 2</text>
+        <text x="464" y="42" text-anchor="end"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="7" fill="#b0b0b0" font-style="italic">Thomas Hedlund Leijon</text>
+
+        <line x1="36" y1="52" x2="464" y2="52" stroke="#d8cfc3" stroke-width=".6"/>
+
+        <!-- Body text -->
+        <g fill="#d0c8c0">
+          <rect x="36" y="70"  width="428" height="5" rx="1"/>
+          <rect x="36" y="80"  width="400" height="5" rx="1"/>
+          <rect x="36" y="90"  width="428" height="5" rx="1"/>
+          <rect x="36" y="100" width="350" height="5" rx="1"/>
+          <rect x="36" y="110" width="428" height="5" rx="1"/>
+          <rect x="36" y="120" width="210" height="5" rx="1"/>
+
+          <rect x="36" y="138" width="428" height="5" rx="1"/>
+          <rect x="36" y="148" width="380" height="5" rx="1"/>
+          <rect x="36" y="158" width="428" height="5" rx="1"/>
+          <rect x="36" y="168" width="290" height="5" rx="1"/>
+        </g>
+
+        <!-- Continuation footer -->
+        <line x1="36" y1="660" x2="464" y2="660" stroke="#d8cfc3" stroke-width=".6"/>
+        <text x="36" y="672" font-family="'Source Sans 3',Arial,sans-serif" font-size="6.5" fill="#b0a898" letter-spacing=".08em">FIELDSHIFT RESEARCH INSTITUTE</text>
+        <text x="464" y="672" text-anchor="end" font-family="'JetBrains Mono','Courier New',monospace" font-size="6.5" fill="#b0a898">fieldshift.institute</text>
+
+        <rect x="0" y="702" width="500" height="2" fill="#0d2247"/>
+        <rect x="0" y="704" width="500" height="2" fill="#c9a84c"/>
+        <text x="250" y="697" text-anchor="middle" font-family="'Source Sans 3',Arial,sans-serif" font-size="7" fill="#c8c0b8" letter-spacing=".1em">2</text>
+      </svg>
+      <div class="lbl">A4 · Continuation Page</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     2. ENVELOPES
+═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Envelopes — C5 (229 × 162 mm) &amp; DL (220 × 110 mm)</div>
+  <div class="row" style="align-items:flex-end">
+
+    <!-- C5 ENVELOPE DARK -->
+    <div class="item">
+      <svg viewBox="0 0 688 486" width="550" height="389" xmlns="http://www.w3.org/2000/svg">
+        <!-- Envelope body -->
+        <rect width="688" height="486" rx="6" fill="#f2ede5" stroke="#d8cfc3" stroke-width="1.5"/>
+
+        <!-- Flap fold line -->
+        <line x1="0" y1="200" x2="688" y2="200" stroke="#d8cfc3" stroke-width=".8" stroke-dasharray="4,3"/>
+
+        <!-- Flap (top, closed) -->
+        <path d="M0,0 L344,200 L688,0 Z" fill="#e8e0d4" opacity=".6"/>
+        <path d="M0,0 L344,200 L688,0" fill="none" stroke="#d8cfc3" stroke-width="1"/>
+
+        <!-- Bottom flap crease lines -->
+        <path d="M0,486 L344,280 L688,486" fill="none" stroke="#d8cfc3" stroke-width=".8"/>
+
+        <!-- Navy left strip / return address zone -->
+        <rect x="0" y="0" width="4" height="486" fill="#0d2247"/>
+        <rect x="4" y="0" width="2" height="486" fill="#c9a84c" opacity=".6"/>
+
+        <!-- Return address top-left -->
+        <text x="28" y="236"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="12" font-weight="700" letter-spacing="-.3"
+              fill="#0d2247">Field<tspan fill="#b8922a">Shift</tspan></text>
+        <text x="28" y="250"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="7" font-weight="300" letter-spacing=".2em"
+              fill="#4a6080">RESEARCH INSTITUTE</text>
+        <text x="28" y="265"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="7.5" fill="#7a7a7a">fieldshift.institute</text>
+
+        <!-- Recipient address centre -->
+        <text x="344" y="310" text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="10" font-weight="600" fill="#1a1a1a">Professor [Name]</text>
+        <text x="344" y="326" text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="10" fill="#4a4a4a">[Department]</text>
+        <text x="344" y="342" text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="10" fill="#4a4a4a">[Institution]</text>
+        <text x="344" y="358" text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="10" fill="#4a4a4a">[City, Country]</text>
+
+        <!-- Stamp box top-right -->
+        <rect x="604" y="220" width="64" height="52" rx="2" fill="none" stroke="#b0a898" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="636" y="250" text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="7" fill="#c8c0b8" letter-spacing=".06em">STAMP</text>
+
+        <!-- Bottom gold rule -->
+        <rect x="0" y="480" width="688" height="4" fill="#c9a84c" opacity=".4"/>
+      </svg>
+      <div class="lbl">C5 Envelope · 229 × 162 mm</div>
+    </div>
+
+    <!-- DL ENVELOPE -->
+    <div class="item">
+      <svg viewBox="0 0 660 330" width="440" height="220" xmlns="http://www.w3.org/2000/svg">
+        <rect width="660" height="330" rx="5" fill="#f2ede5" stroke="#d8cfc3" stroke-width="1.5"/>
+
+        <!-- Flap -->
+        <path d="M0,0 L330,160 L660,0 Z" fill="#e8e0d4" opacity=".5"/>
+        <path d="M0,0 L330,160 L660,0" fill="none" stroke="#d8cfc3" stroke-width=".8"/>
+        <line x1="0" y1="140" x2="660" y2="140" stroke="#d8cfc3" stroke-width=".7" stroke-dasharray="3,3"/>
+
+        <!-- Bottom folds -->
+        <path d="M0,330 L330,200 L660,330" fill="none" stroke="#d8cfc3" stroke-width=".7"/>
+
+        <!-- Left strip -->
+        <rect x="0" y="0" width="3" height="330" fill="#0d2247"/>
+        <rect x="3" y="0" width="1.5" height="330" fill="#c9a84c" opacity=".5"/>
+
+        <!-- Return address -->
+        <text x="22" y="170"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="10" font-weight="700" letter-spacing="-.3"
+              fill="#0d2247">Field<tspan fill="#b8922a">Shift</tspan></text>
+        <text x="22" y="183"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="6.5" letter-spacing=".18em" fill="#4a6080">RESEARCH INSTITUTE</text>
+        <text x="22" y="196"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="6.5" fill="#7a7a7a">fieldshift.institute</text>
+
+        <!-- Recipient -->
+        <text x="330" y="222" text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="9" font-weight="600" fill="#1a1a1a">Professor [Name]</text>
+        <text x="330" y="236" text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="9" fill="#4a4a4a">[Institution · City · Country]</text>
+
+        <!-- Stamp -->
+        <rect x="584" y="152" width="52" height="42" rx="2" fill="none" stroke="#b0a898" stroke-width="1" stroke-dasharray="2,2"/>
+        <text x="610" y="177" text-anchor="middle" font-family="'Source Sans 3',Arial,sans-serif" font-size="6" fill="#c8c0b8" letter-spacing=".05em">STAMP</text>
+
+        <rect x="0" y="326" width="660" height="3" fill="#c9a84c" opacity=".4"/>
+      </svg>
+      <div class="lbl">DL Envelope · 220 × 110 mm</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     3. WITH COMPLIMENTS SLIP + MEMO SHEET
+═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">With Compliments Slip · Internal Memo · Notecard</div>
+  <div class="row" style="align-items:flex-start;gap:32px">
+
+    <!-- WITH COMPLIMENTS (DL size: 210×99mm → 500×236) -->
+    <div class="item">
+      <svg viewBox="0 0 500 236" width="440" height="208" xmlns="http://www.w3.org/2000/svg">
+        <rect width="500" height="236" fill="#fdfbf8"/>
+        <rect x="0" y="0" width="500" height="52" fill="#0d2247"/>
+        <rect x="0" y="52" width="500" height="2.5" fill="#c9a84c"/>
+
+        <!-- Wordmark in header -->
+        <text x="28" y="24"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="18" font-weight="700" letter-spacing="-.4"
+              fill="#f0ece4">Field<tspan fill="#c9a84c">Shift</tspan></text>
+        <text x="29" y="40"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="7" font-weight="300" letter-spacing=".24em"
+              fill="#7aabcf">RESEARCH INSTITUTE</text>
+
+        <!-- With compliments text -->
+        <text x="250" y="110" text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="16" font-style="italic" fill="#0d2247" letter-spacing=".2">With compliments</text>
+        <line x1="80" y1="120" x2="420" y2="120" stroke="#c9a84c" stroke-width=".7" opacity=".4"/>
+
+        <!-- Name & title -->
+        <text x="250" y="146" text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="10" font-weight="700" fill="#0d2247">Thomas Hedlund Leijon</text>
+        <text x="250" y="160" text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8" fill="#4a6080" letter-spacing=".08em">Founder &amp; Research Director · FieldShift Research Institute</text>
+        <text x="250" y="173" text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="8" font-style="italic" fill="#8aabca">Originator of Fractal State Theory</text>
+
+        <!-- Contact line -->
+        <text x="250" y="194" text-anchor="middle"
+              font-family="'JetBrains Mono','Courier New',monospace"
+              font-size="7.5" fill="#9a9a9a" letter-spacing=".04em">thomas.hedlundleijon@fieldshift.institute · fieldshift.institute</text>
+
+        <!-- Bottom rule -->
+        <rect x="0" y="230" width="500" height="3" fill="#c9a84c" opacity=".5"/>
+        <rect x="0" y="233" width="500" height="3" fill="#0d2247" opacity=".4"/>
+      </svg>
+      <div class="lbl">With Compliments Slip · DL</div>
+    </div>
+
+    <!-- INTERNAL MEMO (A5 landscape: 210×148mm → 500×354) -->
+    <div class="item">
+      <svg viewBox="0 0 500 354" width="360" height="255" xmlns="http://www.w3.org/2000/svg">
+        <rect width="500" height="354" fill="#fdfbf8"/>
+        <!-- Narrow top bar -->
+        <rect x="0" y="0" width="500" height="3" fill="#0d2247"/>
+        <rect x="0" y="3" width="500" height="1.5" fill="#c9a84c"/>
+
+        <!-- Header row -->
+        <text x="28" y="28"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="14" font-weight="700" letter-spacing="-.3"
+              fill="#0d2247">Field<tspan fill="#b8922a">Shift</tspan></text>
+        <text x="29" y="40"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="6.5" letter-spacing=".22em" fill="#4a6080">RESEARCH INSTITUTE</text>
+
+        <!-- MEMORANDUM label -->
+        <text x="500" y="30" text-anchor="end"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="11" font-weight="600" letter-spacing=".22em"
+              fill="#0d2247">MEMORANDUM</text>
+
+        <!-- Rule -->
+        <line x1="28" y1="50" x2="472" y2="50" stroke="#d8cfc3" stroke-width=".8"/>
+
+        <!-- Memo fields -->
+        <g font-family="'Source Sans 3',Arial,sans-serif" font-size="8.5">
+          <text x="28"  y="70" fill="#7a7a7a" letter-spacing=".1em">TO</text>
+          <line x1="60" y1="72" x2="472" y2="72" stroke="#d8cfc3" stroke-width=".5"/>
+          <text x="28"  y="90" fill="#7a7a7a" letter-spacing=".1em">FROM</text>
+          <text x="80"  y="90" fill="#0d2247">Thomas Hedlund Leijon, Research Director</text>
+          <text x="28"  y="110" fill="#7a7a7a" letter-spacing=".06em">DATE</text>
+          <text x="80"  y="110" fill="#1a1a1a">28 June 2025</text>
+          <text x="28"  y="130" fill="#7a7a7a" letter-spacing=".06em">RE</text>
+          <line x1="60" y1="132" x2="472" y2="132" stroke="#d8cfc3" stroke-width=".5"/>
+          <text x="28"  y="150" fill="#7a7a7a" letter-spacing=".06em">CC</text>
+          <line x1="60" y1="152" x2="472" y2="152" stroke="#d8cfc3" stroke-width=".5"/>
+        </g>
+
+        <line x1="28" y1="162" x2="472" y2="162" stroke="#c9a84c" stroke-width=".8" opacity=".35"/>
+
+        <!-- Body placeholder -->
+        <g fill="#d8d0c8">
+          <rect x="28" y="176" width="444" height="5" rx="1"/>
+          <rect x="28" y="186" width="420" height="5" rx="1"/>
+          <rect x="28" y="196" width="444" height="5" rx="1"/>
+          <rect x="28" y="206" width="300" height="5" rx="1"/>
+          <rect x="28" y="222" width="444" height="5" rx="1"/>
+          <rect x="28" y="232" width="380" height="5" rx="1"/>
+          <rect x="28" y="242" width="444" height="5" rx="1"/>
+          <rect x="28" y="252" width="220" height="5" rx="1"/>
+        </g>
+
+        <!-- Footer -->
+        <line x1="28" y1="318" x2="472" y2="318" stroke="#d8cfc3" stroke-width=".6"/>
+        <text x="28"  y="330" font-family="'Source Sans 3',Arial,sans-serif" font-size="6.5" fill="#b0a898" letter-spacing=".08em">FIELDSHIFT RESEARCH INSTITUTE — INTERNAL MEMORANDUM</text>
+        <rect x="0" y="350" width="500" height="2" fill="#0d2247"/>
+        <rect x="0" y="352" width="500" height="2" fill="#c9a84c"/>
+      </svg>
+      <div class="lbl">Internal Memo · A5 landscape</div>
+    </div>
+
+    <!-- NOTECARD (A6: 148×105mm → 400×284) -->
+    <div class="item">
+      <svg viewBox="0 0 400 284" width="300" height="213" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="284" fill="#fdfbf8"/>
+        <!-- Dark top header -->
+        <rect x="0" y="0" width="400" height="68" fill="#0d2247"/>
+        <rect x="0" y="68" width="400" height="2" fill="#c9a84c"/>
+
+        <text x="28" y="34"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="22" font-weight="700" letter-spacing="-.4"
+              fill="#f0ece4">Field<tspan fill="#c9a84c">Shift</tspan></text>
+        <text x="29" y="52"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="7.5" letter-spacing=".24em" fill="#7aabcf">RESEARCH INSTITUTE</text>
+
+        <!-- Writing lines -->
+        <g stroke="#e8e0d4" stroke-width=".6">
+          <line x1="28" y1="100" x2="372" y2="100"/>
+          <line x1="28" y1="118" x2="372" y2="118"/>
+          <line x1="28" y1="136" x2="372" y2="136"/>
+          <line x1="28" y1="154" x2="372" y2="154"/>
+          <line x1="28" y1="172" x2="372" y2="172"/>
+          <line x1="28" y1="190" x2="372" y2="190"/>
+          <line x1="28" y1="208" x2="372" y2="208"/>
+          <line x1="28" y1="226" x2="372" y2="226"/>
+        </g>
+
+        <!-- Footer -->
+        <line x1="28" y1="252" x2="372" y2="252" stroke="#d8cfc3" stroke-width=".6"/>
+        <text x="200" y="266" text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="7" font-style="italic" fill="#c8c0b8" letter-spacing=".04em">Advancing the Science of State</text>
+        <rect x="0" y="280" width="400" height="2.5" fill="#c9a84c" opacity=".5"/>
+        <rect x="0" y="282.5" width="400" height="1.5" fill="#0d2247" opacity=".3"/>
+      </svg>
+      <div class="lbl">Notecard · A6 · 148 × 105 mm</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     4. STICKER / SEAL LABEL
+═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Address Label · Seal Sticker · Document Folder Label</div>
+  <div class="row" style="align-items:center;gap:40px">
+
+    <!-- Address label -->
+    <div class="item">
+      <svg viewBox="0 0 320 120" width="288" height="108" xmlns="http://www.w3.org/2000/svg">
+        <rect width="320" height="120" rx="4" fill="#fdfbf8" stroke="#d8cfc3" stroke-width="1"/>
+        <rect x="0" y="0" width="320" height="3" fill="#0d2247"/>
+        <rect x="0" y="3" width="320" height="2" fill="#c9a84c"/>
+        <text x="16" y="24" font-family="'Libre Baskerville',Georgia,serif" font-size="11" font-weight="700" letter-spacing="-.3" fill="#0d2247">Field<tspan fill="#b8922a">Shift</tspan></text>
+        <text x="16" y="36" font-family="'Source Sans 3',Arial,sans-serif" font-size="6" letter-spacing=".2em" fill="#4a6080">RESEARCH INSTITUTE</text>
+        <line x1="16" y1="44" x2="304" y2="44" stroke="#d8cfc3" stroke-width=".5"/>
+        <text x="16" y="60" font-family="'Source Sans 3',Arial,sans-serif" font-size="8.5" font-weight="600" fill="#1a1a1a">Thomas Hedlund Leijon</text>
+        <text x="16" y="74" font-family="'Source Sans 3',Arial,sans-serif" font-size="8" fill="#4a4a4a">Founder &amp; Research Director</text>
+        <text x="16" y="88" font-family="'JetBrains Mono','Courier New',monospace" font-size="7.5" fill="#7a7a7a">fieldshift.institute</text>
+        <rect x="0" y="115" width="320" height="3" fill="#c9a84c" opacity=".5"/>
+      </svg>
+      <div class="lbl">Address / Return Label · 80 × 30 mm</div>
+    </div>
+
+    <!-- Round seal sticker -->
+    <div class="item">
+      <svg viewBox="0 0 200 200" width="170" height="170" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="98" fill="#c9a84c"/>
+        <circle cx="100" cy="100" r="93" fill="#0d2247"/>
+        <circle cx="100" cy="100" r="93" fill="none" stroke="#c9a84c" stroke-width="2"/>
+        <circle cx="100" cy="100" r="85" fill="none" stroke="#c9a84c" stroke-width=".6" opacity=".4"/>
+        <defs>
+          <path id="sl_t" d="M 10,100 A 90,90 0 0,1 190,100"/>
+          <path id="sl_b" d="M 30,148 A 90,90 0 0,0 170,148"/>
+        </defs>
+        <text font-family="'Libre Baskerville',Georgia,serif" font-size="12.5" font-weight="700" letter-spacing=".14em" fill="#c9a84c">
+          <textPath href="#sl_t" startOffset="50%" text-anchor="middle">FIELDSHIFT RESEARCH INSTITUTE</textPath>
+        </text>
+        <text font-family="'Libre Baskerville',Georgia,serif" font-size="10" letter-spacing=".12em" fill="#c9a84c" opacity=".7">
+          <textPath href="#sl_b" startOffset="50%" text-anchor="middle">EST. MMXXV · SCIENCE OF STATE</textPath>
+        </text>
+        <text x="100" y="108" text-anchor="middle" font-family="'Libre Baskerville',Georgia,serif" font-size="28" font-weight="700" letter-spacing="-1" fill="#f0ece4">Field<tspan fill="#c9a84c">Shift</tspan></text>
+        <line x1="44" y1="114" x2="156" y2="114" stroke="#c9a84c" stroke-width=".7" opacity=".3"/>
+      </svg>
+      <div class="lbl">Seal Sticker · 50 mm</div>
+    </div>
+
+    <!-- Document folder label / spine label -->
+    <div class="item">
+      <svg viewBox="0 0 80 320" width="80" height="320" xmlns="http://www.w3.org/2000/svg">
+        <rect width="80" height="320" rx="3" fill="#0d2247"/>
+        <rect x="0" y="0" width="80" height="3" fill="#c9a84c"/>
+        <rect x="0" y="317" width="80" height="3" fill="#c9a84c"/>
+        <rect x="0" y="3" width="3" height="314" fill="#1a3a6b"/>
+
+        <!-- Rotated wordmark -->
+        <g transform="translate(40,160) rotate(-90)">
+          <text x="0" y="-8" text-anchor="middle"
+                font-family="'Libre Baskerville',Georgia,serif"
+                font-size="15" font-weight="700" letter-spacing="-.3"
+                fill="#f0ece4">Field<tspan fill="#c9a84c">Shift</tspan></text>
+          <text x="0" y="8" text-anchor="middle"
+                font-family="'Source Sans 3',Arial,sans-serif"
+                font-size="6.5" letter-spacing=".2em" fill="#7aabcf">RESEARCH INSTITUTE</text>
+        </g>
+        <!-- Year -->
+        <text x="40" y="292" text-anchor="middle"
+              font-family="'Source Sans 3',Arial,sans-serif"
+              font-size="8" fill="#4a6080" letter-spacing=".08em">2025</text>
+      </svg>
+      <div class="lbl">Folder Spine Label</div>
+    </div>
+
+    <!-- Wax seal mockup -->
+    <div class="item">
+      <svg viewBox="0 0 200 200" width="170" height="170" xmlns="http://www.w3.org/2000/svg">
+        <!-- Wax texture -->
+        <defs>
+          <radialGradient id="waxG" cx="42%" cy="38%">
+            <stop offset="0%"  stop-color="#1a3a6b"/>
+            <stop offset="60%" stop-color="#0d2247"/>
+            <stop offset="100%" stop-color="#06111a"/>
+          </radialGradient>
+        </defs>
+        <!-- Wax blob (irregular) -->
+        <path d="M100,14 Q128,8 148,22 Q174,36 184,62 Q196,90 190,114
+                 Q184,140 168,158 Q148,178 120,186 Q94,194 72,184
+                 Q48,174 32,154 Q14,132 10,106 Q6,80 16,56
+                 Q28,30 52,18 Q74,8 100,14 Z"
+              fill="url(#waxG)"/>
+        <!-- Impressed seal design (lighter, as if pressed in) -->
+        <circle cx="100" cy="100" r="68" fill="none" stroke="#2a4a7a" stroke-width="1.8"/>
+        <circle cx="100" cy="100" r="61" fill="none" stroke="#2a4a7a" stroke-width=".6" opacity=".5"/>
+        <defs>
+          <path id="wx_t" d="M 34,100 A 66,66 0 0,1 166,100"/>
+          <path id="wx_b" d="M 50,144 A 66,66 0 0,0 150,144"/>
+        </defs>
+        <text font-family="'Libre Baskerville',Georgia,serif" font-size="10" font-weight="700" letter-spacing=".12em" fill="#2a4a7a" opacity=".9">
+          <textPath href="#wx_t" startOffset="50%" text-anchor="middle">FIELDSHIFT RESEARCH</textPath>
+        </text>
+        <text font-family="'Libre Baskerville',Georgia,serif" font-size="9" letter-spacing=".12em" fill="#2a4a7a" opacity=".7">
+          <textPath href="#wx_b" startOffset="50%" text-anchor="middle">INSTITUTE · MMXXV</textPath>
+        </text>
+        <text x="100" y="108" text-anchor="middle"
+              font-family="'Libre Baskerville',Georgia,serif"
+              font-size="24" font-weight="700" letter-spacing="-1"
+              fill="#2a4a7a" opacity=".85">FieldShift</text>
+        <line x1="52" y1="114" x2="148" y2="114" stroke="#2a4a7a" stroke-width=".6" opacity=".4"/>
+      </svg>
+      <div class="lbl">Wax Seal · Navy</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-brand">Field<span>Shift</span> Research Institute</div>
+  <div class="footer-note">BRAND SYSTEM v1.0 · STATIONERY SUITE · THOMAS HEDLUND LEIJON</div>
+</div>
+
+</div>
+</body>
+</html>
