@@ -68,6 +68,7 @@ with st.sidebar:
         "🗳️ Stödröstning",
         "📈 Scenario-explorer",
         "📚 Backtest",
+        "🔍 Postvalanalys SE-2026",
         "🗃️ Prognosarkiv",
         "🔗 Hashkedja",
         "📖 Metod & Begränsningar",
@@ -496,6 +497,144 @@ elif page == "📚 Backtest":
         })
     if hist_rows:
         st.dataframe(pd.DataFrame(hist_rows), use_container_width=True, hide_index=True)
+
+
+elif page == "🔍 Postvalanalys SE-2026":
+    from models.bias_analysis import (
+        se2026_post_election_analysis, recalibrate_K_with_se2026,
+        SE2026_ERRORS, SE2026_ACTUAL, SE2026_FORECAST, HISTORICAL_POLLING_BIAS,
+        compute_bias_correction,
+    )
+    import pandas as pd
+
+    st.header("🔍 Postvalanalys — SE-2026 (13 september 2026)")
+    st.caption("Systematisk analys av prognosavvikelser och kalibrering av GTT-modellen.")
+
+    analysis = se2026_post_election_analysis()
+    err = analysis["raw_forecast_error"]
+    summary = analysis["summary"]
+
+    # ── Sammanfattningspanel ───────────────────────────────────────────────────
+    st.subheader("Sammanfattning")
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric("MAE (parti)", f"{err['mae']:.2f} pp")
+        st.metric("RMSE", f"{err['rmse']:.2f} pp")
+    with col2:
+        st.metric("Störst fel", f"{PARTY_NAMES.get(err['max_error_party'], err['max_error_party'])} {err['max_error_value']:+.2f} pp")
+    with col3:
+        st.metric("Blockgap prognos / utfall",
+                  f"{err['block_margin_forecast']:+.2f} / {err['block_margin_actual']:+.2f} pp")
+        st.metric("Blockmarginalsfel", f"{err['block_margin_error']:+.2f} pp")
+    with col4:
+        st.metric("Rätt vinnande block", "✅ Ja" if err["winner_correct"] else "❌ Nej")
+        st.metric("Faktisk vinnare", "Vänsterblock")
+
+    st.info(f"**Slutsats:** {summary['block_result']} · PSI: {summary['psi_drift']}")
+
+    # ── Partinivå felanalys ────────────────────────────────────────────────────
+    st.subheader("Partinivå — prognos vs utfall")
+    rows = []
+    for p in PARTIES:
+        e_val = SE2026_ERRORS.get(p, 0.0)
+        rows.append({
+            "Parti": PARTY_NAMES.get(p, p),
+            "Prognos %": f"{SE2026_FORECAST.get(p, 0):.2f}",
+            "Utfall %": f"{SE2026_ACTUAL.get(p, 0):.2f}",
+            "Fel (pp)": f"{e_val:+.2f}",
+            "Typ": ("Överskattad" if e_val > 0.5 else
+                    "Underskattad" if e_val < -0.5 else "Träffsäker"),
+        })
+    df_err = pd.DataFrame(rows)
+    st.dataframe(df_err, use_container_width=True, hide_index=True)
+
+    # ── Felorsaker ─────────────────────────────────────────────────────────────
+    st.subheader("Identifierade felorsaker")
+    for cause in err["error_causes"]:
+        severity = cause.get("severity", "")
+        icon = "🔴" if severity == "Kritisk" else ("🟡" if severity == "Hög" else "🟢")
+        party_name = PARTY_NAMES.get(cause.get("party", ""), cause.get("party", ""))
+        header = f"{icon} **{cause['cause']}**"
+        if party_name and "parties" not in cause:
+            header += f" ({party_name})"
+        with st.expander(header, expanded=(severity == "Kritisk")):
+            st.write(cause["explanation"])
+            if "correction" in cause:
+                st.code(cause["correction"], language="text")
+
+    # ── Bias-korrigerad prognos ────────────────────────────────────────────────
+    st.subheader("Vad hade bias-korrigerad prognos gett?")
+    corr_err = analysis["corrected_error"]
+    bias_corr = analysis["bias_corrected_forecast"]
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("MAE (råprognos)", f"{err['mae']:.2f} pp")
+    with col2:
+        st.metric("MAE (bias-korrigerad)", f"{corr_err['mae']:.2f} pp",
+                  delta=f"{-analysis['improvement_mae']:.2f} pp",
+                  delta_color="inverse")
+    with col3:
+        st.metric("Förbättring", f"{analysis['improvement_mae']:.2f} pp")
+
+    rows2 = []
+    for p in PARTIES:
+        rows2.append({
+            "Parti": PARTY_NAMES.get(p, p),
+            "Råprognos %": f"{SE2026_FORECAST.get(p, 0):.2f}",
+            "Bias-korr %": f"{bias_corr.get(p, 0):.2f}",
+            "Utfall %": f"{SE2026_ACTUAL.get(p, 0):.2f}",
+            "Fel råprognos": f"{SE2026_ERRORS.get(p, 0):+.2f}",
+            "Fel bias-korr": f"{corr_err['party_errors'].get(p, 0):+.2f}",
+        })
+    st.dataframe(pd.DataFrame(rows2), use_container_width=True, hide_index=True)
+
+    # ── K-recalibrering ────────────────────────────────────────────────────────
+    st.subheader("GTT K-recalibrering med SE-2026")
+    k_cal = recalibrate_K_with_se2026(historical)
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric("K (medelvärde)", f"{k_cal['K_mean']:.2f}")
+    with col2:
+        st.metric("K (median)", f"{k_cal['K_median']:.2f}")
+    with col3:
+        st.metric("K (viktat nyare val)", f"{k_cal['K_weighted_recent']:.2f}")
+    with col4:
+        st.metric("Rekommenderat K", f"{k_cal['recommended_K']:.2f}",
+                  help="Ersätter default K=20.0 i nästa kalibrering")
+
+    with st.expander("K per val"):
+        k_rows = [{
+            "Val": r["id"],
+            "Blockgap": f"{r['block_margin']:+.2f} pp",
+            "PSI empirisk": f"{r['psi_empirical']:.4f}",
+            "K": f"{r['K']:.2f}",
+            "Vinnare": "Höger" if r["winner"] == "right" else "Vänster",
+        } for r in k_cal["per_election"]]
+        st.dataframe(pd.DataFrame(k_rows), use_container_width=True, hide_index=True)
+
+    # ── Kroniska bias ──────────────────────────────────────────────────────────
+    st.subheader("Historiska systematiska bias (2014–2026)")
+    bias_rows = [{
+        "Parti": PARTY_NAMES.get(p, p),
+        "Kronisk bias (pp)": f"{b:+.1f}",
+        "Riktning": ("Överpollad" if b > 0 else "Underpollad"),
+        "Förklaring": {
+            "S": "House effect — väljarrörelser nära val",
+            "SD": "Shy voter — social desirability bias",
+            "L": "Stödröstning + underpollning",
+            "KD": "Tröskeleffekt — sent beslutsfattande",
+            "MP": "Klimatagenda svår att mäta i förväg",
+        }.get(p, "—"),
+    } for p, b in HISTORICAL_POLLING_BIAS.items()]
+    st.dataframe(pd.DataFrame(bias_rows), use_container_width=True, hide_index=True)
+
+    # ── Lärdomar ───────────────────────────────────────────────────────────────
+    st.subheader("Lärdomar för kommande val")
+    for i, l in enumerate(summary["lektioner"], 1):
+        st.markdown(f"**{i}.** {l}")
+
+    render_disclaimer()
 
 
 elif page == "🗃️ Prognosarkiv":
