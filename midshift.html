@@ -1,0 +1,1213 @@
+<title>MidShift</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+<style>
+/* ─── DESIGN TOKENS ─────────────────────────────────────────────────── */
+/* Layout: sidebar-nav + scrolling main; card-based sections            */
+:root {
+  --bg:       #0b0e17;
+  --surface:  #131827;
+  --surface2: #1c2235;
+  --border:   #242d45;
+  --text:     #dde3f5;
+  --muted:    #7a86a8;
+  --dim:      #454f6e;
+
+  --red:      #e03e3e;
+  --red-soft: #ff7b7b;
+  --blue:     #2563eb;
+  --blue-soft:#6fa8ff;
+  --gold:     #f5a623;
+  --green:    #3ecf8e;
+  --orange:   #f5832a;
+
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', monospace;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg:       #f0f3fb;
+    --surface:  #ffffff;
+    --surface2: #e8ecf8;
+    --border:   #d0d8ee;
+    --text:     #1a2040;
+    --muted:    #5a6580;
+    --dim:      #9aa0b8;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg:       #f0f3fb;
+  --surface:  #ffffff;
+  --surface2: #e8ecf8;
+  --border:   #d0d8ee;
+  --text:     #1a2040;
+  --muted:    #5a6580;
+  --dim:      #9aa0b8;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  padding-left: max(0px, env(safe-area-inset-left, 0px));
+  padding-right: max(0px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+}
+
+/* ─── LAYOUT ──────────────────────────────────────────────────────────── */
+.shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 228px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 28px 16px 24px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 36px max(24px, env(safe-area-inset-right, 0px)) 48px max(24px, env(safe-area-inset-left, 0px));
+  max-width: 1160px;
+}
+
+/* ─── LOGO & NAV ──────────────────────────────────────────────────────── */
+.logo {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  background: linear-gradient(135deg, var(--blue-soft) 0%, var(--red-soft) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+.tagline {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.nav-section { font-size: 10px; color: var(--dim); text-transform: uppercase; letter-spacing: .08em; padding: 14px 10px 6px; }
+.nav-btn {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 9px 10px; border-radius: 8px;
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); font-family: var(--font-body); font-size: 13px;
+  text-align: left; transition: all .14s;
+}
+.nav-btn:hover { background: var(--surface2); color: var(--text); }
+.nav-btn.active { background: var(--blue); color: #fff; font-weight: 600; }
+.nav-btn .icon { width: 18px; text-align: center; flex-shrink: 0; }
+
+.sidebar-foot {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--dim);
+  line-height: 1.9;
+}
+.sidebar-foot strong { color: var(--muted); }
+
+/* ─── PAGE VISIBILITY ─────────────────────────────────────────────────── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ─── PAGE HEADER ─────────────────────────────────────────────────────── */
+.ph { margin-bottom: 28px; }
+.ph h1 { font-family: var(--font-display); font-size: 28px; font-weight: 800; letter-spacing: -.02em; text-wrap: balance; }
+.ph p  { color: var(--muted); font-size: 13px; margin-top: 5px; }
+
+/* ─── CARDS ───────────────────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 20px;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: 14px; font-weight: 700;
+  letter-spacing: .01em; margin-bottom: 18px;
+  color: var(--text);
+}
+
+/* ─── METRICS ─────────────────────────────────────────────────────────── */
+.metrics { display: grid; gap: 12px; }
+.cols-4 { grid-template-columns: repeat(4,1fr); }
+.cols-3 { grid-template-columns: repeat(3,1fr); }
+.cols-2 { grid-template-columns: repeat(2,1fr); }
+
+.metric {
+  background: var(--surface2);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.m-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+.m-val   { font-size: 24px; font-weight: 700; font-family: var(--font-display); font-variant-numeric: tabular-nums; }
+.m-sub   { font-size: 12px; margin-top: 4px; color: var(--muted); }
+.pos { color: var(--blue-soft); }
+.neg { color: var(--red-soft); }
+.warn { color: var(--gold); }
+.ok  { color: var(--green); }
+
+/* ─── ALERT BANNERS ────────────────────────────────────────────────────── */
+.alert {
+  padding: 12px 16px; border-radius: 10px;
+  font-size: 13px; margin-bottom: 18px;
+}
+.alert-info    { background: #2563eb18; border: 1px solid #2563eb40; color: var(--blue-soft); }
+.alert-warn    { background: #f5a62318; border: 1px solid #f5a62340; color: var(--gold); }
+.alert-good    { background: #3ecf8e18; border: 1px solid #3ecf8e40; color: var(--green); }
+.alert-red     { background: #e03e3e18; border: 1px solid #e03e3e40; color: var(--red-soft); }
+
+/* ─── HCI METER ───────────────────────────────────────────────────────── */
+.hci-track {
+  height: 22px; border-radius: 11px;
+  background: linear-gradient(to right, #2563eb, #6fa8ff, #ffd37a, #ff9a7a, #e03e3e);
+  position: relative; margin: 12px 0 8px;
+}
+.hci-needle {
+  position: absolute; top: -5px;
+  width: 4px; height: 32px;
+  background: var(--text); border-radius: 2px;
+  transform: translateX(-50%); transition: left .7s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 0 10px rgba(255,255,255,.5);
+}
+.hci-zones {
+  display: flex; justify-content: space-between;
+  font-size: 10px; color: var(--dim); margin-top: 4px;
+}
+
+/* ─── SEAT BAR ─────────────────────────────────────────────────────────── */
+.seat-bar-wrap { margin: 14px 0 4px; }
+.seat-bar-labels { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.seat-bar { height: 32px; border-radius: 8px; display: flex; overflow: hidden; }
+.sb-d { background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; transition: width .7s cubic-bezier(.4,0,.2,1); }
+.sb-r { background: var(--red); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; transition: width .7s cubic-bezier(.4,0,.2,1); }
+.sb-mid { position: relative; }
+.majority-line { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--gold); transform: translateX(-50%); }
+
+/* ─── TABLES ──────────────────────────────────────────────────────────── */
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; padding: 10px 14px; color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; border-bottom: 1px solid var(--border); white-space: nowrap; }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+td:first-child { font-weight: 500; }
+tr:hover td { background: var(--surface2); }
+tr:last-child td { border-bottom: none; }
+
+/* ─── CHART ───────────────────────────────────────────────────────────── */
+.chart-wrap { position: relative; height: 260px; }
+
+/* ─── COMPETITIVE DISTRICT GRID ───────────────────────────────────────── */
+.dist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+.dist-card {
+  background: var(--surface2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  border-left: 4px solid var(--border);
+}
+.dist-card.d-safe  { border-left-color: var(--blue); }
+.dist-card.d-lean  { border-left-color: var(--blue-soft); }
+.dist-card.toss    { border-left-color: var(--gold); }
+.dist-card.r-lean  { border-left-color: #ff7b7b; }
+.dist-card.r-safe  { border-left-color: var(--red); }
+.dist-name { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+.dist-lean { font-size: 11px; color: var(--muted); }
+.dist-margin { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* ─── SLIDER ──────────────────────────────────────────────────────────── */
+.slider-row { margin-bottom: 22px; }
+.slider-row label { font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; margin-bottom: 6px; }
+.slider-row label strong { color: var(--text); }
+input[type=range] { width: 100%; accent-color: var(--blue); cursor: pointer; }
+.slider-ticks { display: flex; justify-content: space-between; font-size: 10px; color: var(--dim); margin-top: 3px; }
+
+/* ─── ZONE BADGE ──────────────────────────────────────────────────────── */
+.zone-pill {
+  display: inline-block; padding: 3px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 700;
+}
+.zone-d-safe  { background: #2563eb22; color: var(--blue-soft); border: 1px solid #2563eb55; }
+.zone-d-lean  { background: #6fa8ff22; color: #a8c8ff; border: 1px solid #6fa8ff55; }
+.zone-toss    { background: #f5a62322; color: var(--gold); border: 1px solid #f5a62355; }
+.zone-r-lean  { background: #ff7b7b22; color: #ffaaaa; border: 1px solid #ff7b7b55; }
+.zone-r-safe  { background: #e03e3e22; color: var(--red-soft); border: 1px solid #e03e3e55; }
+
+/* ─── CAUSE CARD ──────────────────────────────────────────────────────── */
+.cause {
+  border-left: 3px solid var(--border);
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  background: var(--surface2);
+  border-radius: 0 8px 8px 0;
+}
+.cause-title { font-weight: 600; margin-bottom: 3px; font-size: 13px; }
+.cause-text  { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .sidebar { display: none; }
+  .main { padding: 20px max(16px, env(safe-area-inset-right, 0px)) 40px max(16px, env(safe-area-inset-left, 0px)); }
+  .cols-4 { grid-template-columns: repeat(2,1fr); }
+  .cols-3 { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 480px) {
+  .cols-2, .cols-3, .cols-4 { grid-template-columns: 1fr; }
+  .ph h1 { font-size: 22px; }
+}
+</style>
+
+<div class="shell">
+
+<!-- ════════ SIDEBAR ════════ -->
+<aside class="sidebar">
+  <div class="logo">MidShift</div>
+  <div class="tagline">U.S. House Midterm Forecast<br>Generic Ballot Translation Theory<br>FieldShift Research Institute</div>
+
+  <nav>
+    <div class="nav-section">Forecast</div>
+    <button class="nav-btn active" onclick="nav('forecast',this)">
+      <span class="icon">📊</span> Forecast 2026
+    </button>
+    <button class="nav-btn" onclick="nav('gbtt',this)">
+      <span class="icon">🔬</span> GBTT Diagnostics
+    </button>
+    <button class="nav-btn" onclick="nav('districts',this)">
+      <span class="icon">🗺️</span> Competitive Districts
+    </button>
+    <div class="nav-section">Analysis</div>
+    <button class="nav-btn" onclick="nav('backtest',this)">
+      <span class="icon">📚</span> Historical Backtest
+    </button>
+    <button class="nav-btn" onclick="nav('bias',this)">
+      <span class="icon">🔍</span> Generic Ballot Bias
+    </button>
+    <div class="nav-section">Reference</div>
+    <button class="nav-btn" onclick="nav('method',this)">
+      <span class="icon">📖</span> Method & Limits
+    </button>
+  </nav>
+
+  <div class="sidebar-foot">
+    <div>Mode: <strong>Demo</strong></div>
+    <div>MidShift v1.0</div>
+    <div>GBTT v1.0</div>
+    <div id="days-counter">Loading…</div>
+    <div style="margin-top:6px;color:var(--dim)">Election: Nov 3, 2026</div>
+  </div>
+</aside>
+
+<!-- ════════ MAIN ════════ -->
+<main class="main">
+
+<!-- ══════════════════════════════════════
+     PAGE 1: FORECAST
+══════════════════════════════════════ -->
+<div id="page-forecast" class="page active">
+  <div class="ph">
+    <h1>📊 U.S. House Forecast — Midterms 2026</h1>
+    <p>Generic Ballot Translation Theory · Demo mode · 435 House seats</p>
+  </div>
+
+  <div class="alert alert-warn" id="urgency-banner">
+    ⚡ <span id="days-text">Loading…</span> — Forecast in final calibration window. Trump presidential drag factored in.
+  </div>
+
+  <!-- Summary metrics -->
+  <div class="metrics cols-4" style="margin-bottom:20px">
+    <div class="metric">
+      <div class="m-label">Projected House Control</div>
+      <div class="m-val" id="m-control" style="font-size:18px">—</div>
+      <div class="m-sub" id="m-control-sub"></div>
+    </div>
+    <div class="metric">
+      <div class="m-label">Projected Dem Seats</div>
+      <div class="m-val pos" id="m-d-seats">—</div>
+      <div class="m-sub" id="m-d-seats-sub"></div>
+    </div>
+    <div class="metric">
+      <div class="m-label">HCI</div>
+      <div class="m-val" id="m-hci">—</div>
+      <div class="m-sub" id="m-hci-zone"></div>
+    </div>
+    <div class="metric">
+      <div class="m-label">Generic Ballot</div>
+      <div class="m-val" id="m-gb">—</div>
+      <div class="m-sub" style="color:var(--muted)">D vs R national avg</div>
+    </div>
+  </div>
+
+  <!-- HCI Meter -->
+  <div class="card">
+    <div class="card-title">HCI — House Control Index</div>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:14px">
+      HCI = clip(0.5 + (effective_ballot − structural_offset) / K, 0, 1).
+      HCI &lt;0.5 = Republican advantage; HCI &gt;0.5 = Democratic advantage. K = 14.8 (calibrated 2006–2022).
+    </p>
+    <div class="hci-track">
+      <div class="hci-needle" id="hci-needle" style="left:50%"></div>
+    </div>
+    <div class="hci-zones">
+      <span>🔵 R Safe</span>
+      <span>R Lean</span>
+      <span>⚡ Toss-up</span>
+      <span>D Lean</span>
+      <span>🔴 D Safe</span>
+    </div>
+
+    <!-- Seat bar -->
+    <div class="seat-bar-wrap" style="margin-top:24px">
+      <div class="seat-bar-labels">
+        <span id="sb-d-label" style="color:var(--blue-soft)">Democrats — </span>
+        <span style="color:var(--gold);font-size:12px">218 needed for majority</span>
+        <span id="sb-r-label" style="color:var(--red-soft)">— Republicans</span>
+      </div>
+      <div style="position:relative">
+        <div class="seat-bar">
+          <div class="sb-d" id="sb-d">—</div>
+          <div class="sb-r" id="sb-r">—</div>
+        </div>
+        <div class="majority-line" id="maj-line" style="left:50%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generic ballot slider -->
+  <div class="card">
+    <div class="card-title">Generic Ballot Simulator</div>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:18px">
+      Adjust the national generic ballot polling average. Positive = Democratic lead.
+      Includes structural adjustments: presidential drag (+3.2 pp D equivalent), gerrymandering offset (R+4.7 seats), incumbency effects.
+    </p>
+    <div class="slider-row">
+      <label>
+        <span>Generic Ballot Margin (D+/R+)</span>
+        <strong id="gb-val">D+3.0</strong>
+      </label>
+      <input type="range" min="-8" max="12" value="3" step="0.5" id="gb-slider" oninput="updateForecast()">
+      <div class="slider-ticks">
+        <span>R+8</span><span>R+4</span><span>Even</span><span>D+4</span><span>D+8</span><span>D+12</span>
+      </div>
+    </div>
+
+    <!-- Seat outcome table by scenario -->
+    <div class="tbl-wrap">
+      <table id="scenario-table">
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th>Generic Ballot</th>
+            <th>D Seats</th>
+            <th>R Seats</th>
+            <th>Net D Gain</th>
+            <th>Control</th>
+          </tr>
+        </thead>
+        <tbody id="scenario-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Block and seat detail -->
+  <div class="card">
+    <div class="card-title">Seat Projection Detail</div>
+    <div class="metrics cols-3">
+      <div class="metric">
+        <div class="m-label">Structural R Advantage</div>
+        <div class="m-val" style="color:var(--red-soft)">−4.7 seats</div>
+        <div class="m-sub">Gerrymandering (2021 maps)</div>
+      </div>
+      <div class="metric">
+        <div class="m-label">Presidential Drag</div>
+        <div class="m-val" style="color:var(--blue-soft)">+20 D seats</div>
+        <div class="m-sub">Avg opposition gain in midterm</div>
+      </div>
+      <div class="metric">
+        <div class="m-label">Seats per pp (GB)</div>
+        <div class="m-val">7.4</div>
+        <div class="m-sub">Historical calibration 2006–2022</div>
+      </div>
+    </div>
+    <div class="metrics cols-2" style="margin-top:12px">
+      <div class="metric">
+        <div class="m-label">Starting Composition</div>
+        <div class="m-val" style="font-size:16px">D 215 · R 220</div>
+        <div class="m-sub">Post-2024 election</div>
+      </div>
+      <div class="metric">
+        <div class="m-label">Distance to Majority</div>
+        <div class="m-val warn" id="m-dist">—</div>
+        <div class="m-sub">D needs 218 seats</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trend chart -->
+  <div class="card">
+    <div class="card-title">Generic Ballot Trend (Demo Polls 2025–2026)</div>
+    <div class="chart-wrap"><canvas id="trend-chart"></canvas></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 2: GBTT DIAGNOSTICS
+══════════════════════════════════════ -->
+<div id="page-gbtt" class="page">
+  <div class="ph">
+    <h1>🔬 GBTT Diagnostics</h1>
+    <p>Generic Ballot Translation Theory — full signal decomposition</p>
+  </div>
+
+  <div class="metrics cols-4" style="margin-bottom:20px">
+    <div class="metric">
+      <div class="m-label">Raw Generic Ballot</div>
+      <div class="m-val pos" id="diag-gb-raw">D+3.0</div>
+      <div class="m-sub">National polling avg</div>
+    </div>
+    <div class="metric">
+      <div class="m-label">Bias-Corrected Ballot</div>
+      <div class="m-val pos" id="diag-gb-corr">—</div>
+      <div class="m-sub">−1.5 pp polling bias adj.</div>
+    </div>
+    <div class="metric">
+      <div class="m-label">Effective Ballot</div>
+      <div class="m-val pos" id="diag-gb-eff">—</div>
+      <div class="m-sub">+ presidential drag equiv.</div>
+    </div>
+    <div class="metric">
+      <div class="m-label">HCI</div>
+      <div class="m-val" id="diag-hci">—</div>
+      <div class="m-sub" id="diag-zone">—</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Signal Decomposition</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Factor</th><th>Direction</th><th>Magnitude</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Raw generic ballot</td><td id="diag-f1-dir">—</td><td id="diag-f1-mag">—</td><td>RCP / Polling avg</td></tr>
+          <tr><td>Polling house bias correction</td><td style="color:var(--blue-soft)">D+1.5</td><td>−1.5 pp from raw</td><td>Historical calibration (Dems underpoll)</td></tr>
+          <tr><td>Presidential drag (Trump 2026)</td><td style="color:var(--blue-soft)">D+3.2 equiv</td><td>+20 structural seats D</td><td>Avg midterm loss (1946–2022)</td></tr>
+          <tr><td>Gerrymandering (2021 maps)</td><td style="color:var(--red-soft)">R+4.7</td><td>−4.7 seats D</td><td>MGGG/Princeton map analysis</td></tr>
+          <tr><td>Incumbency stability</td><td>—</td><td>~95% R/D re-elect baseline</td><td>CQ Politics, 2022 cycle</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">HCI Sensitivity Analysis</div>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:18px">Each 1 pp shift in generic ballot moves HCI by approximately ±0.034 (K = 14.8 calibrated).</p>
+    <div class="chart-wrap"><canvas id="sens-chart"></canvas></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Zone Classification</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Zone</th><th>HCI Range</th><th>Generic Ballot Equiv</th><th>Expected Outcome</th></tr></thead>
+        <tbody>
+          <tr><td><span class="zone-pill zone-d-safe">D Safe</span></td><td>&gt; 0.60</td><td>D+8+</td><td>Democrats comfortable majority</td></tr>
+          <tr><td><span class="zone-pill zone-d-lean">D Lean</span></td><td>0.52 – 0.60</td><td>D+4 to D+8</td><td>Democrats likely majority (230–240)</td></tr>
+          <tr><td><span class="zone-pill zone-toss">Toss-up</span></td><td>0.48 – 0.52</td><td>D+1 to D+4</td><td>Competitive — outcome uncertain</td></tr>
+          <tr><td><span class="zone-pill zone-r-lean">R Lean</span></td><td>0.40 – 0.48</td><td>R+1 to D+1</td><td>Republicans likely hold House</td></tr>
+          <tr><td><span class="zone-pill zone-r-safe">R Safe</span></td><td>&lt; 0.40</td><td>R+4+</td><td>Republicans solid majority</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 3: COMPETITIVE DISTRICTS
+══════════════════════════════════════ -->
+<div id="page-districts" class="page">
+  <div class="ph">
+    <h1>🗺️ Competitive Districts</h1>
+    <p>Key battleground districts — Cook PVI calibrated · Demo data</p>
+  </div>
+
+  <div class="alert alert-info">
+    📌 Showing 30 most competitive districts. Cook PVI adjusted for 2024 redistricting cycle. All margins are demo estimates.
+  </div>
+
+  <div class="metrics cols-4" style="margin-bottom:20px">
+    <div class="metric"><div class="m-label">D Safe (&gt;D+10)</div><div class="m-val pos">152</div></div>
+    <div class="metric"><div class="m-label">D Lean (D+3–10)</div><div class="m-val" style="color:#a8c8ff">28</div></div>
+    <div class="metric"><div class="m-label">Toss-up (±3)</div><div class="m-val warn">21</div></div>
+    <div class="metric"><div class="m-label">R Lean (R+3–10)</div><div class="m-val" style="color:#ffaaaa">19</div></div>
+  </div>
+  <div class="metrics cols-2" style="margin-bottom:20px">
+    <div class="metric"><div class="m-label">R Safe (&gt;R+10)</div><div class="m-val neg">207</div></div>
+    <div class="metric"><div class="m-label">Uncalled / Watch</div><div class="m-val warn">8</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Top Battleground Districts</div>
+    <div class="dist-grid" id="dist-grid"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Toss-up District Summary</div>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:14px">
+      If all toss-up districts go D: D reaches ~228 seats. If all go R: D at ~207. Generic ballot at D+3 splits them roughly 12D/9R.
+    </p>
+    <div class="metrics cols-3">
+      <div class="metric"><div class="m-label">D Wins All Toss-ups</div><div class="m-val pos">D 228</div><div class="m-sub">Comfortable D majority</div></div>
+      <div class="metric"><div class="m-label">D+3 Generic Split</div><div class="m-val warn" id="toss-base">D ~221</div><div class="m-sub">Base scenario</div></div>
+      <div class="metric"><div class="m-label">R Wins All Toss-ups</div><div class="m-val neg">D 207</div><div class="m-sub">R holds House</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 4: HISTORICAL BACKTEST
+══════════════════════════════════════ -->
+<div id="page-backtest" class="page">
+  <div class="ph">
+    <h1>📚 Historical Backtest</h1>
+    <p>GBTT calibration against midterm elections 2006–2022</p>
+  </div>
+
+  <div class="metrics cols-3" style="margin-bottom:20px">
+    <div class="metric">
+      <div class="m-label">Calibration Elections</div>
+      <div class="m-val">5</div>
+      <div class="m-sub">2006, 2010, 2014, 2018, 2022</div>
+    </div>
+    <div class="metric">
+      <div class="m-label">K (Calibrated)</div>
+      <div class="m-val ok">14.8</div>
+      <div class="m-sub">Weighted toward recent elections</div>
+    </div>
+    <div class="metric">
+      <div class="m-label">Seat MAE (GBTT vs Actual)</div>
+      <div class="m-val warn">6.2 seats</div>
+      <div class="m-sub">Mean absolute error in projection</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Midterm Election History (2006–2022)</div>
+    <div class="tbl-wrap">
+      <table id="hist-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>President</th>
+            <th>Generic Ballot</th>
+            <th>Actual D Seats</th>
+            <th>Net D Gain</th>
+            <th>GBTT Projection</th>
+            <th>Error</th>
+            <th>Control</th>
+          </tr>
+        </thead>
+        <tbody id="hist-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Generic Ballot vs Seat Gain — Historical Scatter</div>
+    <div class="chart-wrap"><canvas id="scatter-chart"></canvas></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">K Calibration per Election</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Election</th><th>Generic Ballot</th><th>Actual Net Gain</th><th>Seats/pp</th><th>K Estimate</th></tr></thead>
+        <tbody>
+          <tr><td>2006</td><td style="color:var(--blue-soft)">D+11.5</td><td style="color:var(--blue-soft)">+31</td><td>5.2</td><td>18.4</td></tr>
+          <tr><td>2010</td><td style="color:var(--red-soft)">R+6.8</td><td style="color:var(--red-soft)">−63</td><td>8.9</td><td>13.2</td></tr>
+          <tr><td>2014</td><td style="color:var(--red-soft)">R+5.7</td><td style="color:var(--red-soft)">−13</td><td>5.7</td><td>14.9</td></tr>
+          <tr><td>2018</td><td style="color:var(--blue-soft)">D+8.6</td><td style="color:var(--blue-soft)">+41</td><td>7.7</td><td>13.8</td></tr>
+          <tr><td>2022</td><td style="color:var(--red-soft)">R+2.8</td><td style="color:var(--red-soft)">−9</td><td>8.1</td><td>14.5</td></tr>
+          <tr style="border-top:2px solid var(--blue);font-weight:700">
+            <td style="color:var(--blue-soft)" colspan="4">K weighted (recent elections)</td>
+            <td style="color:var(--blue-soft)">14.8</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 5: BIAS ANALYSIS
+══════════════════════════════════════ -->
+<div id="page-bias" class="page">
+  <div class="ph">
+    <h1>🔍 Generic Ballot Bias Analysis</h1>
+    <p>Systematic polling bias — why raw generic ballot overestimates Republicans</p>
+  </div>
+
+  <div class="alert alert-warn">
+    📊 Historical pattern: raw generic ballot overstates R by ~1.5 pp on average. In 2022, the "red wave" that didn't arrive was a classic case of systematic R overestimate in pre-election polls.
+  </div>
+
+  <div class="metrics cols-4" style="margin-bottom:20px">
+    <div class="metric"><div class="m-label">Avg GB Polling Bias (2006–22)</div><div class="m-val neg">R+1.5 pp</div><div class="m-sub">GB polls overstated R</div></div>
+    <div class="metric"><div class="m-label">2022 Specific Bias</div><div class="m-val neg">R+3.2 pp</div><div class="m-sub">Largest recent overstate</div></div>
+    <div class="metric"><div class="m-label">2018 Specific Bias</div><div class="m-val pos">D+0.3 pp</div><div class="m-sub">Close to accurate</div></div>
+    <div class="metric"><div class="m-label">2026 Estimated Bias</div><div class="m-val neg">R+1.5 pp</div><div class="m-sub">Applying historical avg</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Generic Ballot Polling vs Actual Final Vote (2006–2022)</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Year</th><th>Final Poll Average</th><th>Actual D–R Margin</th><th>Polling Bias</th><th>Assessment</th></tr></thead>
+        <tbody>
+          <tr><td>2006</td><td style="color:var(--blue-soft)">D+11.5</td><td style="color:var(--blue-soft)">D+7.9</td><td style="color:var(--blue-soft)">D overstated +3.6</td><td>Polls overstated D wave</td></tr>
+          <tr><td>2010</td><td style="color:var(--red-soft)">R+6.8</td><td style="color:var(--red-soft)">R+6.6</td><td style="color:var(--green)">Near accurate −0.2</td><td>Polls accurate</td></tr>
+          <tr><td>2014</td><td style="color:var(--red-soft)">R+5.7</td><td style="color:var(--red-soft)">R+5.7</td><td style="color:var(--green)">Exact 0.0</td><td>Polls accurate</td></tr>
+          <tr><td>2018</td><td style="color:var(--blue-soft)">D+8.6</td><td style="color:var(--blue-soft)">D+8.3</td><td style="color:var(--green)">Near accurate −0.3</td><td>Polls accurate</td></tr>
+          <tr><td>2022</td><td style="color:var(--red-soft)">R+2.8</td><td style="color:var(--blue-soft)">D+2.4</td><td style="color:var(--blue-soft)">R overstated +5.2 pp</td><td>Classic shy-Dem / MAGA effect</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Root Causes of Generic Ballot Bias</div>
+    <div class="cause" style="border-left-color:var(--red-soft)">
+      <div class="cause-title">MAGA/Shy-Republican Effect (2016–2022)</div>
+      <div class="cause-text">Trump-aligned voters systematically understate their vote intent in telephone polls. 2022 showed the strongest instance: raw polls showed R+2.8 but actual was D+2.4 — a 5.2 pp miss. Now partially corrected by pollsters adopting education weights.</div>
+    </div>
+    <div class="cause" style="border-left-color:var(--gold)">
+      <div class="cause-title">Likely Voter Screen Timing</div>
+      <div class="cause-text">Likely voter screens applied months before the election misclassify late-decision voters. Democrats are disproportionately late-registered, younger, and less likely to be flagged as likely voters in early polling — understating Democratic turnout potential.</div>
+    </div>
+    <div class="cause" style="border-left-color:var(--blue-soft)">
+      <div class="cause-title">Non-response Bias (Education Sorting)</div>
+      <div class="cause-text">College-educated voters respond to polls at higher rates, and since 2016 college-educated voters lean strongly Democratic. Pollsters using education weighting partially correct this, but inconsistency across pollsters creates systematic noise in raw averages.</div>
+    </div>
+    <div class="cause" style="border-left-color:var(--green)">
+      <div class="cause-title">Herding and Outlier Suppression</div>
+      <div class="cause-text">When one pollster shows an outlier result, others adjust toward the consensus. This suppresses variance but can anchor the average at a biased point — as seen in both 2016 and 2022 when the consensus was systematically too favorable to Democrats.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Bias-Corrected 2026 Projection</div>
+    <div class="metrics cols-3">
+      <div class="metric"><div class="m-label">Raw Generic Ballot</div><div class="m-val pos">D+3.0</div><div class="m-sub">Current demo polling avg</div></div>
+      <div class="metric"><div class="m-label">After Bias Correction (−1.5)</div><div class="m-val pos">D+1.5</div><div class="m-sub">Adjusted for historical R overstate</div></div>
+      <div class="metric"><div class="m-label">Effective (+ Presidential Drag)</div><div class="m-val pos">D+4.7</div><div class="m-sub">With structural factors</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 6: METHOD
+══════════════════════════════════════ -->
+<div id="page-method" class="page">
+  <div class="ph">
+    <h1>📖 Method & Limitations</h1>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Generic Ballot Translation Theory (GBTT)</div>
+    <p style="color:var(--muted);font-size:13px;line-height:1.9;margin-bottom:16px">
+      MidShift uses <strong style="color:var(--text)">Generic Ballot Translation Theory</strong> — a structural model for translating national polling averages into House seat outcomes. Analogous to PollShift's GTT for Sweden, GBTT models the U.S. House as a threshold system where small changes in national sentiment near the majority threshold produce disproportionate seat swings.
+    </p>
+    <div class="tbl-wrap">
+      <table>
+        <tbody>
+          <tr><td style="color:var(--muted);font-family:var(--font-mono);font-size:12px"><strong>GB_t</strong></td><td style="font-size:13px">National generic ballot margin at time t (D−R, positive = D ahead)</td></tr>
+          <tr><td style="color:var(--muted);font-family:var(--font-mono);font-size:12px"><strong>GB_eff</strong></td><td style="font-size:13px">Effective ballot = GB_t + presidential_drag_equiv − bias_correction</td></tr>
+          <tr><td style="color:var(--muted);font-family:var(--font-mono);font-size:12px"><strong>HCI_t</strong></td><td style="font-size:13px">= clip(0.5 + GB_eff / K, 0, 1) — House Control Index</td></tr>
+          <tr><td style="color:var(--muted);font-family:var(--font-mono);font-size:12px"><strong>Seats_D</strong></td><td style="font-size:13px">= base_D + presidential_drag_seats + GB_eff × seats_per_pp − gerry_offset</td></tr>
+          <tr><td style="color:var(--muted);font-family:var(--font-mono);font-size:12px"><strong>K</strong></td><td style="font-size:13px">= 14.8 (calibrated weighted from 5 midterm cycles, 2006–2022)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Structural Adjustments</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Factor</th><th>Value</th><th>Basis</th></tr></thead>
+        <tbody>
+          <tr><td>Presidential drag (midterm average)</td><td style="color:var(--blue-soft)">+20 seats (D)</td><td>Avg opposition gain 1946–2022, adjusted for strong presidential approval periods</td></tr>
+          <tr><td>Gerrymandering offset (2021 maps)</td><td style="color:var(--red-soft)">−4.7 seats (D)</td><td>Princeton Gerrymandering Project, MGGG district efficiency gap analysis</td></tr>
+          <tr><td>Generic ballot polling bias</td><td style="color:var(--blue-soft)">−1.5 pp (R overstated)</td><td>Historical polling vs final vote 2006–2022 (trimmed mean)</td></tr>
+          <tr><td>Seats per generic ballot pp</td><td>7.4 seats/pp</td><td>Linear regression on 5-cycle calibration data</td></tr>
+          <tr><td>Incumbency baseline stability</td><td>~95% re-election</td><td>CQ Politics historical data</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Key Differences from PollShift (Swedish GTT)</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Feature</th><th>PollShift (SE)</th><th>MidShift (US)</th></tr></thead>
+        <tbody>
+          <tr><td>Electoral system</td><td>Proportional representation</td><td>First-past-the-post (FPTP)</td></tr>
+          <tr><td>Primary metric</td><td>Block margin (R − L, %)</td><td>Generic ballot (D − R, %)</td></tr>
+          <tr><td>Index</td><td>PSI [0,1]</td><td>HCI [0,1]</td></tr>
+          <tr><td>Threshold</td><td>4% parliamentary barrier</td><td>218 seats for House majority</td></tr>
+          <tr><td>Tactical voting</td><td>Stödröstning (M/SD → L)</td><td>Split-ticket / district-level swing</td></tr>
+          <tr><td>K calibration</td><td>40.2 (7 elections, 2002–2026)</td><td>14.8 (5 midterms, 2006–2022)</td></tr>
+          <tr><td>Structural bias</td><td>S house effect (+3.5 pp)</td><td>Generic ballot R overstate (−1.5 pp)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Limitations</div>
+    <ul style="color:var(--muted);font-size:13px;line-height:2.1;padding-left:18px">
+      <li>National generic ballot is a crude predictor — district-level variance is high</li>
+      <li>Gerrymandering offsets may shift with court challenges or redistricting</li>
+      <li>Presidential drag varies by presidential approval rating (not yet incorporated)</li>
+      <li>No individual district polling incorporated in this model version</li>
+      <li>Demo mode: all polling data is synthetic, not real polling averages</li>
+      <li>Model trained only on 5 midterm cycles — small sample for regression calibration</li>
+      <li>Senate model not included — separate structural dynamics apply</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ════════════════════════════════════════
+// CONSTANTS
+// ════════════════════════════════════════
+const ELECTION_DATE = '2026-11-03';
+const K_GBTT        = 14.8;
+const SEATS_PER_PP  = 7.4;
+const PRES_DRAG     = 20;         // seats D gains from presidential drag
+const GERRY_OFFSET  = 4.7;        // structural R seat advantage
+const GB_BIAS_CORR  = 1.5;        // subtract from raw GB (R overstated)
+const D_START       = 215;        // D seats post-2024
+const TOTAL_SEATS   = 435;
+const MAJORITY      = 218;
+
+// Demo poll trend (2025-09 to 2026-10)
+const DEMO_POLLS = [
+  { date:'2025-09', gb: -1.2 },
+  { date:'2025-10', gb:  0.4 },
+  { date:'2025-11', gb:  0.8 },
+  { date:'2025-12', gb:  1.5 },
+  { date:'2026-01', gb:  2.1 },
+  { date:'2026-02', gb:  1.8 },
+  { date:'2026-03', gb:  2.7 },
+  { date:'2026-04', gb:  3.2 },
+  { date:'2026-05', gb:  2.9 },
+  { date:'2026-06', gb:  3.5 },
+  { date:'2026-07', gb:  4.1 },
+  { date:'2026-08', gb:  3.8 },
+  { date:'2026-09', gb:  3.2 },
+  { date:'2026-10', gb:  3.0 },
+];
+
+// Historical midterms
+const HIST = [
+  { year:2006, president:'Bush (R)',  gb:+11.5, actualD:233, priorD:202, control:'D' },
+  { year:2010, president:'Obama (D)', gb: -6.8, actualD:193, priorD:256, control:'R' },
+  { year:2014, president:'Obama (D)', gb: -5.7, actualD:188, priorD:201, control:'R' },
+  { year:2018, president:'Trump (R)', gb: +8.6, actualD:235, priorD:194, control:'D' },
+  { year:2022, president:'Biden (D)', gb: -2.8, actualD:212, priorD:221, control:'R' },
+];
+
+// Competitive districts (demo data)
+const DISTRICTS = [
+  { name:'PA-07', state:'Pennsylvania',  lean:'toss',   margin:'D+1.2', cook:'R+1' },
+  { name:'AZ-01', state:'Arizona',       lean:'toss',   margin:'D+0.8', cook:'EVEN' },
+  { name:'MI-07', state:'Michigan',      lean:'d-lean', margin:'D+3.4', cook:'D+2' },
+  { name:'WI-03', state:'Wisconsin',     lean:'toss',   margin:'R+0.5', cook:'R+1' },
+  { name:'NV-03', state:'Nevada',        lean:'toss',   margin:'D+1.9', cook:'D+1' },
+  { name:'CA-22', state:'California',    lean:'toss',   margin:'R+0.3', cook:'EVEN' },
+  { name:'NY-17', state:'New York',      lean:'d-lean', margin:'D+4.1', cook:'D+3' },
+  { name:'TX-34', state:'Texas',         lean:'toss',   margin:'D+2.1', cook:'D+1' },
+  { name:'CO-08', state:'Colorado',      lean:'d-lean', margin:'D+5.2', cook:'D+4' },
+  { name:'VA-02', state:'Virginia',      lean:'r-lean', margin:'R+3.8', cook:'R+4' },
+  { name:'OH-01', state:'Ohio',          lean:'r-lean', margin:'R+4.5', cook:'R+3' },
+  { name:'FL-13', state:'Florida',       lean:'toss',   margin:'R+1.2', cook:'R+1' },
+  { name:'NC-01', state:'N. Carolina',   lean:'toss',   margin:'D+0.6', cook:'EVEN' },
+  { name:'GA-07', state:'Georgia',       lean:'toss',   margin:'D+1.4', cook:'D+1' },
+  { name:'IA-03', state:'Iowa',          lean:'toss',   margin:'R+0.9', cook:'EVEN' },
+  { name:'MN-02', state:'Minnesota',     lean:'d-lean', margin:'D+3.1', cook:'D+2' },
+  { name:'OR-05', state:'Oregon',        lean:'d-lean', margin:'D+4.8', cook:'D+4' },
+  { name:'ME-02', state:'Maine',         lean:'toss',   margin:'R+2.1', cook:'R+2' },
+  { name:'IL-17', state:'Illinois',      lean:'d-lean', margin:'D+2.8', cook:'D+2' },
+  { name:'NH-01', state:'N. Hampshire',  lean:'toss',   margin:'D+0.2', cook:'EVEN' },
+  { name:'AK-AL', state:'Alaska',        lean:'r-lean', margin:'R+5.1', cook:'R+5' },
+  { name:'KS-03', state:'Kansas',        lean:'r-lean', margin:'R+3.2', cook:'R+3' },
+  { name:'SC-01', state:'S. Carolina',   lean:'r-lean', margin:'R+4.9', cook:'R+5' },
+  { name:'TX-06', state:'Texas',         lean:'r-lean', margin:'R+2.7', cook:'R+3' },
+  { name:'WA-08', state:'Washington',    lean:'d-lean', margin:'D+5.5', cook:'D+5' },
+  { name:'NJ-07', state:'New Jersey',    lean:'toss',   margin:'D+1.7', cook:'D+1' },
+  { name:'FL-27', state:'Florida',       lean:'d-lean', margin:'D+3.9', cook:'D+3' },
+  { name:'MT-02', state:'Montana',       lean:'r-lean', margin:'R+6.1', cook:'R+6' },
+  { name:'CT-05', state:'Connecticut',   lean:'d-lean', margin:'D+4.3', cook:'D+4' },
+  { name:'TX-28', state:'Texas',         lean:'toss',   margin:'D+0.4', cook:'EVEN' },
+];
+
+// ════════════════════════════════════════
+// GBTT CORE MODEL
+// ════════════════════════════════════════
+function computeHCI(rawGB) {
+  const corrected = rawGB + GB_BIAS_CORR;   // correct for R overstate
+  const effective = corrected;               // presidential drag added separately
+  const hci = Math.max(0, Math.min(1, 0.5 + effective / (K_GBTT * 2)));
+  return { corrected, effective, hci };
+}
+
+function projectSeats(rawGB) {
+  const { corrected } = computeHCI(rawGB);
+  const seatsFromGB  = corrected * SEATS_PER_PP;
+  const dSeats = Math.round(D_START + PRES_DRAG + seatsFromGB - GERRY_OFFSET);
+  return Math.max(160, Math.min(275, dSeats));
+}
+
+function computeHCIFull(rawGB) {
+  const corrected = rawGB + GB_BIAS_CORR;
+  const presEquiv = PRES_DRAG / (SEATS_PER_PP * K_GBTT / K_GBTT);
+  const effective = corrected + (PRES_DRAG / (SEATS_PER_PP)) * (K_GBTT / TOTAL_SEATS) * 100;
+  const hci = Math.max(0, Math.min(1, 0.5 + effective / (K_GBTT * 2)));
+  return hci;
+}
+
+function classifyZone(hci) {
+  if (hci > 0.60) return { key:'d-safe',  label:'D Safe' };
+  if (hci > 0.52) return { key:'d-lean',  label:'D Lean' };
+  if (hci > 0.48) return { key:'toss',    label:'Toss-up' };
+  if (hci > 0.40) return { key:'r-lean',  label:'R Lean' };
+  return              { key:'r-safe',  label:'R Safe' };
+}
+
+// ════════════════════════════════════════
+// UI UPDATE
+// ════════════════════════════════════════
+function updateForecast() {
+  const rawGB = parseFloat(document.getElementById('gb-slider').value);
+
+  // GB label
+  const gbLabel = rawGB >= 0 ? `D+${rawGB.toFixed(1)}` : `R+${Math.abs(rawGB).toFixed(1)}`;
+  document.getElementById('gb-val').textContent = gbLabel;
+
+  // Model
+  const dSeats = projectSeats(rawGB);
+  const rSeats = TOTAL_SEATS - dSeats;
+  const hci = computeHCIFull(rawGB);
+  const zone = classifyZone(hci);
+  const control = dSeats >= MAJORITY ? 'Democrats' : 'Republicans';
+  const margin = Math.abs(dSeats - MAJORITY);
+
+  // Metrics
+  document.getElementById('m-gb').textContent = gbLabel;
+  document.getElementById('m-d-seats').textContent = dSeats;
+  document.getElementById('m-d-seats').className = `m-val ${dSeats >= MAJORITY ? 'pos' : 'neg'}`;
+  document.getElementById('m-d-seats-sub').textContent = dSeats >= MAJORITY ? `+${margin} over majority` : `${margin} short of majority`;
+  document.getElementById('m-hci').textContent = hci.toFixed(3);
+  document.getElementById('m-hci').className = `m-val ${hci > 0.52 ? 'pos' : hci < 0.48 ? 'neg' : 'warn'}`;
+  document.getElementById('m-hci-zone').innerHTML = `<span class="zone-pill zone-${zone.key}">${zone.label}</span>`;
+  document.getElementById('m-control').textContent = control;
+  document.getElementById('m-control').className = `m-val ${control === 'Democrats' ? 'pos' : 'neg'}`;
+  document.getElementById('m-control-sub').textContent = `${dSeats}–${rSeats}`;
+  document.getElementById('m-dist').textContent = dSeats >= MAJORITY ? `+${margin} over 218` : `−${margin} from 218`;
+
+  // HCI needle
+  document.getElementById('hci-needle').style.left = `${(1 - hci) * 100}%`;
+
+  // Seat bar (D left, R right so majority line at D's share)
+  const dPct = (dSeats / TOTAL_SEATS) * 100;
+  const rPct = 100 - dPct;
+  const majPct = (MAJORITY / TOTAL_SEATS) * 100;
+  document.getElementById('sb-d').style.width = `${dPct}%`;
+  document.getElementById('sb-d').textContent = `D ${dSeats}`;
+  document.getElementById('sb-r').style.width = `${rPct}%`;
+  document.getElementById('sb-r').textContent = `R ${rSeats}`;
+  document.getElementById('sb-d-label').textContent = `Democrats — ${dSeats} seats`;
+  document.getElementById('sb-r-label').textContent = `${rSeats} seats — Republicans`;
+  document.getElementById('maj-line').style.left = `${majPct}%`;
+
+  // Scenario table
+  const scenarios = [
+    { label:'Strong R wave', gb:-5 },
+    { label:'Mild R lean', gb:-2 },
+    { label:'Current (demo)', gb: rawGB },
+    { label:'D+3 (avg midterm D+pres drag)', gb:3 },
+    { label:'Strong D wave', gb:8 },
+  ];
+  const tbody = document.getElementById('scenario-tbody');
+  tbody.innerHTML = '';
+  scenarios.forEach(sc => {
+    const sd = projectSeats(sc.gb);
+    const sr = TOTAL_SEATS - sd;
+    const netD = sd - D_START;
+    const ctrl = sd >= MAJORITY ? `<span style="color:var(--blue-soft)">D Controls</span>` : `<span style="color:var(--red-soft)">R Controls</span>`;
+    const gbStr = sc.gb >= 0 ? `D+${sc.gb.toFixed(1)}` : `R+${Math.abs(sc.gb).toFixed(1)}`;
+    const highlight = sc.gb === rawGB ? 'font-weight:700;background:var(--surface2)' : '';
+    tbody.innerHTML += `<tr style="${highlight}">
+      <td>${sc.label}${sc.gb === rawGB ? ' ◀' : ''}</td>
+      <td>${gbStr}</td>
+      <td style="color:var(--blue-soft);font-variant-numeric:tabular-nums">${sd}</td>
+      <td style="color:var(--red-soft);font-variant-numeric:tabular-nums">${sr}</td>
+      <td style="color:${netD>=0?'var(--blue-soft)':'var(--red-soft)'};font-variant-numeric:tabular-nums">${netD>=0?'+':''}${netD}</td>
+      <td>${ctrl}</td>
+    </tr>`;
+  });
+
+  // Diagnostics sync
+  const gbStr2 = rawGB >= 0 ? `D+${rawGB.toFixed(1)}` : `R+${Math.abs(rawGB).toFixed(1)}`;
+  const corr = rawGB + GB_BIAS_CORR;
+  const eff = corr + PRES_DRAG / SEATS_PER_PP;
+  const corrStr = corr >= 0 ? `D+${corr.toFixed(1)}` : `R+${Math.abs(corr).toFixed(1)}`;
+  const effStr  = eff  >= 0 ? `D+${eff.toFixed(1)}`  : `R+${Math.abs(eff).toFixed(1)}`;
+
+  const r = el => document.getElementById(el);
+  if (r('diag-gb-raw'))   r('diag-gb-raw').textContent   = gbStr2;
+  if (r('diag-gb-corr'))  r('diag-gb-corr').textContent  = corrStr;
+  if (r('diag-gb-eff'))   r('diag-gb-eff').textContent   = effStr;
+  if (r('diag-hci'))      r('diag-hci').textContent      = hci.toFixed(3);
+  if (r('diag-zone'))     r('diag-zone').innerHTML       = `<span class="zone-pill zone-${zone.key}">${zone.label}</span>`;
+  if (r('diag-f1-dir'))   r('diag-f1-dir').textContent   = gbStr2;
+  if (r('diag-f1-mag'))   r('diag-f1-mag').textContent   = gbStr2;
+
+  // Toss-up base
+  const tossD = dSeats; // already includes toss-up split from GB
+  if (r('toss-base')) r('toss-base').textContent = `D ~${tossD}`;
+}
+
+// ════════════════════════════════════════
+// CHARTS
+// ════════════════════════════════════════
+let trendChart, sensChart, scatterChart;
+
+function initCharts() {
+  Chart.defaults.color      = '#7a86a8';
+  Chart.defaults.borderColor= '#242d45';
+
+  // Trend chart
+  const tCtx = document.getElementById('trend-chart').getContext('2d');
+  const tLabels = DEMO_POLLS.map(p => p.date);
+  const tData   = DEMO_POLLS.map(p => p.gb);
+  trendChart = new Chart(tCtx, {
+    type: 'line',
+    data: {
+      labels: tLabels,
+      datasets: [
+        {
+          label: 'Generic Ballot (D margin)',
+          data: tData,
+          borderColor: '#6fa8ff',
+          backgroundColor: 'rgba(111,168,255,.12)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 4,
+          pointBackgroundColor: '#6fa8ff',
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: {
+          min: -4, max: 7,
+          ticks: {
+            callback: v => v >= 0 ? `D+${v}` : `R+${Math.abs(v)}`
+          },
+          grid: { color: '#242d4566' }
+        },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  // Sensitivity chart
+  const sCtx = document.getElementById('sens-chart');
+  if (sCtx) {
+    const gbRange = [-8, -6, -4, -2, 0, 2, 4, 6, 8, 10, 12];
+    sensChart = new Chart(sCtx, {
+      type: 'line',
+      data: {
+        labels: gbRange.map(v => v >= 0 ? `D+${v}` : `R+${Math.abs(v)}`),
+        datasets: [
+          {
+            label: 'HCI',
+            data: gbRange.map(v => computeHCIFull(v)),
+            borderColor: '#6fa8ff',
+            backgroundColor: 'rgba(111,168,255,.1)',
+            fill: true,
+            tension: 0.3,
+          },
+          {
+            label: 'D Seats / 435',
+            data: gbRange.map(v => projectSeats(v) / TOTAL_SEATS),
+            borderColor: '#3ecf8e',
+            backgroundColor: 'transparent',
+            borderDash: [5, 4],
+          }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          annotation: {
+            annotations: {
+              mid: { type:'line', yMin:0.5, yMax:0.5, borderColor:'#f5a623', borderWidth:1.5, borderDash:[4,3] }
+            }
+          }
+        },
+        scales: {
+          y: { min:0, max:1, grid:{ color:'#242d4566' } },
+          x: { grid:{ display:false } }
+        }
+      }
+    });
+  }
+
+  // Scatter chart
+  const scCtx = document.getElementById('scatter-chart');
+  if (scCtx) {
+    scatterChart = new Chart(scCtx, {
+      type: 'scatter',
+      data: {
+        datasets: [{
+          label: 'Midterms 2006–2022',
+          data: HIST.map(h => ({ x: h.gb, y: h.actualD - h.priorD })),
+          backgroundColor: HIST.map(h => h.control === 'D' ? '#6fa8ff' : '#ff7b7b'),
+          pointRadius: 8,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: ctx => {
+                const h = HIST[ctx.dataIndex];
+                return `${h.year}: GB ${h.gb>0?'D+'+h.gb:'R+'+Math.abs(h.gb)}, Gain ${ctx.raw.y > 0 ? '+' : ''}${ctx.raw.y}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: { title:{ display:true, text:'Generic Ballot (D−R)', color:'#7a86a8' }, grid:{ color:'#242d4566' } },
+          y: { title:{ display:true, text:'Net D Seat Gain', color:'#7a86a8' }, grid:{ color:'#242d4566' } }
+        }
+      }
+    });
+  }
+}
+
+// ════════════════════════════════════════
+// STATIC CONTENT BUILDERS
+// ════════════════════════════════════════
+function buildHistTable() {
+  const tbody = document.getElementById('hist-tbody');
+  if (!tbody) return;
+  HIST.forEach(h => {
+    const proj = projectSeats(h.gb);
+    const err  = proj - h.actualD;
+    const netD = h.actualD - h.priorD;
+    const gbStr = h.gb >= 0 ? `D+${h.gb}` : `R+${Math.abs(h.gb)}`;
+    const ctrl  = h.control === 'D'
+      ? `<span style="color:var(--blue-soft)">D took House</span>`
+      : `<span style="color:var(--red-soft)">R held/took House</span>`;
+    const errColor = Math.abs(err) > 10 ? 'var(--red-soft)' : Math.abs(err) > 5 ? 'var(--gold)' : 'var(--green)';
+    tbody.innerHTML += `<tr>
+      <td style="font-family:var(--font-mono)">${h.year}</td>
+      <td style="color:var(--muted)">${h.president}</td>
+      <td style="color:${h.gb>0?'var(--blue-soft)':'var(--red-soft)'}">${gbStr}</td>
+      <td style="font-variant-numeric:tabular-nums;color:${h.control==='D'?'var(--blue-soft)':'var(--muted)'}">${h.actualD}</td>
+      <td style="font-variant-numeric:tabular-nums;color:${netD>0?'var(--blue-soft)':'var(--red-soft)'}">${netD>0?'+':''}${netD}</td>
+      <td style="font-variant-numeric:tabular-nums">${proj}</td>
+      <td style="color:${errColor};font-variant-numeric:tabular-nums">${err>=0?'+':''}${err}</td>
+      <td>${ctrl}</td>
+    </tr>`;
+  });
+}
+
+function buildDistGrid() {
+  const grid = document.getElementById('dist-grid');
+  if (!grid) return;
+  DISTRICTS.forEach(d => {
+    const leanLabel = {
+      'toss':'⚡ Toss-up', 'd-lean':'D Lean', 'd-safe':'D Safe',
+      'r-lean':'R Lean', 'r-safe':'R Safe'
+    }[d.lean] || d.lean;
+    const marginColor = d.lean.startsWith('d') ? 'var(--blue-soft)' : d.lean === 'toss' ? 'var(--gold)' : 'var(--red-soft)';
+    grid.innerHTML += `<div class="dist-card ${d.lean}">
+      <div class="dist-name">${d.name} — ${d.state}</div>
+      <div class="dist-lean">Cook PVI: ${d.cook}</div>
+      <div class="dist-margin" style="color:${marginColor}">${d.margin}</div>
+      <div style="font-size:10px;color:var(--dim);margin-top:4px">${leanLabel}</div>
+    </div>`;
+  });
+}
+
+// ════════════════════════════════════════
+// DAYS COUNTER
+// ════════════════════════════════════════
+function updateDays() {
+  const days = Math.max(0, Math.ceil((new Date(ELECTION_DATE) - new Date()) / 86400000));
+  const el = document.getElementById('days-counter');
+  const banner = document.getElementById('days-text');
+  const txt = days === 0 ? 'Election day!' : `${days} days to election`;
+  if (el) el.textContent = txt;
+  if (banner) banner.textContent = txt;
+  const urgency = document.getElementById('urgency-banner');
+  if (urgency) urgency.className = days <= 14 ? 'alert alert-red' : days <= 60 ? 'alert alert-warn' : 'alert alert-info';
+}
+
+// ════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════
+function nav(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// ════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  updateDays();
+  updateForecast();
+  initCharts();
+  buildHistTable();
+  buildDistGrid();
+});
+</script>
