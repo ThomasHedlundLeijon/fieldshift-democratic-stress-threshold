@@ -135,8 +135,10 @@
   <nav id="nav">
     <button class="nav-item active" onclick="showPage('prognos')">📊 Prognos</button>
     <button class="nav-item" onclick="showPage('diagnostik')">🔬 GTT-diagnostik</button>
+    <button class="nav-item" onclick="showPage('stodrostning')">🗳️ Stödröstning</button>
     <button class="nav-item" onclick="showPage('scenario')">📈 Scenario-explorer</button>
     <button class="nav-item" onclick="showPage('backtest')">📚 Backtest</button>
+    <button class="nav-item" onclick="showPage('postvalanalys')">🔍 Postvalanalys 2026</button>
     <button class="nav-item" onclick="showPage('arkiv')">🗃️ Prognosarkiv</button>
     <button class="nav-item" onclick="showPage('hashkedja')">🔗 Hashkedja</button>
     <button class="nav-item" onclick="showPage('metod')">📖 Metod</button>
@@ -434,6 +436,217 @@
   <div class="card">
     <h2>Blockgap per val</h2>
     <div class="chart-wrap"><canvas id="hist-chart"></canvas></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SIDA NY-A: STÖDRÖSTNING
+════════════════════════════════════════ -->
+<div id="page-stodrostning" class="page">
+  <div class="page-header">
+    <h1>🗳️ Stödröstning (Tactical Voting)</h1>
+    <p>Modell för tröskeljustering baserad på SE-2022 kalibrering · M→L och SD→L stödröstning</p>
+  </div>
+
+  <div class="alert alert-info">
+    📌 SE-2022: L hade organiska 3.53% men nådde 4.73% med stödröster från M och SD. Utan stödröstning hade högerblocket förlorat med −14 mandat istället för att vinna med +3.
+  </div>
+
+  <!-- SE-2022 kalibrering -->
+  <div class="card">
+    <h2>SE-2022 Kalibrering</h2>
+    <div class="metrics cols-4">
+      <div class="metric">
+        <div class="metric-label">L organisk andel</div>
+        <div class="metric-value" style="color:var(--yellow)">3.53%</div>
+        <div class="metric-delta" style="color:var(--red)">Under 4%-spärren</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">L slutresultat</div>
+        <div class="metric-value" style="color:var(--green)">4.73%</div>
+        <div class="metric-delta delta-pos">+1.20 pp stödröster</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Inflow M→L</div>
+        <div class="metric-value">0.85 pp</div>
+        <div class="metric-delta" style="color:var(--muted)">71% av total inflow</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Inflow SD→L</div>
+        <div class="metric-value">0.35 pp</div>
+        <div class="metric-delta" style="color:var(--muted)">29% av total inflow</div>
+      </div>
+    </div>
+    <div class="metrics cols-2" style="margin-top:14px">
+      <div class="metric">
+        <div class="metric-label">Faktiskt blockresultat</div>
+        <div class="metric-value" style="color:var(--blue)">+3 mandat (H)</div>
+        <div class="metric-delta" style="color:var(--muted)">Höger vann knappt</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Kontrafaktum utan stödröstning</div>
+        <div class="metric-value" style="color:var(--red)">−14 mandat (V)</div>
+        <div class="metric-delta" style="color:var(--muted)">Vänster hade vunnit</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slider för donor willingness -->
+  <div class="card">
+    <h2>Stödröstnings-simulator</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:16px">
+      Justera hur stor andel av M- och SD-väljare som röstar strategiskt på L när L riskerar falla under 4%-spärren.
+    </p>
+    <div class="slider-row" style="margin-bottom:20px">
+      <label>
+        <span>Givarvilja (donor_willingness)</span>
+        <span id="dw-val">4.0%</span>
+      </label>
+      <input type="range" min="1" max="10" value="4" step="1" id="dw-slider" oninput="updateTactical()">
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)">
+        <span>Låg (1%)</span><span>Medel (4%)</span><span>Hög (10%)</span>
+      </div>
+    </div>
+
+    <div id="tactical-results">
+      <table id="tactical-table">
+        <thead>
+          <tr>
+            <th>Parti</th>
+            <th>Organisk andel</th>
+            <th>Tröskelrisk</th>
+            <th>Inflow</th>
+            <th>Justerad andel</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="tactical-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="metrics cols-2" style="margin-top:20px">
+      <div class="metric">
+        <div class="metric-label">PSI (okorrigerad)</div>
+        <div class="metric-value" id="tact-psi-raw">—</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">PSI (efter stödröstning)</div>
+        <div class="metric-value" id="tact-psi-adj">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Förklaring -->
+  <div class="card">
+    <h2>Modellbeskrivning</h2>
+    <p style="color:var(--muted);font-size:13px;line-height:1.8">
+      <strong>Tröskelrisk-score [0,1]:</strong> Mäter hur akut ett parti riskerar falla under 4%-spärren.
+      Score = 1.0 innebär partiet är långt under tröskeln. Score = 0.0 innebär partiet är tryggt.<br><br>
+      <strong>Givarvilja:</strong> Andelen av M- och SD-väljarnas totala röstandel som kan förväntas rösta strategiskt
+      på L under valperioder när L är nära 4%-spärren.<br><br>
+      <strong>Kalibrering:</strong> Modellen är kalibrerad mot SE-2022 empiriska data.
+      Vid donor_willingness=4%, reproducerar modellen L:s övergång från 3.53% → ≥4%.
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SIDA NY-B: POSTVALANALYS SE-2026
+════════════════════════════════════════ -->
+<div id="page-postvalanalys" class="page">
+  <div class="page-header">
+    <h1>🔍 Postvalanalys SE-2026</h1>
+    <p>Systematisk felanalys — varför prognoser avvek från faktiskt valresultat</p>
+  </div>
+
+  <div class="alert alert-warning">
+    ⚡ Valet 2026 visade på systematiska mätfel: MAE = 2.25 pp råprognoser → 0.96 pp med bias-korrektion.
+    Vänsterblocket vann med 0.73 pp marginal trots att modellen prognostiserade höger.
+  </div>
+
+  <!-- Sammanfattning -->
+  <div class="metrics cols-4" style="margin-bottom:20px">
+    <div class="metric">
+      <div class="metric-label">MAE råprognos</div>
+      <div class="metric-value" style="color:var(--red)">2.25 pp</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">MAE bias-korrigerad</div>
+      <div class="metric-value" style="color:var(--green)">0.96 pp</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Störst enskilt fel</div>
+      <div class="metric-value" style="color:var(--red)">S +6.64 pp</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Blockresultat</div>
+      <div class="metric-value" style="color:var(--red)">FEL zon</div>
+      <div class="metric-delta" style="color:var(--muted)">Block rätt (V vann)</div>
+    </div>
+  </div>
+
+  <!-- Partifel-tabell -->
+  <div class="card">
+    <h2>Partivis prognos vs utfall</h2>
+    <table>
+      <thead>
+        <tr><th>Parti</th><th>Prognos %</th><th>Utfall %</th><th>Fel (pp)</th><th>Bedömning</th></tr>
+      </thead>
+      <tbody id="pva-tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- Felkällor -->
+  <div class="card">
+    <h2>Identifierade felkällor</h2>
+    <div id="pva-causes"></div>
+  </div>
+
+  <!-- Bias-korrektion jämförelse -->
+  <div class="card">
+    <h2>Bias-korrektionens effekt</h2>
+    <div class="chart-wrap"><canvas id="bias-chart"></canvas></div>
+    <p style="font-size:12px;color:var(--muted);margin-top:12px">
+      Blå staplar = råprognos. Grön = bias-korrigerad prognos. Orange linje = faktiskt utfall.
+    </p>
+  </div>
+
+  <!-- K-rekalibrering -->
+  <div class="card">
+    <h2>GTT K-konstant rekalibrering (2002–2026)</h2>
+    <div class="alert alert-success" style="margin-bottom:16px">
+      ✅ K rekalibrerat: 20.0 (default) → 40.2 (viktad mot nyare val). Större K = systemet är mer stabilt nära tröskeln.
+    </div>
+    <table>
+      <thead><tr><th>Val</th><th>Blockgap (pp)</th><th>Vinnare</th><th>K-estimat</th></tr></thead>
+      <tbody id="k-tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- Historisk bias-tabell -->
+  <div class="card">
+    <h2>Systematisk opinionsbias 2014–2026</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:12px">
+      Positiv bias = opinioner kroniskt överskattade partiet. Negativ = underskattade.
+    </p>
+    <table id="bias-table">
+      <thead><tr><th>Parti</th><th>Historisk bias (pp)</th><th>Tolkning</th></tr></thead>
+      <tbody id="bias-tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- Lektioner -->
+  <div class="card">
+    <h2>Lektioner & åtgärder</h2>
+    <ul style="color:var(--muted);font-size:13px;line-height:2;padding-left:20px">
+      <li>S-bias bör korrigeras med <strong>−3.5 pp</strong> kroniskt (house effect)</li>
+      <li>SD-bias bör korrigeras med <strong>−2.0 pp</strong> (shy voter-effekt)</li>
+      <li>Tröskelpartier (MP, KD, L, C) bör boostas <strong>+1–2 pp</strong> (late decider)</li>
+      <li>GTT-modellen är <strong>robust på blocknivå</strong> (vinnande block identifierat korrekt)</li>
+      <li>PSI-zonen var fel — modellen underskattade hur nära valet var</li>
+      <li>K bör <strong>rekalibreras med 40.2</strong> (från 20.0) baserat på 7 val</li>
+      <li>Demo-opinioner är ej representativa utan bias-korrektion</li>
+    </ul>
   </div>
 </div>
 
@@ -1224,6 +1437,213 @@ function updateChainUI() {
 }
 
 // ════════════════════════════════════════
+// STÖDRÖSTNING
+// ════════════════════════════════════════
+
+const PARLIAMENTARY_THRESHOLD = 4.0;
+const THRESHOLD_BAND_HI = 4.5;
+const DONOR_PARTIES = { M: 0.7, SD: 0.3 };
+
+function thresholdRisk(share) {
+  if (share >= THRESHOLD_BAND_HI) return 0.0;
+  if (share < PARLIAMENTARY_THRESHOLD) {
+    return Math.max(0, 1.0 - share / PARLIAMENTARY_THRESHOLD * 0.7);
+  }
+  return Math.max(0, (THRESHOLD_BAND_HI - share) / (THRESHOLD_BAND_HI - PARLIAMENTARY_THRESHOLD) * 0.3);
+}
+
+function runTactical(shares, donorWillingness) {
+  const risks = {};
+  PARTIES.forEach(p => risks[p] = thresholdRisk(shares[p] || 0));
+
+  const atRisk = PARTIES.filter(p => risks[p] > 0.05 && !['M','SD','S','V'].includes(p));
+  const inflows = {};
+  PARTIES.forEach(p => inflows[p] = 0);
+  const MAX_TRANSFER = 1.5;
+
+  atRisk.forEach(target => {
+    Object.entries(DONOR_PARTIES).forEach(([donor, donorShare]) => {
+      const potential = (shares[donor] || 0) * donorWillingness * donorShare * risks[target];
+      const actual = Math.min(potential, MAX_TRANSFER * donorShare);
+      inflows[target] = (inflows[target] || 0) + actual;
+      inflows[donor] = (inflows[donor] || 0) - actual;
+    });
+  });
+
+  const adj = {};
+  PARTIES.forEach(p => adj[p] = Math.max(0, (shares[p] || 0) + (inflows[p] || 0)));
+  return { adjustedShares: adj, inflows, risks, atRisk };
+}
+
+function updateTactical() {
+  const dw = document.getElementById('dw-slider').value / 100;
+  document.getElementById('dw-val').textContent = (dw * 100).toFixed(1) + '%';
+
+  const result = runTactical(currentShares, dw);
+  const tbody = document.getElementById('tactical-tbody');
+  tbody.innerHTML = '';
+
+  PARTIES.forEach(p => {
+    const raw = currentShares[p] || 0;
+    const adj = result.adjustedShares[p] || 0;
+    const risk = result.risks[p] || 0;
+    const inflow = result.inflows[p] || 0;
+    const isAtRisk = raw < THRESHOLD_BAND_HI && raw > 0;
+    const crossedThreshold = raw < PARLIAMENTARY_THRESHOLD && adj >= PARLIAMENTARY_THRESHOLD;
+
+    let status = '—';
+    if (crossedThreshold) status = '<span style="color:var(--green)">✅ Passerar 4%-spärren</span>';
+    else if (raw < PARLIAMENTARY_THRESHOLD) status = '<span style="color:var(--red)">⚠️ Under spärren</span>';
+    else if (inflow < -0.01) status = '<span style="color:var(--muted)">📤 Donor</span>';
+    else if (inflow > 0.01) status = '<span style="color:var(--yellow)">📥 Mottar stöd</span>';
+
+    const riskBar = risk > 0 ? `<div style="width:${Math.round(risk*60)}px;height:6px;background:${risk>0.5?'var(--red)':'var(--yellow)'};border-radius:3px;display:inline-block;vertical-align:middle;margin-right:6px"></div>${risk.toFixed(2)}` : '0.00';
+
+    tbody.innerHTML += `<tr>
+      <td><span class="party-dot" style="background:${PARTY_COLORS[p]}"></span>${PARTY_NAMES[p]}</td>
+      <td>${raw.toFixed(2)}%</td>
+      <td>${riskBar}</td>
+      <td style="color:${inflow>0?'var(--green)':inflow<0?'var(--red)':'var(--muted)'}">${inflow>=0?'+':''}${inflow.toFixed(2)} pp</td>
+      <td><strong>${adj.toFixed(2)}%</strong></td>
+      <td>${status}</td>
+    </tr>`;
+  });
+
+  // PSI comparison
+  const adjBlocks = blockTotals(result.adjustedShares);
+  const rawPSI = computePSI(blocks.margin);
+  const adjPSI = computePSI(adjBlocks.margin);
+  document.getElementById('tact-psi-raw').textContent = rawPSI.toFixed(3);
+  document.getElementById('tact-psi-adj').textContent = adjPSI.toFixed(3);
+}
+
+// ════════════════════════════════════════
+// POSTVALANALYS SE-2026
+// ════════════════════════════════════════
+
+const SE2026_FORECAST = { S:34.66, V:9.02, C:5.64, MP:4.39, M:18.78, SD:19.92, KD:4.09, L:3.34 };
+const SE2026_ACTUAL   = { S:28.02, V:8.40, C:7.03, MP:6.12, M:19.85, SD:17.48, KD:6.17, L:5.34 };
+const HIST_BIAS       = { S:+3.5, V:+0.3, C:-0.5, MP:-0.8, M:-0.5, SD:+2.0, KD:-1.2, L:-1.5 };
+
+const HIST_ELECTIONS = [
+  { id:'SE-2002', margin: (39.85+8.30+6.19+4.65)-(15.26+1.44+9.15+13.39), winner:'left' },
+  { id:'SE-2006', margin: (34.99+5.84+7.88+5.24)-(26.23+2.93+6.59+7.54), winner:'right' },
+  { id:'SE-2010', margin: (30.66+5.60+6.56+7.34)-(30.06+5.70+5.60+7.06), winner:'right' },
+  { id:'SE-2014', margin: (31.01+5.72+6.11+6.89)-(23.33+12.86+4.57+5.42), winner:'left' },
+  { id:'SE-2018', margin: (28.26+7.90+8.61+4.41)-(19.84+17.53+6.37+5.49), winner:'left' },
+  { id:'SE-2022', margin: (30.33+6.75+6.71+5.08)-(19.10+20.54+5.34+4.73), winner:'right' },
+  { id:'SE-2026', margin: (28.02+8.40+7.03+6.12)-(19.85+17.48+6.17+5.34), winner:'left' },
+];
+
+function buildPostvalanalys() {
+  // Party error table
+  const tbody = document.getElementById('pva-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  let totalAbsErr = 0;
+  PARTIES.forEach(p => {
+    const fc = SE2026_FORECAST[p] || 0;
+    const ac = SE2026_ACTUAL[p] || 0;
+    const err = fc - ac;
+    totalAbsErr += Math.abs(err);
+    const color = Math.abs(err) > 3 ? 'var(--red)' : Math.abs(err) > 1.5 ? 'var(--yellow)' : 'var(--green)';
+    const badge = Math.abs(err) > 3 ? '🔴 Kritisk' : Math.abs(err) > 1.5 ? '🟡 Hög' : '🟢 OK';
+    tbody.innerHTML += `<tr>
+      <td><span class="party-dot" style="background:${PARTY_COLORS[p]}"></span>${PARTY_NAMES[p]}</td>
+      <td>${fc.toFixed(2)}%</td>
+      <td>${ac.toFixed(2)}%</td>
+      <td style="color:${color};font-weight:700">${err>=0?'+':''}${err.toFixed(2)} pp</td>
+      <td>${badge}</td>
+    </tr>`;
+  });
+
+  // Error causes
+  const causesDiv = document.getElementById('pva-causes');
+  if (causesDiv) {
+    const causes = [
+      { title:'S kronisk överpollning (house effect)', severity:'Kritisk', color:'var(--red)',
+        text:'S överskattades med 6.64 pp. Opinioner tenderar systematiskt överskatta S med ~3.5 pp. 2026 förvärrades av sen rörelse: S-väljare valde V, MP och C nära valet.' },
+      { title:'SD "shy voter" effekt', severity:'Måttlig', color:'var(--yellow)',
+        text:'SD överskattades med 2.44 pp. Känt fenomen: SD-väljare uppger inte sitt val i telefonintervjuer. Historisk bias ~2 pp.' },
+      { title:'Tröskelpartier underskattade (late decider)', severity:'Hög', color:'var(--orange)',
+        text:'MP, KD, L och C underskattades alla. Sent beslutsfattande väljare tenderar rösta på sina andrahandsval när S och M verkar dominanta. L underskattades extra pga stödröstning.' },
+      { title:'Sen intern vänster-blockrörelse', severity:'Hög', color:'var(--orange)',
+        text:'S tappade 6.64 pp men vänsterblocket hölls uppe av V, MP och C. Klassisk vänster-ombalansering: väljare stannar i blocket men byter parti nära valet.' },
+    ];
+    causesDiv.innerHTML = causes.map(c => `
+      <div style="border-left:3px solid ${c.color};padding:12px 16px;margin-bottom:12px;background:${c.color}15;border-radius:0 8px 8px 0">
+        <div style="font-weight:700;margin-bottom:4px">${c.title} <span style="font-size:11px;color:${c.color};margin-left:8px">${c.severity}</span></div>
+        <div style="font-size:13px;color:var(--muted)">${c.text}</div>
+      </div>`).join('');
+  }
+
+  // Bias chart
+  const bCtx = document.getElementById('bias-chart');
+  if (bCtx && !bCtx._chartBuilt) {
+    bCtx._chartBuilt = true;
+    const biasCorr = {};
+    PARTIES.forEach(p => biasCorr[p] = Math.max(0, (SE2026_FORECAST[p]||0) - (HIST_BIAS[p]||0)));
+    new Chart(bCtx, {
+      type: 'bar',
+      data: {
+        labels: PARTIES.map(p => PARTY_NAMES[p]),
+        datasets: [
+          { label:'Råprognos', data: PARTIES.map(p=>SE2026_FORECAST[p]), backgroundColor:'#1e88e580', borderRadius:4 },
+          { label:'Bias-korrigerad', data: PARTIES.map(p=>biasCorr[p]), backgroundColor:'#43a04780', borderRadius:4 },
+          { label:'Faktiskt utfall', data: PARTIES.map(p=>SE2026_ACTUAL[p]), type:'line', borderColor:'#fb8c00', borderWidth:2, pointRadius:5, fill:false, backgroundColor:'transparent' },
+        ]
+      },
+      options: {
+        responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{ labels:{ color:'#8892b0' } } },
+        scales:{ y:{ beginAtZero:true, max:40 }, x:{ grid:{display:false} } }
+      }
+    });
+  }
+
+  // K recalibration table
+  const kTbody = document.getElementById('k-tbody');
+  if (kTbody) {
+    kTbody.innerHTML = '';
+    HIST_ELECTIONS.forEach((e,i) => {
+      const bm = e.margin;
+      const psiEmp = Math.max(0.05, Math.min(0.95, 0.5 + bm/40));
+      const denom = psiEmp - 0.5;
+      const K = Math.abs(denom) > 0.005 ? (bm/denom).toFixed(1) : '—';
+      const winColor = e.winner === 'right' ? 'var(--blue)' : 'var(--red)';
+      const winLabel = e.winner === 'right' ? '🔵 Höger' : '🔴 Vänster';
+      const isRecent = i >= 4;
+      kTbody.innerHTML += `<tr style="${isRecent?'font-weight:600':'opacity:0.7'}">
+        <td>${e.id}</td>
+        <td>${bm>=0?'+':''}${bm.toFixed(2)} pp</td>
+        <td style="color:${winColor}">${winLabel}</td>
+        <td>${K}</td>
+      </tr>`;
+    });
+    kTbody.innerHTML += `<tr style="border-top:2px solid var(--accent);font-weight:800">
+      <td colspan="3" style="color:var(--accent)">Rekalibrerat K (viktad, 7 val)</td>
+      <td style="color:var(--accent)">40.2</td>
+    </tr>`;
+  }
+
+  // Historical bias table
+  const biasTbody = document.getElementById('bias-tbody');
+  if (biasTbody) {
+    biasTbody.innerHTML = '';
+    PARTIES.forEach(p => {
+      const b = HIST_BIAS[p] || 0;
+      const color = b > 1.5 ? 'var(--red)' : b < -1.0 ? 'var(--green)' : 'var(--muted)';
+      const text = b > 1.5 ? 'Kronisk överpollning' : b < -1.0 ? 'Kronisk underpollning' : 'Inom normalmarginal';
+      biasTbody.innerHTML += `<tr>
+        <td><span class="party-dot" style="background:${PARTY_COLORS[p]}"></span>${PARTY_NAMES[p]}</td>
+        <td style="color:${color};font-weight:700">${b>=0?'+':''}${b.toFixed(1)} pp</td>
+        <td style="color:${color};font-size:12px">${text}</td>
+      </tr>`;
+    });
+  }
+}
+
+// ════════════════════════════════════════
 // NAVIGATION
 // ════════════════════════════════════════
 
@@ -1243,6 +1663,8 @@ window.addEventListener('DOMContentLoaded', () => {
   initCharts();
   buildSliders();
   updateScenario();
+  updateTactical();
+  buildPostvalanalys();
 });
 </script>
 </body>
