@@ -65,6 +65,7 @@ with st.sidebar:
     pages = [
         "📊 Prognos",
         "🔬 GTT-diagnostik",
+        "🗳️ Stödröstning",
         "📈 Scenario-explorer",
         "📚 Backtest",
         "🗃️ Prognosarkiv",
@@ -242,6 +243,133 @@ if page == "📊 Prognos":
 
 elif page == "🔬 GTT-diagnostik":
     render_gtt_diagnostics(diag, mode=APP_MODE)
+    render_disclaimer()
+
+
+elif page == "🗳️ Stödröstning":
+    from gtt.tactical_voting import run_tactical_adjustment, SE2022_TACTICAL_CALIBRATION, PARLIAMENTARY_THRESHOLD
+
+    st.header("🗳️ Stödröstningsanalys")
+    st.caption(
+        "Modellering av taktiska röstöverföringar (stödröstning) nära 4%-spärren. "
+        "Kalibrerad mot SE-2022: M→L och SD→L lyfter L från ~3.5% till 4.73%."
+    )
+
+    # ── SE-2022 kalibrering ────────────────────────────────────────────────────
+    with st.expander("📌 SE-2022 kalibrering (referens)", expanded=True):
+        cal = SE2022_TACTICAL_CALIBRATION
+        st.info(cal["description"])
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("L organiskt stöd", f"{cal['organic_L']:.2f}%",
+                      help="Uppskattat stöd utan taktiska röster")
+        with col2:
+            st.metric("L faktiskt resultat", f"{cal['final_L']:.2f}%")
+        with col3:
+            st.metric("Taktisk inflow totalt", f"+{cal['tactical_inflow_total']:.2f} pp",
+                      help=f"M: +{cal['donor_breakdown']['M']:.2f} pp, SD: +{cal['donor_breakdown']['SD']:.2f} pp")
+        with col4:
+            st.metric("Mandateffekt", f"{cal['mandate_swing_due_to_tactical']} mandat",
+                      help="Högerblocket fick ~17 fler mandat än utan stödröstning")
+
+        col5, col6 = st.columns(2)
+        with col5:
+            st.metric("Faktisk blockmarginal", f"+{cal['actual_block_margin_mandates']} mandat (Höger)",
+                      help="Högerblock vann med 3 mandats marginal")
+        with col6:
+            st.metric("Kontrafaktisk blockmarginal", f"{cal['counterfactual_block_margin_without_tactical']} mandat",
+                      help="Vänsterblocket hade vunnit med 14 mandat utan stödröstning")
+
+    # ── Aktuell stödröstningsanalys ────────────────────────────────────────────
+    st.subheader("Aktuell analys")
+
+    willingness = st.slider(
+        "Givarvilja (andel av givarpartiets väljare som röstar taktiskt)",
+        min_value=0.01, max_value=0.10, value=0.04, step=0.005,
+        format="%.3f",
+        help="0.04 = 4% av M/SD-väljare röstar L när L riskerar att falla under 4%",
+    )
+
+    tactical = run_tactical_adjustment(
+        organic_shares=shares,
+        donor_willingness=willingness,
+        calibrated=calibrated,
+    )
+
+    adj = tactical["adjusted_shares"]
+    inflows = tactical["inflows"]
+    risks = tactical["threshold_risks"]
+    at_risk = tactical["at_risk_parties"]
+
+    if not at_risk:
+        st.success("✅ Inga partier i tröskelriskzonen (alla partier > 4.5%). "
+                   "Stödröstning bedöms ha minimal effekt.")
+    else:
+        st.warning(f"⚠️ {len(at_risk)} parti/partier i tröskelriskzonen — stödröstning kan påverka blockresultatet.")
+
+    # Tröskelrisktabell
+    import pandas as pd
+    rows = []
+    for p in PARTIES:
+        block = "Vänster" if p in LEFT_BLOCK else "Höger"
+        organic = shares.get(p, 0.0)
+        inflow = inflows.get(p, 0.0)
+        adjusted = adj.get(p, 0.0)
+        risk = risks.get(p, 0.0)
+        rows.append({
+            "Parti": PARTY_NAMES.get(p, p),
+            "Block": block,
+            "Organiskt %": f"{organic:.2f}",
+            "Taktisk inflow (pp)": f"+{inflow:.3f}" if inflow > 0 else "—",
+            "Justerat %": f"{adjusted:.2f}",
+            "Tröskelrisk": f"{risk:.2f}",
+            "Status": ("⚠️ Under spärren" if organic < PARLIAMENTARY_THRESHOLD
+                       else ("🟡 Nära spärren" if organic < 4.5 else "✅ Säker")),
+        })
+    st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+
+    # PSI-jämförelse: organisk vs justerad
+    st.subheader("PSI-effekt av stödröstning")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("PSI (organisk)", f"{diag['psi']:.4f}",
+                  help="PSI baserat på opinionssiffrorna direkt")
+    with col2:
+        adj_psi = diag.get("psi_adjusted", diag["psi"])
+        delta_psi = adj_psi - diag["psi"]
+        st.metric("PSI (stödröstningsjusterad)", f"{adj_psi:.4f}",
+                  delta=f"{delta_psi:+.4f}",
+                  help="PSI efter estimerade taktiska röstöverföringar")
+    with col3:
+        adj_bm = diag.get("block_margin_adjusted", diag["block_margin"])
+        st.metric("Blockgap (justerat)", f"{adj_bm:+.2f} pp",
+                  delta=f"{adj_bm - diag['block_margin']:+.2f} pp")
+
+    if at_risk:
+        st.subheader("Detaljerad analys per riskparti")
+        for p, info in at_risk.items():
+            with st.expander(f"{PARTY_NAMES.get(p, p)} — Tröskelrisk {info['risk_score']:.2f}"):
+                c1, c2, c3, c4 = st.columns(4)
+                with c1:
+                    st.metric("Organiskt stöd", f"{info['organic']:.2f}%")
+                with c2:
+                    st.metric("Estimerad inflow", f"+{info['inflow']:.3f} pp")
+                with c3:
+                    st.metric("Justerat stöd", f"{info['adjusted']:.2f}%")
+                with c4:
+                    if info["crosses_threshold"]:
+                        st.metric("Spärren", "✅ Passeras med stödröster")
+                    elif info["organic"] < PARLIAMENTARY_THRESHOLD:
+                        st.metric("Spärren", "❌ Under spärren trots stödröster")
+                    else:
+                        st.metric("Spärren", "✅ Över spärren (organiskt)")
+
+    st.caption(
+        "**Metodnotering:** Stödröstningsmodellen är kalibrerad mot SE-2022 (M→L, SD→L). "
+        "Organiska opinionsmätningar underskattade L:s faktiska valresultat med ~1.2 pp. "
+        "Modellen tillämpar en proportionell givarvilja-parameter för att uppskatta framtida "
+        "taktiska överföringar. Osäkerheten är hög — stödröstning är svår att mäta i förväg."
+    )
     render_disclaimer()
 
 

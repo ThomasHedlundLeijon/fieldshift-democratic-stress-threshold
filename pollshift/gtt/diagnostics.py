@@ -8,6 +8,7 @@ from gtt.state_vector import StateVector, compute_momentum, compute_acceleration
 from gtt.psi import compute_psi, distance_to_threshold, threshold_sensitivity
 from gtt.zones import classify_zone, zone_label, zone_color
 from gtt.transition_risk import compute_transition_risk
+from gtt.tactical_voting import run_tactical_adjustment
 from config import (
     GTT_K_DEFAULT, GTT_EPSILON, VOLATILITY_WINDOW,
     SENSITIVITY_LABELS, VOLATILITY_LABELS, ELECTION_DATE,
@@ -72,6 +73,19 @@ def run_diagnostics(
         calibrated=calibrated,
     )
 
+    # Stödröstningsanalys — kalibrerad mot SE-2022
+    tactical = run_tactical_adjustment(
+        organic_shares=current.shares,
+        donor_willingness=0.04,
+        calibrated=calibrated,
+    )
+    # PSI efter stödröstningsjustering (för jämförelse)
+    adj_shares = tactical["adjusted_shares"]
+    from gtt.state_vector import StateVector as _SV
+    adj_sv = _SV(shares=adj_shares)
+    adj_bm = adj_sv.block_margin
+    adj_psi = compute_psi(adj_bm, K)
+
     return {
         # Core GTT
         "psi": round(psi, 4),
@@ -93,6 +107,10 @@ def run_diagnostics(
         "volatility_label": volatility_label(volatility.get("block", 0.0)),
         # Risk
         "transition_risk": risk,
+        # Stödröstning (tactical voting)
+        "tactical_voting": tactical,
+        "psi_adjusted": round(adj_psi, 4),
+        "block_margin_adjusted": round(adj_bm, 4),
         # Meta
         "K": K,
         "epsilon": epsilon,

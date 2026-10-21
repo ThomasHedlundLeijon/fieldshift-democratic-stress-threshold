@@ -62,6 +62,24 @@ EMBEDDED_HISTORICAL = [
             "M": 19.10, "SD": 20.54, "KD": 5.34, "L": 4.73,
         },
         "winner": "right",
+        # Stödröstningskalibrering: L:s organiska stöd ~3.53% men taktiska
+        # röster från M (~0.85 pp) och SD (~0.35 pp) lyfte L till 4.73%.
+        # Utan stödröster: L under spärren → vänsterblock +17 mandat → klar vänstervinct.
+        # Med stödröster: högerblock vann med 3 mandats marginal.
+        "tactical_voting": {
+            "L": {
+                "organic_share": 3.53,
+                "inflow_total": 1.20,
+                "donors": {"M": 0.85, "SD": 0.35},
+                "crosses_threshold": True,
+            }
+        },
+        "counterfactual_without_tactical": {
+            "block_margin_mandates": -14,
+            "winner": "left",
+            "note": "Hypotetiskt utfall om L:s organiska stöd ~3.53% hade gällt.",
+        },
+        "actual_block_margin_mandates": 3,
     },
 ]
 
