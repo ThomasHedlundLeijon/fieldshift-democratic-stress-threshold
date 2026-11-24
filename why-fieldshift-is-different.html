@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Is FieldShift just old news in a different package? A structured argument for what FieldShift contributes — and what it does not claim.">
+<title>Why FieldShift Is Different — FieldShift.org</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a1a;--ink-soft:#4a4a4a;--ink-light:#7a7a7a;
+  --paper:#f9f6f1;--paper-2:#f2ede5;--paper-3:#e8e0d4;--rule:#d0c8bc;
+  --gold:#b8922a;--gold-lt:#e8c96e;--gold-pale:#f5ead0;
+  --danger:#c0392b;--ok:#1e8449;--info:#1a5276;
+  --serif:'Libre Baskerville',Georgia,serif;
+  --sans:'Source Sans 3',system-ui,sans-serif;
+  --mono:'JetBrains Mono','Courier New',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.65;min-height:100vh}
+
+/* ── MASTHEAD ── */
+.masthead{background:var(--ink);color:var(--paper);border-bottom:3px solid var(--gold)}
+.masthead-inner{max-width:1200px;margin:0 auto;padding:32px 48px 24px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.masthead-title{font-family:var(--serif);font-size:clamp(24px,3vw,42px);font-weight:700;letter-spacing:-0.02em;line-height:1}
+.masthead-title span{color:var(--gold-lt)}
+.masthead-sub{font-size:11px;color:#b0a898;margin-top:8px;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.masthead-meta{text-align:right;font-family:var(--mono);font-size:11px;color:#888;line-height:2}
+
+/* ── NAV ── */
+.site-nav{background:#111;border-bottom:1px solid #333}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:flex;gap:0;flex-wrap:wrap}
+.nav-link{color:#aaa;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;text-decoration:none;padding:14px 20px 12px;border-bottom:2px solid transparent;transition:all .15s}
+.nav-link:hover{color:var(--gold-lt)}
+.nav-link.active{color:var(--gold-lt);border-bottom-color:var(--gold)}
+
+/* ── PAGE HEADER ── */
+.page-header{background:var(--paper-2);border-bottom:1px solid var(--rule);padding:48px 48px 40px}
+.page-header-inner{max-width:800px;margin:0 auto}
+.page-meta{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-light);margin-bottom:12px}
+.page-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,44px);font-weight:700;line-height:1.2;margin-bottom:16px;color:var(--ink)}
+.page-standfirst{font-family:var(--serif);font-size:17px;font-style:italic;color:var(--ink-soft);line-height:1.65;max-width:680px}
+.page-toc{margin-top:28px;padding:20px 24px;background:white;border:1px solid var(--rule);max-width:480px}
+.toc-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:10px}
+.toc-list{list-style:none}
+.toc-list li{padding:3px 0;font-size:13px}
+.toc-list a{color:var(--info);text-decoration:none;font-family:var(--mono);font-size:11px}
+.toc-list a:hover{color:var(--gold)}
+
+/* ── ARTICLE LAYOUT ── */
+.article-wrap{max-width:800px;margin:0 auto;padding:56px 48px 96px}
+
+/* ── ARTICLE TYPOGRAPHY ── */
+.article-wrap p{font-size:16px;line-height:1.8;color:var(--ink-soft);margin-bottom:1.4em}
+.article-wrap p:first-of-type{font-size:17px;color:var(--ink);font-weight:600}
+.article-wrap h2{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--ink);margin:2.5em 0 0.6em;padding-top:1.5em;border-top:1px solid var(--rule)}
+.article-wrap h3{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--ink);margin:1.8em 0 0.5em}
+.article-wrap ul,.article-wrap ol{margin:0.8em 0 1.4em 1.4em;color:var(--ink-soft)}
+.article-wrap li{font-size:15px;line-height:1.75;padding:2px 0}
+.article-wrap ol{counter-reset:list}
+.article-wrap ol li{list-style:none;counter-increment:list;display:flex;gap:12px}
+.article-wrap ol li::before{content:counter(list,decimal) ".";font-family:var(--mono);font-size:12px;color:var(--gold);min-width:20px;padding-top:3px;flex-shrink:0}
+
+/* ── CALLOUT ── */
+.callout{background:var(--paper-2);border-left:4px solid var(--gold);padding:18px 22px;margin:24px 0;border-radius:0 4px 4px 0}
+.callout p{margin:0;font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink)}
+
+/* ── METRIC HIGHLIGHT ── */
+.metric-hl{text-align:center;padding:28px 20px;background:var(--ink);margin:28px 0;color:var(--paper)}
+.metric-hl .val{font-family:var(--serif);font-size:42px;font-weight:700;color:var(--gold-lt);display:block;line-height:1.1}
+.metric-hl .lbl{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#888;margin-top:8px;display:block}
+
+/* ── COMPARISON TABLE ── */
+.compare-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px}
+.compare-table th{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);padding:10px 14px;border-bottom:2px solid var(--ink);background:var(--paper-2);text-align:left}
+.compare-table td{padding:10px 14px;border-bottom:1px solid var(--paper-3);vertical-align:top;line-height:1.6;color:var(--ink-soft)}
+.compare-table tr:hover td{background:var(--paper-2)}
+.compare-table .yes{color:var(--ok);font-family:var(--mono);font-size:11px}
+.compare-table .no{color:var(--danger);font-family:var(--mono);font-size:11px}
+
+/* ── FIVE-LAYER TABLE ── */
+.layers-grid{display:grid;grid-template-columns:auto 1fr;gap:0;border:1px solid var(--rule);margin:20px 0}
+.layer-row{display:contents}
+.layer-row .l-num{font-family:var(--mono);font-size:11px;color:var(--gold);padding:14px 16px;border-bottom:1px solid var(--paper-3);background:var(--paper-2);font-weight:500}
+.layer-row .l-text{padding:14px 16px;border-bottom:1px solid var(--paper-3);background:white}
+.layer-row .l-text strong{font-family:var(--serif);display:block;margin-bottom:3px}
+.layer-row .l-text span{font-size:12px;color:var(--ink-light)}
+.layer-row:last-child .l-num,.layer-row:last-child .l-text{border-bottom:none}
+
+/* ── BOTTOM BOX ── */
+.bottom-box{background:var(--ink);padding:32px;margin-top:48px;color:var(--paper)}
+.bottom-box h3{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--gold-lt);margin-bottom:16px}
+.bottom-box ul{list-style:none;padding:0}
+.bottom-box li{font-size:14px;color:#b0a898;padding:5px 0;border-bottom:1px solid #2a2a2a;display:flex;gap:10px;line-height:1.6}
+.bottom-box li::before{content:"→";font-family:var(--mono);font-size:11px;color:var(--gold);flex-shrink:0;padding-top:2px}
+
+/* ── NAV PREV/NEXT ── */
+.article-nav{display:flex;justify-content:space-between;margin-top:48px;padding-top:24px;border-top:1px solid var(--rule)}
+.article-nav a{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);text-decoration:none}
+.article-nav a:hover{color:var(--ink)}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);color:#777;padding:32px 48px;font-family:var(--mono);font-size:11px;line-height:2;border-top:3px solid var(--gold)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:24px}
+footer a{color:#888;text-decoration:none}
+footer a:hover{color:var(--gold-lt)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .masthead-inner{grid-template-columns:1fr}
+  .masthead-inner,.nav-inner,.page-header,.footer-inner{padding-left:24px;padding-right:24px}
+  .article-wrap{padding:40px 24px 80px}
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead" role="banner">
+  <div class="masthead-inner">
+    <div>
+      <div class="masthead-title"><a href="index.html" style="text-decoration:none;color:inherit">Field<span>Shift</span></a></div>
+      <div class="masthead-sub">Early Warning System for Democratic Erosion · Hedlund-Leijon Principle</div>
+    </div>
+    <div class="masthead-meta">
+      ℋ = 1.724 &nbsp;·&nbsp; κ = 0.216<br>
+      Karlstad University
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="why-fieldshift-is-different.html" class="nav-link active" aria-current="page">Research</a>
+    <a href="science.html" class="nav-link">Science</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-meta">Research · Conceptual Foundations</div>
+    <h1 class="page-title">Is FieldShift just old news<br>in a different package?</h1>
+    <p class="page-standfirst">
+      A structured argument for what FieldShift contributes beyond existing 
+      democracy frameworks — and, equally, what it does not claim.
+    </p>
+    <p><a href="fieldshift-principle.html">Explore the FieldShift Principle and Water Staircase</a></p>
+    <nav class="page-toc" aria-label="Table of contents">
+      <div class="toc-label">Contents</div>
+      <ul class="toc-list">
+        <li><a href="#answer">The short answer</a></li>
+        <li><a href="#what-is-new">What is actually new?</a></li>
+        <li><a href="#how-different">How FieldShift differs</a></li>
+        <li><a href="#does-better">What FieldShift does better</a></li>
+        <li><a href="#does-not-claim">What FieldShift does not claim</a></li>
+        <li><a href="#fair-assessment">A fair assessment</a></li>
+        <li><a href="#bottom-line">Bottom line</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<!-- ARTICLE -->
+<div class="article-wrap">
+
+  <p id="answer">No.</p>
+
+  <p>The core ingredients behind FieldShift are not new. Democratic backsliding, institutional erosion, regime instability, and tipping points have all been studied for decades. Scholars such as Robert Dahl, Nancy Bermeo, Levitsky and Way, and Lührmann and Lindberg have already established much of the conceptual terrain.</p>
+
+  <p>What FieldShift contributes is something different:</p>
+
+  <ul>
+    <li>a forward-looking early-warning framework</li>
+    <li>a quantified asymmetry between erosion and recovery</li>
+    <li>a calibrated warning threshold</li>
+    <li>a stress-based measurement model rather than a state-only index</li>
+    <li>a sequential account of how democratic systems weaken over time</li>
+  </ul>
+
+  <p>FieldShift is therefore not new in what it studies. It is new in how it operationalizes risk, when it identifies danger, and how it translates democratic erosion into a measurable early-warning system.</p>
+
+  <!-- WHAT IS NEW -->
+  <h2 id="what-is-new">What Is Actually New?</h2>
+
+  <p>FieldShift makes four claims that, taken together, distinguish it from most existing democracy frameworks.</p>
+
+  <h3>1. It is built for warning, not description</h3>
+
+  <p>Most democracy indices describe where a country is now. FieldShift is designed to estimate when a system is entering a dangerous zone before collapse occurs.</p>
+
+  <div class="callout">
+    <p>Its central purpose is not classification. It is early detection.</p>
+  </div>
+
+  <h3>2. It measures institutional stress, not only institutional condition</h3>
+
+  <p>Traditional indices largely measure democratic stock: how democratic, free, competitive, or constrained a system appears to be.</p>
+
+  <p>FieldShift instead focuses on institutional stress: accumulated pressure across multiple domains that may push a democracy toward breakdown even before collapse becomes obvious in standard regime scores.</p>
+
+  <h3>3. It quantifies asymmetry between erosion and recovery</h3>
+
+  <p>A central empirical finding in FieldShift is that democratic erosion tends to unfold faster than democratic recovery. This asymmetry is summarized in the Hedlund-Leijon constant:</p>
+
+  <div class="metric-hl" role="img" aria-label="HL constant: 1.724">
+    <span class="val">ℋ = 1.724</span>
+    <span class="lbl">Hedlund-Leijon Constant — asymmetry between erosion and recovery<br>Validated on V-Dem 1789–2024 (200 countries, 25,709 observations)</span>
+  </div>
+
+  <p>That constant captures the broader empirical pattern that democracies are generally easier to break than to rebuild.</p>
+
+  <h3>4. It identifies an early-warning threshold</h3>
+
+  <p>FieldShift proposes an empirically calibrated warning zone around:</p>
+
+  <div class="metric-hl" role="img" aria-label="Kappa threshold: 0.22">
+    <span class="val">κ ≈ 0.22</span>
+    <span class="lbl">Critical tipping threshold — derived as κ = ℋ/8<br>Below this, autocratic acceleration becomes historically likely</span>
+  </div>
+
+  <p>This does not mean collapse is inevitable. It means risk rises meaningfully once institutional stress crosses that region. κ is a warning threshold, not a point of no return.</p>
+
+  <!-- HOW DIFFERENT -->
+  <h2 id="how-different">How FieldShift Differs from Existing Frameworks</h2>
+
+  <h3>Conceptually</h3>
+
+  <p>Most frameworks ask one of three questions: how democratic is this country? How free is this country? How do hybrid or authoritarian regimes operate?</p>
+
+  <div class="callout">
+    <p>FieldShift asks a different question: when is a democracy entering a structurally dangerous phase?</p>
+  </div>
+
+  <p>That shift matters. It moves the focus from classification to timing.</p>
+
+  <h3>Methodologically</h3>
+
+  <p>FieldShift differs from many existing approaches in three ways: it treats democratic erosion as a dynamic process rather than a static condition; it separates warning from collapse; and it models erosion as sequential rather than instantaneous.</p>
+
+  <p>The framework assumes that democratic deterioration often unfolds in layers. Pressure does not hit every institutional domain at the same time. The proposed sequence is:</p>
+
+  <div class="layers-grid" role="list">
+    <div class="layer-row" role="listitem">
+      <div class="l-num">01</div>
+      <div class="l-text"><strong>Fiscal integrity</strong><span>Budget transparency, fiscal capacity, IMF/WGI indicators</span></div>
+    </div>
+    <div class="layer-row" role="listitem">
+      <div class="l-num">02</div>
+      <div class="l-text"><strong>Constitutional constraints</strong><span>Judicial independence, rule of law, V-Dem indicators</span></div>
+    </div>
+    <div class="layer-row" role="listitem">
+      <div class="l-num">03</div>
+      <div class="l-text"><strong>Organizational competition</strong><span>Electoral integrity, bureaucratic impartiality</span></div>
+    </div>
+    <div class="layer-row" role="listitem">
+      <div class="l-num">04</div>
+      <div class="l-text"><strong>Democratic norms</strong><span>Leadership behavior, executive norm compliance</span></div>
+    </div>
+    <div class="layer-row" role="listitem">
+      <div class="l-num">05</div>
+      <div class="l-text"><strong>Institutional resilience</strong><span>Press freedom, civil society space, extended early-warning signals</span></div>
+    </div>
+  </div>
+
+  <p>This "sequential firing" logic is one of the framework's core innovations.</p>
+
+  <h3>Empirically</h3>
+
+  <p>FieldShift is presented as an open, testable, and replicable framework rather than a black-box score. Its prototype results suggest:</p>
+
+  <ul>
+    <li>average early-warning lead time of about 3.3 years</li>
+    <li>strong out-of-sample performance (86.7% accuracy, 17 episodes)</li>
+    <li>nonlinear risk escalation near the proposed warning threshold</li>
+    <li>unusually high precision in the test period, with more modest recall</li>
+  </ul>
+
+  <p>The interpretation is not that FieldShift eliminates uncertainty. It is that it makes structural democratic risk more visible earlier than conventional frameworks typically do.</p>
+
+  <!-- COMPARISON TABLE -->
+  <h3>Comparison with existing indices</h3>
+
+  <table class="compare-table" role="table">
+    <thead>
+      <tr>
+        <th>Capability</th>
+        <th>V-Dem / FH / EIU</th>
+        <th>FieldShift</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Describes current democratic quality</td>
+        <td class="yes">✓ Primary function</td>
+        <td class="yes">✓ Derived</td>
+      </tr>
+      <tr>
+        <td>Early warning before observable collapse</td>
+        <td class="no">✗ Not primary</td>
+        <td class="yes">✓ Primary function</td>
+      </tr>
+      <tr>
+        <td>Measures institutional stress (not just stock)</td>
+        <td class="no">✗ State-focused</td>
+        <td class="yes">✓ Stress-focused</td>
+      </tr>
+      <tr>
+        <td>Quantifies erosion–recovery asymmetry</td>
+        <td class="no">✗ Not quantified</td>
+        <td class="yes">✓ ℋ = 1.724</td>
+      </tr>
+      <tr>
+        <td>Calibrated tipping threshold</td>
+        <td class="no">✗ Not defined</td>
+        <td class="yes">✓ κ = 0.216</td>
+      </tr>
+      <tr>
+        <td>Sequential layer model</td>
+        <td class="no">✗ Simultaneous</td>
+        <td class="yes">✓ Five-layer sequence</td>
+      </tr>
+      <tr>
+        <td>Replaces V-Dem / Freedom House</td>
+        <td class="yes">Primary</td>
+        <td class="no">No — builds on them</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- DOES BETTER -->
+  <h2 id="does-better">What FieldShift Does Better</h2>
+
+  <h3>Early warning</h3>
+  <p>Most democracy measures are excellent at documenting erosion after it becomes visible. Far fewer are designed to identify elevated danger before breakdown. FieldShift is built around that missing function.</p>
+
+  <h3>Asymmetry</h3>
+  <p>Political scientists have long recognized that institutional destruction can outpace institutional repair. FieldShift attempts to quantify that asymmetry rather than leave it as a qualitative intuition.</p>
+
+  <h3>Stress versus state</h3>
+  <p>A country can still look democratic on paper while carrying significant structural stress. FieldShift tries to capture that gap.</p>
+
+  <h3>Actionable timing</h3>
+  <p>A warning window of roughly one parliamentary term is politically meaningful. It creates possible space for courts, opposition parties, civil society, journalists, and international actors to respond before breakdown becomes entrenched.</p>
+
+  <!-- DOES NOT CLAIM -->
+  <h2 id="does-not-claim">What FieldShift Does Not Claim</h2>
+
+  <p>FieldShift is not a crystal ball, and it should not be presented that way.</p>
+
+  <p>It does not:</p>
+  <ul>
+    <li>predict the exact trigger of collapse</li>
+    <li>identify which actor will cause the decisive break</li>
+    <li>guarantee perfect accuracy</li>
+    <li>replace V-Dem, Freedom House, or similar indices</li>
+    <li>remove the importance of agency, leadership, or contingency</li>
+  </ul>
+
+  <div class="callout">
+    <p>It identifies structural conditions of elevated risk. It does not claim that structure is destiny. That distinction is essential.</p>
+  </div>
+
+  <!-- FAIR ASSESSMENT -->
+  <h2 id="fair-assessment">A Fair Assessment</h2>
+
+  <p>So is FieldShift merely old theory repackaged? A fair answer is:</p>
+
+  <div class="metric-hl" role="img" aria-label="Assessment: No, but built from older foundations">
+    <span class="val" style="font-size:28px">No — but it is built<br>from older foundations.</span>
+    <span class="lbl" style="margin-top:12px">Its concepts stand in continuity with earlier work on democracy, institutions,<br>path dependence, instability, and tipping points.</span>
+  </div>
+
+  <p>Its contribution lies in synthesis, quantification, calibration, and operational design.</p>
+
+  <p>FieldShift should be understood as a next-step framework rather than a from-scratch invention. It does not discard Dahl, Pierson, Bermeo, Scheffer, Levitsky, or Lührmann. It builds on them and attempts to do something they generally did not: convert democratic fragility into an empirically testable early-warning architecture.</p>
+
+  <!-- BOTTOM LINE -->
+  <h2 id="bottom-line">Bottom Line</h2>
+
+  <p>FieldShift is not old news in a new package. It is a new operational framework built from established democratic theory and contemporary empirical measurement.</p>
+
+  <div class="bottom-box" role="region" aria-label="Summary: five distinctive contributions">
+    <h3>Five distinctive contributions</h3>
+    <ul>
+      <li>Asymmetry between erosion and recovery — quantified, not assumed</li>
+      <li>A precise constant: ℋ = 1.724, validated on 200 countries, 1789–2024</li>
+      <li>An early-warning threshold: κ ≈ 0.22, calibrated empirically</li>
+      <li>Sequential measurement of institutional stress across five layers</li>
+      <li>A lead-time model designed for intervention before collapse</li>
+    </ul>
+  </div>
+
+  <p style="margin-top:32px">That is where its originality lies.</p>
+
+  <!-- ARTICLE NAV -->
+  <div class="article-nav">
+    <a href="index.html">← Back to FieldShift home</a>
+    <a href="dashboard.html">Open Dashboard →</a>
+  </div>
+
+</div><!-- /article-wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <strong style="color:#ccc;font-family:var(--serif);font-size:14px">FieldShift.org</strong><br>
+      Hedlund-Leijon Principle · ℋ = 1.724 · κ = 0.216<br>
+      Karlstad University<br>
+      Data: V-Dem, Freedom House, World Bank WGI, SIPRI, IMF
+    </div>
+    <div style="text-align:right">
+      <a href="index.html">Home</a> &nbsp;·&nbsp;
+      <a href="dashboard.html">Dashboard</a> &nbsp;·&nbsp;
+      <a href="why-fieldshift-is-different.html">Research</a> &nbsp;·&nbsp;
+      <a href="science.html">Science</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

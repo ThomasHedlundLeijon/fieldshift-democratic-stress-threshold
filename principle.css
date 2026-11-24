@@ -1,0 +1,46 @@
+:root{color-scheme:light;--paper:#f7f4ee;--ink:#21211f;--muted:#54534d;--rule:#d2c9b9;--gold:#a98932;--link:#375373;font-family:"Source Sans 3",system-ui,sans-serif;background:var(--paper);color:var(--ink)}
+*{box-sizing:border-box}
+body{margin:0;font-size:clamp(1rem,.96rem + .22vw,1.125rem);line-height:1.65;overflow-wrap:anywhere}
+.wrap{width:min(72rem,calc(100% - 2 * clamp(.75rem,4vw,2rem)));margin-inline:auto}
+.bar{background:#191919;color:#f4f0e7;border-top:4px solid var(--gold)}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:.4rem 2rem;flex-wrap:wrap;padding:.9rem 0}
+.bar a{color:inherit}.bar nav{display:flex;gap:.35rem 1rem;flex-wrap:wrap}
+.brand,h1,h2,h3{font-family:"Libre Baskerville",Georgia,serif}
+h1,h2,h3{line-height:1.28}
+h1{font-size:clamp(2rem,5vw,3.45rem);margin:.25rem 0 .75rem}
+h2{font-size:clamp(1.4rem,3vw,2rem);margin:2.25rem 0 .65rem}
+h3{font-size:1.15rem}
+a{color:var(--link);text-underline-offset:.14em}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+main{padding-block:clamp(1.25rem,4vw,2.5rem) clamp(2rem,6vw,4rem)}
+.eyebrow,.caption{color:var(--muted);font-size:.95rem}
+.eyebrow{margin:0;letter-spacing:.07em;text-transform:uppercase}
+.lead{max-width:66ch;font-size:clamp(1.12rem,2.2vw,1.35rem)}
+.actions{display:flex;flex-wrap:wrap;gap:.75rem 1.1rem;align-items:center}
+.primary{display:inline-block;background:#25394c;color:white;padding:.55rem .85rem;border-radius:.2rem}
+figure{margin:1.5rem 0}
+figure img{display:block;width:100%;height:auto;max-width:100%;border:1px solid var(--rule)}
+figcaption{margin-top:.65rem}
+.deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,24rem),1fr));gap:1.3rem}
+.deck figure{margin:0}
+.note,.contents{border-left:3px solid var(--gold);background:#eee8da;padding:.75rem 1rem}
+.note p,.contents p{margin:.15rem 0}
+.prose{max-width:78ch;margin-inline:auto;overflow-wrap:anywhere}
+.prose img{max-width:100%;height:auto;vertical-align:middle}
+.prose figure img{width:auto;margin:auto}
+.prose img.equation{width:auto;max-width:min(100%,55rem)}
+.prose table{border-collapse:collapse;width:100%;font-size:.98rem}
+.prose th,.prose td{border:1px solid var(--rule);padding:.4rem .6rem;text-align:left;vertical-align:top}
+.prose th{background:#eee8da}
+.table-scroll,.formula-scroll{max-inline-size:100%;overflow-x:auto;overscroll-behavior-inline:contain}
+.table-scroll:focus-visible,.formula-scroll:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.prose pre{max-inline-size:100%;overflow-x:auto}
+.prose p:has(>math[display="inline"]){overflow-x:auto}
+.table-scroll{margin-block:1rem}
+.prose blockquote{margin-inline:0;padding-left:1rem;border-left:2px solid var(--rule)}
+.prose math[display="block"]{margin:.55rem auto}
+summary{cursor:pointer;font-weight:bold}
+.contents ol{padding-inline-start:1.5rem}
+footer{background:#191919;color:#f4f0e7;padding:1.1rem 0}
+footer a{color:inherit}
+@media(max-width:42rem){.bar .wrap{align-items:flex-start}.bar nav a,.actions a{padding-block:.55rem}.prose .table-scroll table{min-width:34rem}}

@@ -1,0 +1,729 @@
+iso,country,region,year,fiscal,constitutional,organizational,behavioral,extended,composite
+SWE,Sweden,Western Europe,2010,0.11,0.08,0.09,0.08,0.07,0.086
+SWE,Sweden,Western Europe,2012,0.12,0.09,0.1,0.09,0.08,0.096
+SWE,Sweden,Western Europe,2015,0.14,0.1,0.11,0.1,0.09,0.108
+SWE,Sweden,Western Europe,2018,0.17,0.1,0.13,0.12,0.09,0.122
+SWE,Sweden,Western Europe,2020,0.2,0.12,0.15,0.13,0.1,0.14
+SWE,Sweden,Western Europe,2021,0.21,0.12,0.16,0.14,0.11,0.148
+SWE,Sweden,Western Europe,2022,0.22,0.13,0.17,0.15,0.11,0.156
+SWE,Sweden,Western Europe,2023,0.23,0.13,0.18,0.15,0.12,0.162
+NOR,Norway,Western Europe,2010,0.09,0.07,0.08,0.07,0.07,0.076
+NOR,Norway,Western Europe,2015,0.11,0.08,0.09,0.08,0.08,0.088
+NOR,Norway,Western Europe,2019,0.13,0.09,0.1,0.09,0.09,0.1
+NOR,Norway,Western Europe,2021,0.14,0.09,0.11,0.09,0.09,0.104
+NOR,Norway,Western Europe,2023,0.15,0.1,0.12,0.1,0.1,0.114
+DNK,Denmark,Western Europe,2010,0.1,0.08,0.09,0.08,0.08,0.086
+DNK,Denmark,Western Europe,2015,0.12,0.09,0.1,0.09,0.09,0.098
+DNK,Denmark,Western Europe,2019,0.14,0.1,0.12,0.1,0.1,0.112
+DNK,Denmark,Western Europe,2021,0.15,0.1,0.13,0.11,0.1,0.118
+DNK,Denmark,Western Europe,2023,0.16,0.11,0.14,0.12,0.11,0.128
+FIN,Finland,Western Europe,2010,0.1,0.08,0.09,0.08,0.08,0.086
+FIN,Finland,Western Europe,2015,0.12,0.09,0.1,0.09,0.09,0.098
+FIN,Finland,Western Europe,2019,0.14,0.1,0.12,0.11,0.1,0.114
+FIN,Finland,Western Europe,2021,0.15,0.1,0.13,0.12,0.1,0.12
+FIN,Finland,Western Europe,2023,0.16,0.11,0.14,0.13,0.11,0.13
+DEU,Germany,Western Europe,2010,0.13,0.12,0.13,0.11,0.11,0.12
+DEU,Germany,Western Europe,2015,0.15,0.13,0.15,0.13,0.12,0.136
+DEU,Germany,Western Europe,2017,0.19,0.17,0.21,0.18,0.16,0.182
+DEU,Germany,Western Europe,2019,0.21,0.2,0.24,0.21,0.18,0.208
+DEU,Germany,Western Europe,2021,0.23,0.22,0.26,0.23,0.2,0.228
+DEU,Germany,Western Europe,2022,0.25,0.23,0.28,0.25,0.22,0.246
+DEU,Germany,Western Europe,2023,0.26,0.24,0.3,0.26,0.23,0.258
+FRA,France,Western Europe,2010,0.19,0.17,0.19,0.17,0.16,0.176
+FRA,France,Western Europe,2015,0.22,0.21,0.26,0.22,0.19,0.22
+FRA,France,Western Europe,2017,0.24,0.23,0.3,0.26,0.21,0.248
+FRA,France,Western Europe,2019,0.26,0.25,0.33,0.28,0.23,0.27
+FRA,France,Western Europe,2021,0.3,0.28,0.38,0.32,0.26,0.308
+FRA,France,Western Europe,2022,0.32,0.3,0.4,0.34,0.28,0.328
+FRA,France,Western Europe,2023,0.33,0.31,0.42,0.36,0.29,0.342
+ITA,Italy,Western Europe,2010,0.26,0.24,0.26,0.24,0.23,0.246
+ITA,Italy,Western Europe,2015,0.3,0.28,0.32,0.3,0.27,0.294
+ITA,Italy,Western Europe,2018,0.36,0.34,0.4,0.38,0.33,0.362
+ITA,Italy,Western Europe,2020,0.4,0.38,0.44,0.42,0.36,0.4
+ITA,Italy,Western Europe,2022,0.44,0.42,0.5,0.48,0.4,0.448
+ITA,Italy,Western Europe,2023,0.46,0.44,0.53,0.5,0.42,0.47
+ESP,Spain,Western Europe,2010,0.24,0.22,0.26,0.24,0.22,0.236
+ESP,Spain,Western Europe,2015,0.28,0.26,0.32,0.3,0.26,0.284
+ESP,Spain,Western Europe,2018,0.32,0.3,0.36,0.34,0.3,0.324
+ESP,Spain,Western Europe,2020,0.34,0.32,0.38,0.36,0.32,0.344
+ESP,Spain,Western Europe,2022,0.33,0.31,0.37,0.35,0.31,0.334
+ESP,Spain,Western Europe,2023,0.34,0.32,0.38,0.36,0.32,0.344
+PRT,Portugal,Western Europe,2010,0.26,0.24,0.26,0.25,0.24,0.25
+PRT,Portugal,Western Europe,2015,0.28,0.26,0.28,0.27,0.25,0.268
+PRT,Portugal,Western Europe,2019,0.26,0.24,0.26,0.25,0.24,0.25
+PRT,Portugal,Western Europe,2021,0.25,0.23,0.25,0.24,0.23,0.24
+PRT,Portugal,Western Europe,2023,0.24,0.22,0.24,0.23,0.22,0.23
+NLD,Netherlands,Western Europe,2015,0.13,0.11,0.15,0.13,0.12,0.128
+NLD,Netherlands,Western Europe,2018,0.14,0.13,0.18,0.16,0.13,0.148
+NLD,Netherlands,Western Europe,2021,0.2,0.18,0.26,0.22,0.17,0.206
+NLD,Netherlands,Western Europe,2022,0.24,0.22,0.3,0.26,0.2,0.244
+NLD,Netherlands,Western Europe,2023,0.26,0.24,0.32,0.28,0.22,0.264
+BEL,Belgium,Western Europe,2015,0.2,0.18,0.22,0.2,0.19,0.198
+BEL,Belgium,Western Europe,2019,0.24,0.22,0.26,0.24,0.22,0.236
+BEL,Belgium,Western Europe,2021,0.26,0.24,0.28,0.26,0.24,0.256
+BEL,Belgium,Western Europe,2023,0.28,0.26,0.3,0.28,0.26,0.276
+AUT,Austria,Western Europe,2015,0.2,0.18,0.22,0.2,0.19,0.198
+AUT,Austria,Western Europe,2017,0.24,0.22,0.28,0.26,0.22,0.244
+AUT,Austria,Western Europe,2019,0.28,0.26,0.32,0.3,0.26,0.284
+AUT,Austria,Western Europe,2021,0.26,0.24,0.3,0.28,0.24,0.264
+AUT,Austria,Western Europe,2023,0.25,0.23,0.29,0.27,0.23,0.254
+CHE,Switzerland,Western Europe,2015,0.09,0.07,0.09,0.08,0.08,0.082
+CHE,Switzerland,Western Europe,2019,0.1,0.08,0.1,0.09,0.09,0.092
+CHE,Switzerland,Western Europe,2021,0.11,0.09,0.11,0.1,0.09,0.1
+CHE,Switzerland,Western Europe,2023,0.12,0.1,0.12,0.11,0.1,0.11
+GBR,United Kingdom,Western Europe,2010,0.15,0.13,0.17,0.15,0.14,0.148
+GBR,United Kingdom,Western Europe,2015,0.17,0.17,0.21,0.19,0.16,0.18
+GBR,United Kingdom,Western Europe,2016,0.22,0.24,0.28,0.26,0.21,0.242
+GBR,United Kingdom,Western Europe,2019,0.28,0.3,0.34,0.32,0.26,0.3
+GBR,United Kingdom,Western Europe,2021,0.34,0.36,0.4,0.38,0.32,0.36
+GBR,United Kingdom,Western Europe,2022,0.36,0.38,0.42,0.4,0.34,0.38
+GBR,United Kingdom,Western Europe,2023,0.36,0.38,0.42,0.4,0.34,0.38
+IRL,Ireland,Western Europe,2015,0.15,0.13,0.15,0.14,0.13,0.14
+IRL,Ireland,Western Europe,2019,0.17,0.15,0.17,0.16,0.14,0.158
+IRL,Ireland,Western Europe,2021,0.18,0.16,0.18,0.17,0.15,0.168
+IRL,Ireland,Western Europe,2023,0.19,0.17,0.19,0.18,0.16,0.178
+GRC,Greece,Western Europe,2015,0.38,0.36,0.4,0.38,0.38,0.38
+GRC,Greece,Western Europe,2018,0.36,0.34,0.38,0.36,0.36,0.36
+GRC,Greece,Western Europe,2020,0.34,0.32,0.36,0.34,0.34,0.34
+GRC,Greece,Western Europe,2022,0.36,0.34,0.38,0.36,0.36,0.36
+GRC,Greece,Western Europe,2023,0.37,0.35,0.39,0.37,0.37,0.37
+ISL,Iceland,Western Europe,2015,0.11,0.09,0.1,0.09,0.09,0.096
+ISL,Iceland,Western Europe,2019,0.12,0.1,0.11,0.1,0.1,0.106
+ISL,Iceland,Western Europe,2023,0.13,0.11,0.12,0.11,0.11,0.116
+LUX,Luxembourg,Western Europe,2015,0.1,0.08,0.1,0.09,0.09,0.092
+LUX,Luxembourg,Western Europe,2019,0.11,0.09,0.11,0.1,0.1,0.102
+LUX,Luxembourg,Western Europe,2023,0.12,0.1,0.12,0.11,0.11,0.112
+MLT,Malta,Western Europe,2015,0.26,0.24,0.28,0.26,0.25,0.258
+MLT,Malta,Western Europe,2019,0.3,0.28,0.34,0.32,0.28,0.304
+MLT,Malta,Western Europe,2021,0.28,0.26,0.32,0.3,0.26,0.284
+MLT,Malta,Western Europe,2023,0.27,0.25,0.31,0.29,0.25,0.274
+CYP,Cyprus,Western Europe,2015,0.3,0.28,0.32,0.3,0.29,0.298
+CYP,Cyprus,Western Europe,2019,0.32,0.3,0.34,0.32,0.3,0.316
+CYP,Cyprus,Western Europe,2021,0.34,0.32,0.36,0.34,0.32,0.336
+CYP,Cyprus,Western Europe,2023,0.35,0.33,0.37,0.35,0.33,0.346
+HUN,Hungary,Central Europe,2010,0.36,0.4,0.33,0.36,0.37,0.364
+HUN,Hungary,Central Europe,2011,0.43,0.56,0.4,0.46,0.47,0.464
+HUN,Hungary,Central Europe,2013,0.51,0.66,0.5,0.56,0.59,0.564
+HUN,Hungary,Central Europe,2015,0.55,0.7,0.56,0.6,0.64,0.61
+HUN,Hungary,Central Europe,2017,0.59,0.74,0.61,0.64,0.68,0.652
+HUN,Hungary,Central Europe,2019,0.63,0.78,0.65,0.68,0.72,0.692
+HUN,Hungary,Central Europe,2021,0.66,0.82,0.69,0.71,0.75,0.726
+HUN,Hungary,Central Europe,2022,0.67,0.83,0.71,0.73,0.77,0.742
+HUN,Hungary,Central Europe,2023,0.68,0.84,0.73,0.75,0.78,0.756
+POL,Poland,Central Europe,2010,0.28,0.26,0.28,0.26,0.27,0.27
+POL,Poland,Central Europe,2015,0.34,0.38,0.36,0.36,0.37,0.362
+POL,Poland,Central Europe,2016,0.43,0.58,0.48,0.5,0.52,0.502
+POL,Poland,Central Europe,2018,0.52,0.7,0.58,0.6,0.63,0.606
+POL,Poland,Central Europe,2020,0.56,0.74,0.62,0.64,0.67,0.646
+POL,Poland,Central Europe,2021,0.55,0.72,0.6,0.62,0.65,0.628
+POL,Poland,Central Europe,2022,0.52,0.68,0.56,0.58,0.61,0.59
+POL,Poland,Central Europe,2023,0.46,0.6,0.5,0.52,0.55,0.526
+CZE,Czech Republic,Central Europe,2015,0.26,0.24,0.28,0.26,0.25,0.258
+CZE,Czech Republic,Central Europe,2017,0.3,0.28,0.34,0.32,0.29,0.306
+CZE,Czech Republic,Central Europe,2019,0.32,0.3,0.36,0.34,0.31,0.326
+CZE,Czech Republic,Central Europe,2021,0.3,0.28,0.34,0.32,0.29,0.306
+CZE,Czech Republic,Central Europe,2023,0.27,0.25,0.31,0.29,0.26,0.276
+SVK,Slovakia,Central Europe,2015,0.28,0.26,0.3,0.28,0.27,0.278
+SVK,Slovakia,Central Europe,2019,0.34,0.32,0.38,0.36,0.33,0.346
+SVK,Slovakia,Central Europe,2021,0.32,0.3,0.36,0.34,0.31,0.326
+SVK,Slovakia,Central Europe,2023,0.31,0.29,0.35,0.33,0.3,0.316
+ROU,Romania,Central Europe,2015,0.4,0.38,0.42,0.4,0.39,0.398
+ROU,Romania,Central Europe,2017,0.48,0.5,0.52,0.5,0.49,0.498
+ROU,Romania,Central Europe,2019,0.44,0.42,0.46,0.44,0.43,0.438
+ROU,Romania,Central Europe,2021,0.42,0.4,0.44,0.42,0.41,0.418
+ROU,Romania,Central Europe,2023,0.41,0.39,0.43,0.41,0.4,0.408
+BGR,Bulgaria,Central Europe,2015,0.42,0.4,0.44,0.42,0.41,0.418
+BGR,Bulgaria,Central Europe,2019,0.44,0.42,0.46,0.44,0.43,0.438
+BGR,Bulgaria,Central Europe,2021,0.42,0.4,0.44,0.42,0.41,0.418
+BGR,Bulgaria,Central Europe,2023,0.41,0.39,0.43,0.41,0.4,0.408
+SVN,Slovenia,Central Europe,2015,0.2,0.18,0.22,0.2,0.19,0.198
+SVN,Slovenia,Central Europe,2020,0.36,0.38,0.4,0.38,0.37,0.378
+SVN,Slovenia,Central Europe,2022,0.28,0.26,0.3,0.28,0.27,0.278
+SVN,Slovenia,Central Europe,2023,0.26,0.24,0.28,0.26,0.25,0.258
+HRV,Croatia,Central Europe,2015,0.32,0.3,0.34,0.32,0.31,0.318
+HRV,Croatia,Central Europe,2019,0.34,0.32,0.36,0.34,0.33,0.338
+HRV,Croatia,Central Europe,2021,0.33,0.31,0.35,0.33,0.32,0.328
+HRV,Croatia,Central Europe,2023,0.32,0.3,0.34,0.32,0.31,0.318
+SRB,Serbia,Balkans,2015,0.48,0.5,0.52,0.5,0.51,0.502
+SRB,Serbia,Balkans,2017,0.54,0.56,0.58,0.56,0.57,0.562
+SRB,Serbia,Balkans,2019,0.58,0.6,0.62,0.6,0.61,0.602
+SRB,Serbia,Balkans,2021,0.61,0.63,0.65,0.63,0.64,0.632
+SRB,Serbia,Balkans,2023,0.63,0.65,0.67,0.65,0.66,0.652
+ALB,Albania,Balkans,2015,0.42,0.4,0.44,0.42,0.41,0.418
+ALB,Albania,Balkans,2019,0.44,0.42,0.46,0.44,0.43,0.438
+ALB,Albania,Balkans,2021,0.42,0.4,0.44,0.42,0.41,0.418
+ALB,Albania,Balkans,2023,0.41,0.39,0.43,0.41,0.4,0.408
+MKD,North Macedonia,Balkans,2015,0.44,0.42,0.46,0.44,0.43,0.438
+MKD,North Macedonia,Balkans,2019,0.42,0.4,0.44,0.42,0.41,0.418
+MKD,North Macedonia,Balkans,2021,0.4,0.38,0.42,0.4,0.39,0.398
+MKD,North Macedonia,Balkans,2023,0.39,0.37,0.41,0.39,0.38,0.388
+BIH,Bosnia-Herz.,Balkans,2015,0.48,0.46,0.5,0.48,0.47,0.478
+BIH,Bosnia-Herz.,Balkans,2019,0.5,0.48,0.52,0.5,0.49,0.498
+BIH,Bosnia-Herz.,Balkans,2021,0.51,0.49,0.53,0.51,0.5,0.508
+BIH,Bosnia-Herz.,Balkans,2023,0.52,0.5,0.54,0.52,0.51,0.518
+MNE,Montenegro,Balkans,2015,0.42,0.4,0.44,0.42,0.41,0.418
+MNE,Montenegro,Balkans,2019,0.44,0.42,0.46,0.44,0.43,0.438
+MNE,Montenegro,Balkans,2021,0.42,0.4,0.44,0.42,0.41,0.418
+MNE,Montenegro,Balkans,2023,0.41,0.39,0.43,0.41,0.4,0.408
+XKX,Kosovo,Balkans,2015,0.42,0.4,0.44,0.42,,0.42
+XKX,Kosovo,Balkans,2019,0.4,0.38,0.42,0.4,,0.4
+XKX,Kosovo,Balkans,2021,0.39,0.37,0.41,0.39,,0.39
+XKX,Kosovo,Balkans,2023,0.38,0.36,0.4,0.38,,0.38
+MDA,Moldova,Eastern Europe,2015,0.5,0.48,0.52,0.5,0.49,0.498
+MDA,Moldova,Eastern Europe,2019,0.48,0.46,0.5,0.48,0.47,0.478
+MDA,Moldova,Eastern Europe,2021,0.44,0.42,0.46,0.44,0.43,0.438
+MDA,Moldova,Eastern Europe,2023,0.42,0.4,0.44,0.42,0.41,0.418
+UKR,Ukraine,Eastern Europe,2015,0.56,0.54,0.58,0.56,0.55,0.558
+UKR,Ukraine,Eastern Europe,2019,0.48,0.46,0.5,0.48,0.47,0.478
+UKR,Ukraine,Eastern Europe,2021,0.5,0.48,0.52,0.5,0.49,0.498
+UKR,Ukraine,Eastern Europe,2022,0.62,0.66,0.58,0.64,0.65,0.63
+UKR,Ukraine,Eastern Europe,2023,0.6,0.64,0.56,0.62,0.63,0.61
+BLR,Belarus,Eastern Europe,2015,0.7,0.72,0.68,0.72,0.73,0.71
+BLR,Belarus,Eastern Europe,2019,0.74,0.76,0.72,0.76,0.77,0.75
+BLR,Belarus,Eastern Europe,2020,0.86,0.88,0.84,0.88,0.89,0.87
+BLR,Belarus,Eastern Europe,2021,0.88,0.9,0.86,0.9,0.91,0.89
+BLR,Belarus,Eastern Europe,2023,0.9,0.92,0.88,0.92,0.93,0.91
+RUS,Russia,Eastern Europe,2010,0.68,0.7,0.66,0.7,0.71,0.69
+RUS,Russia,Eastern Europe,2014,0.76,0.78,0.74,0.78,0.79,0.77
+RUS,Russia,Eastern Europe,2016,0.78,0.8,0.76,0.8,0.81,0.79
+RUS,Russia,Eastern Europe,2019,0.8,0.82,0.78,0.82,0.83,0.81
+RUS,Russia,Eastern Europe,2022,0.9,0.92,0.88,0.92,0.93,0.91
+RUS,Russia,Eastern Europe,2023,0.91,0.93,0.89,0.93,0.94,0.92
+LVA,Latvia,Eastern Europe,2015,0.2,0.18,0.22,0.2,0.19,0.198
+LVA,Latvia,Eastern Europe,2019,0.22,0.2,0.24,0.22,0.21,0.218
+LVA,Latvia,Eastern Europe,2021,0.23,0.21,0.25,0.23,0.22,0.228
+LVA,Latvia,Eastern Europe,2023,0.24,0.22,0.26,0.24,0.23,0.238
+LTU,Lithuania,Eastern Europe,2015,0.2,0.18,0.22,0.2,0.19,0.198
+LTU,Lithuania,Eastern Europe,2019,0.22,0.2,0.24,0.22,0.21,0.218
+LTU,Lithuania,Eastern Europe,2021,0.23,0.21,0.25,0.23,0.22,0.228
+LTU,Lithuania,Eastern Europe,2023,0.24,0.22,0.26,0.24,0.23,0.238
+EST,Estonia,Eastern Europe,2015,0.16,0.14,0.18,0.16,0.15,0.158
+EST,Estonia,Eastern Europe,2019,0.18,0.16,0.2,0.18,0.17,0.178
+EST,Estonia,Eastern Europe,2021,0.19,0.17,0.21,0.19,0.18,0.188
+EST,Estonia,Eastern Europe,2023,0.2,0.18,0.22,0.2,0.19,0.198
+GEO,Georgia,Caucasus,2015,0.4,0.42,0.44,0.42,0.41,0.418
+GEO,Georgia,Caucasus,2019,0.42,0.44,0.46,0.44,0.43,0.438
+GEO,Georgia,Caucasus,2021,0.46,0.5,0.52,0.5,0.49,0.494
+GEO,Georgia,Caucasus,2023,0.5,0.54,0.56,0.54,0.53,0.534
+ARM,Armenia,Caucasus,2015,0.48,0.5,0.52,0.5,0.49,0.498
+ARM,Armenia,Caucasus,2018,0.44,0.42,0.46,0.44,0.43,0.438
+ARM,Armenia,Caucasus,2021,0.42,0.4,0.44,0.42,0.41,0.418
+ARM,Armenia,Caucasus,2023,0.41,0.39,0.43,0.41,0.4,0.408
+AZE,Azerbaijan,Caucasus,2015,0.62,0.64,0.66,0.64,0.65,0.642
+AZE,Azerbaijan,Caucasus,2019,0.64,0.66,0.68,0.66,0.67,0.662
+AZE,Azerbaijan,Caucasus,2021,0.65,0.67,0.69,0.67,0.68,0.672
+AZE,Azerbaijan,Caucasus,2023,0.66,0.68,0.7,0.68,0.69,0.682
+USA,USA,North America,2010,0.3,0.28,0.33,0.28,0.26,0.29
+USA,USA,North America,2014,0.34,0.32,0.37,0.32,0.3,0.33
+USA,USA,North America,2016,0.38,0.36,0.42,0.37,0.34,0.374
+USA,USA,North America,2017,0.42,0.4,0.48,0.42,0.38,0.42
+USA,USA,North America,2019,0.47,0.45,0.53,0.47,0.43,0.47
+USA,USA,North America,2021,0.52,0.5,0.6,0.54,0.48,0.528
+USA,USA,North America,2022,0.54,0.52,0.61,0.55,0.49,0.542
+USA,USA,North America,2023,0.55,0.53,0.62,0.56,0.5,0.552
+CAN,Canada,North America,2015,0.14,0.12,0.16,0.14,0.13,0.138
+CAN,Canada,North America,2019,0.18,0.16,0.22,0.2,0.17,0.186
+CAN,Canada,North America,2021,0.22,0.2,0.26,0.24,0.21,0.226
+CAN,Canada,North America,2022,0.24,0.22,0.28,0.26,0.23,0.246
+CAN,Canada,North America,2023,0.25,0.23,0.29,0.27,0.24,0.256
+MEX,Mexico,North America,2015,0.48,0.44,0.5,0.48,0.49,0.478
+MEX,Mexico,North America,2018,0.5,0.46,0.52,0.5,0.51,0.498
+MEX,Mexico,North America,2019,0.56,0.54,0.6,0.58,0.57,0.57
+MEX,Mexico,North America,2021,0.62,0.6,0.66,0.64,0.63,0.63
+MEX,Mexico,North America,2022,0.64,0.62,0.68,0.66,0.65,0.65
+MEX,Mexico,North America,2023,0.66,0.64,0.7,0.68,0.67,0.67
+BRA,Brazil,South America,2015,0.44,0.42,0.48,0.46,0.45,0.45
+BRA,Brazil,South America,2018,0.54,0.54,0.6,0.56,0.55,0.558
+BRA,Brazil,South America,2019,0.62,0.64,0.68,0.66,0.65,0.65
+BRA,Brazil,South America,2021,0.68,0.7,0.74,0.72,0.71,0.71
+BRA,Brazil,South America,2022,0.68,0.7,0.74,0.72,0.71,0.71
+BRA,Brazil,South America,2023,0.53,0.54,0.6,0.56,0.55,0.556
+ARG,Argentina,South America,2015,0.44,0.42,0.46,0.44,0.45,0.442
+ARG,Argentina,South America,2019,0.48,0.46,0.5,0.48,0.49,0.482
+ARG,Argentina,South America,2021,0.5,0.48,0.52,0.5,0.51,0.502
+ARG,Argentina,South America,2022,0.48,0.46,0.5,0.48,0.49,0.482
+ARG,Argentina,South America,2023,0.5,0.48,0.52,0.5,0.51,0.502
+COL,Colombia,South America,2015,0.44,0.42,0.46,0.44,0.45,0.442
+COL,Colombia,South America,2019,0.46,0.44,0.48,0.46,0.47,0.462
+COL,Colombia,South America,2021,0.48,0.46,0.5,0.48,0.49,0.482
+COL,Colombia,South America,2023,0.46,0.44,0.48,0.46,0.47,0.462
+CHL,Chile,South America,2015,0.32,0.3,0.34,0.32,0.31,0.318
+CHL,Chile,South America,2018,0.34,0.32,0.36,0.34,0.33,0.338
+CHL,Chile,South America,2020,0.4,0.42,0.44,0.42,0.41,0.418
+CHL,Chile,South America,2022,0.36,0.34,0.38,0.36,0.35,0.358
+CHL,Chile,South America,2023,0.34,0.32,0.36,0.34,0.33,0.338
+PER,Peru,South America,2015,0.42,0.4,0.44,0.42,0.41,0.418
+PER,Peru,South America,2019,0.48,0.5,0.52,0.5,0.49,0.498
+PER,Peru,South America,2021,0.54,0.56,0.58,0.56,0.55,0.558
+PER,Peru,South America,2023,0.52,0.54,0.56,0.54,0.53,0.538
+VEN,Venezuela,South America,2013,0.76,0.78,0.74,0.78,0.79,0.77
+VEN,Venezuela,South America,2015,0.8,0.82,0.78,0.82,0.83,0.81
+VEN,Venezuela,South America,2017,0.84,0.86,0.82,0.86,0.87,0.85
+VEN,Venezuela,South America,2019,0.88,0.9,0.86,0.9,0.91,0.89
+VEN,Venezuela,South America,2021,0.88,0.9,0.86,0.9,0.91,0.89
+VEN,Venezuela,South America,2023,0.88,0.9,0.86,0.9,0.91,0.89
+BOL,Bolivia,South America,2015,0.5,0.52,0.54,0.52,0.51,0.518
+BOL,Bolivia,South America,2019,0.56,0.58,0.6,0.58,0.57,0.578
+BOL,Bolivia,South America,2021,0.52,0.5,0.54,0.52,0.51,0.518
+BOL,Bolivia,South America,2023,0.5,0.48,0.52,0.5,0.49,0.498
+ECU,Ecuador,South America,2015,0.46,0.48,0.5,0.48,0.47,0.478
+ECU,Ecuador,South America,2019,0.44,0.42,0.46,0.44,0.43,0.438
+ECU,Ecuador,South America,2021,0.46,0.44,0.48,0.46,0.45,0.458
+ECU,Ecuador,South America,2023,0.48,0.46,0.5,0.48,0.47,0.478
+URY,Uruguay,South America,2015,0.22,0.2,0.24,0.22,0.21,0.218
+URY,Uruguay,South America,2019,0.2,0.18,0.22,0.2,0.19,0.198
+URY,Uruguay,South America,2021,0.19,0.17,0.21,0.19,0.18,0.188
+URY,Uruguay,South America,2023,0.18,0.16,0.2,0.18,0.17,0.178
+PRY,Paraguay,South America,2015,0.46,0.44,0.48,0.46,0.45,0.458
+PRY,Paraguay,South America,2019,0.48,0.46,0.5,0.48,0.47,0.478
+PRY,Paraguay,South America,2021,0.49,0.47,0.51,0.49,0.48,0.488
+PRY,Paraguay,South America,2023,0.5,0.48,0.52,0.5,0.49,0.498
+GTM,Guatemala,Central America,2015,0.54,0.52,0.56,0.54,0.53,0.538
+GTM,Guatemala,Central America,2019,0.56,0.54,0.58,0.56,0.55,0.558
+GTM,Guatemala,Central America,2021,0.58,0.56,0.6,0.58,0.57,0.578
+GTM,Guatemala,Central America,2023,0.6,0.58,0.62,0.6,0.59,0.598
+HND,Honduras,Central America,2015,0.58,0.56,0.6,0.58,0.57,0.578
+HND,Honduras,Central America,2019,0.6,0.58,0.62,0.6,0.59,0.598
+HND,Honduras,Central America,2021,0.58,0.56,0.6,0.58,0.57,0.578
+HND,Honduras,Central America,2023,0.56,0.54,0.58,0.56,0.55,0.558
+SLV,El Salvador,Central America,2015,0.5,0.48,0.52,0.5,0.49,0.498
+SLV,El Salvador,Central America,2019,0.52,0.5,0.54,0.52,0.51,0.518
+SLV,El Salvador,Central America,2021,0.62,0.66,0.64,0.64,0.63,0.638
+SLV,El Salvador,Central America,2022,0.66,0.7,0.68,0.68,0.67,0.678
+SLV,El Salvador,Central America,2023,0.68,0.72,0.7,0.7,0.69,0.698
+NIC,Nicaragua,Central America,2015,0.58,0.6,0.62,0.6,0.59,0.598
+NIC,Nicaragua,Central America,2018,0.68,0.72,0.7,0.7,0.69,0.698
+NIC,Nicaragua,Central America,2021,0.78,0.82,0.8,0.8,0.79,0.798
+NIC,Nicaragua,Central America,2023,0.8,0.84,0.82,0.82,0.81,0.818
+CRI,Costa Rica,Central America,2015,0.2,0.18,0.22,0.2,0.19,0.198
+CRI,Costa Rica,Central America,2019,0.22,0.2,0.24,0.22,0.21,0.218
+CRI,Costa Rica,Central America,2021,0.24,0.22,0.26,0.24,0.23,0.238
+CRI,Costa Rica,Central America,2023,0.26,0.24,0.28,0.26,0.25,0.258
+PAN,Panama,Central America,2015,0.34,0.32,0.36,0.34,0.33,0.338
+PAN,Panama,Central America,2019,0.36,0.34,0.38,0.36,0.35,0.358
+PAN,Panama,Central America,2021,0.38,0.36,0.4,0.38,0.37,0.378
+PAN,Panama,Central America,2023,0.4,0.38,0.42,0.4,0.39,0.398
+CUB,Cuba,Caribbean,2015,0.8,0.82,0.8,0.82,,0.81
+CUB,Cuba,Caribbean,2019,0.82,0.84,0.82,0.84,,0.83
+CUB,Cuba,Caribbean,2021,0.84,0.86,0.84,0.86,,0.85
+CUB,Cuba,Caribbean,2023,0.84,0.86,0.84,0.86,,0.85
+DOM,Dominican Rep.,Caribbean,2015,0.42,0.4,0.44,0.42,0.41,0.418
+DOM,Dominican Rep.,Caribbean,2019,0.44,0.42,0.46,0.44,0.43,0.438
+DOM,Dominican Rep.,Caribbean,2021,0.42,0.4,0.44,0.42,0.41,0.418
+DOM,Dominican Rep.,Caribbean,2023,0.41,0.39,0.43,0.41,0.4,0.408
+HTI,Haiti,Caribbean,2015,0.7,0.68,0.72,0.7,,0.7
+HTI,Haiti,Caribbean,2019,0.74,0.72,0.76,0.74,,0.74
+HTI,Haiti,Caribbean,2021,0.8,0.82,0.84,0.82,,0.82
+HTI,Haiti,Caribbean,2023,0.82,0.84,0.86,0.84,,0.84
+JAM,Jamaica,Caribbean,2015,0.4,0.38,0.42,0.4,0.39,0.398
+JAM,Jamaica,Caribbean,2019,0.42,0.4,0.44,0.42,0.41,0.418
+JAM,Jamaica,Caribbean,2021,0.43,0.41,0.45,0.43,0.42,0.428
+JAM,Jamaica,Caribbean,2023,0.44,0.42,0.46,0.44,0.43,0.438
+TTO,Trinidad & Tobago,Caribbean,2015,0.38,0.36,0.4,0.38,0.37,0.378
+TTO,Trinidad & Tobago,Caribbean,2019,0.4,0.38,0.42,0.4,0.39,0.398
+TTO,Trinidad & Tobago,Caribbean,2021,0.42,0.4,0.44,0.42,0.41,0.418
+TTO,Trinidad & Tobago,Caribbean,2023,0.42,0.4,0.44,0.42,0.41,0.418
+ISR,Israel,Middle East,2010,0.36,0.33,0.38,0.36,0.34,0.354
+ISR,Israel,Middle East,2014,0.4,0.38,0.42,0.4,0.38,0.396
+ISR,Israel,Middle East,2016,0.44,0.44,0.46,0.44,0.43,0.442
+ISR,Israel,Middle East,2018,0.48,0.52,0.51,0.48,0.49,0.496
+ISR,Israel,Middle East,2020,0.52,0.6,0.57,0.54,0.56,0.558
+ISR,Israel,Middle East,2022,0.55,0.68,0.62,0.59,0.62,0.612
+ISR,Israel,Middle East,2023,0.57,0.73,0.66,0.63,0.66,0.65
+TUR,Turkey,Middle East,2010,0.43,0.48,0.46,0.48,0.5,0.47
+TUR,Turkey,Middle East,2013,0.52,0.58,0.56,0.58,0.6,0.568
+TUR,Turkey,Middle East,2016,0.68,0.78,0.76,0.78,0.78,0.756
+TUR,Turkey,Middle East,2018,0.74,0.85,0.82,0.84,0.85,0.82
+TUR,Turkey,Middle East,2020,0.76,0.86,0.84,0.86,0.86,0.836
+TUR,Turkey,Middle East,2022,0.77,0.87,0.85,0.87,0.87,0.846
+TUR,Turkey,Middle East,2023,0.78,0.88,0.86,0.88,0.88,0.856
+EGY,Egypt,North Africa,2015,0.66,0.68,0.64,0.68,0.69,0.67
+EGY,Egypt,North Africa,2018,0.7,0.72,0.68,0.72,0.73,0.71
+EGY,Egypt,North Africa,2021,0.72,0.74,0.7,0.74,0.75,0.73
+EGY,Egypt,North Africa,2023,0.73,0.75,0.71,0.75,0.76,0.74
+TUN,Tunisia,North Africa,2015,0.4,0.38,0.42,0.4,0.39,0.398
+TUN,Tunisia,North Africa,2019,0.42,0.4,0.44,0.42,0.41,0.418
+TUN,Tunisia,North Africa,2021,0.58,0.62,0.6,0.6,0.59,0.598
+TUN,Tunisia,North Africa,2023,0.64,0.68,0.66,0.66,0.65,0.658
+MAR,Morocco,North Africa,2015,0.5,0.48,0.52,0.5,0.49,0.498
+MAR,Morocco,North Africa,2019,0.52,0.5,0.54,0.52,0.51,0.518
+MAR,Morocco,North Africa,2021,0.53,0.51,0.55,0.53,0.52,0.528
+MAR,Morocco,North Africa,2023,0.54,0.52,0.56,0.54,0.53,0.538
+DZA,Algeria,North Africa,2015,0.6,0.62,0.64,0.62,0.61,0.618
+DZA,Algeria,North Africa,2019,0.62,0.64,0.66,0.64,0.63,0.638
+DZA,Algeria,North Africa,2021,0.63,0.65,0.67,0.65,0.64,0.648
+DZA,Algeria,North Africa,2023,0.64,0.66,0.68,0.66,0.65,0.658
+JOR,Jordan,Middle East,2015,0.5,0.48,0.52,0.5,0.49,0.498
+JOR,Jordan,Middle East,2019,0.52,0.5,0.54,0.52,0.51,0.518
+JOR,Jordan,Middle East,2021,0.53,0.51,0.55,0.53,0.52,0.528
+JOR,Jordan,Middle East,2023,0.54,0.52,0.56,0.54,0.53,0.538
+LBN,Lebanon,Middle East,2015,0.54,0.52,0.56,0.54,0.53,0.538
+LBN,Lebanon,Middle East,2019,0.66,0.64,0.68,0.66,0.65,0.658
+LBN,Lebanon,Middle East,2021,0.72,0.7,0.74,0.72,0.71,0.718
+LBN,Lebanon,Middle East,2023,0.74,0.72,0.76,0.74,0.73,0.738
+IRN,Iran,Middle East,2015,0.72,0.74,0.7,0.74,0.75,0.73
+IRN,Iran,Middle East,2019,0.74,0.76,0.72,0.76,0.77,0.75
+IRN,Iran,Middle East,2021,0.76,0.78,0.74,0.78,0.79,0.77
+IRN,Iran,Middle East,2023,0.78,0.8,0.76,0.8,0.81,0.79
+SAU,Saudi Arabia,Middle East,2015,0.7,0.72,0.68,0.72,0.73,0.71
+SAU,Saudi Arabia,Middle East,2019,0.66,0.68,0.64,0.68,0.69,0.67
+SAU,Saudi Arabia,Middle East,2021,0.65,0.67,0.63,0.67,0.68,0.66
+SAU,Saudi Arabia,Middle East,2023,0.64,0.66,0.62,0.66,0.67,0.65
+ARE,UAE,Middle East,2015,0.52,0.54,0.5,0.54,0.55,0.53
+ARE,UAE,Middle East,2019,0.5,0.52,0.48,0.52,0.53,0.51
+ARE,UAE,Middle East,2021,0.49,0.51,0.47,0.51,0.52,0.5
+ARE,UAE,Middle East,2023,0.48,0.5,0.46,0.5,0.51,0.49
+IRQ,Iraq,Middle East,2015,0.68,0.66,0.7,0.68,0.67,0.678
+IRQ,Iraq,Middle East,2019,0.66,0.64,0.68,0.66,0.65,0.658
+IRQ,Iraq,Middle East,2021,0.65,0.63,0.67,0.65,0.64,0.648
+IRQ,Iraq,Middle East,2023,0.64,0.62,0.66,0.64,0.63,0.638
+YEM,Yemen,Middle East,2015,0.78,0.8,0.82,0.8,,0.8
+YEM,Yemen,Middle East,2019,0.84,0.86,0.88,0.86,,0.86
+YEM,Yemen,Middle East,2021,0.86,0.88,0.9,0.88,,0.88
+YEM,Yemen,Middle East,2023,0.86,0.88,0.9,0.88,,0.88
+KWT,Kuwait,Middle East,2015,0.42,0.44,0.4,0.44,0.45,0.43
+KWT,Kuwait,Middle East,2019,0.42,0.44,0.4,0.44,0.45,0.43
+KWT,Kuwait,Middle East,2021,0.42,0.44,0.4,0.44,0.45,0.43
+KWT,Kuwait,Middle East,2023,0.42,0.44,0.4,0.44,0.45,0.43
+OMN,Oman,Middle East,2015,0.46,0.48,0.44,0.48,0.49,0.47
+OMN,Oman,Middle East,2019,0.44,0.46,0.42,0.46,0.47,0.45
+OMN,Oman,Middle East,2021,0.43,0.45,0.41,0.45,0.46,0.44
+OMN,Oman,Middle East,2023,0.42,0.44,0.4,0.44,0.45,0.43
+QAT,Qatar,Middle East,2015,0.48,0.5,0.46,0.5,0.51,0.49
+QAT,Qatar,Middle East,2019,0.46,0.48,0.44,0.48,0.49,0.47
+QAT,Qatar,Middle East,2021,0.45,0.47,0.43,0.47,0.48,0.46
+QAT,Qatar,Middle East,2023,0.44,0.46,0.42,0.46,0.47,0.45
+BHR,Bahrain,Middle East,2015,0.62,0.64,0.6,0.64,0.65,0.63
+BHR,Bahrain,Middle East,2019,0.62,0.64,0.6,0.64,0.65,0.63
+BHR,Bahrain,Middle East,2021,0.62,0.64,0.6,0.64,0.65,0.63
+BHR,Bahrain,Middle East,2023,0.62,0.64,0.6,0.64,0.65,0.63
+ZAF,South Africa,Sub-Saharan Africa,2015,0.46,0.4,0.48,0.46,0.45,0.45
+ZAF,South Africa,Sub-Saharan Africa,2018,0.52,0.46,0.54,0.52,0.51,0.51
+ZAF,South Africa,Sub-Saharan Africa,2020,0.52,0.46,0.54,0.52,0.51,0.51
+ZAF,South Africa,Sub-Saharan Africa,2021,0.53,0.48,0.55,0.53,0.52,0.522
+ZAF,South Africa,Sub-Saharan Africa,2022,0.54,0.49,0.56,0.54,0.53,0.532
+ZAF,South Africa,Sub-Saharan Africa,2023,0.55,0.5,0.57,0.55,0.54,0.542
+NGA,Nigeria,Sub-Saharan Africa,2015,0.56,0.54,0.58,0.56,0.55,0.558
+NGA,Nigeria,Sub-Saharan Africa,2019,0.58,0.56,0.6,0.58,0.57,0.578
+NGA,Nigeria,Sub-Saharan Africa,2021,0.6,0.58,0.62,0.6,0.59,0.598
+NGA,Nigeria,Sub-Saharan Africa,2023,0.61,0.59,0.63,0.61,0.6,0.608
+KEN,Kenya,Sub-Saharan Africa,2015,0.5,0.48,0.52,0.5,0.49,0.498
+KEN,Kenya,Sub-Saharan Africa,2019,0.52,0.5,0.54,0.52,0.51,0.518
+KEN,Kenya,Sub-Saharan Africa,2021,0.53,0.51,0.55,0.53,0.52,0.528
+KEN,Kenya,Sub-Saharan Africa,2023,0.54,0.52,0.56,0.54,0.53,0.538
+GHA,Ghana,Sub-Saharan Africa,2015,0.36,0.34,0.38,0.36,0.35,0.358
+GHA,Ghana,Sub-Saharan Africa,2019,0.38,0.36,0.4,0.38,0.37,0.378
+GHA,Ghana,Sub-Saharan Africa,2021,0.39,0.37,0.41,0.39,0.38,0.388
+GHA,Ghana,Sub-Saharan Africa,2023,0.4,0.38,0.42,0.4,0.39,0.398
+SEN,Senegal,Sub-Saharan Africa,2015,0.4,0.38,0.42,0.4,0.39,0.398
+SEN,Senegal,Sub-Saharan Africa,2019,0.42,0.4,0.44,0.42,0.41,0.418
+SEN,Senegal,Sub-Saharan Africa,2021,0.44,0.42,0.46,0.44,0.43,0.438
+SEN,Senegal,Sub-Saharan Africa,2023,0.48,0.5,0.52,0.5,0.49,0.498
+TZA,Tanzania,Sub-Saharan Africa,2015,0.5,0.48,0.52,0.5,0.49,0.498
+TZA,Tanzania,Sub-Saharan Africa,2019,0.56,0.58,0.6,0.58,0.57,0.578
+TZA,Tanzania,Sub-Saharan Africa,2021,0.52,0.5,0.54,0.52,0.51,0.518
+TZA,Tanzania,Sub-Saharan Africa,2023,0.5,0.48,0.52,0.5,0.49,0.498
+UGA,Uganda,Sub-Saharan Africa,2015,0.58,0.6,0.62,0.6,0.59,0.598
+UGA,Uganda,Sub-Saharan Africa,2019,0.62,0.64,0.66,0.64,0.63,0.638
+UGA,Uganda,Sub-Saharan Africa,2021,0.66,0.68,0.7,0.68,0.67,0.678
+UGA,Uganda,Sub-Saharan Africa,2023,0.68,0.7,0.72,0.7,0.69,0.698
+ETH,Ethiopia,Sub-Saharan Africa,2015,0.6,0.62,0.64,0.62,0.61,0.618
+ETH,Ethiopia,Sub-Saharan Africa,2018,0.54,0.52,0.56,0.54,0.53,0.538
+ETH,Ethiopia,Sub-Saharan Africa,2020,0.64,0.68,0.66,0.66,0.65,0.658
+ETH,Ethiopia,Sub-Saharan Africa,2021,0.68,0.72,0.7,0.7,0.69,0.698
+ETH,Ethiopia,Sub-Saharan Africa,2023,0.66,0.7,0.68,0.68,0.67,0.678
+MOZ,Mozambique,Sub-Saharan Africa,2015,0.54,0.52,0.56,0.54,0.53,0.538
+MOZ,Mozambique,Sub-Saharan Africa,2019,0.56,0.54,0.58,0.56,0.55,0.558
+MOZ,Mozambique,Sub-Saharan Africa,2021,0.58,0.56,0.6,0.58,0.57,0.578
+MOZ,Mozambique,Sub-Saharan Africa,2023,0.59,0.57,0.61,0.59,0.58,0.588
+ZMB,Zambia,Sub-Saharan Africa,2015,0.5,0.48,0.52,0.5,0.49,0.498
+ZMB,Zambia,Sub-Saharan Africa,2019,0.56,0.58,0.6,0.58,0.57,0.578
+ZMB,Zambia,Sub-Saharan Africa,2021,0.46,0.44,0.48,0.46,0.45,0.458
+ZMB,Zambia,Sub-Saharan Africa,2023,0.44,0.42,0.46,0.44,0.43,0.438
+ZWE,Zimbabwe,Sub-Saharan Africa,2015,0.7,0.68,0.72,0.7,0.69,0.698
+ZWE,Zimbabwe,Sub-Saharan Africa,2018,0.68,0.66,0.7,0.68,0.67,0.678
+ZWE,Zimbabwe,Sub-Saharan Africa,2021,0.68,0.66,0.7,0.68,0.67,0.678
+ZWE,Zimbabwe,Sub-Saharan Africa,2023,0.69,0.67,0.71,0.69,0.68,0.688
+CMR,Cameroon,Sub-Saharan Africa,2015,0.64,0.66,0.68,0.66,0.65,0.658
+CMR,Cameroon,Sub-Saharan Africa,2019,0.66,0.68,0.7,0.68,0.67,0.678
+CMR,Cameroon,Sub-Saharan Africa,2021,0.68,0.7,0.72,0.7,0.69,0.698
+CMR,Cameroon,Sub-Saharan Africa,2023,0.7,0.72,0.74,0.72,0.71,0.718
+CIV,Ivory Coast,Sub-Saharan Africa,2015,0.48,0.46,0.5,0.48,0.47,0.478
+CIV,Ivory Coast,Sub-Saharan Africa,2019,0.46,0.44,0.48,0.46,0.45,0.458
+CIV,Ivory Coast,Sub-Saharan Africa,2021,0.45,0.43,0.47,0.45,0.44,0.448
+CIV,Ivory Coast,Sub-Saharan Africa,2023,0.44,0.42,0.46,0.44,0.43,0.438
+MLI,Mali,Sub-Saharan Africa,2015,0.58,0.6,0.62,0.6,0.59,0.598
+MLI,Mali,Sub-Saharan Africa,2019,0.66,0.68,0.7,0.68,0.67,0.678
+MLI,Mali,Sub-Saharan Africa,2021,0.76,0.78,0.8,0.78,0.77,0.778
+MLI,Mali,Sub-Saharan Africa,2023,0.78,0.8,0.82,0.8,0.79,0.798
+SDN,Sudan,Sub-Saharan Africa,2015,0.74,0.76,0.78,0.76,0.75,0.758
+SDN,Sudan,Sub-Saharan Africa,2019,0.7,0.72,0.74,0.72,0.71,0.718
+SDN,Sudan,Sub-Saharan Africa,2021,0.76,0.78,0.8,0.78,0.77,0.778
+SDN,Sudan,Sub-Saharan Africa,2023,0.82,0.84,0.86,0.84,0.83,0.838
+COD,DR Congo,Sub-Saharan Africa,2015,0.72,0.74,0.76,0.74,0.73,0.738
+COD,DR Congo,Sub-Saharan Africa,2019,0.7,0.68,0.72,0.7,0.69,0.698
+COD,DR Congo,Sub-Saharan Africa,2021,0.7,0.68,0.72,0.7,0.69,0.698
+COD,DR Congo,Sub-Saharan Africa,2023,0.71,0.69,0.73,0.71,0.7,0.708
+AGO,Angola,Sub-Saharan Africa,2015,0.66,0.68,0.7,0.68,0.67,0.678
+AGO,Angola,Sub-Saharan Africa,2019,0.62,0.6,0.64,0.62,0.61,0.618
+AGO,Angola,Sub-Saharan Africa,2021,0.6,0.58,0.62,0.6,0.59,0.598
+AGO,Angola,Sub-Saharan Africa,2023,0.59,0.57,0.61,0.59,0.58,0.588
+RWA,Rwanda,Sub-Saharan Africa,2015,0.56,0.6,0.58,0.58,0.59,0.582
+RWA,Rwanda,Sub-Saharan Africa,2019,0.58,0.62,0.6,0.6,0.61,0.602
+RWA,Rwanda,Sub-Saharan Africa,2021,0.6,0.64,0.62,0.62,0.63,0.622
+RWA,Rwanda,Sub-Saharan Africa,2023,0.61,0.65,0.63,0.63,0.64,0.632
+BWA,Botswana,Sub-Saharan Africa,2015,0.28,0.26,0.3,0.28,0.27,0.278
+BWA,Botswana,Sub-Saharan Africa,2019,0.3,0.28,0.32,0.3,0.29,0.298
+BWA,Botswana,Sub-Saharan Africa,2021,0.31,0.29,0.33,0.31,0.3,0.308
+BWA,Botswana,Sub-Saharan Africa,2023,0.32,0.3,0.34,0.32,0.31,0.318
+NAM,Namibia,Sub-Saharan Africa,2015,0.36,0.34,0.38,0.36,0.35,0.358
+NAM,Namibia,Sub-Saharan Africa,2019,0.38,0.36,0.4,0.38,0.37,0.378
+NAM,Namibia,Sub-Saharan Africa,2021,0.39,0.37,0.41,0.39,0.38,0.388
+NAM,Namibia,Sub-Saharan Africa,2023,0.4,0.38,0.42,0.4,0.39,0.398
+MWI,Malawi,Sub-Saharan Africa,2015,0.54,0.52,0.56,0.54,0.53,0.538
+MWI,Malawi,Sub-Saharan Africa,2019,0.52,0.5,0.54,0.52,0.51,0.518
+MWI,Malawi,Sub-Saharan Africa,2021,0.5,0.48,0.52,0.5,0.49,0.498
+MWI,Malawi,Sub-Saharan Africa,2023,0.49,0.47,0.51,0.49,0.48,0.488
+MDG,Madagascar,Sub-Saharan Africa,2015,0.56,0.54,0.58,0.56,0.55,0.558
+MDG,Madagascar,Sub-Saharan Africa,2019,0.54,0.52,0.56,0.54,0.53,0.538
+MDG,Madagascar,Sub-Saharan Africa,2021,0.55,0.53,0.57,0.55,0.54,0.548
+MDG,Madagascar,Sub-Saharan Africa,2023,0.56,0.54,0.58,0.56,0.55,0.558
+BFA,Burkina Faso,Sub-Saharan Africa,2015,0.56,0.58,0.6,0.58,0.57,0.578
+BFA,Burkina Faso,Sub-Saharan Africa,2019,0.62,0.64,0.66,0.64,0.63,0.638
+BFA,Burkina Faso,Sub-Saharan Africa,2021,0.74,0.76,0.78,0.76,0.75,0.758
+BFA,Burkina Faso,Sub-Saharan Africa,2023,0.78,0.8,0.82,0.8,0.79,0.798
+NER,Niger,Sub-Saharan Africa,2015,0.6,0.58,0.62,0.6,0.59,0.598
+NER,Niger,Sub-Saharan Africa,2019,0.62,0.6,0.64,0.62,0.61,0.618
+NER,Niger,Sub-Saharan Africa,2021,0.64,0.62,0.66,0.64,0.63,0.638
+NER,Niger,Sub-Saharan Africa,2023,0.78,0.82,0.8,0.8,0.79,0.798
+TCD,Chad,Sub-Saharan Africa,2015,0.72,0.74,0.76,0.74,0.73,0.738
+TCD,Chad,Sub-Saharan Africa,2019,0.74,0.76,0.78,0.76,0.75,0.758
+TCD,Chad,Sub-Saharan Africa,2021,0.76,0.78,0.8,0.78,0.77,0.778
+TCD,Chad,Sub-Saharan Africa,2023,0.78,0.8,0.82,0.8,0.79,0.798
+GIN,Guinea,Sub-Saharan Africa,2015,0.66,0.68,0.7,0.68,0.67,0.678
+GIN,Guinea,Sub-Saharan Africa,2019,0.68,0.7,0.72,0.7,0.69,0.698
+GIN,Guinea,Sub-Saharan Africa,2021,0.74,0.76,0.78,0.76,0.75,0.758
+GIN,Guinea,Sub-Saharan Africa,2023,0.72,0.74,0.76,0.74,0.73,0.738
+SLE,Sierra Leone,Sub-Saharan Africa,2015,0.54,0.52,0.56,0.54,0.53,0.538
+SLE,Sierra Leone,Sub-Saharan Africa,2019,0.52,0.5,0.54,0.52,0.51,0.518
+SLE,Sierra Leone,Sub-Saharan Africa,2021,0.53,0.51,0.55,0.53,0.52,0.528
+SLE,Sierra Leone,Sub-Saharan Africa,2023,0.54,0.52,0.56,0.54,0.53,0.538
+LBR,Liberia,Sub-Saharan Africa,2015,0.52,0.5,0.54,0.52,0.51,0.518
+LBR,Liberia,Sub-Saharan Africa,2019,0.5,0.48,0.52,0.5,0.49,0.498
+LBR,Liberia,Sub-Saharan Africa,2021,0.51,0.49,0.53,0.51,0.5,0.508
+LBR,Liberia,Sub-Saharan Africa,2023,0.52,0.5,0.54,0.52,0.51,0.518
+BEN,Benin,Sub-Saharan Africa,2015,0.42,0.4,0.44,0.42,0.41,0.418
+BEN,Benin,Sub-Saharan Africa,2019,0.5,0.52,0.54,0.52,0.51,0.518
+BEN,Benin,Sub-Saharan Africa,2021,0.52,0.54,0.56,0.54,0.53,0.538
+BEN,Benin,Sub-Saharan Africa,2023,0.54,0.56,0.58,0.56,0.55,0.558
+TGO,Togo,Sub-Saharan Africa,2015,0.6,0.62,0.64,0.62,0.61,0.618
+TGO,Togo,Sub-Saharan Africa,2019,0.58,0.6,0.62,0.6,0.59,0.598
+TGO,Togo,Sub-Saharan Africa,2021,0.57,0.59,0.61,0.59,0.58,0.588
+TGO,Togo,Sub-Saharan Africa,2023,0.56,0.58,0.6,0.58,0.57,0.578
+GAB,Gabon,Sub-Saharan Africa,2015,0.62,0.64,0.66,0.64,0.63,0.638
+GAB,Gabon,Sub-Saharan Africa,2019,0.64,0.66,0.68,0.66,0.65,0.658
+GAB,Gabon,Sub-Saharan Africa,2021,0.65,0.67,0.69,0.67,0.66,0.668
+GAB,Gabon,Sub-Saharan Africa,2023,0.74,0.76,0.78,0.76,0.75,0.758
+COG,Congo (Rep.),Sub-Saharan Africa,2015,0.66,0.68,0.7,0.68,0.67,0.678
+COG,Congo (Rep.),Sub-Saharan Africa,2019,0.68,0.7,0.72,0.7,0.69,0.698
+COG,Congo (Rep.),Sub-Saharan Africa,2021,0.69,0.71,0.73,0.71,0.7,0.708
+COG,Congo (Rep.),Sub-Saharan Africa,2023,0.7,0.72,0.74,0.72,0.71,0.718
+GMB,Gambia,Sub-Saharan Africa,2015,0.68,0.7,0.72,0.7,0.69,0.698
+GMB,Gambia,Sub-Saharan Africa,2017,0.5,0.48,0.52,0.5,0.49,0.498
+GMB,Gambia,Sub-Saharan Africa,2019,0.48,0.46,0.5,0.48,0.47,0.478
+GMB,Gambia,Sub-Saharan Africa,2021,0.46,0.44,0.48,0.46,0.45,0.458
+GMB,Gambia,Sub-Saharan Africa,2023,0.44,0.42,0.46,0.44,0.43,0.438
+MUS,Mauritius,Sub-Saharan Africa,2015,0.26,0.24,0.28,0.26,0.25,0.258
+MUS,Mauritius,Sub-Saharan Africa,2019,0.3,0.32,0.34,0.32,0.31,0.318
+MUS,Mauritius,Sub-Saharan Africa,2021,0.28,0.26,0.3,0.28,0.27,0.278
+MUS,Mauritius,Sub-Saharan Africa,2023,0.27,0.25,0.29,0.27,0.26,0.268
+CPV,Cape Verde,Sub-Saharan Africa,2015,0.24,0.22,0.26,0.24,0.23,0.238
+CPV,Cape Verde,Sub-Saharan Africa,2019,0.22,0.2,0.24,0.22,0.21,0.218
+CPV,Cape Verde,Sub-Saharan Africa,2021,0.21,0.19,0.23,0.21,0.2,0.208
+CPV,Cape Verde,Sub-Saharan Africa,2023,0.2,0.18,0.22,0.2,0.19,0.198
+SWZ,Eswatini,Sub-Saharan Africa,2015,0.68,0.7,0.72,0.7,0.69,0.698
+SWZ,Eswatini,Sub-Saharan Africa,2019,0.7,0.72,0.74,0.72,0.71,0.718
+SWZ,Eswatini,Sub-Saharan Africa,2021,0.72,0.74,0.76,0.74,0.73,0.738
+SWZ,Eswatini,Sub-Saharan Africa,2023,0.74,0.76,0.78,0.76,0.75,0.758
+LSO,Lesotho,Sub-Saharan Africa,2015,0.5,0.52,0.54,0.52,0.51,0.518
+LSO,Lesotho,Sub-Saharan Africa,2019,0.52,0.54,0.56,0.54,0.53,0.538
+LSO,Lesotho,Sub-Saharan Africa,2021,0.54,0.56,0.58,0.56,0.55,0.558
+LSO,Lesotho,Sub-Saharan Africa,2023,0.55,0.57,0.59,0.57,0.56,0.568
+MRT,Mauritania,Sub-Saharan Africa,2015,0.64,0.66,0.68,0.66,0.65,0.658
+MRT,Mauritania,Sub-Saharan Africa,2019,0.6,0.58,0.62,0.6,0.59,0.598
+MRT,Mauritania,Sub-Saharan Africa,2021,0.59,0.57,0.61,0.59,0.58,0.588
+MRT,Mauritania,Sub-Saharan Africa,2023,0.58,0.56,0.6,0.58,0.57,0.578
+DJI,Djibouti,Sub-Saharan Africa,2015,0.66,0.68,0.7,0.68,0.67,0.678
+DJI,Djibouti,Sub-Saharan Africa,2019,0.68,0.7,0.72,0.7,0.69,0.698
+DJI,Djibouti,Sub-Saharan Africa,2021,0.69,0.71,0.73,0.71,0.7,0.708
+DJI,Djibouti,Sub-Saharan Africa,2023,0.7,0.72,0.74,0.72,0.71,0.718
+GNQ,Eq. Guinea,Sub-Saharan Africa,2015,0.78,0.8,0.82,0.8,0.79,0.798
+GNQ,Eq. Guinea,Sub-Saharan Africa,2019,0.8,0.82,0.84,0.82,0.81,0.818
+GNQ,Eq. Guinea,Sub-Saharan Africa,2021,0.81,0.83,0.85,0.83,0.82,0.828
+GNQ,Eq. Guinea,Sub-Saharan Africa,2023,0.82,0.84,0.86,0.84,0.83,0.838
+CAF,Central Afr. Rep.,Sub-Saharan Africa,2015,0.78,0.8,0.82,0.8,0.79,0.798
+CAF,Central Afr. Rep.,Sub-Saharan Africa,2019,0.8,0.82,0.84,0.82,0.81,0.818
+CAF,Central Afr. Rep.,Sub-Saharan Africa,2021,0.82,0.84,0.86,0.84,0.83,0.838
+CAF,Central Afr. Rep.,Sub-Saharan Africa,2023,0.83,0.85,0.87,0.85,0.84,0.848
+GNB,Guinea-Bissau,Sub-Saharan Africa,2015,0.62,0.64,0.66,0.64,0.63,0.638
+GNB,Guinea-Bissau,Sub-Saharan Africa,2019,0.6,0.62,0.64,0.62,0.61,0.618
+GNB,Guinea-Bissau,Sub-Saharan Africa,2021,0.61,0.63,0.65,0.63,0.62,0.628
+GNB,Guinea-Bissau,Sub-Saharan Africa,2023,0.62,0.64,0.66,0.64,0.63,0.638
+COM,Comoros,Sub-Saharan Africa,2019,0.6,0.62,0.64,0.62,0.61,0.618
+COM,Comoros,Sub-Saharan Africa,2021,0.62,0.64,0.66,0.64,0.63,0.638
+COM,Comoros,Sub-Saharan Africa,2023,0.64,0.66,0.68,0.66,0.65,0.658
+STP,São Tomé & Príncipe,Sub-Saharan Africa,2019,0.34,0.32,0.36,0.34,,0.34
+STP,São Tomé & Príncipe,Sub-Saharan Africa,2021,0.33,0.31,0.35,0.33,,0.33
+STP,São Tomé & Príncipe,Sub-Saharan Africa,2023,0.32,0.3,0.34,0.32,,0.32
+SYC,Seychelles,Sub-Saharan Africa,2019,0.36,0.34,0.38,0.36,0.35,0.358
+SYC,Seychelles,Sub-Saharan Africa,2021,0.34,0.32,0.36,0.34,0.33,0.338
+SYC,Seychelles,Sub-Saharan Africa,2023,0.33,0.31,0.35,0.33,0.32,0.328
+IND,India,South Asia,2010,0.36,0.33,0.38,0.36,0.37,0.36
+IND,India,South Asia,2014,0.41,0.4,0.44,0.42,0.43,0.42
+IND,India,South Asia,2016,0.48,0.48,0.52,0.5,0.51,0.498
+IND,India,South Asia,2019,0.58,0.6,0.64,0.62,0.63,0.614
+IND,India,South Asia,2021,0.61,0.63,0.67,0.65,0.66,0.644
+IND,India,South Asia,2022,0.62,0.64,0.68,0.66,0.67,0.654
+IND,India,South Asia,2023,0.63,0.65,0.69,0.67,0.68,0.664
+PAK,Pakistan,South Asia,2015,0.58,0.56,0.6,0.58,0.59,0.582
+PAK,Pakistan,South Asia,2018,0.62,0.6,0.64,0.62,0.63,0.622
+PAK,Pakistan,South Asia,2021,0.66,0.64,0.68,0.66,0.67,0.662
+PAK,Pakistan,South Asia,2022,0.64,0.62,0.66,0.64,0.65,0.642
+PAK,Pakistan,South Asia,2023,0.65,0.63,0.67,0.65,0.66,0.652
+BGD,Bangladesh,South Asia,2015,0.54,0.56,0.58,0.56,0.55,0.558
+BGD,Bangladesh,South Asia,2019,0.58,0.6,0.62,0.6,0.59,0.598
+BGD,Bangladesh,South Asia,2021,0.6,0.62,0.64,0.62,0.61,0.618
+BGD,Bangladesh,South Asia,2023,0.62,0.64,0.66,0.64,0.63,0.638
+LKA,Sri Lanka,South Asia,2015,0.48,0.5,0.52,0.5,0.49,0.498
+LKA,Sri Lanka,South Asia,2019,0.5,0.52,0.54,0.52,0.51,0.518
+LKA,Sri Lanka,South Asia,2021,0.58,0.62,0.6,0.6,0.59,0.598
+LKA,Sri Lanka,South Asia,2022,0.64,0.68,0.66,0.66,0.65,0.658
+LKA,Sri Lanka,South Asia,2023,0.58,0.6,0.62,0.6,0.59,0.598
+NPL,Nepal,South Asia,2015,0.46,0.44,0.48,0.46,0.45,0.458
+NPL,Nepal,South Asia,2019,0.48,0.46,0.5,0.48,0.47,0.478
+NPL,Nepal,South Asia,2021,0.5,0.48,0.52,0.5,0.49,0.498
+NPL,Nepal,South Asia,2023,0.51,0.49,0.53,0.51,0.5,0.508
+BTN,Bhutan,South Asia,2015,0.4,0.42,0.38,0.42,0.41,0.406
+BTN,Bhutan,South Asia,2019,0.38,0.4,0.36,0.4,0.39,0.386
+BTN,Bhutan,South Asia,2021,0.37,0.39,0.35,0.39,0.38,0.376
+BTN,Bhutan,South Asia,2023,0.36,0.38,0.34,0.38,0.37,0.366
+MDV,Maldives,South Asia,2015,0.44,0.46,0.42,0.46,0.47,0.45
+MDV,Maldives,South Asia,2019,0.42,0.4,0.44,0.42,0.41,0.418
+MDV,Maldives,South Asia,2021,0.44,0.46,0.42,0.46,0.45,0.446
+MDV,Maldives,South Asia,2023,0.46,0.48,0.44,0.48,0.47,0.466
+THA,Thailand,Southeast Asia,2014,0.6,0.63,0.58,0.62,0.63,0.612
+THA,Thailand,Southeast Asia,2016,0.64,0.68,0.62,0.66,0.67,0.654
+THA,Thailand,Southeast Asia,2019,0.66,0.7,0.64,0.68,0.69,0.674
+THA,Thailand,Southeast Asia,2021,0.68,0.72,0.66,0.7,0.71,0.694
+THA,Thailand,Southeast Asia,2023,0.68,0.72,0.66,0.7,0.71,0.694
+PHL,Philippines,Southeast Asia,2015,0.48,0.46,0.5,0.48,0.49,0.482
+PHL,Philippines,Southeast Asia,2016,0.6,0.58,0.64,0.62,0.61,0.61
+PHL,Philippines,Southeast Asia,2019,0.64,0.62,0.68,0.66,0.65,0.65
+PHL,Philippines,Southeast Asia,2021,0.66,0.64,0.7,0.68,0.67,0.67
+PHL,Philippines,Southeast Asia,2022,0.58,0.56,0.62,0.6,0.59,0.59
+PHL,Philippines,Southeast Asia,2023,0.56,0.54,0.6,0.58,0.57,0.57
+IDN,Indonesia,Southeast Asia,2015,0.4,0.38,0.42,0.4,0.39,0.398
+IDN,Indonesia,Southeast Asia,2019,0.46,0.44,0.5,0.48,0.47,0.47
+IDN,Indonesia,Southeast Asia,2021,0.48,0.46,0.52,0.5,0.49,0.49
+IDN,Indonesia,Southeast Asia,2022,0.5,0.48,0.54,0.52,0.51,0.51
+IDN,Indonesia,Southeast Asia,2023,0.52,0.5,0.56,0.54,0.53,0.53
+MYS,Malaysia,Southeast Asia,2015,0.4,0.42,0.44,0.42,0.41,0.418
+MYS,Malaysia,Southeast Asia,2018,0.38,0.36,0.4,0.38,0.37,0.378
+MYS,Malaysia,Southeast Asia,2020,0.42,0.44,0.46,0.44,0.43,0.438
+MYS,Malaysia,Southeast Asia,2022,0.4,0.38,0.42,0.4,0.39,0.398
+MYS,Malaysia,Southeast Asia,2023,0.38,0.36,0.4,0.38,0.37,0.378
+VNM,Vietnam,Southeast Asia,2015,0.62,0.64,0.6,0.64,0.65,0.63
+VNM,Vietnam,Southeast Asia,2019,0.62,0.64,0.6,0.64,0.65,0.63
+VNM,Vietnam,Southeast Asia,2021,0.63,0.65,0.61,0.65,0.66,0.64
+VNM,Vietnam,Southeast Asia,2023,0.63,0.65,0.61,0.65,0.66,0.64
+KHM,Cambodia,Southeast Asia,2015,0.66,0.68,0.7,0.68,0.67,0.678
+KHM,Cambodia,Southeast Asia,2019,0.72,0.74,0.76,0.74,0.73,0.738
+KHM,Cambodia,Southeast Asia,2021,0.74,0.76,0.78,0.76,0.75,0.758
+KHM,Cambodia,Southeast Asia,2023,0.76,0.78,0.8,0.78,0.77,0.778
+MMR,Myanmar,Southeast Asia,2015,0.58,0.6,0.62,0.6,0.59,0.598
+MMR,Myanmar,Southeast Asia,2019,0.56,0.54,0.58,0.56,0.55,0.558
+MMR,Myanmar,Southeast Asia,2021,0.82,0.84,0.86,0.84,0.83,0.838
+MMR,Myanmar,Southeast Asia,2022,0.84,0.86,0.88,0.86,0.85,0.858
+MMR,Myanmar,Southeast Asia,2023,0.84,0.86,0.88,0.86,0.85,0.858
+SGP,Singapore,Southeast Asia,2015,0.36,0.4,0.34,0.38,0.39,0.374
+SGP,Singapore,Southeast Asia,2019,0.34,0.38,0.32,0.36,0.37,0.354
+SGP,Singapore,Southeast Asia,2021,0.33,0.37,0.31,0.35,0.36,0.344
+SGP,Singapore,Southeast Asia,2023,0.32,0.36,0.3,0.34,0.35,0.334
+LAO,Laos,Southeast Asia,2015,0.66,0.68,0.64,0.68,0.69,0.67
+LAO,Laos,Southeast Asia,2019,0.68,0.7,0.66,0.7,0.71,0.69
+LAO,Laos,Southeast Asia,2021,0.69,0.71,0.67,0.71,0.72,0.7
+LAO,Laos,Southeast Asia,2023,0.7,0.72,0.68,0.72,0.73,0.71
+TLS,Timor-Leste,Southeast Asia,2015,0.42,0.4,0.44,0.42,0.41,0.418
+TLS,Timor-Leste,Southeast Asia,2019,0.44,0.42,0.46,0.44,0.43,0.438
+TLS,Timor-Leste,Southeast Asia,2021,0.45,0.43,0.47,0.45,0.44,0.448
+TLS,Timor-Leste,Southeast Asia,2023,0.46,0.44,0.48,0.46,0.45,0.458
+FJI,Fiji,Oceania,2015,0.48,0.5,0.52,0.5,0.49,0.498
+FJI,Fiji,Oceania,2019,0.44,0.42,0.46,0.44,0.43,0.438
+FJI,Fiji,Oceania,2021,0.43,0.41,0.45,0.43,0.42,0.428
+FJI,Fiji,Oceania,2023,0.38,0.36,0.4,0.38,0.37,0.378
+CHN,China,East Asia,2010,0.76,0.78,0.73,0.78,0.79,0.768
+CHN,China,East Asia,2015,0.8,0.82,0.78,0.82,0.83,0.81
+CHN,China,East Asia,2017,0.82,0.84,0.8,0.84,0.85,0.83
+CHN,China,East Asia,2019,0.84,0.86,0.82,0.86,0.87,0.85
+CHN,China,East Asia,2021,0.86,0.88,0.84,0.88,0.89,0.87
+CHN,China,East Asia,2022,0.88,0.9,0.86,0.9,0.91,0.89
+CHN,China,East Asia,2023,0.89,0.91,0.87,0.91,0.92,0.9
+JPN,Japan,East Asia,2015,0.18,0.16,0.2,0.18,0.17,0.178
+JPN,Japan,East Asia,2019,0.2,0.18,0.22,0.2,0.19,0.198
+JPN,Japan,East Asia,2021,0.23,0.21,0.25,0.23,0.22,0.228
+JPN,Japan,East Asia,2022,0.24,0.22,0.26,0.24,0.23,0.238
+JPN,Japan,East Asia,2023,0.25,0.23,0.27,0.25,0.24,0.248
+KOR,South Korea,East Asia,2015,0.26,0.24,0.28,0.26,0.25,0.258
+KOR,South Korea,East Asia,2017,0.28,0.26,0.32,0.3,0.27,0.286
+KOR,South Korea,East Asia,2019,0.22,0.2,0.24,0.22,0.21,0.218
+KOR,South Korea,East Asia,2021,0.23,0.21,0.25,0.23,0.22,0.228
+KOR,South Korea,East Asia,2022,0.28,0.26,0.3,0.28,0.27,0.278
+KOR,South Korea,East Asia,2023,0.3,0.28,0.32,0.3,0.29,0.298
+TWN,Taiwan,East Asia,2015,0.2,0.18,0.22,0.2,,0.2
+TWN,Taiwan,East Asia,2019,0.18,0.16,0.2,0.18,,0.18
+TWN,Taiwan,East Asia,2021,0.17,0.15,0.19,0.17,,0.17
+TWN,Taiwan,East Asia,2023,0.16,0.14,0.18,0.16,,0.16
+MNG,Mongolia,East Asia,2015,0.38,0.36,0.4,0.38,0.37,0.378
+MNG,Mongolia,East Asia,2019,0.4,0.38,0.42,0.4,0.39,0.398
+MNG,Mongolia,East Asia,2021,0.39,0.37,0.41,0.39,0.38,0.388
+MNG,Mongolia,East Asia,2023,0.38,0.36,0.4,0.38,0.37,0.378
+KAZ,Kazakhstan,Central Asia,2015,0.64,0.66,0.62,0.66,0.67,0.65
+KAZ,Kazakhstan,Central Asia,2019,0.62,0.64,0.6,0.64,0.65,0.63
+KAZ,Kazakhstan,Central Asia,2021,0.62,0.64,0.6,0.64,0.65,0.63
+KAZ,Kazakhstan,Central Asia,2023,0.61,0.63,0.59,0.63,0.64,0.62
+UZB,Uzbekistan,Central Asia,2015,0.68,0.7,0.66,0.7,0.71,0.69
+UZB,Uzbekistan,Central Asia,2019,0.64,0.62,0.66,0.64,0.63,0.638
+UZB,Uzbekistan,Central Asia,2021,0.62,0.6,0.64,0.62,0.61,0.618
+UZB,Uzbekistan,Central Asia,2023,0.6,0.58,0.62,0.6,0.59,0.598
+KGZ,Kyrgyzstan,Central Asia,2015,0.54,0.56,0.58,0.56,0.55,0.558
+KGZ,Kyrgyzstan,Central Asia,2019,0.56,0.58,0.6,0.58,0.57,0.578
+KGZ,Kyrgyzstan,Central Asia,2021,0.58,0.6,0.62,0.6,0.59,0.598
+KGZ,Kyrgyzstan,Central Asia,2023,0.59,0.61,0.63,0.61,0.6,0.608
+TJK,Tajikistan,Central Asia,2015,0.7,0.72,0.68,0.72,0.73,0.71
+TJK,Tajikistan,Central Asia,2019,0.72,0.74,0.7,0.74,0.75,0.73
+TJK,Tajikistan,Central Asia,2021,0.73,0.75,0.71,0.75,0.76,0.74
+TJK,Tajikistan,Central Asia,2023,0.74,0.76,0.72,0.76,0.77,0.75
+AFG,Afghanistan,Central Asia,2015,0.74,0.72,0.76,0.74,0.73,0.738
+AFG,Afghanistan,Central Asia,2019,0.72,0.7,0.74,0.72,0.71,0.718
+AFG,Afghanistan,Central Asia,2021,0.86,0.88,0.9,0.88,0.87,0.878
+AFG,Afghanistan,Central Asia,2022,0.88,0.9,0.92,0.9,0.89,0.898
+AFG,Afghanistan,Central Asia,2023,0.88,0.9,0.92,0.9,0.89,0.898
+AUS,Australia,Oceania,2015,0.14,0.12,0.16,0.14,0.13,0.138
+AUS,Australia,Oceania,2019,0.18,0.16,0.22,0.2,0.17,0.186
+AUS,Australia,Oceania,2021,0.2,0.18,0.24,0.22,0.19,0.206
+AUS,Australia,Oceania,2022,0.19,0.17,0.23,0.21,0.18,0.196
+AUS,Australia,Oceania,2023,0.18,0.16,0.22,0.2,0.17,0.186
+NZL,New Zealand,Oceania,2015,0.12,0.1,0.14,0.12,0.11,0.118
+NZL,New Zealand,Oceania,2019,0.14,0.12,0.16,0.14,0.13,0.138
+NZL,New Zealand,Oceania,2021,0.15,0.13,0.17,0.15,0.14,0.148
+NZL,New Zealand,Oceania,2023,0.15,0.13,0.17,0.15,0.14,0.148
+PNG,Papua New Guinea,Oceania,2015,0.52,0.5,0.54,0.52,0.51,0.518
+PNG,Papua New Guinea,Oceania,2019,0.54,0.52,0.56,0.54,0.53,0.538
+PNG,Papua New Guinea,Oceania,2021,0.55,0.53,0.57,0.55,0.54,0.548
+PNG,Papua New Guinea,Oceania,2023,0.56,0.54,0.58,0.56,0.55,0.558
+SLB,Solomon Islands,Oceania,2019,0.4,0.38,0.42,0.4,,0.4
+SLB,Solomon Islands,Oceania,2021,0.44,0.46,0.48,0.46,,0.46
+SLB,Solomon Islands,Oceania,2023,0.46,0.48,0.5,0.48,,0.48
+VUT,Vanuatu,Oceania,2019,0.36,0.34,0.38,0.36,,0.36
+VUT,Vanuatu,Oceania,2021,0.38,0.36,0.4,0.38,,0.38
+VUT,Vanuatu,Oceania,2023,0.39,0.37,0.41,0.39,,0.39
