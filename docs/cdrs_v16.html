@@ -1,0 +1,51 @@
+<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CDRS med V-Dem v16</title><style>body{margin:0;background:#f9f6f1;color:#1a1a1a;font:16px/1.6 "Source Sans 3",system-ui,sans-serif}main{max-width:900px;margin:0 auto;padding:28px 16px 60px}h1,h2{font-family:Georgia,serif}table{border-collapse:collapse;width:100%;margin:10px 0;background:#fff;font-size:14px}th,td{border-bottom:1px solid #e8e0d4;padding:6px 8px;text-align:left}th{background:#f2ede5}code,pre{font-family:ui-monospace,monospace;font-size:13px;background:#f2ede5;padding:1px 4px}pre{padding:10px;overflow-x:auto}</style></head><body><main><h1>CDRS med V-Dem v16: återuppbyggnad enligt originalreceptet (2026-11-25)</h1>
+<p><b>Status:</b> analysunderlag. Dashboarden är inte ändrad, och ett beslut om hur den ska uppdateras behövs först.</p>
+<h2>Vad som gjordes</h2>
+<ul>
+<li><b>Receptet:</b> <code>source/fieldshift_loader_original_2026-02-28.py</code> hämtades från Drive. Det är det enda hittade skriptet som producerar dashboardens fem lager och källmarkeringar. Filen kördes inte. Landlista och indikatorer lästes ut med AST, och receptet följs ordagrant i <code>build_cdrs_v16.py</code>.</li>
+<li><b>Data:</b></li>
+<li>V-Dem v16 (<code>V-Dem-CY-Full+Others-v16.csv</code>): bara <code>country_text_id</code>, <code>year</code>, <code>v2x_jucon</code>, <code>v2x_cspart</code> och <code>v2x_libdem</code> lästes.</li>
+<li>Världsbankens WGI (API-källa 3, nya koder <code>GOV_WGI_*</code>, uppdaterad 2026-09-25) och WDI (militär- och utbildningsutgifter, uppdaterad 2026-11-11), 2010–2025: <code>data/worldbank_2010_2025.json</code>.</li>
+<li><b>FS-004:</b> V-Dem 2010–2022 lästes enligt Thomas beslut 2026-11-25 (&quot;Ja, bara för dashboarden&quot;). Det gäller bara dashboardens beskrivande lager. Ingenting här får användas i FS-004.</li>
+<li><b>Resultat:</b></li>
+<li><code>results/countries_v16_2010_2023.json</code>: samma period som dashboarden, för jämförelse.</li>
+<li><code>results/countries_v16_2010_2025.json</code>: uppdaterad till och med 2025.</li>
+</ul>
+<p>  Båda filerna har samma format som dashboardens <code>countries.json</code>: 163 tillgängliga länder och 6 otillgängliga.</p>
+<h2>Receptet (fieldshift_loader.py)</h2>
+<table><tr><th>Lager</th><th>Mått (stress, högre = sämre)</th></tr><tr><td>Finanspolitiskt</td><td>WDI: militärutgifter i % av BNP (stress) och utbildningsutgifter i % av BNP (inverterat)</td></tr><tr><td>Konstitutionellt</td><td>1 − V-Dem <code>v2x_jucon</code></td></tr><tr><td>Organisatoriskt</td><td>1 − V-Dem <code>v2x_cspart</code> (WGI Voice &amp; Accountability om V-Dem saknas)</td></tr><tr><td>Beteendemässigt</td><td>WGI Control of Corruption och Political Stability (inverterade)</td></tr><tr><td>Utökat</td><td>1 − V-Dem <code>v2x_libdem</code> (WGI Rule of Law och Government Effectiveness om V-Dem saknas; Freedom House sist)</td></tr><tr><td>CDRS</td><td>Medelvärde av tillgängliga lager, om minst tre lager finns</td></tr></table>
+<p>Världsbankens värden min-max-normaliseras per indikator över alla enheter och år som API:t returnerar, även regionaggregat. Det är en svaghet i originalet som här är bevarad.</p>
+<p><b>Avvikelser från originalet:</b></p>
+<ul>
+<li>Freedom House saknas lokalt. Källan används bara när V-Dem saknas.</li>
+<li>Taiwan har lagts till, eftersom dashboarden har landet. Det bygger enbart på V-Dem.</li>
+<li>SIPRI, IMF, RSF, CCP och IDEA används inte i originalets beräkning heller.</li>
+</ul>
+<h2>Jämförelse med dagens dashboarddata (samma land och år, 2010–2023)</h2>
+<table><tr><th>Lager</th><th>n</th><th>Korrelation r</th><th>Medel i dag</th><th>Medel med v16</th><th>Medelavvikelse</th></tr><tr><td>Finanspolitiskt</td><td>704</td><td>0,12</td><td>0,479</td><td>0,345</td><td>0,210</td></tr><tr><td>Konstitutionellt</td><td>728</td><td>0,81</td><td>0,483</td><td>0,395</td><td>0,174</td></tr><tr><td>Organisatoriskt</td><td>728</td><td>0,67</td><td>0,504</td><td>0,321</td><td>0,214</td></tr><tr><td>Beteendemässigt</td><td>724</td><td>0,84</td><td>0,495</td><td>0,480</td><td>0,084</td></tr><tr><td>Utökat</td><td>699</td><td>0,89</td><td>0,483</td><td>0,570</td><td>0,125</td></tr><tr><td><b>CDRS</b></td><td>728</td><td><b>0,88</b></td><td>0,490</td><td>0,424</td><td>0,091</td></tr></table>
+<p>Exempel på CDRS för 2023, i dag mot v16: USA 0,552 / 0,145; Ungern 0,756 / 0,401; Indien 0,664 / 0,410; Sverige 0,162 / 0,084; Ryssland 0,920 / 0,770.</p>
+<h2>Bedömning</h2>
+<ul>
+<li><b>Receptet återskapar inte dagens värden.</b> Rangordningen liknar den nuvarande (r = 0,88), men nivåerna skiljer sig mycket för enskilda länder. Det finanspolitiska lagret saknar i praktiken samband med dagens värden (r = 0,12).</li>
+<li><b>Dagens <code>countries.json</code> har drag som inte uppstår ur receptet:</b></li>
+<li>två decimaler;</li>
+<li>3–9 år per land (oftast 4) i stället för alla år;</li>
+<li>jämna steg, till exempel Sveriges finanspolitiska lager 0,11 → 0,12 → 0,14 → 0,17 → 0,20.</li>
+</ul>
+<p>   Ursprunget till dagens värden är därmed oklart. De kan vara bearbetade eller sammanställda på annat sätt än med det här receptet. Det kan inte avgöras med det underlag som har hittats.</p>
+<ul>
+<li><b>Följder för det som bygger på dagens värden:</b></li>
+<li>JoD-manusets tabell 1 och dess statistik (Cohen d, 86,7 %, AUC 0,96);</li>
+<li>varningsgränsen 0,52 och ledtidsgränsen c_L ≈ 0,22;</li>
+<li>kalkylatorns A3, A4 och A6.</li>
+</ul>
+<p>   Inget av detta kan föras över till v16-värdena utan ny kalibrering och validering.</p>
+<h2>Beslut som behövs</h2>
+<ul>
+<li>Om dashboarden ska byta till de rekonstruerade v16-värdena, som ny version med ny kalibrering, eller behålla dagens värden med en tydlig ursprungsmärkning.</li>
+<li>Om det ursprungliga steget som gav dagens värden ska eftersökas, och i så fall var.</li>
+</ul>
+<h2>Återskapa</h2>
+<pre>
+python -I build_cdrs_v16.py &quot;C:/Users/thoma/Downloads/V-Dem-CY-Full+Others-v16.csv&quot;
+</pre></main></body></html>
