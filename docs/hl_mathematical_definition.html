@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mathematical_Definition_HL_Principle_and_CDRS.docx</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f9f6f1;--ink:#2b2723;--muted:#6b6258;--rule:#d8d0c4;--head:#f0ebe3;--accent:#7a5c3e}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Source Sans 3","Source Sans Pro","Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.6}
+main{max-width:860px;margin:0 auto;padding:32px 16px 64px}
+.source{font-size:.85rem;color:var(--muted);border-bottom:1px solid var(--rule);padding-bottom:10px;margin:0 0 28px}
+h1,h2,h3,h4,h5{font-family:"Libre Baskerville",Georgia,"Times New Roman",serif;font-weight:700;line-height:1.3;color:var(--ink)}
+h1{font-size:1.9rem;margin:.2em 0 .4em}
+h2{font-size:1.45rem;margin:2em 0 .6em;padding-bottom:.25em;border-bottom:1px solid var(--rule)}
+h3{font-size:1.18rem;margin:1.6em 0 .5em}
+h4,h5{font-size:1.02rem;margin:1.3em 0 .4em}
+p{margin:0 0 .9em}
+.subtitle{font-size:1.1rem;color:var(--muted);font-style:italic}
+blockquote{margin:1.2em 0;padding:.6em 1.1em;border-left:3px solid var(--accent);background:#f3eee6;font-style:italic}
+ul,ol{margin:0 0 1em;padding-left:1.6em}
+li{margin:.25em 0}
+sup,sub{font-size:.72em;line-height:0}
+.tbl{overflow-x:auto;margin:1.1em 0 1.5em}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:#fffdf9}
+th,td{border:1px solid var(--rule);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--head);font-weight:600}
+.fig{color:var(--muted);font-style:italic}
+@media print{
+ @page{margin:18mm 16mm}
+ body{background:#fff;color:#000;font-size:11pt}
+ main{max-width:none;padding:0}
+ h2,h3,h4{page-break-after:avoid;break-after:avoid}
+ table,tr,blockquote{page-break-inside:avoid;break-inside:avoid}
+ .tbl{overflow:visible}
+ th{background:#eee}
+ th,td{border-color:#999}
+}
+</style>
+</head>
+<body>
+<main>
+<p class="source">Source: Mathematical_Definition_HL_Principle_and_CDRS.docx, retrieved from the author's Drive 2026-11-25. Working document.</p>
+<h1 class="doc-title">Mathematical Definition of the Hedlund-Leijon Principle and the CDRS Model</h1>
+<p class="subtitle" style="text-align:center">Prepared as a clean technical note with fully standardized mathematical notation</p>
+<p>This document presents a strict mathematical formulation of ℋ = 1.724 and a formalized model of the Composite Democratic Risk Score (CDRS). The notation below is standardized for direct use in a technical paper, methods appendix, or mathematical note.</p>
+<h2>1. Mathematical Model for ℋ = 1.724</h2>
+<p>Let D(c,t) denote the level of democracy in country c at time t.</p>
+<h3>Episode definitions</h3>
+<p>For each erosion episode e in country c, from start t_{e,0} to end t_{e,1}, define the erosion magnitude as</p>
+<p style="text-align:center"><em>M</em><sub>e</sub><sup>−</sup> = <em>D</em><sub>c,t</sub><sub>e,0</sub> − <em>D</em><sub>c,t</sub><sub>e,1</sub>,   <em>M</em><sub>e</sub><sup>−</sup> &gt; 0</p>
+<p>For each recovery episode r in country c, from start t_{r,0} to end t_{r,1}, define the recovery magnitude as</p>
+<p style="text-align:center"><em>M</em><sub>r</sub><sup>+</sup> = <em>D</em><sub>c,t</sub><sub>r,1</sub> − <em>D</em><sub>c,t</sub><sub>r,0</sub>,   <em>M</em><sub>r</sub><sup>+</sup> &gt; 0</p>
+<h3>Core definition of the Hedlund-Leijon Principle</h3>
+<p>The empirical asymmetry is defined as the ratio between the average magnitude of democratic recovery and the average magnitude of democratic erosion:</p>
+<p style="text-align:center"><em>ℋ</em> = [ (1/R) Σ <sub>r=1</sub><sup>R</sup> <em>M</em><sub>r</sub><sup>+</sup> ] / [ (1/E) Σ <sub>e=1</sub><sup>E</sup> <em>M</em><sub>e</sub><sup>−</sup> ]</p>
+<p>where R is the number of recovery episodes and E is the number of erosion episodes.</p>
+<p>In the empirical estimate, this becomes:</p>
+<p style="text-align:center"><em>ℋ</em> = 109.4 / 63.5 ≈ 1.724</p>
+<p>Interpretation: for every 1 unit of democracy lost in erosion, democratic recovery requires, on average, 1.724 units of cumulative restorative movement.</p>
+<h3>Bootstrap estimator of ℋ</h3>
+<p>Because ℋ is bootstrap-validated, the estimator for bootstrap draw b = 1, …, B with B = 10,000 can be written as</p>
+<p style="text-align:center"><em>ℋ̂</em>(b) = [ (1/R<sub>b</sub>) Σ <sub>r=1</sub><sup>R</sup><sup>b</sup> <em>M</em><sub>r</sub><sup>+,(b)</sup> ] / [ (1/E<sub>b</sub>) Σ <sub>e=1</sub><sup>E</sup><sup>b</sup> <em>M</em><sub>e</sub><sup>−,(b)</sup> ]</p>
+<p>The final estimate is then</p>
+<p style="text-align:center"><em>ℋ̂</em> = median(<em>ℋ̂</em>(1), …, <em>ℋ̂</em>(B)) = 1.724</p>
+<p style="text-align:center"><em>CI</em><sup>95%</sup>(ℋ) = [1.53, 1.96]</p>
+<h3>Critical threshold</h3>
+<p>The critical threshold is defined as</p>
+<p style="text-align:center"><em>κ</em> = ℋ / 8</p>
+<p style="text-align:center"><em>κ</em> = 1.724 / 8 = 0.2155 ≈ 0.216</p>
+<p>This is the warning-threshold relation used in the model.</p>
+<h3>Illustrative dynamic representation</h3>
+<p>A stylized dynamic form consistent with the manuscript can be written as</p>
+<p style="text-align:center"><em>D</em>(t) = <em>D</em><sub>eq</sub> + <em>A</em><sub>0</sub> e<sup>−δt</sup> sin(ℋ·t/T + φ)</p>
+<p>where D_eq is the equilibrium level of democracy, A_0 is the initial amplitude, δ is a damping or institutional inertia parameter, T is the characteristic cycle length, and φ is the phase shift. This equation is best interpreted as an illustrative dynamic representation rather than the primary estimator of ℋ. The primary mathematical definition of ℋ remains the asymmetry ratio between cumulative recovery and cumulative erosion.</p>
+<h2>2. Mathematical Model for CDRS</h2>
+<p>Let CDRS(c,t) denote the Composite Democratic Risk Score for country c at time t. It is defined as a composite measure of democratic stress, with</p>
+<p style="text-align:center"><em>CDRS</em><sub>c,t</sub> ∈ [0, 1]</p>
+<p>where higher values indicate greater democratic stress and greater democratic risk.</p>
+<h3>Five-dimensional structure</h3>
+<p>Let the five component dimensions be defined as follows:</p>
+<p style="text-align:center"><em>F</em><sub>c,t</sub> = fiscal integrity stress</p>
+<p style="text-align:center"><em>C</em><sub>c,t</sub> = constitutional constraint stress</p>
+<p style="text-align:center"><em>O</em><sub>c,t</sub> = organizational competition stress</p>
+<p style="text-align:center"><em>N</em><sub>c,t</sub> = democratic norms stress</p>
+<p style="text-align:center"><em>R</em><sub>c,t</sub> = institutional resilience stress</p>
+<p>Each dimension is normalized to the interval [0, 1], where 0 denotes low stress and 1 denotes maximal observed stress.</p>
+<h3>Baseline equally weighted formulation</h3>
+<p>If the main model uses equal weights, the CDRS definition is</p>
+<p style="text-align:center"><em>CDRS</em><sub>c,t</sub> = (1/5)(<em>F</em><sub>c,t</sub> + <em>C</em><sub>c,t</sub> + <em>O</em><sub>c,t</sub> + <em>N</em><sub>c,t</sub> + <em>R</em><sub>c,t</sub>)</p>
+<p>This is the clearest main equation for CDRS in the technical paper.</p>
+<h3>General weighted formulation</h3>
+<p>More generally, the model can be written as</p>
+<p style="text-align:center"><em>CDRS</em><sub>c,t</sub> = Σ <sub>j=1</sub><sup>5</sup> w<sub>j</sub> X<sub>j,c,t</sub></p>
+<p style="text-align:center">Σ <sub>j=1</sub><sup>5</sup> w<sub>j</sub> = 1</p>
+<p>and in the baseline specification, w_j = 0.2 for all j.</p>
+<h3>Normalization of component indicators</h3>
+<p>If a raw indicator is written as Z(j,c,t), min-max normalization is defined as</p>
+<p style="text-align:center"><em>X</em><sub>j,c,t</sub> = (Z<sub>j,c,t</sub> − min(Z<sub>j</sub>)) / (max(Z<sub>j</sub>) − min(Z<sub>j</sub>))</p>
+<p>when higher raw values imply greater democratic stress. If a raw indicator instead implies stronger democratic performance rather than stress, the normalized stress version is</p>
+<p style="text-align:center"><em>X</em><sub>j,c,t</sub><sup>stress</sup> = 1 − (Z<sub>j,c,t</sub> − min(Z<sub>j</sub>)) / (max(Z<sub>j</sub>) − min(Z<sub>j</sub>))</p>
+<p>This ensures common directionality across all components: higher values always indicate worse democratic stress.</p>
+<h3>Full composite model</h3>
+<p>The full composite form can therefore be written as</p>
+<p style="text-align:center"><em>CDRS</em><sub>c,t</sub> = (1/5)[ <em>F̃</em><sub>c,t</sub> + <em>C̃</em><sub>c,t</sub> + <em>Õ</em><sub>c,t</sub> + <em>Ñ</em><sub>c,t</sub> + <em>R̃</em><sub>c,t</sub> ]</p>
+<p>where each tilde-marked term denotes a normalized stress component in the interval [0, 1].</p>
+<h3>Threshold regime for CDRS</h3>
+<p>The CDRS threshold regime is defined by κ as follows:</p>
+<p style="text-align:center"><em>CDRS</em><sub>c,t</sub> &lt; κ   ⇒   stable / low-stress zone</p>
+<p style="text-align:center"><em>CDRS</em><sub>c,t</sub> ≥ κ   ⇒   warning zone / elevated democratic stress</p>
+<p style="text-align:center"><em>κ</em> = 0.216</p>
+<p>This is the cleanest threshold rule for the model.</p>
+<h3>Optional dynamic risk layer above CDRS</h3>
+<p>If one wishes to model the idea that democratic stress becomes more dangerous after κ, an acceleration term can be added:</p>
+<p style="text-align:center"><em>A</em><sub>c,t</sub> = max(0, (CDRS<sub>c,t</sub> − κ) / (1 − κ))</p>
+<p>Then, if CDRS(c,t) &lt; κ, there is no accelerated risk term; if CDRS(c,t) ≥ κ, risk acceleration grows gradually toward 1.</p>
+<p>A smoother alternative is a logistic risk function:</p>
+<p style="text-align:center"><em>P</em>(collapse<sub>c,t+h</sub>) = 1 / (1 + exp[−α(CDRS<sub>c,t</sub> − κ)])</p>
+<p>where α governs how steeply risk increases and h is the forecast horizon. This extension is useful if the model is later moved from a stress index to explicit probabilistic prediction.</p>
+<h2>3. Recommended Technical-Paper Formulation</h2>
+<p>The most concise and publication-ready formulation is the following:</p>
+<p style="text-align:center">ℋ = [(1/R) Σ Mᵣ⁺] / [(1/E) Σ Mₑ⁻] = 1.724</p>
+<p style="text-align:center">κ = ℋ / 8 = 0.216</p>
+<p style="text-align:center">CDRS(c,t) = (1/5)(F(c,t) + C(c,t) + O(c,t) + N(c,t) + R(c,t))</p>
+<p>where Mᵣ⁺ denotes the cumulative magnitude of democratic recovery episode r, Mₑ⁻ denotes the cumulative magnitude of democratic erosion episode e, and each component of CDRS is normalized to the unit interval and oriented so that higher values indicate greater democratic stress.</p>
+<h2>4. Recommended Use Across the Manuscript</h2>
+<p>Main text: use only the three most compact expressions.</p>
+<ul>
+<li>ℋ = M⁺ / M⁻ = 1.724
+</li>
+<li>κ = ℋ / 8 = 0.216
+</li>
+<li>CDRS = (1/5)(F + C + O + N + R)
+</li></ul>
+<p>Methods appendix: include the exact episode definitions, normalization rule, bootstrap estimator, and any optional logistic risk layer.</p>
+<p>Figure captions: use concise language such as “higher CDRS indicates greater democratic stress” and “κ marks the onset of elevated systemic fragility.”</p>
+<h2>5. Technical English Insert Ready for Direct Use</h2>
+<p>The following paragraph can be inserted directly into the technical paper:</p>
+<blockquote>The Hedlund-Leijon Principle is defined as the empirical asymmetry between the average magnitude of democratic recovery and the average magnitude of democratic erosion. In compact form, ℋ = 1.724 and the corresponding critical threshold is κ = ℋ/8 = 0.216. The Composite Democratic Risk Score is defined as an equally weighted five-dimensional stress index, CDRS(c,t) = (1/5)(F + C + O + N + R), with each component normalized to [0,1] and oriented so that higher values indicate greater democratic stress. Threshold crossing at κ identifies elevated systemic fragility rather than deterministic collapse.</blockquote>
+</main>
+</body>
+</html>
