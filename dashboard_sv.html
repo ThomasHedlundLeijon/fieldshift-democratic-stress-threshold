@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
+<script>/* FS-FIX-2 */
+function fsDetectLang(t){return /(\boch\b|\binte\b|\bär\b|\bför\b|[åäöÅÄÖ])/.test(t||'')?'sv':'en';}
+function fsPageLang(){return (document.documentElement.lang||'en').slice(0,2)==='sv'?'sv':'en';}
+function fsLockedText(saved,current,savedLang){var pl=fsPageLang();var ll=savedLang?String(savedLang).slice(0,2):fsDetectLang(saved);
+  if(saved&&current&&ll!==pl){return current+'\n('+(pl==='sv'?'Låst i den engelska versionen; modellens text visas här på svenska.':'Locked in the Swedish version; the model text is shown here in English.')+')';}
+  return saved||current;}
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FieldShift system för tidig varning</title>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="js/hlPredictionGraphUtils.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -1021,6 +1030,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
   .ep-pred-badge-details{display:none}
 }
 </style>
+<style>/* FS-FIX-8 */.mnav-langtab .fs-flag{display:block;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.35)}.mnav-langtab{display:inline-flex;align-items:center;justify-content:center}.mnav-langtab .fs-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}</style>
 </head>
 <body>
 <script>
@@ -1093,9 +1103,9 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 <!-- ═══════════════════════════════════════════════════════════ -->
 <nav id="mainNavBar" role="navigation" aria-label="Huvudavsnitt">
   <div class="mnav-inner">
-    <a class="mnav-tab mnav-langtab" href="dashboard_sv.html" data-lang="sv" lang="sv" title="Visa hela dashboarden på svenska">🇸🇪 <span class="mnav-full">Svenska</span><span class="mnav-short">SV</span></a>
+    <a class="mnav-tab mnav-langtab" href="dashboard_sv.html" data-lang="sv" lang="sv" title="Visa hela dashboarden på svenska"><svg class="fs-flag" viewBox="0 0 16 10" width="29" height="18" aria-hidden="true" focusable="false"><rect width="16" height="10" fill="#006AA7"/><rect x="5" width="2" height="10" fill="#FECC02"/><rect y="4" width="16" height="2" fill="#FECC02"/></svg><span class="fs-sr">Svenska</span></a>
     <div class="mnav-sep"></div>
-    <a class="mnav-tab mnav-langtab" href="dashboard.html" data-lang="en" lang="en" title="Show the whole dashboard in English">🇬🇧 <span class="mnav-full">English</span><span class="mnav-short">EN</span></a>
+    <a class="mnav-tab mnav-langtab" href="dashboard.html" data-lang="en" lang="en" title="Show the whole dashboard in English"><svg class="fs-flag" viewBox="0 0 60 30" width="36" height="18" aria-hidden="true" focusable="false"><clipPath id="fsUkS"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="fsUkT"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#fsUkS)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#fsUkT)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg><span class="fs-sr">English</span></a>
     <div class="mnav-sep mnav-langsep"></div>
     <button class="mnav-tab" id="mnav-overview" onclick="mnavTo('qsPanel','mnav-overview')">🏠 <span class="mnav-full">Översikt</span><span class="mnav-short">Hem</span></button>
     <div class="mnav-sep"></div>
@@ -1110,6 +1120,8 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
     <button class="mnav-tab" id="mnav-pfi" onclick="mnavTo('pfiSection','mnav-pfi')">🧠 <span class="mnav-full">Psykologiskt försvar</span><span class="mnav-short">Psyk. förs.</span></button>
     <div class="mnav-sep"></div>
     <button class="mnav-tab" id="mnav-voteshift" onclick="mnavTo('voteshiftSection','mnav-voteshift')">📊 <span class="mnav-full">VoteShift-prognoser</span><span class="mnav-short">VoteShift</span></button>
+    <button class="mnav-tab" id="mnav-gigi" onclick="mnavTo('gigiSection','mnav-gigi')">⚖ <span class="mnav-full">GIGI könsgap</span><span class="mnav-short">GIGI</span></button>
+    <button class="mnav-tab" id="mnav-capacityshift" onclick="mnavTo('capacityshiftSection','mnav-capacityshift')">🧭 <span class="mnav-full">CapacityShift-teorin</span><span class="mnav-short">CapacityShift</span></button>
     <div class="mnav-sep"></div>
     <button class="mnav-tab" id="mnav-fsi" onclick="mnavTo('fsiSection','mnav-fsi')">⚖️ <span class="mnav-full">FieldShift-index</span><span class="mnav-short">FSI</span></button>
     <div class="mnav-sep"></div>
@@ -1887,7 +1899,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
         <p>Få tidiga varningar före demokratisk kollaps och identifiera länder i riskzonen.</p>
         <div class="ben-tag-row">
           <span class="ben-tag" onclick="openBenefitConcept('earlywarning')">Tidig varning</span>
-          <span class="ben-tag" onclick="openBenefitConcept('kappa')">κ-threshold</span>
+          <span class="ben-tag" onclick="openBenefitConcept('kappa')">κ-tröskel</span>
           <span class="ben-tag" onclick="openBenefitConcept('polandeffect')">Polen vs Ungern</span>
         </div>
       </div>
@@ -2304,6 +2316,35 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
   </div>
 </section>
 
+<!-- GIGI-CS-PATCH: GIGI (mätpilot) och CapacityShift (forskningsprogram) -->
+<section id="gigiSection" class="fewspf-section" aria-labelledby="gigiSectionT">
+  <div class="fewspf-inner">
+    <div class="fewspf-head">
+      <div>
+        <div class="fewspf-eyebrow">Modul · GIGI · Mätpilot</div>
+        <h2 id="gigiSectionT">GIGI: hur långt isär står kvinnor och män politiskt?</h2>
+        <p>Könsgapet i partisympati i Sverige 1994–2026, beräknat ur SCB:s partisympatiundersökning: nivå, vilken grupp som rör sig, hastighet och generationer. Ett mätverktyg, inte en prognos.</p>
+      </div>
+      <a class="fewspf-open" href="gigi.html?lang=sv" target="_blank" rel="noopener">Öppna fristående ↗</a>
+    </div>
+    <iframe id="gigiFrame" src="gigi.html?embed=1&amp;lang=sv" title="GIGI könsgap" loading="lazy" style="display:block;width:100%;height:1500px;border:1px solid var(--rule);border-radius:6px;background:var(--paper)"></iframe>
+  </div>
+</section>
+
+<section id="capacityshiftSection" class="fewspf-section" aria-labelledby="capacityshiftSectionT">
+  <div class="fewspf-inner">
+    <div class="fewspf-head">
+      <div>
+        <div class="fewspf-eyebrow">Program · CapacityShift · Ej validerat</div>
+        <h2 id="capacityshiftSectionT">CapacityShift: formell möjlighet mot verklig handlingsförmåga</h2>
+        <p>Teorin bakom GIGI: varför grupper med samma formella rättigheter har olika verklig förmåga, och om samhället förändras snabbare än institutionerna hinner anpassa sig (rate mismatch). Visar forskningskedjan, modellen som ska prövas och valideringsstatus.</p>
+      </div>
+      <a class="fewspf-open" href="capacityshift.html?lang=sv" target="_blank" rel="noopener">Öppna fristående ↗</a>
+    </div>
+    <iframe id="capacityshiftFrame" src="capacityshift.html?embed=1&amp;lang=sv" title="CapacityShift forskningsprogram" loading="lazy" style="display:block;width:100%;height:1500px;border:1px solid var(--rule);border-radius:6px;background:var(--paper)"></iframe>
+  </div>
+</section>
+
 <!-- ── METHODOLOGY & ABOUT ────────────────────────────────────────── -->
 <div style="background:var(--paper-2);border-top:2px solid var(--rule);margin-top:0;padding:32px 0 40px 0;" id="metaSection">
   <div class="meta-section">
@@ -2523,8 +2564,8 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
       <div class="about-section-head">Fullständig metoddokumentation</div>
       <p style="font-size:13px;color:var(--ink-soft);line-height:1.7;margin-bottom:12px;">Fullständig dokumentation om aggregeringslogik, hantering av motstridiga källor, känslighetsanalys, mätinvarians och utvecklingsplanen finns i de två dokumenten nedan.</p>
       <div class="meth-doc-links">
-        <span class="about-link-btn" onclick="alert('Download the Methodology Document v1.0 from the link provided by the system author.')"><span class="btn-icon">📐</span>Metoddokument v1.0</span>
-        <span class="about-link-btn" onclick="alert('Download the SSRN Working Paper from the link provided by the system author.')"><span class="btn-icon">📄</span>SSRN-arbetsrapport</span>
+        <span class="about-link-btn" role="link" tabindex="0" onclick="window.open('docs/methodology_v1.html','_blank','noopener');return false;" data-fix="FS-FIX-4" title="Metod- och dokumentsektionen"><span class="btn-icon">📐</span>Metoddokument v1.0</span>
+        <span class="about-link-btn" style="cursor:default;opacity:.75" title="SSRN-arbetsrapport (länk ej publicerad än)"><span class="btn-icon">📄</span>SSRN-arbetsrapport (länk ej publicerad än)</span>
       </div>
     </div><!-- /mpanel-methodology -->
 
@@ -2981,7 +3022,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
           <li><strong>Ocivilt samhälle</strong> (Bünte 2026) — organiserad illiberal mobilisering som accelerator för legitimitetsförlust</li>
           <li><strong>Finansiell signalering</strong> (APSA 2025) — förhållandet mellan utbildnings- och säkerhetsutgifter som ledande indikator 3–5 år framåt</li>
         </ul>
-        Asymmetrin mellan erosion och återhämtning är empiriskt förankrad: V-Dems episodanalys visar att återhämtningsepisoder i genomsnitt omfattar <strong>8.3 years</strong> versus <strong>4.7 years</strong> för erosion (p &lt; 0.001, n=78 episoder). Croissant &amp; Lott (2024, V-Dem WP 149) bekräftar oberoende av detta att motståndskraftskapaciteter förutsäger <em>prevention</em> men inte <em>recovery</em> — de kapaciteter som försvarar demokratier mot chocker skiljer sig från dem som möjliggör återuppbyggnad efter erosion.
+        Asymmetrin mellan erosion och återhämtning är empiriskt förankrad: V-Dems data om regimförändringsepisoder (ERT) visar att återhämtningsepisoder i genomsnitt varar <strong>8,3 år</strong> mot <strong>4,7 år</strong> för erosion (Lührmann och Lindberg 2019). Croissant &amp; Lott (2024, V-Dem WP 149) bekräftar oberoende av detta att motståndskraftskapaciteter förutsäger <em>prevention</em> men inte <em>recovery</em> — de kapaciteter som försvarar demokratier mot chocker skiljer sig från dem som möjliggör återuppbyggnad efter erosion.
       </div>
 
       <div class="about-section-head">Akademisk citering</div>
@@ -2995,9 +3036,9 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 
       <div class="about-section-head">Relaterade publikationer</div>
       <div class="about-links">
-        <span class="about-link-btn" onclick="alert('SSRN Working Paper link — add your SSRN URL here.')"><span class="btn-icon">📄</span>SSRN-arbetsrapport</span>
-        <span class="about-link-btn" onclick="alert('Methodology Document v1.0 — add download link here.')"><span class="btn-icon">📐</span>Metoddokument v1.0</span>
-        <span class="about-link-btn" onclick="alert('Journal of Democracy submission — Part I and Part II (under review).')"><span class="btn-icon">🏛</span>Journal of Democracy (granskas)</span>
+        <span class="about-link-btn" style="cursor:default;opacity:.75" title="SSRN-arbetsrapport (länk ej publicerad än)"><span class="btn-icon">📄</span>SSRN-arbetsrapport (länk ej publicerad än)</span>
+        <span class="about-link-btn" role="link" tabindex="0" onclick="window.open('docs/methodology_v1.html','_blank','noopener');return false;" data-fix="FS-FIX-4" title="Metod- och dokumentsektionen"><span class="btn-icon">📐</span>Metoddokument v1.0</span>
+        <span class="about-link-btn" style="cursor:default;opacity:.75" title="Journal of Democracy (under granskning, ingen offentlig länk än)"><span class="btn-icon">🏛</span>Journal of Democracy (under granskning, ingen offentlig länk än)</span>
         <span class="about-link-btn" onclick="openMetaTab('fieldtheory')"><span class="btn-icon">⚛</span>Fältteori</span>
         <span class="about-link-btn" onclick="openMetaTab('testbed')"><span class="btn-icon">🔬</span>Empirisk testbädd</span>
       </div>
@@ -3048,26 +3089,34 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
     <div style="font-family:var(--mono);font-size:10px;color:var(--ink-light);margin-top:8px;text-transform:uppercase;letter-spacing:.1em">HL-principen — Hedlund &amp; Leijon, 2024</div>
   </div>
 
-  <!-- CORE CONCEPTS -->
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:28px">
-    <div style="background:var(--paper);padding:24px">
-      <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--danger);margin-bottom:8px">Erosion</div>
-      <div style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:10px">Omfattning &amp; varaktighet</div>
-      <div style="font-size:13px;color:var(--ink-soft);line-height:1.75"><strong>Omfattning (Δ)</strong> är hur djupt fallet är — toppvärde minus nuvarande värde på V-Dems Liberal Democracy Index. <strong>Varaktighet</strong> är hur länge erosionen har pågått. Tillsammans ger de erosionstakten, som är den centrala drivkraften bakom ℋ.</div>
+  <!-- FS-FIX-5 -->
+  <div id="hlCalcBlock" style="margin:0 0 28px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:8px">
+      <div><div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold)">Kalkylator · Definition → Sats → Bevis</div>
+      <div style="font-family:var(--serif);font-size:20px;font-weight:700;margin:4px 0">HL-kalkylator i euklidisk form</div>
+      <div style="font-size:13px;color:var(--ink-soft);line-height:1.7;max-width:860px">Varje symbol definieras, varje empiriskt värde anges som ett antagande med källa, och varje sats bevisas. Kalkylatorn följer den senaste matematiska dokumentationen (FieldShift och hexagonens lag v0.2, 21 november 2026, en forskningsversion), inklusive Riemanns zetaspår: ζ(2) = π²/6 normaliserar minneskärnan, och Riemannhypotesen behövs inte.</div></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;font-family:var(--mono);font-size:11px"><a href="hl_calc.html?lang=sv" target="_blank" rel="noopener">Öppna separat ↗</a><a href="docs/hl_mathematical_definition.html" target="_blank" rel="noopener">Matematisk definition (dokument) ↗</a><a href="docs/methodology_v1.html" target="_blank" rel="noopener">Metoddokument ↗</a></div>
     </div>
-    <div style="background:var(--paper);padding:24px;border-left:1px solid var(--rule)" id="h-constant">
-      <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--info);margin-bottom:8px">ℋ — asymmetrimultiplikator</div>
-      <div style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:10px">Återhämtningens hårdhetsfaktor</div>
-      <div style="font-size:13px;color:var(--ink-soft);line-height:1.75">ℋ = 1 + (erosionstakt × 10). Ett symmetriskt fall (ℋ = 1.0) skulle innebära att återhämtningen tar exakt lika lång tid som erosionen. Varje 0.01/år i erosionstakt lägger till 0.1 till ℋ — så ett land som eroderar med 0.04/år får en 40% längre återhämtning än grunduppskattningen.</div>
+    <iframe id="hlCalcFrame" src="hl_calc.html?embed=1&amp;lang=sv" title="HL-kalkylator i euklidisk form" loading="lazy" style="display:block;width:100%;height:1600px;border:1px solid var(--rule);border-radius:6px;background:var(--paper)"></iframe>
+    <div style="font-size:12.5px;color:var(--ink-soft);border-left:3px solid #9a6a0c;background:#fbf3e2;padding:8px 12px;margin-top:10px;line-height:1.6">Den äldre formeln i sektionen (ℋ = 1 + erosionstakt × 10, återhämtning = Δ × 1,77 × ℋ × 10 år) ersattes den 25 november 2026 av definitionerna och satserna i kalkylatorn (FS-FIX-6). Skälen står i kalkylatorns flik Avvikelser.</div>
+  </div>
+
+  <!-- CORE CONCEPTS (FS-FIX-6) -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:28px">
+    <div style="background:var(--paper);padding:24px;border-left:1px solid var(--rule)">
+      <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:8px">Definition D2</div>
+      <div style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:10px;color:var(--ink)">Erosions- och återhämtningsepisoder</div>
+      <div style="font-size:13px;color:var(--ink-soft);line-height:1.75">En erosionsepisod har storleken M⁻ = D(start) − D(slut) &gt; 0 på demokratinivån D ∈ [0, 1]. En återhämtningsepisod har storleken M⁺ = D(slut) − D(start) &gt; 0. Båda är storlekar på demokratiskalan, inte tider. <a href="#hlCalcBlock" data-hlref="D2" style="font-family:var(--mono);font-size:11px;color:var(--info)">D2</a></div>
+    </div>
+    <div style="background:var(--paper);padding:24px;border-left:1px solid var(--rule)">
+      <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:8px">Definition D3 · Antagande A1</div>
+      <div style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:10px;color:var(--ink)">ℋ: HL-kvoten</div>
+      <div style="font-size:13px;color:var(--ink-soft);line-height:1.75">ℋ = genomsnittlig återhämtningsstorlek ÷ genomsnittlig erosionsstorlek. Det är en enda empiriskt skattad konstant: ℋ̂ = 1,724 (95 %: 1,53–1,96). Den räknas inte fram per land, och den är en kvot mellan storlekar, inte tider. <a href="#hlCalcBlock" data-hlref="D3" style="font-family:var(--mono);font-size:11px;color:var(--info)">D3</a> <a href="#hlCalcBlock" data-hlref="A1" style="font-family:var(--mono);font-size:11px;color:var(--info)">A1</a> <a href="#hlCalcBlock" data-hlref="S6" style="font-family:var(--mono);font-size:11px;color:var(--info)">S6</a></div>
     </div>
     <div style="background:var(--ink);padding:24px;border-left:1px solid var(--rule)">
-      <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold-lt);margin-bottom:8px">Formeln</div>
-      <div style="font-family:var(--serif);font-size:18px;font-weight:700;color:var(--paper);margin-bottom:14px">Återhämtning = Δ × 1.77 × ℋ × 10 år</div>
-      <div style="font-size:13px;color:#b0a898;line-height:2">
-        <span style="color:#e8c96e;font-family:var(--mono)">ℋ = 1 + (Δ/dur × 10)</span><br>
-        <span style="color:#81c784;font-family:var(--mono)">1.77</span> — empirisk baslinjeasymmetri<br>
-        <span style="color:#e57373;font-family:var(--mono)">Fördröjningskostnad</span> — +ℋ år per år av väntan
-      </div>
+      <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:8px">D5 · S3 · S4</div>
+      <div style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:10px;color:var(--paper)">κ och trösklarna</div>
+      <div style="font-size:13px;color:#b0a898;line-height:1.75">κ = ℋ/8 = 0,2155 är en gräns på demokratinivån: D ≤ κ. Om CDRS ≈ 1 − D motsvarar den CDRS ≥ 0,7845. Den empiriska CDRS-varningen från 0,52 motsvarar D ≤ 0,48. Varje land som passerat κ är därför också i varning. <a href="#hlCalcBlock" data-hlref="S3" style="font-family:var(--mono);font-size:11px;color:var(--info)">S3</a> <a href="#hlCalcBlock" data-hlref="S4" style="font-family:var(--mono);font-size:11px;color:var(--info)">S4</a></div>
     </div>
   </div>
 
@@ -3079,111 +3128,29 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 
   <!-- CALCULATOR -->
   <div id="hlCalculatorWrap" style="background:var(--paper-2);border:1px solid var(--rule);padding:28px;margin-bottom:28px">
-    <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-light);margin-bottom:20px">HL-riskkalkylator — ange värden för V-Dem Liberal Democracy Index</div>
+    <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-light);margin-bottom:20px">HL-kalkylator — värden på V-Dems Liberal Democracy Index (definitionerna D2, D3, D5; satserna S3, S4, S6)</div>
 
     <!-- CASE BUTTONS -->
     <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:10px">Läs in historiskt fall</div>
     <div id="hlCaseGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px;margin-bottom:24px"></div>
 
-    <!-- SLIDERS -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px">
-      <div>
-        <div class="ctrl-label" data-tip="Landets aktuella värde på V-Dems Liberal Democracy Index (0–1). 0 = fullständig autokrati, 1 = fullständig demokrati.">Nuvarande värde</div>
-        <div class="range-row"><input type="range" id="hlScore" min="0" max="1" step="0.01" value="0.52" oninput="hlRender()"><div class="year-display" id="hlScoreV">0.52</div></div>
-        <div class="ctrl-label" data-tip="Det högsta V-Dem-värde landet nådde innan erosionen började. Erosionens storlek = topp − nuvarande.">Toppvärde</div>
-        <div class="range-row"><input type="range" id="hlPeak" min="0" max="1" step="0.01" value="0.79" oninput="hlRender()"><div class="year-display" id="hlPeakV">0.79</div></div>
-        <div class="ctrl-label" data-tip="Hur många år erosionsprocessen har pågått. Tillsammans med omfattningen ger detta erosionstakten — den viktigaste indatan till ℋ.">Erosionens varaktighet (år)</div>
-        <div class="range-row"><input type="range" id="hlEdur" min="1" max="50" step="1" value="16" oninput="hlRender()"><div class="year-display" id="hlEdurV">16</div></div>
-      </div>
-      <div>
-        <div class="ctrl-label" data-tip="Det V-Dem-värde landet försöker nå. Sätt det lika med toppvärdet för full återhämtning, eller lägre för ett delmål.">Återhämtningsmål</div>
-        <div class="range-row"><input type="range" id="hlTarget" min="0" max="1" step="0.01" value="0.79" oninput="hlRender()"><div class="year-display" id="hlTargetV">0.79</div></div>
-        <div class="ctrl-label" data-tip="År av passivitet innan återhämtningsinsatserna börjar. Varje års fördröjning lägger till ℋ år till den förväntade återhämtningstiden.">Fördröjning av intervention (år)</div>
-        <div class="range-row"><input type="range" id="hlDelay" min="0" max="30" step="1" value="5" oninput="hlRender()"><div class="year-display" id="hlDelayV">5</div></div>
-      </div>
+    <!-- SLIDERS (FS-FIX-6) -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-bottom:24px">
+      <div><div class="ctrl-label" data-tip="Landets nuvarande värde på V-Dems Liberal Democracy Index (0–1).">Nuvarande nivå D</div><div class="range-row"><input type="range" id="hlScore" min="0" max="1" step="0.01" value="0.52" oninput="hlRender()"><div class="year-display" id="hlScoreV">0.52</div></div><div class="ctrl-label" data-tip="Det högsta värdet innan erosionen började. Erosionens storlek M⁻ = topp − nuvarande (D2).">Toppnivå före erosionen</div><div class="range-row"><input type="range" id="hlPeak" min="0" max="1" step="0.01" value="0.79" oninput="hlRender()"><div class="year-display" id="hlPeakV">0.79</div></div></div>
+      <div><div class="ctrl-label" data-tip="Den nivå landet försöker nå. Återhämtningens storlek = mål − nuvarande.">Återhämtningsmål</div><div class="range-row"><input type="range" id="hlTarget" min="0" max="1" step="0.01" value="0.79" oninput="hlRender()"><div class="year-display" id="hlTargetV">0.79</div></div><input type="hidden" id="hlEdur" value="16"><input type="hidden" id="hlDelay" value="0"><span id="hlEdurV" hidden></span><span id="hlDelayV" hidden></span></div>
     </div>
-
-    <!-- SCALE BAR -->
     <div style="margin-bottom:20px" id="kappa">
-      <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:8px" data-tip="Grå markör = högsta värde. Mörk markör = nuvarande värde. Skillnaden mellan dem är erosionens omfattning.">Position på demokratiskalan</div>
-      <div style="position:relative;height:24px;border-radius:4px;background:linear-gradient(to right,#1e8449 0%,#d4a017 45%,#c0392b 80%,#8e0000 100%);margin-bottom:4px">
-        <div id="hlPeakMark" style="position:absolute;top:-4px;width:2px;height:32px;border-radius:1px;background:rgba(255,255,255,0.5)"></div>
+      <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:22px">Position på demokratiskalan (0 = autokrati, 1 = demokrati)</div>
+      <div style="position:relative;height:24px;border-radius:4px;background:linear-gradient(to right,#8e0000 0%,#c0392b 22%,#d4a017 48%,#1e8449 100%);margin-bottom:4px">
+        <div style="position:absolute;left:21.55%;top:-6px;height:36px;border-left:2px dashed var(--ink)"><span style="position:absolute;top:-18px;left:-2px;white-space:nowrap;font-family:var(--mono);font-size:10px;color:var(--ink)">κ = 0,2155 (S2)</span></div><div style="position:absolute;left:48%;top:-6px;height:36px;border-left:2px dashed var(--ink)"><span style="position:absolute;top:38px;left:-2px;white-space:nowrap;font-family:var(--mono);font-size:10px;color:var(--ink)">D = 0,48 ⇔ CDRS = 0,52 (S4)</span></div>
+        <div id="hlPeakMark" style="position:absolute;top:-4px;width:2px;height:32px;border-radius:1px;background:rgba(255,255,255,0.8)"></div>
         <div id="hlScoreMark" style="position:absolute;top:-4px;width:3px;height:32px;border-radius:2px;background:var(--ink)"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--ink-light)">
-        <span>1.0 — Demokrati</span><span>κ = 0.216</span><span>0 — Autokrati</span>
-      </div>
+      <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--ink-light);margin-top:22px"><span>0 — Autokrati</span><span>1 — Demokrati</span></div>
     </div>
-
-    <!-- OUTPUT CARDS -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:16px">
-      <div style="background:var(--paper);padding:18px" data-tip="Erosionens omfattning Δ = toppvärde minus nuvarande värde. Hur långt landet har fallit på demokratiskalan.">
-        <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:6px">Erosionens omfattning (Δ)</div>
-        <div style="font-family:var(--serif);font-size:24px;font-weight:700" id="hlEMag">—</div>
-        <div style="font-family:var(--mono);font-size:11px;color:var(--ink-light);margin-top:3px">hur djupt</div>
-      </div>
-      <div style="background:var(--paper);padding:18px;border-left:1px solid var(--rule)" data-tip="Erosionstakt = Δ delat med varaktighet. Detta är den enda drivkraften bakom ℋ. Över 0.05/år signalerar aggressiv nedmontering.">
-        <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:6px">Erosionstakt (Δ/år)</div>
-        <div style="font-family:var(--serif);font-size:24px;font-weight:700" id="hlERate">—</div>
-        <div style="font-family:var(--mono);font-size:11px;color:var(--ink-light);margin-top:3px">nedgångstakt</div>
-      </div>
-      <div style="background:var(--ink);padding:18px;border-left:1px solid var(--rule)" data-tip="ℋ = 1 + (takt × 10). Denna multiplikator tillämpas på återhämtningens varaktighet — inte på återhämtningens storlek. Storleken är alltid samma Δ oavsett ℋ.">
-        <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold-lt);margin-bottom:6px">ℋ multiplier</div>
-        <div style="font-family:var(--serif);font-size:24px;font-weight:700;color:var(--paper)" id="hlH">—</div>
-        <div style="font-family:var(--mono);font-size:11px;color:#888;margin-top:3px">asymmetrifaktor</div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:16px">
-      <div style="background:var(--paper);padding:18px" data-tip="Återhämtningens storlek = målvärde minus aktuellt värde. Detta är samma Δ som för erosionen när målet är full återhämtning. ℋ påverkar INTE storleken — bara tid och takt.">
-        <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:6px">Återhämtningens storlek</div>
-        <div style="font-family:var(--serif);font-size:24px;font-weight:700" id="hlRMag">—</div>
-        <div style="font-family:var(--mono);font-size:11px;color:var(--ink-light);margin-top:3px">hur långt det är att klättra</div>
-      </div>
-      <div style="background:var(--paper);padding:18px;border-left:1px solid var(--rule)" data-tip="Beräknad återhämtningstid: omfattning × 1.77 × ℋ × 10 år. Värdet 1.77 är den empiriska baslinjeasymmetrin innan ℋ tillämpas.">
-        <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:6px">Beräknad återhämtningstid</div>
-        <div style="font-family:var(--serif);font-size:24px;font-weight:700" id="hlRDur">—</div>
-        <div style="font-family:var(--mono);font-size:11px;color:var(--ink-light);margin-top:3px">år till målet</div>
-      </div>
-      <div style="background:var(--paper);padding:18px;border-left:1px solid var(--rule)" data-tip="Asymmetrikvot = återhämtningsår ÷ erosionsår. En kvot på 3× betyder att återhämtningen tar tre gånger längre tid än erosionsprocessen tog.">
-        <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:6px">Asymmetrikvot</div>
-        <div style="font-family:var(--serif);font-size:24px;font-weight:700" id="hlAsym">—</div>
-        <div style="font-family:var(--mono);font-size:11px;color:var(--ink-light);margin-top:3px">återh. ÷ eros. år</div>
-      </div>
-    </div>
-
-    <!-- DELAY COST -->
-    <div style="background:white;border:1px solid var(--rule);padding:20px;margin-bottom:16px" data-tip="Fördröjningskostnad = år av fördröjning × ℋ. Varje år av passivitet lägger till ℋ år till den förväntade återhämtningstiden, eftersom de institutionella skadorna fördjupas och spårberoendet ökar.">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-        <div>
-          <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:4px">Extra återhämtningsår på grund av fördröjning (fördröjning × ℋ)</div>
-          <div style="font-family:var(--serif);font-size:28px;font-weight:700;color:var(--danger)" id="hlDelayCost">—</div>
-        </div>
-        <div>
-          <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:4px">Total förväntad återhämtning (inkl. fördröjning)</div>
-          <div style="font-family:var(--serif);font-size:28px;font-weight:700" id="hlTotal">—</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- INTERACTION MATRIX -->
-    <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:10px" data-tip="Matrisen visar exakt var ℋ utövar sin effekt. Storleken påverkas inte — den är samma Δ i båda riktningarna. Det är i varaktighet och hastighet som asymmetrin märks.">Interaktionsmatris för dimensioner</div>
-    <div style="overflow-x:auto;border:1px solid var(--rule)">
-      <table style="width:100%;border-collapse:collapse;font-size:12px">
-        <thead>
-          <tr style="background:var(--paper-2)">
-            <th style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);padding:8px 12px;border-bottom:2px solid var(--ink);text-align:left" data-tip="Varje rad är en dimension av erosions- och återhämtningsprocessen.">Dimension</th>
-            <th style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);padding:8px 12px;border-bottom:2px solid var(--ink);text-align:left" data-tip="Hur erosionssidan ser ut för den här dimensionen.">Erosion</th>
-            <th style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);padding:8px 12px;border-bottom:2px solid var(--ink);text-align:left" data-tip="Hur återhämtningen skulle se ut utan ℋ — den symmetriska baslinjen.">Återhämtning (bas)</th>
-            <th style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);padding:8px 12px;border-bottom:2px solid var(--ink);text-align:left;color:var(--info)" data-tip="Hur mycket ℋ lägger till ovanpå den grundläggande återhämtningsskattningen. Omfattningen påverkas inte. Varaktigheten tar upp hela kostnaden för ℋ.">ℋ adds</th>
-            <th style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);padding:8px 12px;border-bottom:2px solid var(--ink);text-align:left" data-tip="Den slutliga återhämtningsuppskattningen efter att ℋ har tillämpats.">Återhämtning (slutlig)</th>
-          </tr>
-        </thead>
-        <tbody id="hlMatrix"></tbody>
-      </table>
-    </div>
-
-    <!-- INSIGHT -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:16px"><div style="background:var(--paper);padding:18px"><div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:6px">Erosionens storlek M⁻ (D2)</div><div style="font-family:var(--serif);font-size:24px;font-weight:700" id="hl6EMag">—</div><div style="font-family:var(--mono);font-size:11px;color:var(--ink-light);margin-top:3px" id="hl6EMagS"></div></div><div style="background:var(--paper);padding:18px"><div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:6px">Under κ? (S3)</div><div style="font-family:var(--serif);font-size:24px;font-weight:700" id="hl6Kappa">—</div><div style="font-family:var(--mono);font-size:11px;color:var(--ink-light);margin-top:3px" id="hl6KappaS"></div></div><div style="background:var(--ink);padding:18px"><div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold-lt);margin-bottom:6px">Motsvarande CDRS ≈ 1 − D (A2)</div><div style="font-family:var(--serif);font-size:24px;font-weight:700;color:var(--paper)" id="hl6Cdrs">—</div><div style="font-family:var(--mono);font-size:11px;color:#aaa;margin-top:3px" id="hl6CdrsS"></div></div></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:16px"><div style="background:var(--paper);padding:18px"><div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:6px">Återhämtningens storlek (mål − nuvarande)</div><div style="font-family:var(--serif);font-size:24px;font-weight:700" id="hl6RMag">—</div><div style="font-family:var(--mono);font-size:11px;color:var(--ink-light);margin-top:3px" id="hl6RMagS"></div></div><div style="background:var(--paper);padding:18px"><div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:6px">Krävd kumulativ återhämtningsrörelse ℋ·ΔM (S6)</div><div style="font-family:var(--serif);font-size:24px;font-weight:700" id="hl6Req">—</div><div style="font-family:var(--mono);font-size:11px;color:var(--ink-light);margin-top:3px" id="hl6ReqS"></div></div><div style="background:var(--paper);padding:18px"><div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:6px">Utöver själva avståndet (ℋ − 1)·ΔM (S6)</div><div style="font-family:var(--serif);font-size:24px;font-weight:700" id="hl6Extra">—</div><div style="font-family:var(--mono);font-size:11px;color:var(--ink-light);margin-top:3px" id="hl6ExtraS"></div></div></div>
+    <div style="font-size:12.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:12px">Inga år räknas fram. ℋ är en kvot mellan storlekar, och definitionerna innehåller ingen tidsvariabel (S6). Den tidigare formeln (ℋ = 1 + Δ/varaktighet × 10, återhämtning = Δ × 1,77 × ℋ × 10 år, +ℋ år per års fördröjning) ersattes den 25 november 2026 eftersom den inte följer av definitionerna.</div>
     <div style="margin-top:16px;background:var(--ink);color:var(--paper);padding:16px 20px;border-left:3px solid var(--gold)" id="hlInsight"></div>
   </div>
 
@@ -3198,7 +3165,6 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 
     <div id="hlAccuracyStats" style="margin-top:14px;border:1px solid #d6e9dc;background:#f6fbf7;padding:14px 16px"></div>
 
-    <div id="hlAccuracyDetails" hidden>
     <div style="margin-top:10px;border:1px solid var(--rule);background:#fff;overflow:auto">
       <table style="width:100%;border-collapse:collapse;min-width:760px">
         <thead>
@@ -3224,8 +3190,6 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
     </div>
 
     <div id="hlElectionAnalysis" style="margin-top:10px;border:1px solid #d9e4f2;background:#f7fbff;padding:12px 14px"></div>
-
-    </div>
 
     <div id="hlLockPrompt" style="display:none;margin-top:14px;border:1px solid #e8d8ba;background:#fffbf2;padding:14px">
       <div id="hlLockPromptTitle" style="font-family:var(--serif);font-size:18px;font-weight:700;color:#5b3b09;margin-bottom:6px"></div>
@@ -4452,13 +4416,13 @@ var RFS_INDICATORS = [
     sub:'BEHAVIORAL SIGNALS',
     name:'Risk för återhämtningsasymmetri',
     plainName:'Hur mycket svårare blir detta att åtgärda om det försämras?',
-    plainDesc:'Demokratisk erosion tar i genomsnitt 4.7 år. Återhämtning tar i genomsnitt 8.3 år. Detta är inte ett politiskt påstående — det är ett empiriskt faktum från 47 fall. Denna indikator omvandlar den nuvarande risknivån till ett mått på hur dyr ytterligare försämring blir att vända. Högre värde betyder att nästa nedgång blir oproportionerligt kostsam.',
-    consequence:'Denna indikator besvarar frågan: varför agera nu i stället för att vänta? Därför att varje ytterligare försämringspunkt i genomsnitt kostar 1.77 års återhämtningstid. Tidiga åtgärder är strukturellt billigare.',
+    plainDesc:'Demokratisk erosion tar i genomsnitt 4.7 år. Återhämtning tar i genomsnitt 8.3 år. Det är genomsnittlig episodlängd i V-Dems data om regimförändringsepisoder (ERT; Lührmann och Lindberg 2019). Denna indikator omvandlar den nuvarande risknivån till ett mått på hur dyr ytterligare försämring blir att vända. Högre värde betyder att nästa nedgång blir oproportionerligt kostsam.',
+    consequence:'Denna indikator besvarar frågan: varför agera nu i stället för att vänta? Därför att varje ytterligare enhet som förloras på demokratiskalan i genomsnitt kräver ℋ ≈ 1,72 enheter återhämtningsrörelse (S6). V-Dems data om regimförändringsepisoder (ERT; Lührmann och Lindberg 2019) visar dessutom att återhämtningsepisoder varar längre än erosionsepisoder (i genomsnitt 8,3 mot 4,7 år). Tidiga åtgärder är därför strukturellt billigare.',
     sources:'Härlett från det sammanvägda lagervärdet, viktat med den empiriska asymmetrikvoten mellan erosion och återhämtning.',
     formula:'Sammanvägt värde x (8.3/4.7) / 3 = sammanvägt x 0.589. Kvoten 8.3/4.7 kommer från Lührmann och Lindbergs (2019) V-Dem Working Paper om tidslinjer för demokratisk erosion.',
     thresholdBasis:'Trösklarna är kalibrerade så att passage av 0.52 (VARNING) motsvarar ett land där återhämtningen skulle ta mer än 6 år om försämringen fortsätter i nuvarande takt — den yttre gränsen för återhämtning inom en enda valcykel.',
     inverted:true, unit:'score',
-    desc:'Aktuell risk viktad med asymmetrin i återhämtningskostnad. Varje enhet av ytterligare försämring kostar i genomsnitt 1.77 års återhämtningstid.',
+    desc:'Aktuell risk viktad med kvoten mellan återhämtnings- och erosionsepisodernas varaktighet (8,3/4,7 år). Tidskvoten är en empirisk uppgift och skild från ℋ = 1,724, som är en kvot mellan storlekar (D3).',
     thresholds:[0.25, 0.38, 0.52, 0.66, 0.80],
     getValue: function(c,fsi,yrs){ var v=latestLayerVal(c,yrs,'composite'); return v!==null?(v*(8.3/4.7)/3):null; },
     timeframes: ['PREVENTIVE','LONG','MEDIUM','SHORT','IMMEDIATE'],
@@ -5492,7 +5456,7 @@ function generateNarrative(country, years, dataByYear, fsiData) {
   // Outlook
   var p4 = '';
   if (endScore > 0.65) {
-    p4 = '<strong>Utsikter:</strong> Vid nuvarande risknivåer, ' + cname + ' befinner sig i den zon där FieldShift-modellens återhämtningsasymmetri får operativ betydelse. Det genomsnittliga landet med detta sammanvägda värde behöver 8.3 år av uthållig intervention för att återgå till låg risk. Förebyggande åtgärder är inte längre möjliga — aktivt genomförande av Gap Reduction Sequence krävs.';
+    p4 = '<strong>Utsikter:</strong> Vid nuvarande risknivåer, ' + cname + ' befinner sig i den zon där FieldShift-modellens återhämtningsasymmetri får operativ betydelse. I V-Dems data om regimförändringsepisoder (ERT; Lührmann och Lindberg 2019) varar den genomsnittliga återhämtningsepisoden 8,3 år; det är ett genomsnitt över länder, inte en prognos för just detta land. Förebyggande åtgärder är inte längre möjliga — aktivt genomförande av Gap Reduction Sequence krävs.';
   } else if (traj === 'mild_erosion' || traj === 'significant_erosion') {
     p4 = '<strong>Utsikter:</strong> Den nuvarande banan — om den förblir oförändrad — kommer att föra ' + cname + ' in i VARNINGSZONEN inom ' + (Math.max(1, Math.round((0.52 - endScore) / Math.max(0.001, (endScore-startScore)/nYears)))) + ' år med den observerade takten. Detta är fönstret för förebyggande åtgärder: det mest kostnadseffektiva tillfället att aktivera Gap Reduction Sequence. Ju längre åtgärder skjuts upp, desto högre blir återhämtningskostnaden.';
   } else if (traj === 'stable') {
@@ -6286,7 +6250,7 @@ function makeSystemSlide(audience) {
     children: ['Demokrati behöver pengar, rättvisa regler, ärliga ledare och fri press', 'När någon av dessa försvagas blir demokratin sjuk', 'FieldShift är en termometer för demokratins hälsa', '163 länder mätta, 2010 till 2023'],
     students: ['5 risklager: Finansiellt · Konstitutionellt · Organisatoriskt · Beteendemässigt · Utökat', '163 länder följda från 2010 till 2023 med 8 offentliga dataset', 'Högre värde = större demokratisk risk', 'Det utökade lagret leder alla andra med 2–4 år'],
     journalists: ['Fem mekanismer: finansiell integritet, konstitutionella regler, institutionell neutralitet, ledares beteende, pressfrihet', '163 länder, 8 källdataset, 2010–2023', 'Varje indikator visar status (NOMINAL till FAULT) och tidsfönster för åtgärd', 'Data är öppen källkod och fullt replikerbara'],
-    politicians: ['FieldShift mäter gapet mellan mandat och kapacitet: vad väljarna har bemyndigat jämfört med vad institutionerna kan leverera', '5 risklager · 28 Red Flag-indikatorer · Gap Reduction Sequence för insatser', 'Validerad mot 47 historiska fall av demokratisk tillbakagång (V-Dem 1990–2022)', 'Tidiga åtgärder kostar 1.77× mindre än sena åtgärder (asymmetri mellan erosion och återhämtning)'],
+    politicians: ['FieldShift mäter gapet mellan mandat och kapacitet: vad väljarna har bemyndigat jämfört med vad institutionerna kan leverera', '5 risklager · 28 Red Flag-indikatorer · Gap Reduction Sequence för insatser', 'Validerad mot 47 historiska fall av demokratisk tillbakagång (V-Dem 1990–2022)', 'Varje förlorad enhet kräver i genomsnitt ℋ ≈ 1,72 enheter återhämtningsrörelse (asymmetri mellan erosion och återhämtning, S6)'],
     scholars: ['Sammanvägt index: likaviktat medelvärde av 5 normaliserade lagervärden (finansiellt, konstitutionellt, organisatoriskt, beteendemässigt, utökat)', 'Trösklar kalibrerade mot V-Dems fall av demokratisk tillbakagång (N=89, 1990–2022)', 'FieldShift-index (FSI): OLS-härlett gap mellan mandat och kapacitet med analys av banan', 'Återhämtningsasymmetri: μ(erosion)=4.7 år, μ(återhämtning)=8.3 år (Lührmann & Lindberg 2019)'],
     officials: ['28 indikatorer i 6 delsystem – var och en med föreskriven åtgärd, tidsfönster och mekanism', 'Status i 5 nivåer (NOMINAL → FAULT) kalibrerad mot empiriska erosionsfall', 'Sekvens för gapminskning: interventionsprotokoll i 6 faser kopplat till FieldShift-tröskeln', 'All data är öppen källkod; metoden är fullständigt dokumenterad för granskning']
   };
@@ -6404,7 +6368,7 @@ function makeNarrativeSlide(text, title, audience) {
 function makeConclusionSlide(context, audience) {
   var msgs = {
     children: { title:'Vad lärde vi oss?', body:'Demokratin behöver att alla dess delar fungerar tillsammans. När en del försvagas är även de andra i fara. Den goda nyheten: vi kan mäta det, och vi kan åtgärda det.' },
-    students: { title:'Viktiga slutsatser', body:'Demokratisk erosion är mätbar, förutsägbar och — om den upptäcks tidigt — reversibel. FieldShift-data visar att tidiga åtgärder kostar mycket mindre än sen intervention. Återhämtning tar 1.77× längre tid än erosion.' },
+    students: { title:'Viktiga slutsatser', body:'Demokratisk erosion är mätbar, förutsägbar och — om den upptäcks tidigt — reversibel. FieldShift-data visar att tidiga åtgärder kostar mycket mindre än sen intervention. I genomsnitt kräver det ℋ ≈ 1,72 gånger så mycket rörelse på demokratiskalan att återhämta en förlust som förlusten själv (en kvot mellan storlekar, inte tider).' },
     journalists: { title:'Berättelsen i data', body:'FieldShift-systemet ger varje politisk berättelse en faktamässig ryggrad: vad som förändrades, i vilken mekanism, i vilken takt och vad historiska prejudikat säger om sannolika utfall.' },
     politicians: { title:'Politiska implikationer', body:'Gapet mellan mandat och kapacitet är den centrala diagnosen. Där gapet ökar erbjuder Gap Reduction Sequence ett precist interventionsprotokoll i sex faser. Tidsfönstren är kalibrerade efter valcykler.' },
     scholars: { title:'Forskningsagenda', body:'Viktiga öppna frågor: (1) Tröskelkalibreringarnas giltighet mellan länder. (2) Variation i det utökade lagrets förvarningstid beroende på regimtyp. (3) Heterogenitet i återhämtningsasymmetrin. (4) FieldShift-mätning på subnationell nivå. All data och kod är öppen för replikering.' },
@@ -7451,17 +7415,17 @@ function researchTab(tab) {
 
 var BENEFIT_CONCEPTS = {
   hconstant:{title:'ℋ = 1.724',text:'Hedlund-Leijon-konstanten. För varje steg demokratin faller krävs 1.724 steg för att återhämta sig. Validerad på 200 år av V-Dem-data (1789–2024, 200 länder, 25,709 observationer).'},
-  kappa:{title:'κ = 0.216',text:'Den kritiska tröskeln. När ett lands demokrativärde faller under 0.216 (ℋ/8) accelererar systemet mot autokrati. Återhämtning är fortfarande möjlig men kräver extraordinära ansträngningar.'},
-  asymmetry:{title:'Asymmetri',text:'Demokratisk erosion tar i genomsnitt 4.7 år; återhämtning tar 8.3 år. Kvoten 1.77 är kärnan i Hedlund-Leijon-principen.'},
-  earlywarning:{title:'Tidig varning',text:'FieldShift-systemet identifierar länder i riskzonen 3–5 år före en demokratisk kollaps. Varningströskel κ ≈ 0.22 på CDRS-skalan. 86.7 % träffsäkerhet utanför urvalet, AUC = 0.96.'},
+  kappa:{title:'κ = 0,2155',text:'Den kritiska tröskeln κ = ℋ/8 = 0,2155 på demokratinivån: D ≤ κ (D5, S3). Om CDRS ≈ 1 − D motsvarar den CDRS ≥ 0,7845. Att länder accelererar mot autokrati under κ är en hypotes som inte har visats.'},
+  asymmetry:{title:'Asymmetri',text:'Två olika kvoter. Kärnan i Hedlund-Leijon-principen är ℋ = 1,724: genomsnittlig återhämtningsstorlek delat med genomsnittlig erosionsstorlek (D3). Därutöver varar erosionsepisoder i genomsnitt 4,7 år och återhämtningsepisoder 8,3 år i V-Dems data om regimförändringsepisoder (ERT; Lührmann och Lindberg 2019) (en tidskvot på ungefär 1,77). Tidskvoten är inte ℋ.'},
+  earlywarning:{title:'Tidig varning',text:'FieldShift-systemet identifierar länder i riskzonen 3–5 år före en demokratisk kollaps. Varningströskel på CDRS-skalan: 0,52 (empiriskt kalibrerad, A3). Ledtidsgränsen c_L ≈ 0,22 på CDRS-skalan ger den tidigaste signalen, i genomsnitt 3,3 år före kollaps; den är empirisk och är inte κ (A6, S18). κ = ℋ/8 = 0,2155 hör till demokratinivån och motsvarar CDRS ≈ 0,78 (S3). Test utanför urvalet (träning 2010–2018, test 2019–2023): 13 av 15 länders utfall rätt (86,7 %; precision 1,00, recall 0,75, F1 0,857; AUC 0,96). Studien omfattar 17 bekräftade kollapsepisoder 2010–2023 (JoD-manuset v8, tabell 1 och slutnot 4). Testmängden är liten (n = 15).'},
   pointnoreturn:{title:'Punkten utan återvändo',text:'CDRS ≈ 0.66. Bortom detta har demokratiska system i praktiken kollapsat. Belarus (0.910), Ryssland (0.920) och Myanmar (0.858) befinner sig i den autokratiska attraktorn.'},
-  entropy:{title:'Demokratisk entropi',text:'Mäter systemets osäkerhet och fragmentering. Hög entropi tyder på instabilitet och närmande mot κ-tröskeln. Shannon-entropi kan beräknas från V-Dem-data.'},
-  landscape:{title:'Stabilitetslandskap',text:'Demokrati som en kula som rullar i ett landskap med två dalar: demokratidalen (stabil) och autokratigropen (kollapsad). Institutionell stress trycker kulan uppför sluttningen. När den passerar åsen (κ = 0.216) accelererar den mot autokrati.'},
+  entropy:{title:'Demokratisk entropi',text:'Mäter systemets osäkerhet och fragmentering. Hög entropi tyder på instabilitet och rörelse mot varningsgränserna. Shannon-entropi kan beräknas från V-Dem-data.'},
+  landscape:{title:'Stabilitetslandskap',text:'Demokrati som en kula som rullar i ett landskap med två dalar: demokratidalen (stabil) och autokratigropen (kollapsad). Institutionell stress trycker kulan uppför sluttningen. Bortom åsen (CDRS ≈ 0,66 i JoD-manuset) antas kulan accelerera mot autokrati. Åsen är inte κ: κ = 0,2155 är en gräns på demokratinivån (S3).'},
   cdrs:{title:'CDRS',text:'Sammanvägt demokratiskt riskvärde (0–1). Väger samman fem dimensioner: finansiell integritet, konstitutionella begränsningar, organisatorisk konkurrens, demokratiska normer och institutionell motståndskraft. Högre värden = högre risk.'},
   fiwvsvdem:{title:'FIW vs V-Dem',text:'V-Dem (ℋ = 1.724) mäter demokrati brett, inklusive institutioner, rättsstatens principer och civilsamhället. Freedom House/FIW (ℋ = 0.970) mäter politiska rättigheter och medborgerliga fri- och rättigheter snävare. Skillnaden tyder på att institutionella faktorer driver asymmetrin.'},
   resilience:{title:'Demokratisk motståndskraft',text:'Ett systems förmåga att stå emot och återhämta sig från stress. En funktion av institutionell styrka, civilsamhällets robusthet och historisk erfarenhet.'},
-  polandeffect:{title:'Polen-effekten',text:'Polen nådde CDRS 0.646 2019, långt över κ. Men efter valet 2023 (74% valdeltagande) vände banan. Detta visar att tröskeln markerar ökad risk, inte oundviklig kollaps.'},
-  tipping:{title:'Tippningspunkt',text:'κ = 0.216 är tipppunkten. Under denna tröskel är återhämtning fortfarande möjlig men kräver extraordinära insatser; över den är den demokratiska stabiliteten mycket mer robust.'},
+  polandeffect:{title:'Polen-effekten',text:'Polen nådde CDRS 0,646 2019, långt över ledtidsgränsen c_L ≈ 0,22 och varningsgränsen 0,52. Men efter valet 2023 (74% valdeltagande) vände banan. Detta visar att tröskeln markerar ökad risk, inte oundviklig kollaps.'},
+  tipping:{title:'Tippningspunkt',text:'κ = ℋ/8 = 0,2155 är den antagna tippningspunkten på demokratinivån (D5, S3): under den är återhämtning fortfarande möjlig men kräver extraordinära insatser. Att stabiliteten ändrar karaktär vid κ är en hypotes, inte ett visat resultat.'},
   vdem:{title:'V-Dem-data',text:'Varieties of Democracy tillhandahåller breda, flerdimensionella institutionella indikatorer som används för långsiktig jämförande landanalys och validering av asymmetrin.'},
   bootstrap:{title:'Bootstrap',text:'Validering baserad på omsampling, använd för att skatta hur robusta asymmetrikoefficienterna och tröskelbeteendet är över olika modellspecifikationer.'}
 };
@@ -9212,12 +9176,15 @@ try {
     hlRenderElectionAnalysis(payload);
   }
 
-  window.hlRecalculatePredictionAccuracy = function(){
-    var details = document.getElementById('hlAccuracyDetails');
-    if (details) details.hidden = !window.hlGraphUtils;
-    if (!window.hlGraphUtils) {
-      var panel = document.getElementById('hlAccuracyStats');
-      if (panel) panel.innerHTML = 'Omräkningen är inte tillgänglig i den här versionen. Se <a href="voteshift.html?lang=sv">VoteShift</a> för publicerade valtester.';
+  window.hlRecalculatePredictionAccuracy = function(){ /* FS-FIX-1 */ /* FS-FIX-3 */
+    var __st = (window.hlGraphUtils && typeof window.hlGraphUtils.computeAccuracy === 'function') ? window.hlGraphUtils.computeAccuracy() : null;
+    if (!__st || !__st.outcomes.length) {
+      var sb = document.getElementById('hlAccuracyStats');
+      var now = new Date(), past = HL_PREDICTION_ELECTIONS.filter(function(e){ return new Date(e.date) < now; }).sort(function(a,b){ return a.date < b.date ? 1 : -1; });
+      if (sb) sb.innerHTML = '<div style="padding:10px 12px;border-left:3px solid #9a6a0c;background:#fbf3e2;font-size:13px;line-height:1.6"><b>Prognosträffsäkerhet: väntar på validerade utfall</b><br>Inga val med validerat utfall har lagts in ännu, så träffsäkerheten kan inte beräknas. Valen nedan har genomförts; FieldShifts poäng före valet visas. Valideringen görs mot V-Dem v17 (väntas mars 2027).</div>'
+        + '<table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:12px"><tr style="text-align:left;font-family:var(--mono);font-size:10px;text-transform:uppercase;color:var(--ink-light)"><th>Land</th><th>Datum</th><th>FS-poäng före valet</th><th>Status</th></tr>'
+        + past.map(function(e){ return '<tr style="border-top:1px solid #eee"><td>' + e.country + ' · ' + e.type + '</td><td>' + e.date + '</td><td>' + e.score.toFixed(3) + '</td><td>väntar på validering</td></tr>'; }).join('') + '</table>';
+      var rowsEl = document.getElementById('hlPastComparisonRows'); if (rowsEl) rowsEl.innerHTML = '';
       return null;
     }
     var stats = window.hlGraphUtils.computeAccuracy();
@@ -9331,7 +9298,7 @@ try {
     if (!out) return;
     var score = hlLatestCountryScore(item.country, item.score);
     var band = hlScoreBand(score);
-    var modelText = record.modelPredictionText || hlGetModelPrediction(item, score);
+    var modelText = fsLockedText(record.modelPredictionText, hlGetModelPrediction(item, score), record.lang);
     var verifyDate = new Date(hlDateObj(item.date).getTime() + 24*60*60*1000);
     out.innerHTML = '<div style="border:1px solid #d8c7a0;background:#fffef9;padding:16px">'
       + '<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px">'
@@ -9605,7 +9572,7 @@ var DEEPER_ANALYSIS = {
   // ── POLAND ──────────────────────────────────────────────────
   'Poland': {
     title: 'Polen FieldShift-analys: omsvängningsfallet',
-    content: `\n<strong style="font-size:16px">I. Institutionell position (2023)</strong>\n<p><strong>CDRS-värde: ~0.58 (vändning efter 2023 pågår).</strong> Polen är det viktigaste återhämtningsfallet i FieldShift-datasetet. På toppen (2019, CDRS 0.646) låg det långt över det empiriska kollapsgolvet (0.36) och närmade sig punkten utan återvändo (0.66). Parlamentsvalet i oktober 2023 — med 74% valdeltagande, det högsta sedan 1919 — vände banan. Detta är datasetets tydligaste belägg för att varningsfönstret inte bara är teoretiskt.</p>\n\n<p><strong>Zonhistorik:</strong></p>\n<ul style="margin-left:20px">\n<li><strong>2015:</strong> CDRS 0.362 — passerade området för tidig varning (κ ≈ 0.22). Ledtid: 3 år innan V-Dem registrerade autokratiseringsepisoden kring 2018.</li>\n<li><strong>2019:</strong> CDRS 0.646 — inom 0.02 från Point of No Return. Detta är det närmaste datasetet registrerar av en återvändo från åsen.</li>\n<li><strong>2023 onward:</strong> Omsvängning pågår. Återhämtning till under varningsregionen beräknas kräva ytterligare 5–8 år av uthållig institutionell återuppbyggnad.</li>\n</ul>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>II. Hedlund-Leijon-konstanten tillämpad</strong><br>\nℋ = 1.724. Återhämtning tar strukturellt 1.77× längre tid än erosion. Polen eroderade i ungefär 8 år (2015–2023). Det innebär en minsta återuppbyggnadsperiod på 8 × 1.724 ≈ 14 år — men eftersom vändningen började innan åsen passerades är den faktiska uppskattningen kortare: 5–8 år av konsekventa institutionella reformer om farten håller i sig.</p>\n\n<p><strong>Vad återhämtning kräver efter att 0.64 har passerats:</strong></p>\n<ul style="margin-left:20px">\n<li>Återställning av domstolsväsendet: domarutnämningar från PiS-eran måste rullas tillbaka — politiskt omstritt och juridiskt ifrågasatt.</li>\n<li>Ombalansering av medierna: statens kontroll över public service måste hävas; detta skedde snabbt 2024 men är fortfarande omstritt.</li>\n<li>Valintegritet: Manipulerade valkretsgränser och ändringar i vallagen kräver parlamentariska beslut.</li>\n<li>Konstitutionell normalisering: Författningsdomstolen förblir förlamad av tvisten om dubbla utnämningar — det djupaste strukturella problemet.</li>\n</ul>\n\n<p style="border-left:3px solid #1e8449;padding-left:16px;margin-top:16px"><strong>III. CDRS med fem lager i Polen</strong></p>\n<p><strong>Lager 2 (konstitutionellt):</strong> Primär erosionsmekanism — författningsdomstolen togs över 2015–2016 genom olagliga utnämningar och lagstiftning som körde över den. Återhämtningen är svårast här.</p>\n<p><strong>Lager 3 (organisatoriskt):</strong> Valkonkurrensen fanns kvar; oppositionen undertrycktes aldrig formellt. Därför var en vändning möjlig.</p>\n<p><strong>Lager 4 (demokratiska normer):</strong> Övertagandet av public service (TVP) var den mest synliga erosionen. Snabbt institutionellt övertagande i slutet av 2023–början av 2024, men rättsliga prövningar pågår.</p>\n<p><strong>Lager 1 (finansiellt):</strong> Mindre snedvridet än Ungern — den oligarkiska erövringen nådde aldrig ungerskt djup. Det lämnade finansiella kanaler för styrning kvar efter övergången.</p>\n<p><strong>Lager 5 (motståndskraft):</strong> Militären och den lokala styrningen förblev relativt intakta under Natos begränsningar. En avgörande fördel jämfört med Ungern.</p>\n\n<p style="border-left:3px solid #f39c12;padding-left:16px;margin-top:16px"><strong>IV. Skillnaden mellan Polen och Ungern: den centrala fallstudien</strong></p>\n<p>Polen och Ungern passerade varningsregionen inom 3 år från varandra vid nästan identiska CDRS-värden (0.362 resp. 0.364). De representerar olika politiska svar på samma strukturella signal. Ungerns fönster stängdes; Polen tog vara på sitt.</p>\n<p><strong>Varför vände Polen när Ungern inte gjorde det?</strong></p>\n<ul style="margin-left:20px">\n<li>Oppositionens samordning: I Polen enade en bred koalition tre ideologiskt olika partier. Ungerns opposition förblev splittrad.</li>\n<li>Djupet i den institutionella erövringen: Ungerns oligarkiska erövring trängde djupare och snabbare. Polens statliga medier togs över men domstolsväsendet tämjdes aldrig helt.</li>\n<li>Valintegritet: Polens valregler var försämrade men tillät fortfarande en verklig valtävlan. Ungerns regler hade snedvridits betydligt mer genomgripande.</li>\n<li>Internationell påverkan: EU:s anslutningsmedel var viktigare för Polens ekonomiska stabilitet, vilket gav Bryssel en verklig hävstång som saknades (eller inte användes) gentemot Ungern.</li>\n</ul>\n\n<p style="border-left:3px solid #c0392b;padding-left:16px;margin-top:16px"><strong>V. Outlook</strong></p>\n<p>Polen är i aktiv återhämtning men långt ifrån säkert. Låsningen kring konstitutionsdomstolen innebär att det konstitutionella lagret fortfarande är dysfunktionellt. Om den nuvarande koalitionen spricker kommer de institutionella reformerna att avstanna och banan kan vända igen. Polen visar att en demokratisk omsvängning är möjlig — och samtidigt att den kräver en uthållig politisk koalition, inte bara ett valresultat. Kulan är tillbaka på sluttningen men ännu inte i dalen.</p>\n    `
+    content: `\n<strong style="font-size:16px">I. Institutionell position (2023)</strong>\n<p><strong>CDRS-värde: ~0.58 (vändning efter 2023 pågår).</strong> Polen är det viktigaste återhämtningsfallet i FieldShift-datasetet. På toppen (2019, CDRS 0.646) låg det långt över det empiriska kollapsgolvet (0.36) och närmade sig punkten utan återvändo (0.66). Parlamentsvalet i oktober 2023 — med 74% valdeltagande, det högsta sedan 1919 — vände banan. Detta är datasetets tydligaste belägg för att varningsfönstret inte bara är teoretiskt.</p>\n\n<p><strong>Zonhistorik:</strong></p>\n<ul style="margin-left:20px">\n<li><strong>2015:</strong> CDRS 0.362 — passerade området för tidig varning (ledtidsgräns c_L ≈ 0,22, A6). Ledtid: 3 år innan V-Dem registrerade autokratiseringsepisoden kring 2018.</li>\n<li><strong>2019:</strong> CDRS 0.646 — inom 0.02 från Point of No Return. Detta är det närmaste datasetet registrerar av en återvändo från åsen.</li>\n<li><strong>2023 onward:</strong> Omsvängning pågår. Återhämtning till under varningsregionen beräknas kräva ytterligare 5–8 år av uthållig institutionell återuppbyggnad.</li>\n</ul>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>II. Hedlund-Leijon-konstanten tillämpad</strong><br>\nℋ = 1,724 är en kvot mellan storlekar (D3): i genomsnitt måste återhämtningen täcka ungefär 1,72 gånger så stor sträcka på demokratiskalan som förlusten. Den är ingen tidsmultiplikator, så Polens ungefär 8 år av erosion (2015–2023) kan inte multipliceras med ℋ för att få år (S6). Därutöver ger V-Dems data om regimförändringsepisoder (ERT; Lührmann och Lindberg 2019) en genomsnittlig varaktighet på 4,7 år för erosion och 8,3 år för återhämtning; det är ett genomsnitt över länder, inte en prognos för Polen. Uppskattningen 5–8 år av konsekventa institutionella reformer är en kvalitativ bedömning och härleds inte ur ℋ.</p>\n\n<p><strong>Vad återhämtning kräver efter att 0.64 har passerats:</strong></p>\n<ul style="margin-left:20px">\n<li>Återställning av domstolsväsendet: domarutnämningar från PiS-eran måste rullas tillbaka — politiskt omstritt och juridiskt ifrågasatt.</li>\n<li>Ombalansering av medierna: statens kontroll över public service måste hävas; detta skedde snabbt 2024 men är fortfarande omstritt.</li>\n<li>Valintegritet: Manipulerade valkretsgränser och ändringar i vallagen kräver parlamentariska beslut.</li>\n<li>Konstitutionell normalisering: Författningsdomstolen förblir förlamad av tvisten om dubbla utnämningar — det djupaste strukturella problemet.</li>\n</ul>\n\n<p style="border-left:3px solid #1e8449;padding-left:16px;margin-top:16px"><strong>III. CDRS med fem lager i Polen</strong></p>\n<p><strong>Lager 2 (konstitutionellt):</strong> Primär erosionsmekanism — författningsdomstolen togs över 2015–2016 genom olagliga utnämningar och lagstiftning som körde över den. Återhämtningen är svårast här.</p>\n<p><strong>Lager 3 (organisatoriskt):</strong> Valkonkurrensen fanns kvar; oppositionen undertrycktes aldrig formellt. Därför var en vändning möjlig.</p>\n<p><strong>Lager 4 (demokratiska normer):</strong> Övertagandet av public service (TVP) var den mest synliga erosionen. Snabbt institutionellt övertagande i slutet av 2023–början av 2024, men rättsliga prövningar pågår.</p>\n<p><strong>Lager 1 (finansiellt):</strong> Mindre snedvridet än Ungern — den oligarkiska erövringen nådde aldrig ungerskt djup. Det lämnade finansiella kanaler för styrning kvar efter övergången.</p>\n<p><strong>Lager 5 (motståndskraft):</strong> Militären och den lokala styrningen förblev relativt intakta under Natos begränsningar. En avgörande fördel jämfört med Ungern.</p>\n\n<p style="border-left:3px solid #f39c12;padding-left:16px;margin-top:16px"><strong>IV. Skillnaden mellan Polen och Ungern: den centrala fallstudien</strong></p>\n<p>Polen och Ungern passerade varningsregionen inom 3 år från varandra vid nästan identiska CDRS-värden (0.362 resp. 0.364). De representerar olika politiska svar på samma strukturella signal. Ungerns fönster stängdes; Polen tog vara på sitt.</p>\n<p><strong>Varför vände Polen när Ungern inte gjorde det?</strong></p>\n<ul style="margin-left:20px">\n<li>Oppositionens samordning: I Polen enade en bred koalition tre ideologiskt olika partier. Ungerns opposition förblev splittrad.</li>\n<li>Djupet i den institutionella erövringen: Ungerns oligarkiska erövring trängde djupare och snabbare. Polens statliga medier togs över men domstolsväsendet tämjdes aldrig helt.</li>\n<li>Valintegritet: Polens valregler var försämrade men tillät fortfarande en verklig valtävlan. Ungerns regler hade snedvridits betydligt mer genomgripande.</li>\n<li>Internationell påverkan: EU:s anslutningsmedel var viktigare för Polens ekonomiska stabilitet, vilket gav Bryssel en verklig hävstång som saknades (eller inte användes) gentemot Ungern.</li>\n</ul>\n\n<p style="border-left:3px solid #c0392b;padding-left:16px;margin-top:16px"><strong>V. Outlook</strong></p>\n<p>Polen är i aktiv återhämtning men långt ifrån säkert. Låsningen kring konstitutionsdomstolen innebär att det konstitutionella lagret fortfarande är dysfunktionellt. Om den nuvarande koalitionen spricker kommer de institutionella reformerna att avstanna och banan kan vända igen. Polen visar att en demokratisk omsvängning är möjlig — och samtidigt att den kräver en uthållig politisk koalition, inte bara ett valresultat. Kulan är tillbaka på sluttningen men ännu inte i dalen.</p>\n    `
   },
 
   // ── TURKEY ──────────────────────────────────────────────────
@@ -9617,7 +9584,7 @@ var DEEPER_ANALYSIS = {
   // ── VENEZUELA ───────────────────────────────────────────────
   'Venezuela': {
     title: 'Venezuela FieldShift-analys: fullständig autokratisk konsolidering',
-    content: `\n<strong style="font-size:16px">I. Institutionell position</strong>\n<p><strong>CDRS: ~0.89+ — Venezuela gick in i zonen med eskalerande risk vid CDRS 0.770 vid bekräftad start (2013), vilket gör det till det enda fallet i datasetet med 17 kollapser som redan var förbi åsen när kollapsen formellt registrerades.</strong> Den fullständiga autokratiska konsolideringen var genomförd 2017. Venezuela är det mest extrema fallet i datasetet: djupast erosion, högst stigberoende, längst återhämtningshorisont.</p>\n\n<p style="border-left:3px solid #c0392b;padding-left:16px;margin-top:16px"><strong>II. HL-konstanten: varför Venezuela är ett generationsproblem</strong><br>\nℋ = 1.724. Venezuelas erosionsbana sträckte sig från omkring 1999 (Chávez presidentskap) till 2017 (fullständig konsolidering) — ungefär 18 år av kontinuerlig demokratisk erosion. Tillämpas återhämtningsasymmetrin: 18 × 1.724 ≈ 31 år som minsta tidslinje för institutionell återuppbyggnad under ideala förhållanden. Venezuelas kollapsgolv (0.89+) innebär att även denna uppskattning är optimistisk. Inget fall i datasetet visar återhämtning från ett jämförbart djup utan fullständigt regimbyte.</p>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>III. Profil över fem lager</strong></p>\n<p><strong>Konstitutionellt lager:</strong> 1999 års konstitution gav Chávez makt att skriva om det konstitutionella ramverket; den nationella konstituerande församlingen 2017 kringgick den befintliga nationalförsamlingen helt. De konstitutionella begränsningarna är i praktiken noll.</p>\n<p><strong>Finansiellt lager:</strong> PDVSA (det statliga oljebolaget) omvandlades från ett professionellt företag till ett redskap för klientelism. Den finansiella transparensen kollapsade när oljeintäkter finansierade parallella styrningsstrukturer utanför de formella budgetprocesserna.</p>\n<p><strong>Organisatoriska lagret:</strong> CNE (valmyndigheten) var tagen i besittning 2005. Oppositionskandidaten Capriles vann 2012 med liten marginal — den sista meningsfulla valtävlingen. Valet 2018 bedömdes allmänt som valfusk.</p>\n<p><strong>Normlagret:</strong> Den oberoende pressen eliminerades genom ekonomisk strypning, rättsliga trakasserier och byte av ägare. Den akademiska friheten urholkades genom att universitetens styrning togs över och lärare emigrerade.</p>\n<p><strong>Motståndskraftslagret:</strong> Militären omvandlades från en professionell institution till ett narkoklientelistiskt nätverk. FANB-officerare fick ekonomiska intressen i Maduroregimens överlevnad — institutionell lojalitet köptes i stället för att byggas.</p>\n\n<p style="border-left:3px solid #8e44ad;padding-left:16px;margin-top:16px"><strong>IV. Utsikter</strong></p>\n<p>Venezuela är exemplet på den mest pessimistiska änden av FieldShifts återhämtningskalkyl. Kulan har inte bara passerat åsen — den har rullat djupt ner i den autokratiska bassängen, och gravitationen verkar nu mot en återgång. Den humanitära krisen (6 miljoner migranter, BNP krympte 75% 2013–2020) innebär en förstörelse av socialt kapital som förvärrar problemet med institutionell återhämtning. Varje rimlig återhämtningsväg kräver: avhopp eller splittring inom militären, en övergångsöverenskommelse förhandlad med regimens eliter och varaktigt internationellt återuppbyggnadsstöd. FieldShift-modellen tyder på att detta är ett institutionellt återuppbyggnadsprojekt på 20–40 år från nuvarande läge.</p>\n    `
+    content: `\n<strong style="font-size:16px">I. Institutionell position</strong>\n<p><strong>CDRS: ~0.89+ — Venezuela gick in i zonen med eskalerande risk vid CDRS 0.770 vid bekräftad start (2013), vilket gör det till det enda fallet i datasetet med 17 kollapser som redan var förbi åsen när kollapsen formellt registrerades.</strong> Den fullständiga autokratiska konsolideringen var genomförd 2017. Venezuela är det mest extrema fallet i datasetet: djupast erosion, högst stigberoende, längst återhämtningshorisont.</p>\n\n<p style="border-left:3px solid #c0392b;padding-left:16px;margin-top:16px"><strong>II. HL-konstanten: varför Venezuela är ett generationsproblem</strong><br>\nℋ = 1.724. Venezuelas erosionsbana sträckte sig från omkring 1999 (Chávez presidentskap) till 2017 (fullständig konsolidering) — ungefär 18 år av kontinuerlig demokratisk erosion. ℋ = 1,724 är en kvot mellan storlekar, inte en tidsmultiplikator, så de 18 åren av erosion kan inte multipliceras med ℋ för att få år av återuppbyggnad (S6). Det ℋ säger är att återhämtningen i genomsnitt måste täcka ungefär 1,72 gånger så stor sträcka på demokratiskalan som förlusten. Venezuelas kollapsgolv (0,89+) innebär att sträckan att återhämta är mycket stor. Inget fall i datasetet visar återhämtning från ett jämförbart djup utan fullständigt regimbyte.</p>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>III. Profil över fem lager</strong></p>\n<p><strong>Konstitutionellt lager:</strong> 1999 års konstitution gav Chávez makt att skriva om det konstitutionella ramverket; den nationella konstituerande församlingen 2017 kringgick den befintliga nationalförsamlingen helt. De konstitutionella begränsningarna är i praktiken noll.</p>\n<p><strong>Finansiellt lager:</strong> PDVSA (det statliga oljebolaget) omvandlades från ett professionellt företag till ett redskap för klientelism. Den finansiella transparensen kollapsade när oljeintäkter finansierade parallella styrningsstrukturer utanför de formella budgetprocesserna.</p>\n<p><strong>Organisatoriska lagret:</strong> CNE (valmyndigheten) var tagen i besittning 2005. Oppositionskandidaten Capriles vann 2012 med liten marginal — den sista meningsfulla valtävlingen. Valet 2018 bedömdes allmänt som valfusk.</p>\n<p><strong>Normlagret:</strong> Den oberoende pressen eliminerades genom ekonomisk strypning, rättsliga trakasserier och byte av ägare. Den akademiska friheten urholkades genom att universitetens styrning togs över och lärare emigrerade.</p>\n<p><strong>Motståndskraftslagret:</strong> Militären omvandlades från en professionell institution till ett narkoklientelistiskt nätverk. FANB-officerare fick ekonomiska intressen i Maduroregimens överlevnad — institutionell lojalitet köptes i stället för att byggas.</p>\n\n<p style="border-left:3px solid #8e44ad;padding-left:16px;margin-top:16px"><strong>IV. Utsikter</strong></p>\n<p>Venezuela är exemplet på den mest pessimistiska änden av FieldShifts återhämtningskalkyl. Kulan har inte bara passerat åsen — den har rullat djupt ner i den autokratiska bassängen, och gravitationen verkar nu mot en återgång. Den humanitära krisen (6 miljoner migranter, BNP krympte 75% 2013–2020) innebär en förstörelse av socialt kapital som förvärrar problemet med institutionell återhämtning. Varje rimlig återhämtningsväg kräver: avhopp eller splittring inom militären, en övergångsöverenskommelse förhandlad med regimens eliter och varaktigt internationellt återuppbyggnadsstöd. FieldShift-modellen tyder på att detta är ett institutionellt återuppbyggnadsprojekt på 20–40 år från nuvarande läge.</p>\n    `
   },
 
   // ── RUSSIA ──────────────────────────────────────────────────
@@ -9731,7 +9698,7 @@ var DEEPER_ANALYSIS = {
   // ── SWEDEN ───────────────────────────────────────────────────
   'Sweden': {
     title: 'FieldShift-analys av Sverige: den demokratiska dalens botten',
-    content: `\n<strong style="font-size:16px">I. Institutionell position</strong>\n<p><strong>CDRS-värde: 0.162</strong> — Sverige ligger på den demokratiska dalbotten: ett av endast 14 länder i datasetet under området för tidig varning (κ ≈ 0.22). Ett CDRS på 0.162 återspeglar inte bara goda institutioner utan en djupt stabil demokratisk jämvikt där de återställande krafterna är starka och kulan ligger långt från åsen. FieldShift-landskapets analogi: Sverige ligger på dalens botten — att förskjuta landet mot åsen kräver enorm, uthållig kraft i flera institutionella dimensioner samtidigt.</p>\n\n<p style="border-left:3px solid #1e8449;padding-left:16px;margin-top:16px"><strong>II. Vad som gör Sverige till ett referensfall</strong><br>\nSveriges institutionella arkitektur ligger nära taket i alla fem CDRS-lagren:\n<ul style="margin-left:20px">\n<li><strong>Finansiellt (lager 1):</strong> Riksrevisionen är självständigt inrättad; den finansiella transparensen rankas genomgående i toppskiktet av IMF och OECD.</li>\n<li><strong>Konstitutionellt (lager 2):</strong> 1974 års regeringsform, riksdagen med proportionell representation och ombudsmannainstitutionerna (äldst i världen — JO inrättades 1809) ger ett djupt horisontellt ansvarsutkrävande.</li>\n<li><strong>Organisatoriskt (lager 3):</strong> Flerpartisystem med verklig konkurrens; civilsamhället hör till de mest robusta i världen (förtroendet för institutioner över 60%).</li>\n<li><strong>Normer (lager 4):</strong> RSF:s pressfrihetsindex 2023: plats 2/180. Inkludering av minoriteter och hbtq-rättigheter hör till de högsta i det globala datasetet. Den politiska pluralismen är verklig.</li>\n<li><strong>Motståndskraft (lager 5):</strong> Stark förvaltningsstat; professionell statsförvaltning; civil kontroll över militären är absolut och institutionellt förankrad.</li>\n</ul>\n</p>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>III. Sverige som baslinje för HL-principen</strong><br>\nSverige illustrerar Hedlund-Leijon-principens djupaste implikation: demokratisk stabilitet är inte ett passivt tillstånd utan en aktiv jämvikt som upprätthålls av institutionell återkoppling. Avläsningen CDRS 0.162 speglar 200+ år av konsekventa institutionella investeringar — dalens djup speglar detta ackumulerade institutionella kapital. Att erodera det kräver uthålligt, samordnat tryck i alla fem lagren. Sverigedemokraternas (SD) parlamentariska framväxt (20%+) sedan 2010 utgör en stress i det organisatoriska lagret som inte har spridit sig till andra lager — ett tecken på att de återställande krafterna vid dalens botten fungerar så som landskapsmodellen förutsäger att de ska.</p>\n    `
+    content: `\n<strong style="font-size:16px">I. Institutionell position</strong>\n<p><strong>CDRS-värde: 0.162</strong> — Sverige ligger på den demokratiska dalbotten: ett av endast 14 länder i datasetet under området för tidig varning (ledtidsgräns c_L ≈ 0,22, A6). Ett CDRS på 0.162 återspeglar inte bara goda institutioner utan en djupt stabil demokratisk jämvikt där de återställande krafterna är starka och kulan ligger långt från åsen. FieldShift-landskapets analogi: Sverige ligger på dalens botten — att förskjuta landet mot åsen kräver enorm, uthållig kraft i flera institutionella dimensioner samtidigt.</p>\n\n<p style="border-left:3px solid #1e8449;padding-left:16px;margin-top:16px"><strong>II. Vad som gör Sverige till ett referensfall</strong><br>\nSveriges institutionella arkitektur ligger nära taket i alla fem CDRS-lagren:\n<ul style="margin-left:20px">\n<li><strong>Finansiellt (lager 1):</strong> Riksrevisionen är självständigt inrättad; den finansiella transparensen rankas genomgående i toppskiktet av IMF och OECD.</li>\n<li><strong>Konstitutionellt (lager 2):</strong> 1974 års regeringsform, riksdagen med proportionell representation och ombudsmannainstitutionerna (äldst i världen — JO inrättades 1809) ger ett djupt horisontellt ansvarsutkrävande.</li>\n<li><strong>Organisatoriskt (lager 3):</strong> Flerpartisystem med verklig konkurrens; civilsamhället hör till de mest robusta i världen (förtroendet för institutioner över 60%).</li>\n<li><strong>Normer (lager 4):</strong> RSF:s pressfrihetsindex 2023: plats 2/180. Inkludering av minoriteter och hbtq-rättigheter hör till de högsta i det globala datasetet. Den politiska pluralismen är verklig.</li>\n<li><strong>Motståndskraft (lager 5):</strong> Stark förvaltningsstat; professionell statsförvaltning; civil kontroll över militären är absolut och institutionellt förankrad.</li>\n</ul>\n</p>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>III. Sverige som baslinje för HL-principen</strong><br>\nSverige illustrerar Hedlund-Leijon-principens djupaste implikation: demokratisk stabilitet är inte ett passivt tillstånd utan en aktiv jämvikt som upprätthålls av institutionell återkoppling. Avläsningen CDRS 0.162 speglar 200+ år av konsekventa institutionella investeringar — dalens djup speglar detta ackumulerade institutionella kapital. Att erodera det kräver uthålligt, samordnat tryck i alla fem lagren. Sverigedemokraternas (SD) parlamentariska framväxt (20%+) sedan 2010 utgör en stress i det organisatoriska lagret som inte har spridit sig till andra lager — ett tecken på att de återställande krafterna vid dalens botten fungerar så som landskapsmodellen förutsäger att de ska.</p>\n    `
   },
 
   // ── NORWAY ───────────────────────────────────────────────────
@@ -9743,7 +9710,7 @@ var DEEPER_ANALYSIS = {
   // ── HUNGARY ─────────────────────────────────────────────────
   'Hungary': {
     title: 'FieldShift-analys av Ungern: demokratisk bana och risk enligt HL-principen',
-    content: `\n<strong style="font-size:16px">I. Institutionell position (2023)</strong>\n<p><strong>CDRS-värde: 0.756</strong> — Ungern ligger djupt inne i kriszonen, långt bortom Point of No Return (≈0.66). Som jämförelse: ett CDRS på 0.756 placerar Ungern mellan Myanmar (0.858) och Turkiet (0.856) i den autokratiska attraktorbassängen. Ingen utväg från denna zon har observerats i datasetet utan större extern omvälvning.</p>\n\n<p><strong>De tre zonerna och Ungerns position:</strong></p>\n<ul style="margin-left:20px">\n<li><strong>Säker zon (CDRS &lt; 0.22):</strong> Bara 14 av 163 länder befinner sig här (Sverige 0.162, Norge 0.114, Schweiz 0.110). Ungern är inte i närheten.</li>\n<li><strong>Område för tidig varning (κ ≈ 0.22):</strong> Interventionsfönstret. Ungern passerade detta ungefär 2012–2013, inom 2–3 år från starten 2010. Detta stämde perfekt med den empiriska förvarningstiden.</li>\n<li><strong>Eskalerande risk (0.22–0.66):</strong> Ungern befann sig i denna zon i ungefär 11 år (2012–2023). Detta är fönstret där återhämtning teoretiskt är möjlig men kräver ihållande tryck.</li>\n<li><strong>Kriszon (&gt;0.66):</strong> Ungern gick in i denna zon runt 2021–2022 och har inte vänt. CDRS 0.756 år 2023 betyder att den demokratiska potentialbrunnen har kollapsat.</li>\n</ul>\n\n<p style="border-left:3px solid #e67e22;padding-left:16px;margin-top:16px"><strong>II. Hedlund-Leijon-konstanten: varför återhämtning blir svårare</strong><br>\nKvoten ℋ = 1.724 (återhämtning tar 1.77× längre tid än erosion) förklarar direkt Ungerns svåra läge. Ur denna konstant härleds den kritiska tröskeln: κ = ℋ/8 = 0.216 ≈ 0.22.</p>\n\n<ul style="margin-left:20px">\n<li><strong>Erosionens varaktighet:</strong> Ungerns kollapsbana tog i genomsnitt 4.7 år att nå ett synligt institutionellt sammanbrott.</li>\n<li><strong>Återhämtningstid:</strong> Om Ungern skulle vända banan innan åsen passeras skulle återhämtningen i genomsnitt kräva 8.3 år — mer än en hel mandatperiod med ihållande internationellt tryck.</li>\n<li><strong>Men Ungern är förbi åsen (0.756 &gt;&gt; 0.66).</strong> Asymmetrin är nu icke-linjär. Inget fall i datasetet visar återhämtning utan en stor extern chock från institutioner som Belarus (0.910) eller Ryssland (0.920).</li>\n</ul>\n\n<p><strong>Den fysikaliska tolkningen:</strong> Det demokratiska landskapet har en autokratisk attraktor med brantare väggar. När ett land väl hamnat under kammen påskyndar den institutionella dynamiken kollapsen. För varje månad i krisezonen blir väggarna brantare — den oligarkiska kontrollen fördjupas, oppositionen blir alltmer splittrad och den internationella isoleringen stärker regimens grepp.</p>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>III. Ungerns CDRS-uppdelning på fem lager</strong></p>\n<p><strong>Lager 1: Finansiell integritet</strong> — Överföringar av tillgångar till oligarknätverk snedvrider budgetinsynen. EU-medel avleds till lojala företag. Signalens timing: finanspolitisk ogenomskinlighet slog ut först och föregick den elektorala/konstitutionella kollapsen med månader till år.</p>\n<p><strong>Lager 2: Konstitutionella begränsningar</strong> — Fångsten av författningsdomstolen 2011, packning av domstolsväsendet med lojalister och avskaffad obligatorisk domstolsprövning. Kritiskt misslyckande: 2014 hade det horisontella ansvarsutkrävandet kollapsat.</p>\n<p><strong>Lager 3: Organisatorisk konkurrens</strong> — Gerrymandering, mediecentralisering och ackumulerade institutionella fångster snedvred valkonkurrensen utan att formellt avskaffa den.</p>\n<p><strong>Lager 4: Demokratiska normer</strong> — Pressfriheten kollapsade synligt först (mediefångst efter 2010). Minoriteters inkludering försämrades. Den politiska pluralismen överlevde formellt men urholkades.</p>\n<p><strong>Lager 5: Institutionell motståndskraft</strong> — EU och NATO begränsade politiseringen av militären längst, men administrativ fångst — lojala tjänstemän, avsked av kritiker — försvagade successivt den självständiga statliga kapaciteten.</p>\n\n<p style="border-left:3px solid #c0392b;padding-left:16px;margin-top:16px"><strong>IV. Jämförelsen med Polen: samma signal, olika utfall</strong></p>\n<p>Ungern passerade den tidiga varningszonen 2012 (CDRS 0.364). Polen passerade 2015 (CDRS 0.362). Nästan identiska utgångslägen, motsatta utfall. Polen vände vid valet i oktober 2023; Ungern fortsatte till 0.756. Tröskeln är probabilistisk, inte deterministisk. En vändning kräver väljarmobilisering, enighet i oppositionskoalitionen och internationell påverkan. Polen uppnådde alla tre; Ungerns fönster stängdes innan någon av dem uppnåddes i tillräcklig skala.</p>\n\n<p style="border-left:3px solid #f39c12;padding-left:16px;margin-top:16px"><strong>V. Aktuell riskbedömning</strong></p>\n<p>Om Ungern skulle försöka återhämta sig i dag (2026): ett minsta fönster på 8.3+ år under ideala förhållanden. Verkligheten: vid CDRS 0.756 har Ungern passerat den strukturella vändpunkten. Lärarstrejker (2023) slogs ned; högt valdeltagande för oppositionen 2024 men Fidesz behöll makten; EU-medel som betalas ut utan villkor bevarar regimens kapacitet; oligarkiska eliter är djupt integrerade. Fönstret är stängt. Ungerns väg till återhämtning beror nu på yttre störningar — strukturell förändring i EU, ekonomisk kris eller förskjutning i det ryska trycket — snarare än enbart på inre demokratisk dynamik.</p>\n\n<p style="margin-top:20px;padding:16px;background:#f5f5f5;border-radius:6px"><strong>Den centrala diagnosen:</strong> Ungerns CDRS 0.756 är inte ett misslyckande för demokratin i sig utan ett misslyckande för försvaret av demokratin. Systemet för tidig varning fungerade — signalen var tydlig 2012. Polen visar att en vändning är möjlig om fönstret används; Ungern visar vad som händer när det ignoreras.</p>\n    `
+    content: `\n<strong style="font-size:16px">I. Institutionell position (2023)</strong>\n<p><strong>CDRS-värde: 0.756</strong> — Ungern ligger djupt inne i kriszonen, långt bortom Point of No Return (≈0.66). Som jämförelse: ett CDRS på 0.756 placerar Ungern mellan Myanmar (0.858) och Turkiet (0.856) i den autokratiska attraktorbassängen. Ingen utväg från denna zon har observerats i datasetet utan större extern omvälvning.</p>\n\n<p><strong>De tre zonerna och Ungerns position:</strong></p>\n<ul style="margin-left:20px">\n<li><strong>Säker zon (CDRS &lt; 0.22):</strong> Bara 14 av 163 länder befinner sig här (Sverige 0.162, Norge 0.114, Schweiz 0.110). Ungern är inte i närheten.</li>\n<li><strong>Område för tidig varning (ledtidsgräns c_L ≈ 0,22, A6):</strong> Interventionsfönstret. Ungern passerade detta ungefär 2012–2013, inom 2–3 år från starten 2010. Detta stämde perfekt med den empiriska förvarningstiden.</li>\n<li><strong>Eskalerande risk (0.22–0.66):</strong> Ungern befann sig i denna zon i ungefär 11 år (2012–2023). Detta är fönstret där återhämtning teoretiskt är möjlig men kräver ihållande tryck.</li>\n<li><strong>Kriszon (&gt;0.66):</strong> Ungern gick in i denna zon runt 2021–2022 och har inte vänt. CDRS 0.756 år 2023 betyder att den demokratiska potentialbrunnen har kollapsat.</li>\n</ul>\n\n<p style="border-left:3px solid #e67e22;padding-left:16px;margin-top:16px"><strong>II. Hedlund-Leijon-konstanten: varför återhämtning blir svårare</strong><br>\nKvoten ℋ = 1,724 (i genomsnitt måste återhämtningen täcka ungefär 1,72 gånger så stor sträcka på demokratiskalan som förlusten; D3) ramar in Ungerns svåra läge. Den kritiska tröskeln definieras ur den som κ = ℋ/8 = 0,2155 på demokratinivån (D5).</p>\n\n<ul style="margin-left:20px">\n<li><strong>Erosionens varaktighet:</strong> i V-Dems data om regimförändringsepisoder (ERT; Lührmann och Lindberg 2019) varar den genomsnittliga erosionsepisoden 4,7 år. Det är ett genomsnitt över länder, inte en uppskattning för Ungern, vars erosion pågått sedan 2010.</li>\n<li><strong>Återhämtningstid:</strong> den genomsnittliga återhämtningsepisoden i samma data varar 8,3 år — mer än en hel mandatperiod. Även det är ett genomsnitt över länder, inte en prognos för Ungern.</li>\n<li><strong>Men Ungern är förbi åsen (0.756 &gt;&gt; 0.66).</strong> Asymmetrin är nu icke-linjär. Inget fall i datasetet visar återhämtning utan en stor extern chock från institutioner som Belarus (0.910) eller Ryssland (0.920).</li>\n</ul>\n\n<p><strong>Den fysikaliska tolkningen:</strong> Det demokratiska landskapet har en autokratisk attraktor med brantare väggar. När ett land väl hamnat under kammen påskyndar den institutionella dynamiken kollapsen. För varje månad i krisezonen blir väggarna brantare — den oligarkiska kontrollen fördjupas, oppositionen blir alltmer splittrad och den internationella isoleringen stärker regimens grepp.</p>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>III. Ungerns CDRS-uppdelning på fem lager</strong></p>\n<p><strong>Lager 1: Finansiell integritet</strong> — Överföringar av tillgångar till oligarknätverk snedvrider budgetinsynen. EU-medel avleds till lojala företag. Signalens timing: finanspolitisk ogenomskinlighet slog ut först och föregick den elektorala/konstitutionella kollapsen med månader till år.</p>\n<p><strong>Lager 2: Konstitutionella begränsningar</strong> — Fångsten av författningsdomstolen 2011, packning av domstolsväsendet med lojalister och avskaffad obligatorisk domstolsprövning. Kritiskt misslyckande: 2014 hade det horisontella ansvarsutkrävandet kollapsat.</p>\n<p><strong>Lager 3: Organisatorisk konkurrens</strong> — Gerrymandering, mediecentralisering och ackumulerade institutionella fångster snedvred valkonkurrensen utan att formellt avskaffa den.</p>\n<p><strong>Lager 4: Demokratiska normer</strong> — Pressfriheten kollapsade synligt först (mediefångst efter 2010). Minoriteters inkludering försämrades. Den politiska pluralismen överlevde formellt men urholkades.</p>\n<p><strong>Lager 5: Institutionell motståndskraft</strong> — EU och NATO begränsade politiseringen av militären längst, men administrativ fångst — lojala tjänstemän, avsked av kritiker — försvagade successivt den självständiga statliga kapaciteten.</p>\n\n<p style="border-left:3px solid #c0392b;padding-left:16px;margin-top:16px"><strong>IV. Jämförelsen med Polen: samma signal, olika utfall</strong></p>\n<p>Ungern passerade den tidiga varningszonen 2012 (CDRS 0.364). Polen passerade 2015 (CDRS 0.362). Nästan identiska utgångslägen, motsatta utfall. Polen vände vid valet i oktober 2023; Ungern fortsatte till 0.756. Tröskeln är probabilistisk, inte deterministisk. En vändning kräver väljarmobilisering, enighet i oppositionskoalitionen och internationell påverkan. Polen uppnådde alla tre; Ungerns fönster stängdes innan någon av dem uppnåddes i tillräcklig skala.</p>\n\n<p style="border-left:3px solid #f39c12;padding-left:16px;margin-top:16px"><strong>V. Aktuell riskbedömning</strong></p>\n<p>Om Ungern skulle försöka återhämta sig i dag (2026): ett minsta fönster på 8.3+ år under ideala förhållanden. Verkligheten: vid CDRS 0.756 har Ungern passerat den strukturella vändpunkten. Lärarstrejker (2023) slogs ned; högt valdeltagande för oppositionen 2024 men Fidesz behöll makten; EU-medel som betalas ut utan villkor bevarar regimens kapacitet; oligarkiska eliter är djupt integrerade. Fönstret är stängt. Ungerns väg till återhämtning beror nu på yttre störningar — strukturell förändring i EU, ekonomisk kris eller förskjutning i det ryska trycket — snarare än enbart på inre demokratisk dynamik.</p>\n\n<p style="margin-top:20px;padding:16px;background:#f5f5f5;border-radius:6px"><strong>Den centrala diagnosen:</strong> Ungerns CDRS 0.756 är inte ett misslyckande för demokratin i sig utan ett misslyckande för försvaret av demokratin. Systemet för tidig varning fungerade — signalen var tydlig 2012. Polen visar att en vändning är möjlig om fönstret används; Ungern visar vad som händer när det ignoreras.</p>\n    `
   }
 
 };
@@ -10068,6 +10035,8 @@ function mnavTo(sectionId, btnId){
     {id:'fewsPfSection',btn:'mnav-fewspf'},
     {id:'pfiSection',btn:'mnav-pfi'},
     {id:'voteshiftSection',btn:'mnav-voteshift'},
+    {id:'gigiSection',btn:'mnav-gigi'},
+    {id:'capacityshiftSection',btn:'mnav-capacityshift'},
     {id:'metaSection',btn:'mnav-meta'}
   ];
   var navH=0;
@@ -12085,7 +12054,7 @@ function epSelectElection(idx){
       +'<div class="ep-locked-cols">'
       +'<div class="ep-locked-col ep-locked-col-model">'
       +'<div class="ep-locked-col-title">FieldShift-modell</div>'
-      +'<div class="ep-locked-col-text">'+escHtmlEP(locked.modelText||e.model).replace(/\n/g,'<br>')+'</div>'
+      +'<div class="ep-locked-col-text">'+escHtmlEP(fsLockedText(locked.modelText,e.model,locked.lang)).replace(/\n/g,'<br>')+'</div>'
       +'</div>'
       +'<div class="ep-locked-col ep-locked-col-personal">'
       +'<div class="ep-locked-col-title">Din prognos</div>'
@@ -12143,6 +12112,7 @@ function epLockPrediction(key){
     lockedAtISO:now.toISOString(),
     lockedAtText:lockedAtText,
     modelText:e.model,
+    lang:fsPageLang(),
     modelVars:e.modelVars,
     personalText:personalText,
     country:e.country,
@@ -12273,5 +12243,13 @@ if(document.readyState==='loading'){
 })();
 </script>
 <script>/* VOTESHIFT-PATCH */(function(){var f=document.getElementById('voteshiftFrame');window.addEventListener('message',function(e){if(!f||e.source!==f.contentWindow)return;var d=e.data||{};if(d.type==='voteshift-height'&&d.height>200)f.style.height=Math.min(d.height+4,20000)+'px';});})();</script>
+<script>/* GIGI-CS-PATCH */(function(){var F={gigi:'gigiFrame',capacityshift:'capacityshiftFrame'};window.addEventListener('message',function(e){var d=e.data||{};if(d.type!=='gc-height'||!F[d.src])return;var f=document.getElementById(F[d.src]);if(!f||e.source!==f.contentWindow)return;if(d.height>200)f.style.height=Math.min(d.height+4,20000)+'px';});})();</script>
+<script>/* GIGI-CS-NAV2 */(function(){var B={gigiSection:'mnav-gigi',capacityshiftSection:'mnav-capacityshift',voteshiftSection:'mnav-voteshift','early-warning':'mnav-warning'};var F={gigi:'gigiFrame',capacityshift:'capacityshiftFrame'};window.addEventListener('message',function(e){var d=e.data||{};function ensure(el,off){setTimeout(function(){var r=el.getBoundingClientRect().top;if(Math.abs(r-off)>40)window.scrollTo(0,r+window.scrollY-off);},900);}if(d.type==='gc-nav'&&B[d.section]&&document.getElementById(d.section)){mnavTo(d.section,B[d.section]);var nb=document.getElementById('mainNavBar');ensure(document.getElementById(d.section),(nb?nb.offsetHeight:0)+8);}if(d.type==='gc-scroll'&&F[d.src]){var f=document.getElementById(F[d.src]);if(!f||e.source!==f.contentWindow)return;var y=f.getBoundingClientRect().top+window.scrollY+(d.top||0)-90;window.scrollTo({top:Math.max(0,y),behavior:'smooth'});setTimeout(function(){var y2=f.getBoundingClientRect().top+window.scrollY+(d.top||0)-90;if(Math.abs(window.scrollY-y2)>40)window.scrollTo(0,Math.max(0,y2));},900);}});})();</script>
+<script>/* FS-FIX-5 */(function(){window.addEventListener('message',function(e){var f=document.getElementById('hlCalcFrame');var d=e.data||{};if(!f||e.source!==f.contentWindow||d.src!=='hlcalc')return;if(d.type==='gc-height'&&d.height>200)f.style.height=Math.min(d.height+4,30000)+'px';if(d.type==='gc-scroll'&&isFinite(d.top))window.scrollTo(0,f.getBoundingClientRect().top+window.scrollY+d.top-70);});})();</script>
+<script>/* FS-FIX-6 */(function(){var T={"yes": "Ja", "no": "Nej", "above": "över κ med", "below": "under κ med", "warn": "empirisk varning (≥ 0,52, A3)", "nowarn": "under den empiriska varningen 0,52", "crit": "≥ 1 − κ = 0,7845: motsvarar D ≤ κ", "ci": "95 %", "ins": ["Nivån", "ligger över κ", "ligger på eller under κ", "Motsvarande CDRS", "Att nå målet kräver i genomsnitt en kumulativ återhämtningsrörelse på", "på demokratiskalan", "Det är ett genomsnitt över historiska episoder, inte en prognos för landet och inte en tidsuppskattning."]},SV=true,H=1.724,LO=1.53,HI=1.96,K=H/8,CASE='';function F(x,d){var t=(+x).toFixed(d==null?3:d);return SV?t.replace('.',','):t;}function st(id,v){var e=document.getElementById(id);if(e)e.innerHTML=v;}window.hlRender=function(){var g=function(id){var e=document.getElementById(id);return e?+e.value:NaN;};var d=g('hlScore'),pk=g('hlPeak'),tg=g('hlTarget');if(!isFinite(d))return;st('hlScoreV',F(d,2));st('hlPeakV',F(pk,2));st('hlTargetV',F(tg,2));var sm=document.getElementById('hlScoreMark'),pm=document.getElementById('hlPeakMark');if(sm)sm.style.left='calc('+(d*100).toFixed(1)+'% - 1.5px)';if(pm)pm.style.left='calc('+(pk*100).toFixed(1)+'% - 1px)';var eM=Math.max(0,pk-d),rM=Math.max(0,tg-d),cd=1-d,under=d<=K;st('hl6EMag','M⁻ = '+F(eM));st('hl6EMagS','D2');st('hl6Kappa','<span style="color:'+(under?'var(--danger)':'#1e7a46')+'">'+(under?T.yes:T.no)+'</span>');st('hl6KappaS','D '+(under?T.below:T.above)+' '+F(Math.abs(d-K),4));st('hl6Cdrs',F(cd));st('hl6CdrsS',cd>=1-K?T.crit:(cd>=0.52?T.warn:T.nowarn));st('hl6RMag','ΔM = '+F(rM));st('hl6RMagS',T.ci+' ℋ: '+F(LO,2)+'–'+F(HI,2));st('hl6Req',F(H*rM));st('hl6ReqS',T.ci+': '+F(LO*rM)+' – '+F(HI*rM));st('hl6Extra',F((H-1)*rM));st('hl6ExtraS','(ℋ − 1) = '+F(H-1));var I=T.ins,ins=document.getElementById('hlInsight');if(ins)ins.innerHTML=(CASE?'<span style="color:var(--gold-lt);font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em">'+CASE+'</span><br>':'')+'<span style="font-size:13px;line-height:1.7">'+I[0]+' D = '+F(d,2)+' '+(under?I[2]:I[1])+' (κ = '+F(K,4)+', S3). '+I[3]+' ≈ '+F(cd)+(cd>=0.52?' ≥ ':' &lt; ')+F(0.52,2)+' (A2, S4). '+(rM>0?I[4]+' ℋ·ΔM = '+F(H*rM)+' '+I[5]+' ('+T.ci+': '+F(LO*rM)+'–'+F(HI*rM)+', S6). '+I[6]:'')+'</span>';};document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[id^="hlcase-"]');if(b){var t=b.querySelectorAll('div');CASE=(t[0]?t[0].textContent:'')+(t[1]?' · '+t[1].textContent:'');setTimeout(window.hlRender,0);}var r=e.target.closest&&e.target.closest('[data-hlref]');if(r){e.preventDefault();var f=document.getElementById('hlCalcFrame');if(!f)return;f.loading='eager';var go=function(){try{f.contentWindow.postMessage({type:'hlcalc-goto',id:r.getAttribute('data-hlref')},'*');}catch(x){}};f.scrollIntoView();if(f.contentWindow&&f.contentWindow.HL_CALC)go();else f.addEventListener('load',function(){setTimeout(go,300);},{once:true});}},true);window.hlRender();})();</script>
+<!-- FS-FIX-7: 13 texträttningar -->
+<!-- FS-FIX-7b -->
+<!-- FS-FIX-9 -->
+<!-- FS-FIX-10: 8 -->
 </body>
 </html>

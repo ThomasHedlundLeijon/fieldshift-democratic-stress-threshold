@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FieldShift_Methodology_v1.docx</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f9f6f1;--ink:#2b2723;--muted:#6b6258;--rule:#d8d0c4;--head:#f0ebe3;--accent:#7a5c3e}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Source Sans 3","Source Sans Pro","Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.6}
+main{max-width:860px;margin:0 auto;padding:32px 16px 64px}
+.source{font-size:.85rem;color:var(--muted);border-bottom:1px solid var(--rule);padding-bottom:10px;margin:0 0 28px}
+h1,h2,h3,h4,h5{font-family:"Libre Baskerville",Georgia,"Times New Roman",serif;font-weight:700;line-height:1.3;color:var(--ink)}
+h1{font-size:1.9rem;margin:.2em 0 .4em}
+h2{font-size:1.45rem;margin:2em 0 .6em;padding-bottom:.25em;border-bottom:1px solid var(--rule)}
+h3{font-size:1.18rem;margin:1.6em 0 .5em}
+h4,h5{font-size:1.02rem;margin:1.3em 0 .4em}
+p{margin:0 0 .9em}
+.subtitle{font-size:1.1rem;color:var(--muted);font-style:italic}
+blockquote{margin:1.2em 0;padding:.6em 1.1em;border-left:3px solid var(--accent);background:#f3eee6;font-style:italic}
+ul,ol{margin:0 0 1em;padding-left:1.6em}
+li{margin:.25em 0}
+sup,sub{font-size:.72em;line-height:0}
+.tbl{overflow-x:auto;margin:1.1em 0 1.5em}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:#fffdf9}
+th,td{border:1px solid var(--rule);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--head);font-weight:600}
+.fig{color:var(--muted);font-style:italic}
+@media print{
+ @page{margin:18mm 16mm}
+ body{background:#fff;color:#000;font-size:11pt}
+ main{max-width:none;padding:0}
+ h2,h3,h4{page-break-after:avoid;break-after:avoid}
+ table,tr,blockquote{page-break-inside:avoid;break-inside:avoid}
+ .tbl{overflow:visible}
+ th{background:#eee}
+ th,td{border-color:#999}
+}
+</style>
+</head>
+<body>
+<main>
+<p class="source">Source: FieldShift_Methodology_v1.docx, retrieved from the author's Drive 2026-11-25. Working document.</p>
+<p><strong>FieldShift Early Warning System</strong></p>
+<p>Methodology &amp; Technical Reference Document</p>
+<p>Version 1.0  —  Working Document  —  Pre-publication</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Dataset coverage</strong><br>163 countries  ·  2010–2023  ·  14 years<br><strong>Primary data sources</strong><br>V-Dem, Freedom House, IMF GFS, WGI, RSF, SIPRI, CCP, IDEA<br><strong>Risk layers</strong><br>Fiscal  ·  Constitutional  ·  Organisational  ·  Behavioral  ·  Extended</th><th><strong>Abstract</strong><br>FieldShift is an open-access, multi-layer early warning system for democratic erosion covering 163 countries across five institutional risk domains. This document describes the aggregation logic, source weighting, threshold calibration, and measurement assumptions underlying the Composite Democratic Risk Score (CDRS). It is designed as the methodological foundation for academic use and constitutes the first step toward a peer-reviewed framework paper.</th></tr>
+</thead>
+</table></div>
+<h2><strong>1. Introduction and Rationale</strong></h2>
+<p>FieldShift addresses a specific gap in the democratic monitoring landscape: the absence of a freely accessible, pedagogically structured, multi-layer early warning instrument that translates the methodological depth of academic datasets into formats usable by policy audiences, educators, and non-specialist researchers. The system aggregates data from eight independent international datasets into a Composite Democratic Risk Score (CDRS) decomposed across five institutional layers.</p>
+<p>Unlike binary freedom ratings or single-axis democracy indices, FieldShift captures the sequential and domain-specific character of democratic erosion, which comparative politics scholarship has consistently shown to be gradual, multidimensional, and institutionally specific (Levitsky &amp; Ziblatt 2018; Luhrmann &amp; Lindberg 2019; Bermeo 2016). The system is explicitly positioned not as a competitor to V-Dem but as a pedagogical and policy-oriented aggregation layer built on top of V-Dem and seven complementary sources.</p>
+<p>This document serves three purposes: (1) to provide the methodological transparency necessary for academic citation and replication; (2) to document and justify aggregation decisions; and (3) to identify current limitations and the planned development roadmap.</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Scope note</strong><br>163 countries are currently scored. Six countries (North Korea, Syria, Somalia, South Sudan, Eritrea, Turkmenistan) are documented as unavailable due to systematic data restrictions, with full explanations published in the interactive interface. All stated coverage figures refer to the 163 scored countries only.</th></tr>
+</thead>
+</table></div>
+<h2><strong>2. Theoretical Framework</strong></h2>
+<h3><strong>2.1 Democratic Erosion as a Multi-Domain Process</strong></h3>
+<p>The central theoretical claim underlying FieldShift is that democratic erosion is rarely a single-event collapse but rather a process of incremental degradation across distinct institutional domains. Levitsky and Ziblatt (2018) distinguish between the formal constitutional shell of democracy and the behavioral norms of mutual toleration and institutional forbearance that sustain democratic practice. This distinction maps directly onto the Constitutional and Behavioral layers, which frequently diverge: a country may maintain formal constitutional provisions while executive behavior systematically undermines their practical application.</p>
+<p>Luhrmann and Lindberg (2019) identify three distinct pathways through which democracies have eroded since 1900: executive seizures of power, military coups, and -- increasingly the dominant post-Cold War mode -- gradual autocratization driven by incumbents operating within formal democratic institutions. FieldShift&#x27;s five-layer architecture is specifically designed to detect the early indicators of this third pathway, which conventional binary ratings consistently fail to identify until erosion is well advanced.</p>
+<h3><strong>2.2 The Five-Layer Architecture</strong></h3>
+<p>Each layer corresponds to a theoretically distinct institutional domain, draws on different primary sources, and captures a different mechanism of democratic erosion. The equal weighting of layers at 20% reflects a deliberate theoretical commitment to treating no single domain as lexically prior -- a contestable but transparent and manipulation-resistant specification.</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Layer</strong></th><th><strong>Weight</strong></th><th><strong>Primary Sources</strong></th><th><strong>Indicators Captured</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Fiscal Integrity</strong></td><td>20%</td><td>IMF GFS, World Bank WGI (Control of Corruption, Govt Effectiveness)</td><td>Budget transparency, off-budget spending, fiscal autonomy, debt management</td></tr>
+<tr><td><strong>Constitutional</strong></td><td>20%</td><td>V-Dem (Liberal Component), Comparative Constitutions Project, IDEA</td><td>Judicial independence, separation of powers, executive constraints, rule of law</td></tr>
+<tr><td><strong>Organisational</strong></td><td>20%</td><td>V-Dem (Electoral Component), Freedom House, IDEA Electoral Integrity</td><td>Civil society space, party pluralism, freedom of assembly, electoral administration</td></tr>
+<tr><td><strong>Behavioral Norms</strong></td><td>20%</td><td>V-Dem (Participatory &amp; Egalitarian Components), RSF Press Freedom Index</td><td>Elite norm compliance, media freedom, political tolerance, minority inclusion</td></tr>
+<tr><td><strong>Extended Resilience</strong></td><td>20%</td><td>SIPRI Military Expenditure, V-Dem (Deliberative), WGI (Voice &amp; Accountability)</td><td>Civil-military relations, civilian oversight, deliberative quality, protest capacity</td></tr>
+</tbody>
+</table></div>
+<p>Table 1: FieldShift layer architecture, source mapping, and indicator coverage. CCP = Comparative Constitutions Project; IDEA = Institute for Democracy and Electoral Assistance.</p>
+<h2><strong>3. Data Sources and Source Reliability</strong></h2>
+<h3><strong>3.1 Primary Sources</strong></h3>
+<p>The eight datasets are selected on four criteria: (i) methodological independence from one another; (ii) consistent annual coverage from 2010 to 2023; (iii) public availability; and (iv) peer-reviewed or expert-validated measurement procedures.</p>
+<ul>
+<li>V-Dem Institute (v14): Primary source for Constitutional, Organisational, and Behavioral layers. Uses Bayesian Item Response Theory to aggregate expert codings into latent variable estimates with published confidence intervals. The field&#x27;s current methodological gold standard for multidimensional democratic assessment (Coppedge et al. 2023).
+</li>
+<li>Freedom House (Freedom in the World, 2010-2023): Contributes to the Organisational layer as secondary cross-validation. Subject to documented ideological consistency bias (Munck &amp; Verkuilen 2002); used as supplementary rather than primary input.
+</li>
+<li>IMF Government Finance Statistics (GFS): Primary source for Fiscal Integrity layer -- budget transparency, off-budget expenditure, fiscal rules compliance. The authoritative source for comparable public finance data across income levels.
+</li>
+<li>World Bank Worldwide Governance Indicators (WGI): Contributes to Fiscal (Control of Corruption, Govt Effectiveness) and Extended (Voice &amp; Accountability) layers. Uses Unobserved Components Model aggregating 30+ underlying sources; confidence intervals published.
+</li>
+<li>Reporters Without Borders (RSF Press Freedom Index): Primary source for media freedom in the Behavioral layer. Based on structured expert questionnaires across five dimensions: legal framework, political context, economic environment, sociocultural context, physical safety.
+</li>
+<li>SIPRI Military Expenditure Database: Primary source for civil-military relations in the Extended Resilience layer -- ratio of military to total government expenditure as indicator of civilian budget control.
+</li>
+<li>Comparative Constitutions Project (CCP): Contributes to Constitutional layer -- amendment frequency and scope as indicators of institutional stability.
+</li>
+<li>International IDEA: Contributes to Organisational layer via Electoral Integrity sub-component.
+</li></ul>
+<h3><strong>3.2 Source Conflict Resolution</strong></h3>
+<p>When sources produce conflicting signals for the same domain, FieldShift applies the following priority hierarchy:</p>
+<ol>
+<li>V-Dem estimates take precedence over Freedom House codings in the Organisational layer, given V-Dem&#x27;s superior methodological transparency and published uncertainty bounds.
+</li>
+<li>WGI estimates serve as cross-validation for IMF GFS data in the Fiscal layer. Where the two diverge by more than 0.15 on the normalised scale, the more pessimistic estimate is used.
+</li>
+<li>RSF annual scores are normalised to 0-1 before integration; year-to-year changes exceeding 15 normalised points are flagged for manual review.
+</li>
+<li>For countries with partial source coverage (fewer than five of eight sources), composite scores carry a coverage penalty: CDRS is multiplied by 0.92 to reduce false precision.
+</li></ol>
+<h3><strong>3.3 Known Source Limitations</strong></h3>
+<ul>
+<li>V-Dem&#x27;s Bayesian model produces expert-aggregated latent estimates, not direct measures. The model may lag behind observable institutional changes by 12-24 months, particularly in rapidly evolving crisis situations.
+</li>
+<li>Freedom House has been critiqued for ideological consistency bias, particularly in its treatment of US-allied states. FieldShift mitigates this by treating it as secondary cross-validation.
+</li>
+<li>IMF GFS fiscal data quality varies sharply by income level. Low-income countries frequently have incomplete off-budget and subnational fiscal data, creating systematic underestimation of fiscal risk in parts of Sub-Saharan Africa.
+</li>
+<li>RSF scores can be sensitive to the international visibility of journalist persecution incidents in a given year, producing outsized annual swings for countries experiencing high-profile cases. Year-to-year RSF movements should be interpreted with caution.
+</li></ul>
+<h2><strong>4. Aggregation Logic and Index Construction</strong></h2>
+<h3><strong>4.1 Normalisation</strong></h3>
+<p>All source variables are normalised to a 0-1 scale before aggregation, where 0 represents minimum risk to democratic institutions and 1 represents maximum risk. For sources using opposite polarity (e.g., V-Dem&#x27;s Liberal Democracy Index, where higher scores indicate more democracy), values are inverted: FieldShift score = 1 minus source score.</p>
+<p>Normalisation uses observed-range standardisation within the 2010-2023 panel, not cross-sectional standardisation. Anchor points are fixed by actual observed minima and maxima across all country-years, preserving temporal comparability of scores.</p>
+<h3><strong>4.2 Composite Score Formula</strong></h3>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Composite Democratic Risk Score (CDRS)</strong><br>CDRS = (Fiscal + Constitutional + Organisational + Behavioral + Extended) / 5
+
+All five layers receive equal weight = 0.20. Sensitivity analysis (Section 4.4) demonstrates rank-order robustness to moderate reweighting: Spearman rho &gt; 0.94 across all tested alternative specifications.</th></tr>
+</thead>
+</table></div>
+<h3><strong>4.3 Risk Band Thresholds</strong></h3>
+<p>The CDRS is mapped to six risk bands calibrated against the historical distribution of scores for countries that have undergone democratic transitions as classified by V-Dem&#x27;s Regimes of the World (RoW) variable.</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Risk Band</strong></th><th><strong>Score Range</strong></th><th><strong>N</strong></th><th><strong>Share</strong></th><th><strong>Representative Examples (2023)</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Very Low Risk</strong></td><td>0.00 – 0.24</td><td>18</td><td>11.0%</td><td>Norway, Switzerland, Iceland, Finland</td></tr>
+<tr><td><strong>Low Risk</strong></td><td>0.25 – 0.37</td><td>26</td><td>16.0%</td><td>Germany, France, Japan, Australia</td></tr>
+<tr><td><strong>Watch Zone</strong></td><td>0.38 – 0.51</td><td>38</td><td>23.3%</td><td>Mexico, South Korea, Brazil, Bulgaria</td></tr>
+<tr><td><strong>Warning</strong></td><td>0.52 – 0.65</td><td>41</td><td>25.2%</td><td>USA, India, Kenya, Colombia</td></tr>
+<tr><td><strong>Critical</strong></td><td>0.66 – 0.79</td><td>26</td><td>16.0%</td><td>Hungary, Turkey, Iran, Egypt</td></tr>
+<tr><td><strong>Crisis</strong></td><td>0.80 – 1.00</td><td>14</td><td> 8.6%</td><td>Russia (0.92), China (0.89)</td></tr>
+</tbody>
+</table></div>
+<p>Table 2: FieldShift risk bands with 2023 country distribution (n=163). Mean CDRS across all countries = 0.513; median = 0.518; standard deviation = 0.206.</p>
+<p>The Warning threshold of 0.52 has specific empirical grounding: analysis of countries that V-Dem classifies as transitioning from Electoral Democracy to Electoral Autocracy between 2010 and 2023 shows that 14 of 17 such transitions were preceded by CDRS values above 0.52 in the year before V-Dem&#x27;s reclassification. This threshold should be understood as a probabilistic indicator, not a deterministic trigger.</p>
+<h3><strong>4.4 Sensitivity Analysis</strong></h3>
+<ul>
+<li>Layer weights were varied between 0.10 and 0.30 (sum constrained to 1.00) and composite scores recomputed for all 163 countries.
+</li>
+<li>Rank-order correlations between equal-weight baseline and all alternative specifications: Spearman rho &gt; 0.94, indicating high robustness in country rankings.
+</li>
+<li>Countries most sensitive to reweighting are those where one layer score diverges strongly from others -- transitional cases such as Brazil (2018-2022), Poland (2015-2023), and Tunisia (2021-). These are precisely the cases where alternative theoretical priors about institutional primacy have the greatest analytical traction.
+</li>
+<li>Full sensitivity tables will be published in Technical Appendix v1.1.
+</li></ul>
+<h2><strong>5. Measurement Invariance and Temporal Comparability</strong></h2>
+<h3><strong>5.1 The Problem</strong></h3>
+<p>Any longitudinal democratic monitoring system faces the measurement invariance problem: does the instrument measure the same latent construct at different points in time? V-Dem has made three significant methodological revisions between 2010 and 2023 -- changes to country expert panels (approx. 40 countries), revisions to the Bayesian IRT model (versions 9, 12, and 14), and additions of new indicators relevant to disinformation, electoral technology, and gender equality. These revisions affect backward comparability in ways V-Dem partially addresses through bridging studies but which remain a genuine source of uncertainty.</p>
+<h3><strong>5.2 Current Approach and Planned Improvement</strong></h3>
+<p>FieldShift uses V-Dem v14 for all years, accepting the implicit assumption that the current model produces the most accurate estimates for all years including 2010. This is standard practice in the comparative politics literature (Boese et al. 2022) but means that trajectory estimates for 2010-2015 carry greater uncertainty than those for 2018-2023.</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Priority improvement for Version 2.0: Confidence interval visualisation</strong><br>V-Dem publishes confidence intervals for all its estimates. A country scoring 0.52 +/- 0.08 is in a qualitatively different situation from one scoring 0.52 +/- 0.02. This distinction -- currently invisible in FieldShift -- is the single most important methodological improvement planned. Version 2.0 will display uncertainty bounds on all time-series charts, directly addressing the main methodological objection from quantitatively trained political scientists.</th></tr>
+</thead>
+</table></div>
+<h3><strong>5.3 Global Erosion Trend Finding</strong></h3>
+<p>Trajectory analysis across the volatile-country module of the dataset shows that 17 of 18 countries with available 2010-2023 trajectories showed net deterioration, and zero showed meaningful improvement. This is directionally consistent with V-Dem&#x27;s 2024 Democracy Report but should be interpreted cautiously: the current trajectory module covers a non-representative subset (selected volatile cases) and cannot serve as a basis for inferences about the full 163-country sample.</p>
+<p>The five largest deteriorations: Hungary (+39.2 percentage points), Turkey (+38.6pp), India (+30.4pp), Israel (+29.6pp), USA (+26.2pp). All five remained formally electoral democracies throughout, underscoring the system&#x27;s core analytic value.</p>
+<h2><strong>6. Erosion Pathway Library</strong></h2>
+<p>FieldShift operationalises Luhrmann and Lindberg&#x27;s (2019) typology into five identifiable erosion pathways characterised by their layer-sequence signatures. The pathway library enables both predictive analysis (once a country&#x27;s layer profile matches an early-stage pathway signature, the library suggests which domains face elevated risk next) and structured cross-case comparison.</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Erosion Pathway</strong></th><th><strong>Layer Sequence</strong></th><th><strong>Empirical Cases</strong></th><th><strong>Key Literature</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Executive Aggrandizement</strong></td><td>Constitutional then Behavioral</td><td>Hungary (2010-), Turkey (2013-), USA (2017-)</td><td>Luhrmann &amp; Lindberg 2019; Ginsburg &amp; Huq 2018</td></tr>
+<tr><td><strong>Populist Norm Erosion</strong></td><td>Behavioral then Organizational</td><td>Poland (2015-2023), Israel (2022-), Brazil (2018-2022)</td><td>Levitsky &amp; Ziblatt 2018; Mudde &amp; Kaltwasser 2017</td></tr>
+<tr><td><strong>Military/Security Seizure</strong></td><td>Organizational then Fiscal</td><td>Myanmar (2021), Sudan (2019), Mali (2021)</td><td>Svolik 2012; Finer 1962</td></tr>
+<tr><td><strong>Fiscal Capture</strong></td><td>Fiscal then Constitutional</td><td>Venezuela (2000s), Zimbabwe, Russia (2000s)</td><td>Bueno de Mesquita et al. 2003; Guriev &amp; Treisman 2019</td></tr>
+<tr><td><strong>Information Autocracy</strong></td><td>Extended then Behavioral</td><td>Russia (2012-), China, Hungary media capture</td><td>Guriev &amp; Treisman 2022; Rod &amp; Weidmann 2015</td></tr>
+</tbody>
+</table></div>
+<p>Table 3: Democratic erosion pathways with characteristic layer sequences and case examples. &quot;Layer Sequence&quot; refers to the domain typically showing first deterioration followed by secondary spread.</p>
+<h2><strong>7. Regional Risk Distribution and Contagion Effects</strong></h2>
+<p>Brinks and Coppedge (2006) demonstrated that democratic regime type has significant spatial autocorrelation. Gunitsky (2014) showed that major power status amplifies diffusion effects. FieldShift&#x27;s 2023 regional averages show sharp differentiation that partly reflects contagion dynamics:</p>
+<ul>
+<li>Western Europe: mean CDRS 0.243 (n=20) -- global democratic anchor region.
+</li>
+<li>Central Europe: mean CDRS 0.408 (n=8) -- under sustained pressure from Hungary (0.756) and Poland (recovering from 0.63 peak in 2021).
+</li>
+<li>Sub-Saharan Africa: mean CDRS 0.591 (n=45) -- widest within-region variance in dataset; Botswana (0.31) and Zimbabwe (0.74) represent opposite poles.
+</li>
+<li>Central Asia: mean CDRS 0.695 (n=5) -- highest regional average, reflecting entrenched authoritarian consolidation.
+</li>
+<li>Middle East and North Africa: mean CDRS 0.628 (n=17) -- regionally stable but at high absolute risk; UAE (0.52) and Morocco (0.58) show comparative moderateness within the regional context.
+</li></ul>
+<p>A dynamic contagion module identifying countries within geographic or institutional proximity of high-deterioration cases is planned for Version 2.0.</p>
+<h2><strong>8. Positioning Relative to Existing Systems</strong></h2>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Dimension</strong></th><th><strong>FieldShift</strong></th><th><strong>V-Dem</strong></th><th><strong>Freedom House</strong></th><th><strong>EIU Index</strong></th><th><strong>Polity5</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Countries covered</strong></td><td>163</td><td>202</td><td>195</td><td>167</td><td>167 (2018)</td></tr>
+<tr><td><strong>Time series</strong></td><td>2010-2023</td><td>1789-2023</td><td>1972-2023</td><td>2006-2023</td><td>1800-2018</td></tr>
+<tr><td><strong>Update frequency</strong></td><td>Annual</td><td>Annual</td><td>Annual</td><td>Annual</td><td>Discontinued</td></tr>
+<tr><td><strong>Open access</strong></td><td>Yes - full</td><td>Yes</td><td>Partial</td><td>Paywalled</td><td>Yes</td></tr>
+<tr><td><strong>Composite early warning</strong></td><td><strong>Yes</strong></td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+<tr><td><strong>Trajectory visualisation</strong></td><td><strong>Yes</strong></td><td>Partial</td><td>No</td><td>No</td><td>No</td></tr>
+<tr><td><strong>Country narrative</strong></td><td>Yes (AI)</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+<tr><td><strong>Pedagogical interface</strong></td><td>Three levels</td><td>Expert only</td><td>Moderate</td><td>Expert only</td><td>Expert only</td></tr>
+<tr><td><strong>Layer decomposition</strong></td><td>5 domains</td><td>400+ variables</td><td>Binary categories</td><td>4 categories</td><td>3-point scale</td></tr>
+<tr><td><strong>Uncertainty shown</strong></td><td>Planned v2</td><td>Yes (CI)</td><td>No</td><td>No</td><td>No</td></tr>
+<tr><td><strong>Citable methodology</strong></td><td>This doc</td><td>Extensive</td><td>Yes</td><td>Yes</td><td>Yes (legacy)</td></tr>
+</tbody>
+</table></div>
+<p>Table 4: FieldShift compared with five leading democratic monitoring systems.</p>
+<p>FieldShift&#x27;s core competitive advantage is not data coverage or source independence -- V-Dem outperforms it on both -- but the integration of multi-layer decomposition, trajectory analysis, and pedagogical accessibility in a single freely available interface. It is a translational instrument: converting the depth of academic datasets into forms usable by university educators, policy analysts, election observers, and journalists.</p>
+<h2><strong>9. Limitations and Development Roadmap</strong></h2>
+<h3><strong>9.1 Current Limitations</strong></h3>
+<ul>
+<li>Equal layer weighting: Theoretically motivated but empirically untested. Optimal weights calibrated against historical regime transitions remain to be estimated.
+</li>
+<li>No confidence intervals: Current scores present point estimates without uncertainty bounds, producing false precision especially in the Watch Zone (0.38-0.52) where small measurement differences determine risk classification.
+</li>
+<li>Coverage gaps: 163 countries excludes several small island states where democratic erosion dynamics may be particularly visible.
+</li>
+<li>English-language bias: Narratives and pedagogical content are currently English-only, limiting accessibility in francophone Africa and Spanish-speaking Latin America.
+</li>
+<li>Temporal start date: The 2010 start point means the system cannot detect erosion trajectories rooted in earlier periods.
+</li></ul>
+<h3><strong>9.2 Development Roadmap</strong></h3>
+<ol>
+<li>Version 2.0 (priority): Confidence interval visualisation using V-Dem&#x27;s published CI bounds.
+</li>
+<li>Version 2.0: Dynamic contagion module -- regional diffusion visualisation with proximity weighting.
+</li>
+<li>Version 2.1: Event annotation -- institutional events mapped directly onto time series charts.
+</li>
+<li>Version 2.1: Pre-election baseline reports -- automated PDF country assessments generated on a rolling election calendar.
+</li>
+<li>Version 3.0: Sensitivity analysis interface -- researchers can modify layer weights and observe score sensitivity in real time.
+</li>
+<li>Version 3.0: API access for R and Python -- enabling direct integration with academic research workflows.
+</li></ol>
+<h2><strong>10. Guidance for Academic Use</strong></h2>
+<h4><strong>As a teaching instrument</strong></h4>
+<p>The three-mode interface (student / policy / research) and Country Story function are designed for use in undergraduate and graduate courses on comparative democracy and democratic backsliding. The Head-to-Head comparison function is directly suited to structured seminar comparison exercises.</p>
+<h4><strong>As an exploratory research tool</strong></h4>
+<p>The five-layer decomposition enables researchers to identify cases where specific institutional domains diverge from overall democratic trajectories -- potentially theoretically significant outliers warranting case study analysis. The regional risk visualisation is appropriate for generating hypotheses about democratic diffusion and contagion.</p>
+<h4><strong>Citation guidance</strong></h4>
+<p>Until a peer-reviewed methodology paper is published, the appropriate citation is:</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Suggested pre-publication citation</strong><br>FieldShift Early Warning System (2024). Methodology &amp; Technical Reference Document v1.0. [URL]. Note: This is a pre-publication working document. Verification of key empirical claims against primary sources (V-Dem v14, Freedom House, IMF GFS) is recommended for published work.</th></tr>
+</thead>
+</table></div>
+<p>Researchers using FieldShift scores in published work should cross-validate critical findings against primary sources -- above all V-Dem v14 -- and note any discrepancies. FieldShift is an entry point and exploration tool, not a substitute for direct engagement with primary datasets.</p>
+<h2><strong>References</strong></h2>
+<p>Bermeo, N. (2016). On Democratic Backsliding. Journal of Democracy, 27(1), 5-19.</p>
+<p>Boese, V.A., Alizada, N., Lundstedt, M., et al. (2022). Autocratization Changing Nature? Democracy Report 2022. V-Dem Institute.</p>
+<p>Brinks, D., &amp; Coppedge, M. (2006). Diffusion Is No Illusion: Neighbor Emulation in the Third Wave of Democracy. Comparative Political Studies, 39(4), 463-489.</p>
+<p>Bueno de Mesquita, B., Smith, A., Siverson, R.M., &amp; Morrow, J.D. (2003). The Logic of Political Survival. MIT Press.</p>
+<p>Coppedge, M., Gerring, J., Knutsen, C.H., Lindberg, S.I., et al. (2023). V-Dem Codebook v14. Varieties of Democracy (V-Dem) Project.</p>
+<p>Ginsburg, T., &amp; Huq, A.Z. (2018). How to Save a Constitutional Democracy. University of Chicago Press.</p>
+<p>Guriev, S., &amp; Treisman, D. (2019). Informational Autocrats. Journal of Economic Perspectives, 33(4), 100-127.</p>
+<p>Guriev, S., &amp; Treisman, D. (2022). Spin Dictators: The Changing Face of Tyranny in the 21st Century. Princeton University Press.</p>
+<p>Gunitsky, S. (2014). From Shocks to Waves: Hegemonic Transitions and Democratization in the Twentieth Century. International Organization, 68(3), 561-597.</p>
+<p>Levitsky, S., &amp; Ziblatt, D. (2018). How Democracies Die. Crown Publishing.</p>
+<p>Luhrmann, A., &amp; Lindberg, S.I. (2019). A Third Wave of Autocratization is Here: What is New About It? Democratization, 26(7), 1095-1113.</p>
+<p>Mudde, C., &amp; Kaltwasser, C.R. (2017). Populism: A Very Short Introduction. Oxford University Press.</p>
+<p>Munck, G.L., &amp; Verkuilen, J. (2002). Conceptualizing and Measuring Democracy: Evaluating Alternative Indices. Comparative Political Studies, 35(1), 5-34.</p>
+<p>Pemstein, D., Meserve, S.A., &amp; Melton, J. (2010). Democratic Compromise: A Latent Variable Analysis of Ten Measures of Regime Type. Political Analysis, 18(4), 426-449.</p>
+<p>Rod, E.G., &amp; Weidmann, N.B. (2015). Empowering Activists or Autocrats? The Internet in Authoritarian Regimes. Journal of Peace Research, 52(3), 338-351.</p>
+<p>Svolik, M.W. (2012). The Politics of Authoritarian Rule. Cambridge University Press.</p>
+<p>Technical Appendix v1.1 (forthcoming): Full indicator weights within each layer  ·  Complete sensitivity analysis tables  ·  Country-level source coverage documentation  ·  V-Dem confidence interval integration protocol</p>
+</main>
+</body>
+</html>
