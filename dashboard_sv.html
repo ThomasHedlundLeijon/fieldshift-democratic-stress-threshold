@@ -1031,6 +1031,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 }
 </style>
 <style>/* FS-FIX-8 */.mnav-langtab .fs-flag{display:block;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.35)}.mnav-langtab{display:inline-flex;align-items:center;justify-content:center}.mnav-langtab .fs-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}</style>
+<style>/* FS-FIX-11 */.masthead-meta .mm-item{display:block;cursor:help;outline:none}.masthead-meta .mm-item:focus-visible{box-shadow:0 0 0 2px var(--gold-lt);border-radius:2px}.masthead-meta [data-tip]::after{top:calc(100% + 8px);bottom:auto;left:auto;right:0;transform:none;text-align:left;max-width:340px;font-size:12.5px;text-transform:none;letter-spacing:0}.masthead-meta [data-tip]::before{top:calc(100% - 4px);bottom:auto;left:auto;right:16px;transform:none;border-top-color:transparent;border-bottom-color:#333}.masthead-meta [data-tip]:focus::after,.masthead-meta [data-tip]:focus::before{opacity:1}.masthead-meta .mm-src{display:inline-block;margin-top:4px;font-size:10px;color:#b9a77a;border-bottom:1px dotted #b9a77a}.masthead-meta .mm-i{display:inline-block;width:13px;height:13px;line-height:13px;text-align:center;border:1px solid #888;border-radius:50%;font-size:9px;margin-left:4px;vertical-align:1px}</style>
 </head>
 <body>
 <script>
@@ -1068,10 +1069,11 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
       <a class="masthead-title" href="index.html" style="text-decoration:none;color:inherit;cursor:pointer">FieldShift <span>system för tidig varning</span></a>
       <div class="masthead-sub">Demokratisk erosion &middot; institutionell motståndskraft &middot; styrningsförmåga</div>
     </div>
-    <div class="masthead-meta">
-      <strong data-tip="163 länder med tillräckligt med data i alla fem risklager för meningsfull analys. Ytterligare 6 är dokumenterade som otillgängliga.">163</strong>länder som följs<br>
-      <strong data-tip="Systemet omfattar 14 års data, tillräckligt länge för att upptäcka trender och banor, inte bara ögonblicksbilder.">2010&ndash;2023</strong>timeline<br>
-      <strong data-tip="Data hämtas från 8 oberoende internationella källor: V-Dem, Freedom House, Världsbankens WGI, IMF GFS, SIPRI, RSF, Comparative Constitutions Project och IDEA.">8</strong> källdataset
+    <div class="masthead-meta" data-fix="FS-FIX-11">
+      <span class="mm-item tip-left" tabindex="0" data-tip="163 länder har data i alla fem risklager och ingår i analysen. Ytterligare 6 saknar tillräckliga data och redovisas som otillgängliga. Varje land har ett CDRS-värde per år."><strong>163</strong>länder som följs<span class="mm-i" aria-hidden="true">i</span></span>
+      <span class="mm-item tip-left" tabindex="0" data-tip="Perioden som CDRS-värdena täcker: årsvärden 2010–2023 (14 år; alla år finns inte för alla länder). Senaste år är 2023 eftersom underlaget bygger på V-Dem v14 (publicerad mars 2024), som går till och med 2023. Senaste utgåvan, V-Dem v16 (mars 2026, till och med 2025), är ännu inte inläst i dashboarden."><strong>2010&ndash;2023</strong>tidslinje<span class="mm-i" aria-hidden="true">i</span></span>
+      <span class="mm-item tip-left" tabindex="0" data-tip="Enligt metoddokumentet bygger indexet på 8 internationella källor: V-Dem, Freedom House, Världsbankens WGI, IMF GFS, SIPRI, Reportrar utan gränser (RSF), Comparative Constitutions Project och International IDEA. I landfilen är fem av dem markerade per land (V-Dem, Freedom House, WGI, IMF, SIPRI)."><strong>8</strong>källdataset<span class="mm-i" aria-hidden="true">i</span></span>
+      <span class="mm-item mm-src tip-left" tabindex="0" data-tip="Inte senaste V-Dem. Dashboarden använder V-Dem v14 (mars 2024), som täcker åren till och med 2023. V-Dem v16 (mars 2026) täcker till och med 2025 och behöver läsas in för att uppdatera värdena. Prognoserna valideras mot V-Dem v17 (väntas mars 2027).">Data: V-Dem v14 · t.o.m. 2023<span class="mm-i" aria-hidden="true">i</span></span>
     </div>
   </div>
 </div>

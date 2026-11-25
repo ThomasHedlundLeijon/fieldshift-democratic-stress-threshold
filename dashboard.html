@@ -1031,6 +1031,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 }
 </style>
 <style>/* FS-FIX-8 */.mnav-langtab .fs-flag{display:block;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.35)}.mnav-langtab{display:inline-flex;align-items:center;justify-content:center}.mnav-langtab .fs-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}</style>
+<style>/* FS-FIX-11 */.masthead-meta .mm-item{display:block;cursor:help;outline:none}.masthead-meta .mm-item:focus-visible{box-shadow:0 0 0 2px var(--gold-lt);border-radius:2px}.masthead-meta [data-tip]::after{top:calc(100% + 8px);bottom:auto;left:auto;right:0;transform:none;text-align:left;max-width:340px;font-size:12.5px;text-transform:none;letter-spacing:0}.masthead-meta [data-tip]::before{top:calc(100% - 4px);bottom:auto;left:auto;right:16px;transform:none;border-top-color:transparent;border-bottom-color:#333}.masthead-meta [data-tip]:focus::after,.masthead-meta [data-tip]:focus::before{opacity:1}.masthead-meta .mm-src{display:inline-block;margin-top:4px;font-size:10px;color:#b9a77a;border-bottom:1px dotted #b9a77a}.masthead-meta .mm-i{display:inline-block;width:13px;height:13px;line-height:13px;text-align:center;border:1px solid #888;border-radius:50%;font-size:9px;margin-left:4px;vertical-align:1px}</style>
 </head>
 <body>
 
@@ -1040,10 +1041,11 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
       <a class="masthead-title" href="index.html" style="text-decoration:none;color:inherit;cursor:pointer">FieldShift <span>Early Warning System</span></a>
       <div class="masthead-sub">Democratic Erosion &middot; Institutional Resilience &middot; Governing Capacity</div>
     </div>
-    <div class="masthead-meta">
-      <strong data-tip="163 countries with enough data across all five risk layers for meaningful analysis. 6 more are documented as unavailable.">163</strong>countries tracked<br>
-      <strong data-tip="The system covers 14 years of data, long enough to detect trends and trajectories, not just snapshots.">2010&ndash;2023</strong>timeline<br>
-      <strong data-tip="Data is drawn from 8 independent international sources: V-Dem, Freedom House, World Bank WGI, IMF GFS, SIPRI, RSF, Comparative Constitutions Project, and IDEA.">8</strong> source datasets
+    <div class="masthead-meta" data-fix="FS-FIX-11">
+      <span class="mm-item tip-left" tabindex="0" data-tip="163 countries have data in all five risk layers and are included in the analysis. 6 more lack sufficient data and are listed as unavailable. Each country has one CDRS value per year."><strong>163</strong>countries tracked<span class="mm-i" aria-hidden="true">i</span></span>
+      <span class="mm-item tip-left" tabindex="0" data-tip="The period covered by the CDRS values: annual values 2010–2023 (14 years; not every year is available for every country). The last year is 2023 because the data are based on V-Dem v14 (released March 2024), which runs to 2023. The latest edition, V-Dem v16 (March 2026, to 2025), has not yet been loaded into the dashboard."><strong>2010&ndash;2023</strong>timeline<span class="mm-i" aria-hidden="true">i</span></span>
+      <span class="mm-item tip-left" tabindex="0" data-tip="According to the methodology document the index draws on 8 international sources: V-Dem, Freedom House, World Bank WGI, IMF GFS, SIPRI, Reporters Without Borders (RSF), the Comparative Constitutions Project and International IDEA. In the country file, five of them are flagged per country (V-Dem, Freedom House, WGI, IMF, SIPRI)."><strong>8</strong>source datasets<span class="mm-i" aria-hidden="true">i</span></span>
+      <span class="mm-item mm-src tip-left" tabindex="0" data-tip="Not the latest V-Dem. The dashboard uses V-Dem v14 (March 2024), which covers the years up to 2023. V-Dem v16 (March 2026) covers up to 2025 and must be loaded to update the values. Validation of forecasts will use V-Dem v17 (expected March 2027).">Data: V-Dem v14 · to 2023<span class="mm-i" aria-hidden="true">i</span></span>
     </div>
   </div>
 </div>
