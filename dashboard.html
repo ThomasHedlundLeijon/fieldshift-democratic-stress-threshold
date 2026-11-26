@@ -1044,7 +1044,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
     <div class="masthead-meta" data-fix="FS-FIX-11 FS-FIX-12">
       <span class="mm-item tip-left" tabindex="0" data-tip="163 countries have CDRS values (at least three of five layers). 6 more lack data and are listed as unavailable."><strong>163</strong>countries tracked<span class="mm-i" aria-hidden="true">i</span></span>
       <span class="mm-item tip-left" tabindex="0" data-tip="Annual CDRS values 2010–2025 (16 years). V-Dem v16 (March 2026) runs to 2025; World Bank WGI was updated in September 2026."><strong>2010&ndash;2025</strong>timeline<span class="mm-i" aria-hidden="true">i</span></span>
-      <span class="mm-item tip-left" tabindex="0" data-tip="Computed with the original recipe from three sources: V-Dem v16 (constitutional, organizational and extended layers), World Bank WGI (behavioral layer, and fallbacks) and World Bank WDI (fiscal layer: military and education spending). Freedom House, SIPRI, IMF, RSF, CCP and IDEA are not used in the recipe."><strong>3</strong>source datasets<span class="mm-i" aria-hidden="true">i</span></span>
+      <span class="mm-item tip-left" tabindex="0" data-tip="Recipe v2 (JoD manuscript, Method Box): fiscal = IMF (budget balance, gross debt) and SIPRI (military share of government spending); constitutional = V-Dem (judicial constraints) and CCP (new constitutions, interim constitutions and suspensions in the last 5 years); organizational = V-Dem (civil society) and International IDEA (free parties, credible elections); norms = Freedom House (PR/CL) and RSF (press freedom); resilience = World Bank WGI (government effectiveness, rule of law) and SIPRI (military spending/GDP). Freedom House 2025 is carried forward from 2024."><strong>8</strong>source datasets<span class="mm-i" aria-hidden="true">i</span></span>
       <span class="mm-item mm-src tip-left" tabindex="0" data-tip="The dashboard uses V-Dem v16 (March 2026), the latest edition, covering up to 2025. Values were recomputed on 25 November 2026; see the report. Forecast validation will use V-Dem v17 (expected March 2027).">Data: V-Dem v16 · to 2025<span class="mm-i" aria-hidden="true">i</span></span>
     </div>
   </div>
@@ -1075,7 +1075,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- MAIN NAVIGATION TAB BAR                                     -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<div id="fsDataNotice" style="background:#fbf3e2;border-bottom:1px solid #e3cf9f;border-left:4px solid #9a6a0c;padding:10px 16px;font-size:13px;line-height:1.6;color:#4a3b17"><b>New data series (v16, 25 November 2026).</b> CDRS values are now computed with the original recipe (fieldshift_loader.py) from V-Dem v16 and World Bank WGI/WDI, 2010–2025. The earlier values could not be reproduced with that recipe. Texts, tables, country analyses and thresholds written before the switch (for example the risk bands, the warning threshold 0.52, the lead-time threshold 0.22, 86.7% and AUC 0.96) are based on the earlier data series and have not yet been recalculated. <a href="docs/cdrs_v16.html" target="_blank" rel="noopener">Report and comparison ↗</a></div>
+<div id="fsDataNotice" style="background:#fbf3e2;border-bottom:1px solid #e3cf9f;border-left:4px solid #9a6a0c;padding:10px 16px;font-size:13px;line-height:1.6;color:#4a3b17"><b>New data series and calibration (v0.9.0, 26 November 2026).</b> CDRS now follows the JoD manuscript recipe: five layers from eight sources (V-Dem v16, International IDEA, Freedom House, RSF, CCP, SIPRI, IMF and World Bank WGI), 2010–2025. Risk bands and thresholds were recalibrated on regime transitions 1996–2009 (the reserved FS-004 period 2010–2022 was not used): warning 0.26, lead-time threshold 0.21, bands 0.13 / 0.19 / 0.26 / 0.33 / 0.39 (3-year risk of a democracy becoming an autocracy 1, 2, 5, 10 and 20%). Calibration AUC 0.82; test on 2024–2025: AUC 0.80, 7 of 7 transitions above the warning threshold. Country analyses, static tables and the 28 red-flag indicators written before the switch still rest on the earlier data series. <a href="docs/cdrs_v16.html" target="_blank" rel="noopener">Report ↗</a></div>
 <nav id="mainNavBar" role="navigation" aria-label="Main sections">
   <div class="mnav-inner">
     <a class="mnav-tab mnav-langtab" href="dashboard_sv.html" data-lang="sv" lang="sv" title="Visa hela dashboarden på svenska"><svg class="fs-flag" viewBox="0 0 16 10" width="29" height="18" aria-hidden="true" focusable="false"><rect width="16" height="10" fill="#006AA7"/><rect x="5" width="2" height="10" fill="#FECC02"/><rect y="4" width="16" height="2" fill="#FECC02"/></svg><span class="fs-sr">Svenska</span></a>
@@ -1984,7 +1984,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
     </div>
   </div>
   <div style="margin-top:16px;padding:12px 16px;background:var(--paper-2);border:1px solid var(--rule);font-size:11px;color:var(--ink-soft);font-family:var(--mono)">
-    <strong style="color:var(--ink)">Methodological note:</strong> Uncertainty bands are estimated from cross-source variance (inter-source disagreement) and from V-Dem's published confidence intervals where available. Countries with fewer available sources or high inter-source disagreement show wider bands. The 0.52 dashed line marks the FieldShift early-warning threshold.
+    <strong style="color:var(--ink)">Methodological note:</strong> Uncertainty bands are estimated from cross-source variance (inter-source disagreement) and from V-Dem's published confidence intervals where available. Countries with fewer available sources or high inter-source disagreement show wider bands. The 0.26 dashed line marks the FieldShift warning threshold.
   </div>
 </div>
 
@@ -2380,7 +2380,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
       </div>
 
       <div class="meth-warning-box">
-        <strong>⚠ Current limitation — confidence intervals:</strong> Scores are currently presented as point estimates. V-Dem publishes 95% Bayesian confidence intervals for all its indicator estimates; a country scoring 0.52 ± 0.08 is in a qualitatively different situation from one scoring 0.52 ± 0.02. Confidence interval visualization is the highest-priority item in the Version 2.0 development roadmap. Until then, scores in the Watch Zone (0.38–0.52) should be treated with particular caution.
+        <strong>⚠ Current limitation — confidence intervals:</strong> Scores are currently presented as point estimates. V-Dem publishes 95% Bayesian confidence intervals for all its indicator estimates; a country scoring 0.52 ± 0.08 is in a qualitatively different situation from one scoring 0.52 ± 0.02. Confidence interval visualization is the highest-priority item in the Version 2.0 development roadmap. Until then, scores in the Watch Zone (0.19–0.26) should be treated with particular caution.
       </div>
 
       <!-- Formula -->
@@ -2466,39 +2466,39 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
       <table class="meth-threshold-table">
         <thead>
           <tr>
-            <th>Band</th><th>CDRS Range</th><th>Countries (2023)</th><th>Share</th><th>Calibration basis</th>
+            <th>Band</th><th>CDRS Range</th><th>Countries (2025)</th><th>Share</th><th>Calibration basis</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><span class="risk-dot-sm" style="background:#1e8449"></span><strong style="color:#1e8449">Very Low</strong></td>
-            <td style="font-family:var(--mono)">0.00 – 0.24</td><td>18</td><td>11.0%</td>
-            <td style="font-size:11px;color:var(--ink-soft)">Norway (0.11), Switzerland (0.12)</td>
+            <td style="font-family:var(--mono)">0.00 – 0.12</td><td>5</td><td>3.1%</td>
+            <td style="font-size:11px;color:var(--ink-soft)">3-year risk below 1% (democracies) · Sweden (0.12), Denmark (0.11)</td>
           </tr>
           <tr>
             <td><span class="risk-dot-sm" style="background:#45b06e"></span><strong style="color:#45b06e">Low</strong></td>
-            <td style="font-family:var(--mono)">0.25 – 0.37</td><td>26</td><td>16.0%</td>
-            <td style="font-size:11px;color:var(--ink-soft)">Germany, France, Japan</td>
+            <td style="font-family:var(--mono)">0.13 – 0.18</td><td>14</td><td>8.6%</td>
+            <td style="font-size:11px;color:var(--ink-soft)">3-year risk 1–2% (democracies) · Norway (0.14), Finland (0.16), Germany (0.16)</td>
           </tr>
           <tr>
             <td><span class="risk-dot-sm" style="background:#d4ac0d"></span><strong style="color:#d4ac0d">Watch</strong></td>
-            <td style="font-family:var(--mono)">0.38 – 0.51</td><td>38</td><td>23.3%</td>
-            <td style="font-size:11px;color:var(--ink-soft)">Mexico, South Korea, Brazil</td>
+            <td style="font-family:var(--mono)">0.19 – 0.25</td><td>22</td><td>13.5%</td>
+            <td style="font-size:11px;color:var(--ink-soft)">3-year risk 2–5% (democracies) · Japan (0.22), United Kingdom (0.22), France (0.23)</td>
           </tr>
           <tr>
-            <td><span class="risk-dot-sm" style="background:#e67e22"></span><strong style="color:#c06820">Warning</strong></td>
-            <td style="font-family:var(--mono)">0.52 – 0.65</td><td>41</td><td>25.2%</td>
-            <td style="font-size:11px;color:var(--ink-soft)"><strong>0.52 threshold:</strong> 14 of 17 countries V-Dem reclassified from Electoral Democracy to Electoral Autocracy (2010–2023) had CDRS &gt;0.52 in the preceding year</td>
+            <td><span class="risk-dot-sm" style="background:#c06820"></span><strong style="color:#c06820">Warning</strong></td>
+            <td style="font-family:var(--mono)">0.26 – 0.32</td><td>30</td><td>18.4%</td>
+            <td style="font-size:11px;color:var(--ink-soft)"><strong>Warning threshold 0.26:</strong> Youden optimum 1996–2006 (sensitivity 0.91, specificity 0.65) · 3-year risk 5–10% (democracies) · USA (0.30), Brazil (0.29), Poland (0.32)</td>
           </tr>
           <tr>
-            <td><span class="risk-dot-sm" style="background:#e74c3c"></span><strong style="color:#b02810">Critical</strong></td>
-            <td style="font-family:var(--mono)">0.66 – 0.79</td><td>26</td><td>16.0%</td>
-            <td style="font-size:11px;color:var(--ink-soft)">Hungary (0.756), Turkey (0.75), Iran</td>
+            <td><span class="risk-dot-sm" style="background:#b02810"></span><strong style="color:#b02810">Critical</strong></td>
+            <td style="font-family:var(--mono)">0.33 – 0.38</td><td>21</td><td>12.9%</td>
+            <td style="font-size:11px;color:var(--ink-soft)">3-year risk 10–20% (democracies) · Hungary (0.36), Indonesia (0.35)</td>
           </tr>
           <tr>
-            <td><span class="risk-dot-sm" style="background:#922b21"></span><strong style="color:#7a1810">Crisis</strong></td>
-            <td style="font-family:var(--mono)">0.80 – 1.00</td><td>14</td><td>8.6%</td>
-            <td style="font-size:11px;color:var(--ink-soft)">Russia (0.92), China (0.89)</td>
+            <td><span class="risk-dot-sm" style="background:#7a1810"></span><strong style="color:#7a1810">Crisis</strong></td>
+            <td style="font-family:var(--mono)">0.39 – 1.00</td><td>71</td><td>43.6%</td>
+            <td style="font-size:11px;color:var(--ink-soft)">3-year risk above 20% (democracies) · Mexico (0.42), India (0.41), Turkey (0.48)</td>
           </tr>
         </tbody>
       </table>
@@ -3120,7 +3120,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
     <div style="background:var(--ink);padding:24px;border-left:1px solid var(--rule)">
       <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:8px">D5 · S3 · S4</div>
       <div style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:10px;color:var(--paper)">κ and the thresholds</div>
-      <div style="font-size:13px;color:#b0a898;line-height:1.75">κ = ℋ/8 = 0.2155 is a threshold on the democracy level: D ≤ κ. If CDRS ≈ 1 − D, it corresponds to CDRS ≥ 0.7845. The empirical CDRS warning from 0.52 corresponds to D ≤ 0.48. Every country beyond κ is therefore also in warning. <a href="#hlCalcBlock" data-hlref="S3" style="font-family:var(--mono);font-size:11px;color:var(--info)">S3</a> <a href="#hlCalcBlock" data-hlref="S4" style="font-family:var(--mono);font-size:11px;color:var(--info)">S4</a></div>
+      <div style="font-size:13px;color:#b0a898;line-height:1.75">κ = ℋ/8 = 0.2155 is a threshold on the democracy level: D ≤ κ. If CDRS ≈ 1 − D, it corresponds to CDRS ≥ 0.7845. The calibrated CDRS warning from 0.26 corresponds to D ≤ 0.74. Every country beyond κ is therefore also in warning. <a href="#hlCalcBlock" data-hlref="S3" style="font-family:var(--mono);font-size:11px;color:var(--info)">S3</a> <a href="#hlCalcBlock" data-hlref="S4" style="font-family:var(--mono);font-size:11px;color:var(--info)">S4</a></div>
     </div>
   </div>
 
@@ -3146,7 +3146,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
     <div style="margin-bottom:20px" id="kappa">
       <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:22px">Position on the democracy scale (0 = autocracy, 1 = democracy)</div>
       <div style="position:relative;height:24px;border-radius:4px;background:linear-gradient(to right,#8e0000 0%,#c0392b 22%,#d4a017 48%,#1e8449 100%);margin-bottom:4px">
-        <div style="position:absolute;left:21.55%;top:-6px;height:36px;border-left:2px dashed var(--ink)"><span style="position:absolute;top:-18px;left:-2px;white-space:nowrap;font-family:var(--mono);font-size:10px;color:var(--ink)">κ = 0.2155 (S2)</span></div><div style="position:absolute;left:48%;top:-6px;height:36px;border-left:2px dashed var(--ink)"><span style="position:absolute;top:38px;left:-2px;white-space:nowrap;font-family:var(--mono);font-size:10px;color:var(--ink)">D = 0.48 ⇔ CDRS = 0.52 (S4)</span></div>
+        <div style="position:absolute;left:21.55%;top:-6px;height:36px;border-left:2px dashed var(--ink)"><span style="position:absolute;top:-18px;left:-2px;white-space:nowrap;font-family:var(--mono);font-size:10px;color:var(--ink)">κ = 0.2155 (S2)</span></div><div style="position:absolute;left:74%;top:-6px;height:36px;border-left:2px dashed var(--ink)"><span style="position:absolute;top:38px;left:-2px;white-space:nowrap;font-family:var(--mono);font-size:10px;color:var(--ink)">D = 0.74 ⇔ CDRS = 0.26 (S4)</span></div>
         <div id="hlPeakMark" style="position:absolute;top:-4px;width:2px;height:32px;border-radius:1px;background:rgba(255,255,255,0.8)"></div>
         <div id="hlScoreMark" style="position:absolute;top:-4px;width:3px;height:32px;border-radius:2px;background:var(--ink)"></div>
       </div>
@@ -3332,8 +3332,8 @@ var RISK_COLS = {CRITICAL:'#6c1a1a',HIGH:'#c0392b',MEDIUM:'#d68910',LOW:'#1e8449
 var RISK_BGS  = {CRITICAL:'#fdf2f2',HIGH:'#fef5f5',MEDIUM:'#fef9e7',LOW:'#eafaf1',MINIMAL:'#e8faf4','No data':'#f5f5f5'};
 function riskLevel(s) {
   if (s===null||s===undefined||isNaN(s)) return 'No data';
-  if (s>=0.85) return 'CRITICAL'; if (s>=0.70) return 'HIGH';
-  if (s>=0.50) return 'MEDIUM';   if (s>=0.30) return 'LOW'; return 'MINIMAL';
+  if (s>=0.39) return 'CRITICAL'; if (s>=0.33) return 'HIGH';
+  if (s>=0.26) return 'MEDIUM';   if (s>=0.19) return 'LOW'; return 'MINIMAL';
 }
 var TRAJ_COL = {Deteriorating:'#c0392b',Improving:'#1e8449',Stable:'#7f8c8d',Volatile:'#d68910','Insufficient data':'#bbb'};
 var TRAJ_ARR = {Deteriorating:'&#8600;',Improving:'&#8599;',Stable:'&#8594;',Volatile:'&#8596;','Insufficient data':'&middot;'};
@@ -4528,7 +4528,7 @@ var RFS_INDICATORS = [
     thresholdBasis:'0.55 validated threshold: 52 of 89 countries with composite above 0.55 experienced significant democratic decline within 5 years in V-Dem 1990-2022 dataset. 0.70: 71% of countries above this threshold experienced decline within 3 years.',
     inverted:true, unit:'%',
     desc:'Primary integrated system signal. Equal-weighted mean of all five layers. Transparent formula for full replication.',
-    thresholds:[0.25, 0.38, 0.52, 0.66, 0.80],
+    thresholds:[0.13, 0.19, 0.26, 0.33, 0.39],
     getValue: function(c,fsi,yrs){ return latestLayerVal(c,yrs,'composite'); },
     timeframes: ['PREVENTIVE','LONG','MEDIUM','SHORT','IMMEDIATE'],
     prescribed: ['Maintain current trajectory — system is healthy','Activate monitoring protocol and brief stakeholders','Initiate Gap Reduction Sequence Phase 1 immediately','Emergency intervention — all GRM phases reviewed and activated','Crisis protocol: all six GRM phases activated — international support required'] },
@@ -4934,21 +4934,21 @@ var MAP_RISK_LABELS = ['Very Low','Low','Watch','Warning','Critical','Crisis'];
 
 function getRiskColor(score) {
   if (score === null || score === undefined || isNaN(score)) return '#d0c8bc';
-  if (score < 0.25) return MAP_RISK_COLORS[0];
-  if (score < 0.38) return MAP_RISK_COLORS[1];
-  if (score < 0.52) return MAP_RISK_COLORS[2];
-  if (score < 0.66) return MAP_RISK_COLORS[3];
-  if (score < 0.80) return MAP_RISK_COLORS[4];
+  if (score < 0.13) return MAP_RISK_COLORS[0];
+  if (score < 0.19) return MAP_RISK_COLORS[1];
+  if (score < 0.26) return MAP_RISK_COLORS[2];
+  if (score < 0.33) return MAP_RISK_COLORS[3];
+  if (score < 0.39) return MAP_RISK_COLORS[4];
   return MAP_RISK_COLORS[5];
 }
 
 function getRiskLabel(score) {
   if (score === null || score === undefined || isNaN(score)) return 'No data';
-  if (score < 0.25) return 'Very Low';
-  if (score < 0.38) return 'Low';
-  if (score < 0.52) return 'Watch';
-  if (score < 0.66) return 'Warning';
-  if (score < 0.80) return 'Critical';
+  if (score < 0.13) return 'Very Low';
+  if (score < 0.19) return 'Low';
+  if (score < 0.26) return 'Watch';
+  if (score < 0.33) return 'Warning';
+  if (score < 0.39) return 'Critical';
   return 'Crisis';
 }
 
@@ -5049,8 +5049,8 @@ function mapHover(e, mapName, scoreStr, riskLbl) {
 
     if (d && d.composite!=null) {
       var sc = d.composite;
-      var rCol = sc<0.25?'#1a7a40':sc<0.38?'#45b06e':sc<0.52?'#d4b800':sc<0.66?'#c06820':sc<0.80?'#b02810':'#7a1810';
-      var rLbl = sc<0.25?'Very Low':sc<0.38?'Low':sc<0.52?'Watch Zone':sc<0.66?'Warning':sc<0.80?'Critical':'Crisis';
+      var rCol = sc<0.13?'#1a7a40':sc<0.19?'#45b06e':sc<0.26?'#d4b800':sc<0.33?'#c06820':sc<0.39?'#b02810':'#7a1810';
+      var rLbl = sc<0.13?'Very Low':sc<0.19?'Low':sc<0.26?'Watch Zone':sc<0.33?'Warning':sc<0.39?'Critical':'Crisis';
 
       h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">';
       h += '<div style="flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden">';
@@ -5219,11 +5219,11 @@ function renderMap() {
     if(c && !c.available) return '#888880';
     var s=scoreLookup[name];
     if(s===undefined||s===null) return '#c8c0b4';
-    if(s<0.25) return '#1a7a40';
-    if(s<0.38) return '#45b06e';
-    if(s<0.52) return '#d4b800';
-    if(s<0.66) return '#c06820';
-    if(s<0.80) return '#b02810';
+    if(s<0.13) return '#1a7a40';
+    if(s<0.19) return '#45b06e';
+    if(s<0.26) return '#d4b800';
+    if(s<0.33) return '#c06820';
+    if(s<0.39) return '#b02810';
     return '#7a1810';
   }
   function d3Stroke(numId) {
@@ -5354,11 +5354,11 @@ function classifyTrajectory(startScore, endScore, years) {
 }
 
 function classifyLevel(score) {
-  if (score < 0.25) return 'very low';
-  if (score < 0.38) return 'low';
-  if (score < 0.52) return 'watch zone';
-  if (score < 0.66) return 'warning';
-  if (score < 0.80) return 'critical';
+  if (score < 0.13) return 'very low';
+  if (score < 0.19) return 'low';
+  if (score < 0.26) return 'watch zone';
+  if (score < 0.33) return 'warning';
+  if (score < 0.39) return 'critical';
   return 'critical';
 }
 
@@ -5459,10 +5459,10 @@ function generateNarrative(country, years, dataByYear, fsiData) {
 
   // Outlook
   var p4 = '';
-  if (endScore > 0.65) {
+  if (endScore > 0.33) {
     p4 = '<strong>Outlook:</strong> At current risk levels, ' + cname + ' is in the zone where the FieldShift model\'s recovery asymmetry becomes operationally significant. In V-Dem’s Episodes of Regime Transformation (ERT) data (Lührmann and Lindberg 2019) the average recovery episode lasts 8.3 years; that is an average across countries, not a forecast for this country. Preventive action is no longer available — active Gap Reduction Sequence implementation is required.';
   } else if (traj === 'mild_erosion' || traj === 'significant_erosion') {
-    p4 = '<strong>Outlook:</strong> The current trajectory — if unchanged — will carry ' + cname + ' into the WARNING zone within ' + (Math.max(1, Math.round((0.52 - endScore) / Math.max(0.001, (endScore-startScore)/nYears)))) + ' years at the observed rate. This is the preventive action window: the most cost-effective moment to activate the Gap Reduction Sequence. The longer action is delayed, the higher the recovery cost.';
+    p4 = '<strong>Outlook:</strong> The current trajectory — if unchanged — will carry ' + cname + ' into the WARNING zone within ' + (Math.max(1, Math.round((0.26 - endScore) / Math.max(0.001, (endScore-startScore)/nYears)))) + ' years at the observed rate. This is the preventive action window: the most cost-effective moment to activate the Gap Reduction Sequence. The longer action is delayed, the higher the recovery cost.';
   } else if (traj === 'stable') {
     p4 = '<strong>Outlook:</strong> Stability at this risk level requires active maintenance. The FieldShift model identifies several preventive measures that consolidate democratic health during stable periods: gatekeeping coordination, fiscal monitoring, and reversibility auditing. These are low-cost interventions when applied preventively.';
   } else {
@@ -5500,17 +5500,17 @@ function buildArcCards(years, dataByYear) {
     var d = dataByYear[yr];
     if (!d) return;
     var score = d.composite;
-    var col = score < 0.38 ? '#1e8449' : score < 0.52 ? '#d68910' : score < 0.66 ? '#e67e22' : '#c0392b';
+    var col = score < 0.19 ? '#1e8449' : score < 0.26 ? '#d68910' : score < 0.33 ? '#e67e22' : '#c0392b';
     var prevYr = significant[i-1];
     var prevD = prevYr ? dataByYear[prevYr] : null;
     var delta = prevD ? score - prevD.composite : 0;
     var deltaStr = prevD ? (delta >= 0 ? '▲+' : '▼') + (delta*100).toFixed(1)+'<span class="pp-wrap"><span class="pp">pp</span></span>' : 'Baseline';
     var dom = dominantLayer(d);
-    var title = score < 0.25 ? 'Strong democratic health' :
-                score < 0.38 ? 'Low risk — stable' :
-                score < 0.52 ? 'Watch zone — strain visible' :
-                score < 0.66 ? 'Warning — significant risk' :
-                score < 0.80 ? 'Critical — erosion advanced' :
+    var title = score < 0.13 ? 'Strong democratic health' :
+                score < 0.19 ? 'Low risk — stable' :
+                score < 0.26 ? 'Watch zone — strain visible' :
+                score < 0.33 ? 'Warning — significant risk' :
+                score < 0.39 ? 'Critical — erosion advanced' :
                                'Crisis — severe erosion';
     h += '<div class="story-arc-card">';
     h += '<div class="story-arc-year">'+yr+'</div>';
@@ -5531,7 +5531,7 @@ function buildSparkline(years, dataByYear) {
   vals.forEach(function(v) {
     var pct = max > min ? (v-min)/(max-min) : 0.5;
     var ht = Math.round(4 + pct * 20);
-    var col = v < 0.38 ? '#2ecc71' : v < 0.52 ? '#f1c40f' : v < 0.66 ? '#e67e22' : '#e74c3c';
+    var col = v < 0.19 ? '#2ecc71' : v < 0.26 ? '#f1c40f' : v < 0.33 ? '#e67e22' : '#e74c3c';
     h += '<div class="story-bar-seg" style="height:'+ht+'px;background:'+col+'"></div>';
   });
   return h;
@@ -5613,8 +5613,8 @@ function renderStory() {
   h += '<div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#666;margin-bottom:4px">Composite Risk '+lastYr+'</div>';
   h += '<div class="story-fsi-num" style="color:'+(endScore<0.38?'#2ecc71':endScore<0.52?'#f1c40f':endScore<0.66?'#e67e22':'#e74c3c')+'">'+(endScore*100).toFixed(1)+'%</div>';
   // Add threshold label under score
-  var threshLabel = endScore < 0.25 ? 'Very Low Risk' : endScore < 0.38 ? 'Low Risk' : endScore < 0.52 ? '⚠ Watch Zone' : endScore < 0.66 ? '⚠ Warning' : endScore < 0.80 ? '🔴 Critical' : '🔴 Crisis';
-  var threshCol   = endScore < 0.38 ? '#1e8449' : endScore < 0.52 ? '#d68910' : endScore < 0.66 ? '#e67e22' : '#e74c3c';
+  var threshLabel = endScore < 0.13 ? 'Very Low Risk' : endScore < 0.19 ? 'Low Risk' : endScore < 0.26 ? '⚠ Watch Zone' : endScore < 0.33 ? '⚠ Warning' : endScore < 0.39 ? '🔴 Critical' : '🔴 Crisis';
+  var threshCol   = endScore < 0.19 ? '#1e8449' : endScore < 0.26 ? '#d68910' : endScore < 0.33 ? '#e67e22' : '#e74c3c';
   h += '<div style="font-family:var(--mono);font-size:11px;font-weight:700;color:'+threshCol+';margin-top:3px">'+threshLabel+'</div>';
   // Mini threshold bar
   h += '<div style="margin-top:6px;height:6px;border-radius:3px;overflow:hidden;display:flex;width:120px">';
@@ -5648,7 +5648,7 @@ function renderStory() {
       h += '<div class="story-layer-card"><div class="story-layer-name">'+layerNames[i]+'</div><div class="story-layer-val" style="color:#ccc">—</div></div>';
       return;
     }
-    var col = lastV < 0.38 ? '#1e8449' : lastV < 0.52 ? '#d68910' : lastV < 0.66 ? '#e67e22' : '#c0392b';
+    var col = lastV < 0.19 ? '#1e8449' : lastV < 0.26 ? '#d68910' : lastV < 0.33 ? '#e67e22' : '#c0392b';
     var dlt = firstV !== undefined ? lastV - firstV : 0;
     h += '<div class="story-layer-card">';
     h += '<div class="story-layer-name" style="color:'+layerCols[i]+'">'+layerNames[i]+'</div>';
@@ -5735,7 +5735,7 @@ function renderCompare() {
 
   function rCol(v) {
     if (v === null || v === undefined) return '#888';
-    return v < 0.25 ? '#1e8449' : v < 0.38 ? '#117a65' : v < 0.52 ? '#d68910' : v < 0.66 ? '#e67e22' : '#c0392b';
+    return v < 0.13 ? '#1e8449' : v < 0.19 ? '#117a65' : v < 0.26 ? '#d68910' : v < 0.33 ? '#e67e22' : '#c0392b';
   }
 
   function getTraj(country) {
@@ -5930,7 +5930,7 @@ function buildQSCards() {
     if (!c) return;
     var d = c.data['2025']||c.data['2024']||c.data['2023'] || c.data[2023] || c.data['2022'] || c.data[2022];
     var score = d ? (d.composite * 100).toFixed(1) + '%' : '—';
-    var scoreCol = d ? (d.composite < 0.38 ? '#2ecc71' : d.composite < 0.52 ? '#f1c40f' : d.composite < 0.66 ? '#e67e22' : '#e74c3c') : '#888';
+    var scoreCol = d ? (d.composite < 0.19 ? '#2ecc71' : d.composite < 0.26 ? '#f1c40f' : d.composite < 0.33 ? '#e67e22' : '#e74c3c') : '#888';
     h += '<div class="qs-card" onclick="qsGo(\''+f.name+'\')">';
     h += '<div class="qs-card-label" style="color:'+f.labelCol+'">'+f.label+'</div>';
     h += '<div class="qs-card-country">'+f.name+'</div>';
@@ -5973,7 +5973,7 @@ function qsSearch(val) {
   matches.forEach(function(c, i) {
     var d = c.data['2025']||c.data['2024']||c.data['2023'] || c.data[2023] || c.data['2022'] || c.data[2022];
     var score = d ? (d.composite * 100).toFixed(1) + '%' : '—';
-    var scoreCol = d ? (d.composite < 0.38 ? '#2ecc71' : d.composite < 0.52 ? '#f1c40f' : d.composite < 0.66 ? '#e67e22' : '#e74c3c') : '#888';
+    var scoreCol = d ? (d.composite < 0.19 ? '#2ecc71' : d.composite < 0.26 ? '#f1c40f' : d.composite < 0.33 ? '#e67e22' : '#e74c3c') : '#888';
     var deepAvail = !!(c && c.data && Object.keys(c.data).length);
     var deepBadge = deepAvail ? '<span style="margin-left:7px;padding:2px 6px;border-radius:10px;background:#e8f2fc;color:#1a5276;font-size:9px;font-family:var(--mono);font-weight:700;letter-spacing:.04em">DEEP</span>' : '';
     h += '<div class="qs-result-item" onclick="qsGo(\''+c.name+'\')" data-idx="'+i+'">';
@@ -6217,20 +6217,20 @@ var AUDIENCE_LABELS = {
 // ── Risk color helper (presentation) ────────────────────────
 function presRiskCol(v) {
   if (v === null || v === undefined) return '#888';
-  if (v < 0.25) return '#1e8449';
-  if (v < 0.38) return '#117a65';
-  if (v < 0.52) return '#d68910';
-  if (v < 0.66) return '#e67e22';
-  if (v < 0.80) return '#e74c3c';
+  if (v < 0.13) return '#1e8449';
+  if (v < 0.19) return '#117a65';
+  if (v < 0.26) return '#d68910';
+  if (v < 0.33) return '#e67e22';
+  if (v < 0.39) return '#e74c3c';
   return '#c0392b';
 }
 
 function presRiskLabel(v) {
-  if (v < 0.25) return 'Very Low Risk';
-  if (v < 0.38) return 'Low Risk';
-  if (v < 0.52) return 'Watch Zone';
-  if (v < 0.66) return 'Warning Zone';
-  if (v < 0.80) return 'Critical';
+  if (v < 0.13) return 'Very Low Risk';
+  if (v < 0.19) return 'Low Risk';
+  if (v < 0.26) return 'Watch Zone';
+  if (v < 0.33) return 'Warning Zone';
+  if (v < 0.39) return 'Critical';
   return 'Crisis';
 }
 
@@ -6770,31 +6770,31 @@ var RANK_LCOLS = {fiscal:'#2471a3',constitutional:'#e67e22',
 
 function rankRiskColor(s) {
   if (s === null || s === undefined) return '#aaa';
-  if (s < 0.25) return '#1e8449';
-  if (s < 0.38) return '#2e7d52';
-  if (s < 0.52) return '#d68910';
-  if (s < 0.66) return '#e67e22';
-  if (s < 0.80) return '#e74c3c';
+  if (s < 0.13) return '#1e8449';
+  if (s < 0.19) return '#2e7d52';
+  if (s < 0.26) return '#d68910';
+  if (s < 0.33) return '#e67e22';
+  if (s < 0.39) return '#e74c3c';
   return '#922b21';
 }
 
 function rankRiskLabel(s) {
   if (s === null || s === undefined) return 'No data';
-  if (s < 0.25) return 'Very Low';
-  if (s < 0.38) return 'Low';
-  if (s < 0.52) return 'Watch Zone';
-  if (s < 0.66) return 'Warning';
-  if (s < 0.80) return 'Critical';
+  if (s < 0.13) return 'Very Low';
+  if (s < 0.19) return 'Low';
+  if (s < 0.26) return 'Watch Zone';
+  if (s < 0.33) return 'Warning';
+  if (s < 0.39) return 'Critical';
   return 'Crisis';
 }
 
 function rankRiskBg(s) {
   if (s === null || s === undefined) return '#f5f5f5';
-  if (s < 0.25) return '#eafaf1';
-  if (s < 0.38) return '#f0faf4';
-  if (s < 0.52) return '#fef9e7';
-  if (s < 0.66) return '#fef5e7';
-  if (s < 0.80) return '#fdf2f2';
+  if (s < 0.13) return '#eafaf1';
+  if (s < 0.19) return '#f0faf4';
+  if (s < 0.26) return '#fef9e7';
+  if (s < 0.33) return '#fef5e7';
+  if (s < 0.39) return '#fdf2f2';
   return '#f9ebea';
 }
 
@@ -7294,16 +7294,16 @@ function buildRiskyRegions() {
     var deltaPct = (stats.avgDelta*100 > 0 ? '+' : '') + (stats.avgDelta*100).toFixed(1);
 
     // Risk color
-    var riskCol = stats.avg23 > 0.65 ? '#922b21' : stats.avg23 > 0.50 ? '#e74c3c' :
-                  stats.avg23 > 0.38 ? '#e67e22' : stats.avg23 > 0.25 ? '#d68910' : '#2e7d52';
-    var riskLbl = stats.avg23 > 0.65 ? 'Critical' : stats.avg23 > 0.50 ? 'Warning' :
-                  stats.avg23 > 0.38 ? 'Watch' : stats.avg23 > 0.25 ? 'Low' : 'Very Low';
+    var riskCol = stats.avg23 > 0.33 ? '#922b21' : stats.avg23 > 0.26 ? '#e74c3c' :
+                  stats.avg23 > 0.19 ? '#e67e22' : stats.avg23 > 0.13 ? '#d68910' : '#2e7d52';
+    var riskLbl = stats.avg23 > 0.33 ? 'Critical' : stats.avg23 > 0.26 ? 'Warning' :
+                  stats.avg23 > 0.19 ? 'Watch' : stats.avg23 > 0.13 ? 'Low' : 'Very Low';
 
     // Top 5 countries by score
     var topCs = stats.countries.slice(0,5).map(function(c){
       var cc = riskCol;
-      if (c.score > 0.65) cc='#922b21'; else if (c.score>0.50) cc='#e74c3c';
-      else if (c.score>0.38) cc='#e67e22'; else cc='#2e7d52';
+      if (c.score > 0.33) cc='#922b21'; else if (c.score>0.26) cc='#e74c3c';
+      else if (c.score>0.19) cc='#e67e22'; else cc='#2e7d52';
       var dStr = (c.delta != null) ? (' <span style="color:'+(c.delta>0.03?'#e74c3c':'#1e8449')+';font-size:9px">'+(c.delta>0?'↑+':'↓')+(c.delta*100).toFixed(0)+'pp</span>') : '';
       return '<span style="font-family:monospace;font-size:10px;color:'+cc+'">'+c.name+'</span>'+dStr;
     }).join(' &nbsp;·&nbsp; ');
@@ -7421,14 +7421,14 @@ var BENEFIT_CONCEPTS = {
   hconstant:{title:'ℋ = 1.724',text:'The Hedlund-Leijon constant. For every step that democracy falls, it takes 1.724 steps to recover. Validated on 200 years of V-Dem data (1789–2024, 200 countries, 25,709 observations).'},
   kappa:{title:'κ = 0.2155',text:'The critical threshold κ = ℋ/8 = 0.2155 on the democracy level: D ≤ κ (D5, S3). If CDRS ≈ 1 − D, it corresponds to CDRS ≥ 0.7845. That countries accelerate toward autocracy below κ is a hypothesis that has not been shown.'},
   asymmetry:{title:'Asymmetry',text:'Two different ratios. The core of the Hedlund-Leijon Principle is ℋ = 1.724: mean recovery magnitude divided by mean erosion magnitude (D3). Separately, in V-Dem’s Episodes of Regime Transformation (ERT) data (Lührmann and Lindberg 2019) erosion episodes last 4.7 years and recovery episodes 8.3 years on average (a time ratio of about 1.77). The time ratio is not ℋ.'},
-  earlywarning:{title:'Early Warning',text:'The FieldShift system identifies countries at risk 3–5 years before democratic collapse. Warning threshold on the CDRS scale: 0.52 (empirically calibrated, A3). The lead-time threshold c_L ≈ 0.22 on the CDRS scale gives the earliest signal, on average 3.3 years before collapse; it is empirical and is not κ (A6, S18). κ = ℋ/8 = 0.2155 belongs to the democracy level and corresponds to CDRS ≈ 0.78 (S3). Out-of-sample test (trained 2010–2018, tested 2019–2023): 13 of 15 country outcomes correct (86.7%; precision 1.00, recall 0.75, F1 0.857; AUC 0.96). The study covers 17 confirmed collapse episodes 2010–2023 (JoD manuscript v8, Table 1 and endnote 4). The test set is small (n = 15).'},
+  earlywarning:{title:'Early Warning',text:'The FieldShift system identifies countries at risk 3–5 years before democratic collapse. Warning threshold on the CDRS scale: 0.26; lead-time threshold c_L = 0.21 (calibrated on regime transitions 1996–2009, AUC 0.82; tested on 2024–2025: AUC 0.80, 7 of 7 transitions caught). Neither is κ (A6, S18). κ = ℋ/8 = 0.2155 belongs to the democracy level and corresponds to CDRS ≈ 0.78 (S3). Earlier data series (JoD manuscript): out-of-sample test (trained 2010–2018, tested 2019–2023): 13 of 15 country outcomes correct (86.7%; precision 1.00, recall 0.75, F1 0.857; AUC 0.96). The study covers 17 confirmed collapse episodes 2010–2023 (JoD manuscript v8, Table 1 and endnote 4). The test set is small (n = 15).'},
   pointnoreturn:{title:'Point of No Return',text:'CDRS ≈ 0.66. Beyond this, democratic systems have effectively collapsed. Belarus (0.910), Russia (0.920), Myanmar (0.858) are in the autocratic attractor.'},
   entropy:{title:'Democratic Entropy',text:'Measures system uncertainty and fragmentation. High entropy indicates instability and movement toward the warning thresholds. Shannon entropy can be calculated from V-Dem data.'},
   landscape:{title:'Stability Landscape',text:'Democracy as a ball rolling in a landscape with two valleys: the democracy valley (stable) and the autocracy pit (collapsed). Institutional stress pushes the ball up the slope. Beyond the ridge (CDRS ≈ 0.66 in the JoD manuscript) the ball is hypothesised to accelerate toward autocracy. The ridge is not κ: κ = 0.2155 is a threshold on the democracy level (S3).'},
   cdrs:{title:'CDRS',text:'Composite Democratic Risk Score (0–1). Aggregates five dimensions: fiscal integrity, constitutional constraints, organizational competition, democratic norms, institutional resilience. Higher scores = higher risk.'},
   fiwvsvdem:{title:'FIW vs V-Dem',text:'V-Dem (ℋ = 1.724) measures democracy broadly, including institutions, the rule of law, and civil society. Freedom House/FIW (ℋ = 0.970) measures political rights and civil liberties more narrowly. The difference suggests that institutional factors drive the asymmetry.'},
   resilience:{title:'Democratic Resilience',text:'A system\'s ability to withstand and recover from stress. Function of institutional strength, civil society robustness, and historical experience.'},
-  polandeffect:{title:'Poland Effect',text:'Poland reached CDRS 0.646 in 2019, far above the lead-time threshold c_L ≈ 0.22 and the warning threshold 0.52. But after the 2023 election (74% turnout), the trajectory reversed. This shows that the threshold marks increased risk, not inevitable collapse.'},
+  polandeffect:{title:'Poland Effect',text:'Poland reached CDRS 0.646 in 2019, far above the lead-time threshold and the warning threshold (value from the earlier data series). But after the 2023 election (74% turnout), the trajectory reversed. This shows that the threshold marks increased risk, not inevitable collapse.'},
   tipping:{title:'Tipping Point',text:'κ = ℋ/8 = 0.2155 is the hypothesised tipping point on the democracy level (D5, S3): below it, recovery is still possible but requires extraordinary effort. That stability changes character at κ is a hypothesis, not a demonstrated result.'},
   vdem:{title:'V-Dem data',text:'Varieties of Democracy provides broad, multidimensional institutional indicators used for long-run cross-country analysis and asymmetry validation.'},
   bootstrap:{title:'Bootstrap',text:'Resampling-based validation used to estimate robustness of asymmetry coefficients and threshold behavior across model specifications.'}
@@ -7699,16 +7699,16 @@ function renderUncertaintyChart(selId, chartId, interpId) {
   function px(year){ return pad.l + (years.indexOf(year)/(points.length-1))*gW; }
   function py(v){ return pad.t + gH - ((v-minY)/(maxY-minY))*gH; }
   function riskColor(v){
-    if(v<0.25) return '#1a7a40'; if(v<0.38) return '#45b06e';
-    if(v<0.52) return '#d4b800'; if(v<0.66) return '#c06820';
-    if(v<0.80) return '#b02810'; return '#7a1810';
+    if(v<0.13) return '#1a7a40'; if(v<0.19) return '#45b06e';
+    if(v<0.26) return '#d4b800'; if(v<0.33) return '#c06820';
+    if(v<0.39) return '#b02810'; return '#7a1810';
   }
 
   var svg = ['<svg width="100%" height="'+H+'" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">'];
 
   // Grid lines
   svg.push('<g stroke="rgba(0,0,0,0.06)" stroke-width="0.5">');
-  [0.25,0.38,0.52,0.66,0.80].forEach(function(v){
+  [0.13,0.19,0.26,0.33,0.39].forEach(function(v){
     if(v>=minY&&v<=maxY){
       var y=py(v);
       svg.push('<line x1="'+pad.l+'" y1="'+y+'" x2="'+(W-pad.r)+'" y2="'+y+'"/>');
@@ -7716,11 +7716,11 @@ function renderUncertaintyChart(selId, chartId, interpId) {
   });
   svg.push('</g>');
 
-  // Threshold line at 0.52
-  if(0.52>=minY&&0.52<=maxY){
-    var ty=py(0.52);
+  // Threshold line at 0.26
+  if(0.26>=minY&&0.26<=maxY){
+    var ty=py(0.26);
     svg.push('<line x1="'+pad.l+'" y1="'+ty+'" x2="'+(W-pad.r)+'" y2="'+ty+'" stroke="#c06820" stroke-width="1" stroke-dasharray="4,3" opacity="0.7"/>');
-    svg.push('<text x="'+(pad.l+3)+'" y="'+(ty-3)+'" font-size="8" fill="#c06820" font-family="monospace" opacity="0.8">0.52 threshold</text>');
+    svg.push('<text x="'+(pad.l+3)+'" y="'+(ty-3)+'" font-size="8" fill="#c06820" font-family="monospace" opacity="0.8">0.26 threshold</text>');
   }
 
   // Uncertainty band (polygon)
@@ -7775,7 +7775,7 @@ function renderUncertaintyChart(selId, chartId, interpId) {
     var first = points[0];
     var unc = getUncertaintyBand(country, last.year);
     var rLabels = ['Very Low','Low','Watch Zone','Warning','Critical','Crisis'];
-    function rLabel(v){ return v<0.25?rLabels[0]:v<0.38?rLabels[1]:v<0.52?rLabels[2]:v<0.66?rLabels[3]:v<0.80?rLabels[4]:rLabels[5]; }
+    function rLabel(v){ return v<0.13?rLabels[0]:v<0.19?rLabels[1]:v<0.26?rLabels[2]:v<0.33?rLabels[3]:v<0.39?rLabels[4]:rLabels[5]; }
     var lo=Math.max(0,last.v-unc), hi=Math.min(1,last.v+unc);
     var loL=rLabel(lo), hiL=rLabel(hi);
     var ambig = loL!==hiL ? ' — spans two risk tiers ('+loL+' to '+hiL+'), making precise classification uncertain' : '';
@@ -7846,7 +7846,7 @@ function buildPathwayCases() {
       if(!c||!c.available) return;
       var d = c.data['2025']||c.data['2024']||c.data['2023']||c.data['2022']||{};
       var sc = d.composite;
-      var col = sc<0.38?'#45b06e':sc<0.52?'#d4b800':sc<0.66?'#c06820':sc<0.80?'#b02810':'#7a1810';
+      var col = sc<0.19?'#45b06e':sc<0.26?'#d4b800':sc<0.33?'#c06820':sc<0.39?'#b02810':'#7a1810';
       html += '<div class="pathway-case" onclick="qsGo(\''+name+'\')" style="border-color:'+col+'">';
       html += '<span>'+name+'</span>';
       html += ' <span style="color:'+col+';font-weight:700">'+(sc?(sc*100).toFixed(0)+'%':'—')+'</span>';
@@ -7870,9 +7870,9 @@ function buildContagion() {
   });
 
   function riskColor(v){
-    if(v<0.25) return '#1a7a40'; if(v<0.38) return '#45b06e';
-    if(v<0.52) return '#d4b800'; if(v<0.66) return '#c06820';
-    if(v<0.80) return '#b02810'; return '#7a1810';
+    if(v<0.13) return '#1a7a40'; if(v<0.19) return '#45b06e';
+    if(v<0.26) return '#d4b800'; if(v<0.33) return '#c06820';
+    if(v<0.39) return '#b02810'; return '#7a1810';
   }
 
   // Main region table
@@ -7925,9 +7925,9 @@ function selectRegion(region) {
   if(!s) return;
 
   function riskColor(v){
-    if(v<0.25) return '#1a7a40'; if(v<0.38) return '#45b06e';
-    if(v<0.52) return '#d4b800'; if(v<0.66) return '#c06820';
-    if(v<0.80) return '#b02810'; return '#7a1810';
+    if(v<0.13) return '#1a7a40'; if(v<0.19) return '#45b06e';
+    if(v<0.26) return '#d4b800'; if(v<0.33) return '#c06820';
+    if(v<0.39) return '#b02810'; return '#7a1810';
   }
 
   var html = '<div class="cg-detail-title">'+region+' — Country-level spread analysis</div>';
@@ -7961,7 +7961,7 @@ function selectRegion(region) {
   });
 
   // Contagion risk note
-  var highRisk = s.countries.filter(function(c){ return c.score>=0.52; });
+  var highRisk = s.countries.filter(function(c){ return c.score>=0.26; });
   if(highRisk.length>0) {
     html += '<div class="cg-spread-box"><div class="cg-spread-title">Contagion Risk</div>';
     html += highRisk.length+' of '+s.countries.length+' countries in '+region+' are in Warning or above (≥52%). ';
@@ -9582,7 +9582,7 @@ var DEEPER_ANALYSIS = {
 
 <p><strong>Zone history:</strong></p>
 <ul style="margin-left:20px">
-<li><strong>2015:</strong> CDRS 0.362 — crossed the early-warning region (lead-time threshold c_L ≈ 0.22, A6). Lead time: 3 years before V-Dem registered the autocratization episode circa 2018.</li>
+<li><strong>2015:</strong> CDRS 0.362 — crossed the early-warning region (lead-time threshold c_L ≈ 0.21, A6). Lead time: 3 years before V-Dem registered the autocratization episode circa 2018.</li>
 <li><strong>2019:</strong> CDRS 0.646 — within 0.02 of the Point of No Return. This is the closest the dataset records a return from the ridge.</li>
 <li><strong>2023 onward:</strong> Reversal underway. Recovery to below the warning region is estimated at 5–8 more years of sustained institutional reconstruction.</li>
 </ul>
@@ -10034,7 +10034,7 @@ The Fifth Republic was designed in 1958 specifically to constrain parliamentary 
     title: 'Sweden FieldShift Analysis: The Democratic Valley Floor',
     content: `
 <strong style="font-size:16px">I. Institutional Position</strong>
-<p><strong>CDRS Score: 0.162</strong> — Sweden is at the democratic valley floor: one of only 14 countries in the dataset below the early-warning region (lead-time threshold c_L ≈ 0.22, A6). A CDRS of 0.162 reflects not merely good institutions but a deeply stable democratic equilibrium where restoring forces are strong and the ball is far from the ridge. The FieldShift landscape analogy: Sweden is at the bottom of the valley — displacing it toward the ridge requires enormous, sustained force across multiple institutional dimensions simultaneously.</p>
+<p><strong>CDRS Score: 0.162</strong> — Sweden is at the democratic valley floor: one of only 14 countries in the dataset below the early-warning region (lead-time threshold c_L ≈ 0.21, A6). A CDRS of 0.162 reflects not merely good institutions but a deeply stable democratic equilibrium where restoring forces are strong and the ball is far from the ridge. The FieldShift landscape analogy: Sweden is at the bottom of the valley — displacing it toward the ridge requires enormous, sustained force across multiple institutional dimensions simultaneously.</p>
 
 <p style="border-left:3px solid #1e8449;padding-left:16px;margin-top:16px"><strong>II. What Makes Sweden a Reference Case</strong><br>
 Sweden's institutional architecture scores near the ceiling on all five CDRS layers:
@@ -10083,7 +10083,7 @@ Norway's 0.114 score illustrates the asymmetric structure of the HL principle fr
 <p><strong>The three zones and Hungary's position:</strong></p>
 <ul style="margin-left:20px">
 <li><strong>Safe zone (CDRS &lt; 0.22):</strong> Only 14 of 163 countries occupy this (Sweden 0.162, Norway 0.114, Switzerland 0.110). Hungary is not remotely close.</li>
-<li><strong>Early-warning region (lead-time threshold c_L ≈ 0.22, A6):</strong> The intervention window. Hungary crossed this approximately 2012–2013, within 2–3 years of the 2010 onset. This matched the empirical lead time perfectly.</li>
+<li><strong>Early-warning region (lead-time threshold c_L ≈ 0.21, A6):</strong> The intervention window. Hungary crossed this approximately 2012–2013, within 2–3 years of the 2010 onset. This matched the empirical lead time perfectly.</li>
 <li><strong>Escalating risk (0.22–0.66):</strong> Hungary occupied this zone for roughly 11 years (2012–2023). This is the window where recovery is theoretically possible but requires sustained pressure.</li>
 <li><strong>Crisis zone (&gt;0.66):</strong> Hungary entered this zone around 2021–2022 and has not reversed. CDRS 0.756 in 2023 means the democratic potential well has collapsed.</li>
 </ul>
@@ -10165,22 +10165,22 @@ function buildAutoDeeperAnalysis(countryName) {
   }
 
   var riskLevel = classifyLevel(end);
-  var zone = end < 0.22 ? 'Safe Zone' : end < 0.36 ? 'Early-Warning Slope' : end < 0.66 ? 'Escalating Risk Zone' : 'Crisis Zone';
+  var zone = end < 0.21 ? 'Safe Zone' : end < 0.26 ? 'Early-Warning Slope' : end < 0.33 ? 'Escalating Risk Zone' : 'Crisis Zone';
   var region = country.region || 'Global';
   var deltaPP = (delta * 100);
   var yearlyPP = deltaPP / yearsSpan;
-  var titleSuffix = end < 0.22 ? 'Valley-Floor Stability Brief' : end < 0.36 ? 'Early-Warning Brief' : end < 0.66 ? 'Escalation Brief' : 'Crisis-Zone Brief';
+  var titleSuffix = end < 0.21 ? 'Valley-Floor Stability Brief' : end < 0.26 ? 'Early-Warning Brief' : end < 0.33 ? 'Escalation Brief' : 'Crisis-Zone Brief';
 
   var family = getRegimeFamilyClassification(region, dom, traj, end);
   var regimeFamily = family.name;
   var familyLens = family.lens;
 
   var zoneLens = '';
-  if (end < 0.22) {
+  if (end < 0.21) {
     zoneLens = 'Institutional stress is low by comparative standards. The main policy challenge is maintenance: preserving high-trust democratic routines before shocks force reactive reform.';
-  } else if (end < 0.36) {
+  } else if (end < 0.26) {
     zoneLens = 'This position is above the valley floor and should be treated as a preventive-action window. At this stage, political intervention costs are still substantially lower than late-stage recovery costs.';
-  } else if (end < 0.66) {
+  } else if (end < 0.33) {
     zoneLens = 'The system is on the upper slope where stabilizing feedbacks weaken and path dependency begins to dominate. Small political shocks can now produce disproportionate institutional effects.';
   } else {
     zoneLens = 'The country is operating in the crisis zone beyond the ridge where recovery requires asymmetrically larger effort than continued deterioration under unchanged incentives.';
@@ -10244,13 +10244,13 @@ function buildAutoDeeperAnalysis(countryName) {
 }
 
 function getRegimeFamilyClassification(region, dom, traj, endScore) {
-  if ((traj === 'strong_recovery' || traj === 'mild_recovery') && endScore < 0.66) {
+  if ((traj === 'strong_recovery' || traj === 'mild_recovery') && endScore < 0.33) {
     return {
       name: 'Recovery Transition Case',
       lens: 'Pattern resembles a recovery transition: political competition has re-opened enough institutional space for partial reversal, but reconstruction durability remains contingent on constitutional and judicial re-stabilization.'
     };
   }
-  if ((region === 'Sub-Saharan Africa' || region === 'Africa') && (dom === 'institutional resilience' || endScore >= 0.66)) {
+  if ((region === 'Sub-Saharan Africa' || region === 'Africa') && (dom === 'institutional resilience' || endScore >= 0.33)) {
     return {
       name: 'Security-Driven Fragility Case',
       lens: 'Pattern resembles security-driven fragility, where erosion in state capacity and coercive control compresses warning windows and can accelerate institutional breakdown independently of formal electoral rules.'
@@ -10274,13 +10274,13 @@ function getRegimeFamilyClassification(region, dom, traj, endScore) {
       lens: 'Pattern resembles patronage capture: fiscal opacity and resource allocation distortion weaken accountability channels first, then propagate into constitutional and organizational layers.'
     };
   }
-  if (endScore >= 0.66) {
+  if (endScore >= 0.33) {
     return {
       name: 'Autocratic Lock-In Case',
       lens: 'Pattern resembles autocratic lock-in: reversal requires outsized political coordination and often an exogenous disruption once the system stabilizes in the crisis zone.'
     };
   }
-  if (endScore >= 0.22) {
+  if (endScore >= 0.21) {
     return {
       name: 'Preventive Window Case',
       lens: 'Pattern resembles a preventive-window case: institutional stress is significant but not yet structurally locked, so intervention timing remains the decisive variable.'
@@ -12648,11 +12648,12 @@ if(document.readyState==='loading'){
 <script>/* GIGI-CS-PATCH */(function(){var F={gigi:'gigiFrame',capacityshift:'capacityshiftFrame'};window.addEventListener('message',function(e){var d=e.data||{};if(d.type!=='gc-height'||!F[d.src])return;var f=document.getElementById(F[d.src]);if(!f||e.source!==f.contentWindow)return;if(d.height>200)f.style.height=Math.min(d.height+4,20000)+'px';});})();</script>
 <script>/* GIGI-CS-NAV2 */(function(){var B={gigiSection:'mnav-gigi',capacityshiftSection:'mnav-capacityshift',voteshiftSection:'mnav-voteshift','early-warning':'mnav-warning'};var F={gigi:'gigiFrame',capacityshift:'capacityshiftFrame'};window.addEventListener('message',function(e){var d=e.data||{};function ensure(el,off){setTimeout(function(){var r=el.getBoundingClientRect().top;if(Math.abs(r-off)>40)window.scrollTo(0,r+window.scrollY-off);},900);}if(d.type==='gc-nav'&&B[d.section]&&document.getElementById(d.section)){mnavTo(d.section,B[d.section]);var nb=document.getElementById('mainNavBar');ensure(document.getElementById(d.section),(nb?nb.offsetHeight:0)+8);}if(d.type==='gc-scroll'&&F[d.src]){var f=document.getElementById(F[d.src]);if(!f||e.source!==f.contentWindow)return;var y=f.getBoundingClientRect().top+window.scrollY+(d.top||0)-90;window.scrollTo({top:Math.max(0,y),behavior:'smooth'});setTimeout(function(){var y2=f.getBoundingClientRect().top+window.scrollY+(d.top||0)-90;if(Math.abs(window.scrollY-y2)>40)window.scrollTo(0,Math.max(0,y2));},900);}});})();</script>
 <script>/* FS-FIX-5 */(function(){window.addEventListener('message',function(e){var f=document.getElementById('hlCalcFrame');var d=e.data||{};if(!f||e.source!==f.contentWindow||d.src!=='hlcalc')return;if(d.type==='gc-height'&&d.height>200)f.style.height=Math.min(d.height+4,30000)+'px';if(d.type==='gc-scroll'&&isFinite(d.top))window.scrollTo(0,f.getBoundingClientRect().top+window.scrollY+d.top-70);});})();</script>
-<script>/* FS-FIX-6 */(function(){var T={"yes": "Yes", "no": "No", "above": "above κ by", "below": "below κ by", "warn": "empirical warning (≥ 0.52, A3)", "nowarn": "below the empirical warning 0.52", "crit": "≥ 1 − κ = 0.7845: corresponds to D ≤ κ", "ci": "95%", "ins": ["The level", "lies above κ", "lies at or below κ", "The corresponding CDRS", "Recovering to the target requires on average a cumulative restorative movement of", "on the democracy scale", "This is an average over historical episodes, not a forecast for the country and not a time estimate."]},SV=false,H=1.724,LO=1.53,HI=1.96,K=H/8,CASE='';function F(x,d){var t=(+x).toFixed(d==null?3:d);return SV?t.replace('.',','):t;}function st(id,v){var e=document.getElementById(id);if(e)e.innerHTML=v;}window.hlRender=function(){var g=function(id){var e=document.getElementById(id);return e?+e.value:NaN;};var d=g('hlScore'),pk=g('hlPeak'),tg=g('hlTarget');if(!isFinite(d))return;st('hlScoreV',F(d,2));st('hlPeakV',F(pk,2));st('hlTargetV',F(tg,2));var sm=document.getElementById('hlScoreMark'),pm=document.getElementById('hlPeakMark');if(sm)sm.style.left='calc('+(d*100).toFixed(1)+'% - 1.5px)';if(pm)pm.style.left='calc('+(pk*100).toFixed(1)+'% - 1px)';var eM=Math.max(0,pk-d),rM=Math.max(0,tg-d),cd=1-d,under=d<=K;st('hl6EMag','M⁻ = '+F(eM));st('hl6EMagS','D2');st('hl6Kappa','<span style="color:'+(under?'var(--danger)':'#1e7a46')+'">'+(under?T.yes:T.no)+'</span>');st('hl6KappaS','D '+(under?T.below:T.above)+' '+F(Math.abs(d-K),4));st('hl6Cdrs',F(cd));st('hl6CdrsS',cd>=1-K?T.crit:(cd>=0.52?T.warn:T.nowarn));st('hl6RMag','ΔM = '+F(rM));st('hl6RMagS',T.ci+' ℋ: '+F(LO,2)+'–'+F(HI,2));st('hl6Req',F(H*rM));st('hl6ReqS',T.ci+': '+F(LO*rM)+' – '+F(HI*rM));st('hl6Extra',F((H-1)*rM));st('hl6ExtraS','(ℋ − 1) = '+F(H-1));var I=T.ins,ins=document.getElementById('hlInsight');if(ins)ins.innerHTML=(CASE?'<span style="color:var(--gold-lt);font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em">'+CASE+'</span><br>':'')+'<span style="font-size:13px;line-height:1.7">'+I[0]+' D = '+F(d,2)+' '+(under?I[2]:I[1])+' (κ = '+F(K,4)+', S3). '+I[3]+' ≈ '+F(cd)+(cd>=0.52?' ≥ ':' &lt; ')+F(0.52,2)+' (A2, S4). '+(rM>0?I[4]+' ℋ·ΔM = '+F(H*rM)+' '+I[5]+' ('+T.ci+': '+F(LO*rM)+'–'+F(HI*rM)+', S6). '+I[6]:'')+'</span>';};document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[id^="hlcase-"]');if(b){var t=b.querySelectorAll('div');CASE=(t[0]?t[0].textContent:'')+(t[1]?' · '+t[1].textContent:'');setTimeout(window.hlRender,0);}var r=e.target.closest&&e.target.closest('[data-hlref]');if(r){e.preventDefault();var f=document.getElementById('hlCalcFrame');if(!f)return;f.loading='eager';var go=function(){try{f.contentWindow.postMessage({type:'hlcalc-goto',id:r.getAttribute('data-hlref')},'*');}catch(x){}};f.scrollIntoView();if(f.contentWindow&&f.contentWindow.HL_CALC)go();else f.addEventListener('load',function(){setTimeout(go,300);},{once:true});}},true);window.hlRender();})();</script>
+<script>/* FS-FIX-6 */(function(){var T={"yes": "Yes", "no": "No", "above": "above κ by", "below": "below κ by", "warn": "calibrated warning (≥ 0.26, A3)", "nowarn": "below the calibrated warning 0.26", "crit": "≥ 1 − κ = 0.7845: corresponds to D ≤ κ", "ci": "95%", "ins": ["The level", "lies above κ", "lies at or below κ", "The corresponding CDRS", "Recovering to the target requires on average a cumulative restorative movement of", "on the democracy scale", "This is an average over historical episodes, not a forecast for the country and not a time estimate."]},SV=false,H=1.724,LO=1.53,HI=1.96,K=H/8,CASE='';function F(x,d){var t=(+x).toFixed(d==null?3:d);return SV?t.replace('.',','):t;}function st(id,v){var e=document.getElementById(id);if(e)e.innerHTML=v;}window.hlRender=function(){var g=function(id){var e=document.getElementById(id);return e?+e.value:NaN;};var d=g('hlScore'),pk=g('hlPeak'),tg=g('hlTarget');if(!isFinite(d))return;st('hlScoreV',F(d,2));st('hlPeakV',F(pk,2));st('hlTargetV',F(tg,2));var sm=document.getElementById('hlScoreMark'),pm=document.getElementById('hlPeakMark');if(sm)sm.style.left='calc('+(d*100).toFixed(1)+'% - 1.5px)';if(pm)pm.style.left='calc('+(pk*100).toFixed(1)+'% - 1px)';var eM=Math.max(0,pk-d),rM=Math.max(0,tg-d),cd=1-d,under=d<=K;st('hl6EMag','M⁻ = '+F(eM));st('hl6EMagS','D2');st('hl6Kappa','<span style="color:'+(under?'var(--danger)':'#1e7a46')+'">'+(under?T.yes:T.no)+'</span>');st('hl6KappaS','D '+(under?T.below:T.above)+' '+F(Math.abs(d-K),4));st('hl6Cdrs',F(cd));st('hl6CdrsS',cd>=1-K?T.crit:(cd>=0.26?T.warn:T.nowarn));st('hl6RMag','ΔM = '+F(rM));st('hl6RMagS',T.ci+' ℋ: '+F(LO,2)+'–'+F(HI,2));st('hl6Req',F(H*rM));st('hl6ReqS',T.ci+': '+F(LO*rM)+' – '+F(HI*rM));st('hl6Extra',F((H-1)*rM));st('hl6ExtraS','(ℋ − 1) = '+F(H-1));var I=T.ins,ins=document.getElementById('hlInsight');if(ins)ins.innerHTML=(CASE?'<span style="color:var(--gold-lt);font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em">'+CASE+'</span><br>':'')+'<span style="font-size:13px;line-height:1.7">'+I[0]+' D = '+F(d,2)+' '+(under?I[2]:I[1])+' (κ = '+F(K,4)+', S3). '+I[3]+' ≈ '+F(cd)+(cd>=0.26?' ≥ ':' &lt; ')+F(0.26,2)+' (A2, S4). '+(rM>0?I[4]+' ℋ·ΔM = '+F(H*rM)+' '+I[5]+' ('+T.ci+': '+F(LO*rM)+'–'+F(HI*rM)+', S6). '+I[6]:'')+'</span>';};document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[id^="hlcase-"]');if(b){var t=b.querySelectorAll('div');CASE=(t[0]?t[0].textContent:'')+(t[1]?' · '+t[1].textContent:'');setTimeout(window.hlRender,0);}var r=e.target.closest&&e.target.closest('[data-hlref]');if(r){e.preventDefault();var f=document.getElementById('hlCalcFrame');if(!f)return;f.loading='eager';var go=function(){try{f.contentWindow.postMessage({type:'hlcalc-goto',id:r.getAttribute('data-hlref')},'*');}catch(x){}};f.scrollIntoView();if(f.contentWindow&&f.contentWindow.HL_CALC)go();else f.addEventListener('load',function(){setTimeout(go,300);},{once:true});}},true);window.hlRender();})();</script>
 <!-- FS-FIX-7: 12 texträttningar -->
 <!-- FS-FIX-7b -->
 <!-- FS-FIX-9 -->
 <!-- FS-FIX-10: 8 -->
 <!-- FS-FIX-12: 20 årsersättningar -->
+<!-- FS-FIX-13: 91 klassningsrader -->
 </body>
 </html>
