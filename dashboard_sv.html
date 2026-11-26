@@ -3270,6 +3270,19 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 // ── DATA ──────────────────────────────────────────────────────
 var COUNTRIES = [];
 var FSI = {};
+/* FS-FIX-19 */
+window._fieldshiftDataReady=function(){
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',window._fieldshiftDataReady,{once:true});return;}
+  function run(n){try{if(typeof window[n]==='function')window[n]();}catch(e){console.error('FS-FIX-19 '+n,e);}}
+  function clear(id){var s=document.getElementById(id);if(!s)return;var keep=(s.options.length&&!s.options[0].value)?1:0;while(s.options.length>keep)s.remove(keep);}
+  try{var nm=COUNTRIES.filter(function(c){return c.available;}).map(function(c){return c.name;}).sort();
+    nm.forEach(function(n,i){CMAP[n]=PAL[i%PAL.length];});}catch(e){}
+  ['rfsSel','storySel','cmpA','cmpB','uncSelA','uncSelB'].forEach(clear);
+  ['populateStorySelects','annotateDeepAnalysisOptions','populateRFSSelect','initUncertaintySelects',
+   'buildCountryGrid','buildGaps','rankBuild','rankRender','buildVolatileList','buildRiskyRegions','buildQSCards',
+   'buildPathwayCases','buildContagion','renderGRM','handleHashRouting','initPathwayFromHash'].forEach(run);
+  if(typeof window.fsFlagRun==='function')setTimeout(window.fsFlagRun,50);
+};
 (function() {
   function normaliseYears(c) {
     if (!c.data) return;
