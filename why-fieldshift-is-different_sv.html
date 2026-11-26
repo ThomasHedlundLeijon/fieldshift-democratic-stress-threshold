@@ -210,7 +210,7 @@ footer a:hover{color:var(--gold-lt)}
 
   <div class="metric-hl" role="img" aria-label="HL-konstanten: 1,724">
     <span class="val">ℋ = 1,724</span>
-    <span class="lbl">Hedlund-Leijon-konstanten – asymmetri mellan erosion och återhämtning<br>Validerad på V-Dem 1789–2024 (200 länder, 25&#8239;709 observationer)</span>
+    <span class="lbl">Hedlund-Leijon-konstanten – asymmetri mellan erosion och återhämtning<br>Skattad ur erosions- och återhämtningsepisoder i V-Dems data (95 % KI 1,53–1,96)</span>
   </div>
 
   <p>Konstanten fångar det bredare empiriska mönstret att demokratier i allmänhet är lättare att bryta ned än att bygga upp igen.</p>
@@ -220,11 +220,11 @@ footer a:hover{color:var(--gold-lt)}
   <p>FieldShift föreslår en empiriskt kalibrerad varningszon kring:</p>
 
   <div class="metric-hl" role="img" aria-label="Kappagräns: 0,22">
-    <span class="val">κ ≈ 0,22</span>
-    <span class="lbl">Kritisk tippningsgräns – härledd som κ = ℋ/8<br>Under denna nivå blir en accelererande autokratisering historiskt sannolik</span>
+    <span class="val">c<sub>L</sub> = 0,21 · W = 0,26</span>
+    <span class="lbl">Empiriska gränser på CDRS-skalan, kalibrerade på regimövergångar 1996–2009. κ = ℋ/8 ≈ 0,216 är en separat, härledd gräns på demokratinivån.<br>Under denna nivå blir en accelererande autokratisering historiskt sannolik</span>
   </div>
 
-  <p>Det betyder inte att ett sammanbrott är oundvikligt. Det betyder att risken ökar påtagligt när den institutionella påfrestningen passerar det området. κ är en varningsgräns, inte en punkt där det inte finns någon återvändo.</p>
+  <p>Det betyder inte att ett sammanbrott är oundvikligt. Det betyder att risken ökar påtagligt när den institutionella påfrestningen passerar det området. Varningsgränsen är inte en punkt där det inte finns någon återvändo.</p>
 
   <!-- HOW DIFFERENT -->
   <h2 id="how-different">Hur FieldShift skiljer sig från befintliga ramverk</h2>
@@ -275,8 +275,8 @@ footer a:hover{color:var(--gold-lt)}
   <p>FieldShift presenteras som ett öppet, prövbart och replikerbart ramverk snarare än ett svart-låda-mått. Resultaten från prototypen tyder på:</p>
 
   <ul>
-    <li>en genomsnittlig ledtid för tidig varning på omkring 3,3 år</li>
-    <li>starka resultat utanför urvalet (86,7 % träffsäkerhet, 17 episoder)</li>
+    <li>en genomsnittlig ledtid för tidig varning på omkring 3,3 år i den tidigare dataserien</li>
+    <li>resultat utanför urvalet (test 2024–2025: AUC 0,80; alla 7 övergångar över varningsgränsen)</li>
     <li>en icke-linjär riskökning nära den föreslagna varningsgränsen</li>
     <li>ovanligt hög precision under testperioden, med mer måttlig täckning (recall)</li>
   </ul>
@@ -316,9 +316,9 @@ footer a:hover{color:var(--gold-lt)}
         <td class="yes">✓ ℋ = 1,724</td>
       </tr>
       <tr>
-        <td>Kalibrerad tippningsgräns</td>
+        <td>Kalibrerad varningsgräns</td>
         <td class="no">✗ Inte definierad</td>
-        <td class="yes">✓ κ = 0,216</td>
+        <td class="yes">✓ W = 0,26 (CDRS)</td>
       </tr>
       <tr>
         <td>Stegvis modell med risklager</td>
@@ -389,8 +389,8 @@ footer a:hover{color:var(--gold-lt)}
     <h3>Fem särskiljande bidrag</h3>
     <ul>
       <li>Asymmetri mellan erosion och återhämtning – kvantifierad, inte antagen</li>
-      <li>En exakt konstant: ℋ = 1,724, validerad på 200 länder, 1789–2024</li>
-      <li>En gräns för tidig varning: κ ≈ 0,22, empiriskt kalibrerad</li>
+      <li>En skattad konstant: ℋ = 1,724 (95 % KI 1,53–1,96)</li>
+      <li>Empiriskt kalibrerade gränser på CDRS-skalan: c<sub>L</sub> = 0,21 och W = 0,26</li>
       <li>Stegvis mätning av institutionell påfrestning i fem lager</li>
       <li>En ledtidsmodell utformad för insatser före ett sammanbrott</li>
     </ul>
@@ -424,5 +424,6 @@ footer a:hover{color:var(--gold-lt)}
   </div>
 </footer>
 
+<!-- FS-FIX-33 -->
 </body>
 </html>

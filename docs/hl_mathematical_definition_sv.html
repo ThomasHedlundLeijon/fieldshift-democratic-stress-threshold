@@ -45,7 +45,7 @@ th{background:var(--head);font-weight:600}
 <body>
 <main>
 <p class="source">Källa: Mathematical_Definition_HL_Principle_and_CDRS.docx, hämtad från författarens Drive 2026-11-25. Arbetsdokument. · <a href="hl_mathematical_definition.html" lang="en" hreflang="en" style="color:inherit">English</a></p>
-<h1 class="doc-title">Matematisk definition av Hedlund-Leijon-principen och CDRS-modellen</h1>
+<h1 class="doc-title">Matematisk definition av Hedlund-Leijon-principen och CDRS-modellen</h1><div style="margin:14px 0 18px;padding:12px 14px;border-left:4px solid #c0392b;background:#fdf1ec;font-size:14px;line-height:1.55"><strong>Rättelse (26 november 2026).</strong> I FieldShift är κ = ℋ/8 ≈ 0,216 en gräns på demokratinivån D (D ≤ κ), inte på CDRS-skalan. Med CDRS ≈ 1 − D motsvarar den CDRS ≈ 0,78. Gränserna som används på CDRS-skalan är empiriska: ledtidsgränsen c<sub>L</sub> = 0,21 och varningsgränsen W = 0,26, kalibrerade på regimövergångar 1996–2009 (dataserie v2). Påståendena nedan som lägger κ direkt på CDRS står kvar som i källdokumentet men gäller inte. Detaljer: HL-kalkylatorn, satserna S3, S8 och S18.</div><!-- FS-FIX-33 -->
 <p class="subtitle" style="text-align:center">Utarbetad som en renodlad teknisk anteckning med helt standardiserad matematisk notation</p>
 <p>Detta dokument ger en strikt matematisk formulering av ℋ = 1.724 och en formaliserad modell av Composite Democratic Risk Score (CDRS). Notationen nedan är standardiserad för direkt användning i en teknisk artikel, en metodbilaga eller en matematisk anteckning.</p>
 <h2>1. Matematisk modell för ℋ = 1.724</h2>
@@ -72,7 +72,7 @@ th{background:var(--head);font-weight:600}
 <p>Den kritiska gränsen definieras som</p>
 <p style="text-align:center"><em>κ</em> = ℋ / 8</p>
 <p style="text-align:center"><em>κ</em> = 1.724 / 8 = 0.2155 ≈ 0.216</p>
-<p>Detta är det samband för varningsgränsen som används i modellen.</p>
+<p>Detta är det samband för varningsgränsen som används i modellen.<span style="display:inline-block;margin-left:6px;padding:0 6px;border-radius:3px;background:#fbe3d9;color:#8a2c0f;font-size:12px">Rättelse: κ gäller demokratinivån, inte CDRS</span></p>
 <h3>Illustrativ dynamisk framställning</h3>
 <p>En stiliserad dynamisk form som är förenlig med manuskriptet kan skrivas som</p>
 <p style="text-align:center"><em>D</em>(t) = <em>D</em><sub>eq</sub> + <em>A</em><sub>0</sub> e<sup>−δt</sup> sin(ℋ·t/T + φ)</p>
@@ -109,7 +109,7 @@ th{background:var(--head);font-weight:600}
 <p style="text-align:center"><em>CDRS</em><sub>c,t</sub> = (1/5)[ <em>F̃</em><sub>c,t</sub> + <em>C̃</em><sub>c,t</sub> + <em>Õ</em><sub>c,t</sub> + <em>Ñ</em><sub>c,t</sub> + <em>R̃</em><sub>c,t</sub> ]</p>
 <p>där varje term med tilde betecknar en normaliserad stresskomponent i intervallet [0, 1].</p>
 <h3>Gränsregim för CDRS</h3>
-<p>Gränsregimen för CDRS definieras av κ enligt följande:</p>
+<p>Gränsregimen för CDRS definieras av κ enligt följande:<span style="display:inline-block;margin-left:6px;padding:0 6px;border-radius:3px;background:#fbe3d9;color:#8a2c0f;font-size:12px">Rättelse: κ gäller demokratinivån, inte CDRS</span></p>
 <p style="text-align:center"><em>CDRS</em><sub>c,t</sub> &lt; κ   ⇒   stabil zon / zon med låg stress</p>
 <p style="text-align:center"><em>CDRS</em><sub>c,t</sub> ≥ κ   ⇒   varningszon / förhöjd demokratisk stress</p>
 <p style="text-align:center"><em>κ</em> = 0.216</p>
@@ -117,7 +117,7 @@ th{background:var(--head);font-weight:600}
 <h3>Valfritt dynamiskt riskskikt ovanpå CDRS</h3>
 <p>Om man vill modellera tanken att demokratisk stress blir farligare efter κ kan en accelerationsterm läggas till:</p>
 <p style="text-align:center"><em>A</em><sub>c,t</sub> = max(0, (CDRS<sub>c,t</sub> − κ) / (1 − κ))</p>
-<p>Om CDRS(c,t) &lt; κ finns då ingen term för accelererad risk; om CDRS(c,t) ≥ κ växer riskaccelerationen gradvis mot 1.</p>
+<p>Om CDRS(c,t) &lt; κ finns då ingen term för accelererad risk; om CDRS(c,t) ≥ κ växer riskaccelerationen gradvis mot 1.<span style="display:inline-block;margin-left:6px;padding:0 6px;border-radius:3px;background:#fbe3d9;color:#8a2c0f;font-size:12px">Rättelse: κ gäller demokratinivån, inte CDRS</span></p>
 <p>Ett jämnare alternativ är en logistisk riskfunktion:</p>
 <p style="text-align:center"><em>P</em>(collapse<sub>c,t+h</sub>) = 1 / (1 + exp[−α(CDRS<sub>c,t</sub> − κ)])</p>
 <p>där α styr hur brant risken ökar och h är prognoshorisonten. Denna utvidgning är användbar om modellen senare förs över från ett stressindex till uttrycklig sannolikhetsprognos.</p>
@@ -137,7 +137,7 @@ th{background:var(--head);font-weight:600}
 <li>CDRS = (1/5)(F + C + O + N + R)
 </li></ul>
 <p>Metodbilaga: ta med de exakta episoddefinitionerna, normaliseringsregeln, bootstrapskattaren och eventuellt det valfria logistiska riskskiktet.</p>
-<p>Figurtexter: använd kortfattade formuleringar som ”högre CDRS anger större demokratisk stress” och ”κ markerar början på förhöjd systemisk skörhet”.</p>
+<p>Figurtexter: använd kortfattade formuleringar som ”högre CDRS anger större demokratisk stress” och ”κ markerar början på förhöjd systemisk skörhet”.<span style="display:inline-block;margin-left:6px;padding:0 6px;border-radius:3px;background:#fbe3d9;color:#8a2c0f;font-size:12px">Rättelse: κ gäller demokratinivån, inte CDRS</span></p>
 <h2>5. Teknisk text (i originalet på engelska) klar för direkt användning</h2>
 <p>Följande stycke kan infogas direkt i den tekniska artikeln:</p>
 <blockquote>Hedlund-Leijon-principen definieras som den empiriska asymmetrin mellan den genomsnittliga storleken på demokratisk återhämtning och den genomsnittliga storleken på demokratisk erosion. I kompakt form är ℋ = 1.724 och den motsvarande kritiska gränsen är κ = ℋ/8 = 0.216. Composite Democratic Risk Score definieras som ett femdimensionellt stressindex med lika vikter, CDRS(c,t) = (1/5)(F + C + O + N + R), där varje komponent är normaliserad till [0,1] och orienterad så att högre värden anger större demokratisk stress. Att gränsen κ passeras identifierar förhöjd systemisk skörhet snarare än deterministisk kollaps.</blockquote>

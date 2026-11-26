@@ -45,7 +45,7 @@ th{background:var(--head);font-weight:600}
 <body>
 <main>
 <p class="source">Source: Mathematical_Definition_HL_Principle_and_CDRS.docx, retrieved from the author's Drive 2026-11-25. Working document. · <a href="hl_mathematical_definition_sv.html" lang="sv" hreflang="sv" style="color:inherit">Svenska</a></p>
-<h1 class="doc-title">Mathematical Definition of the Hedlund-Leijon Principle and the CDRS Model</h1>
+<h1 class="doc-title">Mathematical Definition of the Hedlund-Leijon Principle and the CDRS Model</h1><div style="margin:14px 0 18px;padding:12px 14px;border-left:4px solid #c0392b;background:#fdf1ec;font-size:14px;line-height:1.55"><strong>Correction (26 November 2026).</strong> In FieldShift, κ = ℋ/8 ≈ 0.216 is a threshold on the democracy level D (D ≤ κ), not on the CDRS scale. Under CDRS ≈ 1 − D it corresponds to CDRS ≈ 0.78. The thresholds used on the CDRS scale are empirical: the lead-time threshold c<sub>L</sub> = 0.21 and the warning threshold W = 0.26, calibrated on regime transitions 1996–2009 (data series v2). The statements below that apply κ directly to CDRS are kept as in the source document but do not hold. Details: the HL calculator, propositions S3, S8 and S18.</div><!-- FS-FIX-33 -->
 <p class="subtitle" style="text-align:center">Prepared as a clean technical note with fully standardized mathematical notation</p>
 <p>This document presents a strict mathematical formulation of ℋ = 1.724 and a formalized model of the Composite Democratic Risk Score (CDRS). The notation below is standardized for direct use in a technical paper, methods appendix, or mathematical note.</p>
 <h2>1. Mathematical Model for ℋ = 1.724</h2>
@@ -72,7 +72,7 @@ th{background:var(--head);font-weight:600}
 <p>The critical threshold is defined as</p>
 <p style="text-align:center"><em>κ</em> = ℋ / 8</p>
 <p style="text-align:center"><em>κ</em> = 1.724 / 8 = 0.2155 ≈ 0.216</p>
-<p>This is the warning-threshold relation used in the model.</p>
+<p>This is the warning-threshold relation used in the model.<span style="display:inline-block;margin-left:6px;padding:0 6px;border-radius:3px;background:#fbe3d9;color:#8a2c0f;font-size:12px">Correction: κ applies to the democracy level, not CDRS</span></p>
 <h3>Illustrative dynamic representation</h3>
 <p>A stylized dynamic form consistent with the manuscript can be written as</p>
 <p style="text-align:center"><em>D</em>(t) = <em>D</em><sub>eq</sub> + <em>A</em><sub>0</sub> e<sup>−δt</sup> sin(ℋ·t/T + φ)</p>
@@ -109,7 +109,7 @@ th{background:var(--head);font-weight:600}
 <p style="text-align:center"><em>CDRS</em><sub>c,t</sub> = (1/5)[ <em>F̃</em><sub>c,t</sub> + <em>C̃</em><sub>c,t</sub> + <em>Õ</em><sub>c,t</sub> + <em>Ñ</em><sub>c,t</sub> + <em>R̃</em><sub>c,t</sub> ]</p>
 <p>where each tilde-marked term denotes a normalized stress component in the interval [0, 1].</p>
 <h3>Threshold regime for CDRS</h3>
-<p>The CDRS threshold regime is defined by κ as follows:</p>
+<p>The CDRS threshold regime is defined by κ as follows:<span style="display:inline-block;margin-left:6px;padding:0 6px;border-radius:3px;background:#fbe3d9;color:#8a2c0f;font-size:12px">Correction: κ applies to the democracy level, not CDRS</span></p>
 <p style="text-align:center"><em>CDRS</em><sub>c,t</sub> &lt; κ   ⇒   stable / low-stress zone</p>
 <p style="text-align:center"><em>CDRS</em><sub>c,t</sub> ≥ κ   ⇒   warning zone / elevated democratic stress</p>
 <p style="text-align:center"><em>κ</em> = 0.216</p>
@@ -117,7 +117,7 @@ th{background:var(--head);font-weight:600}
 <h3>Optional dynamic risk layer above CDRS</h3>
 <p>If one wishes to model the idea that democratic stress becomes more dangerous after κ, an acceleration term can be added:</p>
 <p style="text-align:center"><em>A</em><sub>c,t</sub> = max(0, (CDRS<sub>c,t</sub> − κ) / (1 − κ))</p>
-<p>Then, if CDRS(c,t) &lt; κ, there is no accelerated risk term; if CDRS(c,t) ≥ κ, risk acceleration grows gradually toward 1.</p>
+<p>Then, if CDRS(c,t) &lt; κ, there is no accelerated risk term; if CDRS(c,t) ≥ κ, risk acceleration grows gradually toward 1.<span style="display:inline-block;margin-left:6px;padding:0 6px;border-radius:3px;background:#fbe3d9;color:#8a2c0f;font-size:12px">Correction: κ applies to the democracy level, not CDRS</span></p>
 <p>A smoother alternative is a logistic risk function:</p>
 <p style="text-align:center"><em>P</em>(collapse<sub>c,t+h</sub>) = 1 / (1 + exp[−α(CDRS<sub>c,t</sub> − κ)])</p>
 <p>where α governs how steeply risk increases and h is the forecast horizon. This extension is useful if the model is later moved from a stress index to explicit probabilistic prediction.</p>
@@ -137,7 +137,7 @@ th{background:var(--head);font-weight:600}
 <li>CDRS = (1/5)(F + C + O + N + R)
 </li></ul>
 <p>Methods appendix: include the exact episode definitions, normalization rule, bootstrap estimator, and any optional logistic risk layer.</p>
-<p>Figure captions: use concise language such as “higher CDRS indicates greater democratic stress” and “κ marks the onset of elevated systemic fragility.”</p>
+<p>Figure captions: use concise language such as “higher CDRS indicates greater democratic stress” and “κ marks the onset of elevated systemic fragility.”<span style="display:inline-block;margin-left:6px;padding:0 6px;border-radius:3px;background:#fbe3d9;color:#8a2c0f;font-size:12px">Correction: κ applies to the democracy level, not CDRS</span></p>
 <h2>5. Technical English Insert Ready for Direct Use</h2>
 <p>The following paragraph can be inserted directly into the technical paper:</p>
 <blockquote>The Hedlund-Leijon Principle is defined as the empirical asymmetry between the average magnitude of democratic recovery and the average magnitude of democratic erosion. In compact form, ℋ = 1.724 and the corresponding critical threshold is κ = ℋ/8 = 0.216. The Composite Democratic Risk Score is defined as an equally weighted five-dimensional stress index, CDRS(c,t) = (1/5)(F + C + O + N + R), with each component normalized to [0,1] and oriented so that higher values indicate greater democratic stress. Threshold crossing at κ identifies elevated systemic fragility rather than deterministic collapse.</blockquote>

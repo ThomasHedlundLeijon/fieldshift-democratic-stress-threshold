@@ -137,7 +137,7 @@ footer a:hover{color:var(--gold-lt)}
     </div>
     <div class="masthead-meta">
       <strong>ℋ = 1.724</strong>
-      163 countries · 2010–2023<br>
+      163 countries · 2010–2025<br>
       Karlstad University<br>
       fieldshift.org<br>
       <a href="index_sv.html" lang="sv" hreflang="sv" style="color:var(--gold-lt);text-decoration:none">Svenska</a>
@@ -166,7 +166,7 @@ footer a:hover{color:var(--gold-lt)}
         FieldShift is an early-warning framework for democratic erosion — 
         built to identify structural danger <em>before</em> collapse becomes visible 
         in conventional democracy indices. It measures institutional stress 
-        across 163 countries from 2010 to 2023, anchored by the 
+        across 163 countries from 2010 to 2025, anchored by the 
         Hedlund-Leijon asymmetry constant.
       </p>
       <div class="hero-actions">
@@ -181,22 +181,22 @@ footer a:hover{color:var(--gold-lt)}
         <div class="h-metric">
           <div class="h-metric-val">ℋ = 1.724</div>
           <div class="h-metric-label">HL Constant</div>
-          <div class="h-metric-desc">Recovery takes 1.724× longer than erosion. Validated on V-Dem 1789–2024.</div>
+          <div class="h-metric-desc">Recovery episodes are on average 1.724 times as large as erosion episodes (109.4 / 63.5; 95% interval 1.53–1.96). A ratio of magnitudes, not of time.</div>
         </div>
         <div class="h-metric">
-          <div class="h-metric-val">κ = 0.216</div>
-          <div class="h-metric-label">Tipping Threshold</div>
-          <div class="h-metric-desc">Below κ = ℋ/8, autocratic acceleration becomes historically likely.</div>
+          <div class="h-metric-val">W = 0.26</div>
+          <div class="h-metric-label">Warning threshold (CDRS)</div>
+          <div class="h-metric-desc">Calibrated on regime transitions 1996–2009. The lead-time threshold c<sub>L</sub> = 0.21 gives an earlier but noisier signal. κ = ℋ/8 ≈ 0.216 is a separate threshold on the democracy level.</div>
         </div>
         <div class="h-metric">
-          <div class="h-metric-val">AUC 0.96</div>
-          <div class="h-metric-label">Model performance</div>
-          <div class="h-metric-desc">86.7% out-of-sample accuracy across 17 confirmed collapse episodes.</div>
+          <div class="h-metric-val">AUC 0.80</div>
+          <div class="h-metric-label">Out-of-sample test</div>
+          <div class="h-metric-desc">Of the democracies of 2023, the 7 that became autocracies in 2024–2025 were all above W (calibration AUC 0.82).</div>
         </div>
         <div class="h-metric">
           <div class="h-metric-val">3.3 yrs</div>
           <div class="h-metric-label">Mean lead time</div>
-          <div class="h-metric-desc">Average warning window before observable breakdown. One parliamentary term.</div>
+          <div class="h-metric-desc">Average warning window before observable breakdown in the earlier data series (JoD manuscript); not yet re-estimated for data series v2.</div>
         </div>
       </div>
     </div>
@@ -221,7 +221,7 @@ footer a:hover{color:var(--gold-lt)}
       <div class="claim-card" role="listitem">
         <div class="claim-num">01 — Warning</div>
         <div class="claim-title">Built for early detection, not classification</div>
-        <div class="claim-body">The central purpose is not to label a country as democratic or authoritarian. It is to identify elevated structural risk before breakdown occurs — typically 3.3 years in advance.</div>
+        <div class="claim-body">The central purpose is not to label a country as democratic or authoritarian. It is to identify elevated structural risk before breakdown occurs — in the earlier data series on average 3.3 years in advance.</div>
       </div>
       <div class="claim-card" role="listitem">
         <div class="claim-num">02 — Stress</div>
@@ -231,7 +231,7 @@ footer a:hover{color:var(--gold-lt)}
       <div class="claim-card" role="listitem">
         <div class="claim-num">03 — Asymmetry</div>
         <div class="claim-title">Quantified erosion–recovery asymmetry</div>
-        <div class="claim-body">The HL constant ℋ = 1.724 captures the empirical finding that democracies are generally easier to break than to rebuild. Every year of inaction adds ℋ years to expected recovery duration.</div>
+        <div class="claim-body">The HL constant ℋ = 1.724 captures the empirical finding that democracies are generally easier to break than to rebuild. Recovery has to cover a larger distance than the erosion it repairs, so delay is costly.</div>
       </div>
       <div class="claim-card" role="listitem">
         <div class="claim-num">04 — Sequence</div>
@@ -241,7 +241,7 @@ footer a:hover{color:var(--gold-lt)}
       <div class="claim-card" role="listitem">
         <div class="claim-num">05 — Threshold</div>
         <div class="claim-title">Calibrated early-warning threshold</div>
-        <div class="claim-body">κ ≈ 0.22 defines the boundary of meaningfully elevated risk. It is a warning zone, not a point of no return. Crossing κ creates a window for intervention — before the window closes.</div>
+        <div class="claim-body">On the CDRS scale the lead-time threshold c<sub>L</sub> = 0.21 gives the earliest signal, and the warning threshold W = 0.26 marks clearly elevated risk; both are calibrated on regime transitions 1996–2009. It is a warning zone, not a point of no return: crossing it opens a window for intervention. κ = ℋ/8 is a separate threshold on the democracy level.</div>
       </div>
       <div class="claim-card" role="listitem">
         <div class="claim-num">06 — Open</div>
@@ -256,28 +256,28 @@ footer a:hover{color:var(--gold-lt)}
     <h3>Empirical anchors</h3>
     <div class="emp-row">
       <div class="emp-item">
-        <div class="emp-val">25,709</div>
-        <div class="emp-label">Country-year observations<br>V-Dem 1789–2024</div>
+        <div class="emp-val">163</div>
+        <div class="emp-label">Countries, 2010–2025<br>(data series v2)</div>
       </div>
       <div class="emp-item">
-        <div class="emp-val">200</div>
-        <div class="emp-label">Countries in<br>validation dataset</div>
+        <div class="emp-val">932</div>
+        <div class="emp-label">Democratic country-years<br>1996–2006 (calibration)</div>
+      </div>
+      <div class="emp-item">
+        <div class="emp-val">0.82 / 0.80</div>
+        <div class="emp-label">AUC: calibration /<br>test 2024–2025</div>
+      </div>
+      <div class="emp-item">
+        <div class="emp-val">7 of 7</div>
+        <div class="emp-label">Transitions 2024–2025<br>above the warning threshold</div>
       </div>
       <div class="emp-item">
         <div class="emp-val">17</div>
-        <div class="emp-label">Confirmed collapse<br>episodes (out-of-sample)</div>
+        <div class="emp-label">Collapse episodes 2010–2023<br>(JoD manuscript, earlier series)</div>
       </div>
       <div class="emp-item">
         <div class="emp-val">d = 3.57</div>
-        <div class="emp-label">Cohen's d<br>Mandate–capacity gap</div>
-      </div>
-      <div class="emp-item">
-        <div class="emp-val">0.96</div>
-        <div class="emp-label">AUC (ROC curve)<br>Logistic model</div>
-      </div>
-      <div class="emp-item">
-        <div class="emp-val">3.3 yrs</div>
-        <div class="emp-label">Mean lead time<br>before collapse</div>
+        <div class="emp-label">Cohen's d, mandate–capacity<br>gap (earlier series)</div>
       </div>
     </div>
   </div>
@@ -291,28 +291,24 @@ footer a:hover{color:var(--gold-lt)}
 
     <div class="zones-grid" role="list">
       <div class="zone-card" role="listitem">
-        <div><span class="zone-badge" style="background:#1e8449"></span><span class="zone-name">Demokratidalen</span></div>
-        <div class="zone-range">Score 0.00–0.20</div>
-        <div class="zone-desc">Institutional buffers largely intact. ℋ is low — intervention cost is still proportional. Sweden, Switzerland, New Zealand.</div>
-        <div class="zone-sv">Safe zone</div>
+        <div><span class="zone-badge" style="background:#1e8449"></span><span class="zone-name">Democratic valley</span></div>
+        <div class="zone-range">CDRS below 0.19 · 3-year risk under 2%</div>
+        <div class="zone-desc">Institutional buffers largely intact; intervention cost is still proportional. Examples (CDRS 2025, data series v2): Sweden 0.12, Switzerland 0.10, Germany 0.16.</div>
       </div>
       <div class="zone-card" role="listitem">
-        <div><span class="zone-badge" style="background:#d4ac0d"></span><span class="zone-name">Varningszon</span></div>
-        <div class="zone-range">Score 0.20–0.40</div>
-        <div class="zone-desc">Stress indicators rising. ℋ increasing — each year of inaction adds meaningfully to recovery burden. Germany, Canada, Japan.</div>
-        <div class="zone-sv">Warning zone</div>
+        <div><span class="zone-badge" style="background:#d4ac0d"></span><span class="zone-name">Warning zone</span></div>
+        <div class="zone-range">CDRS 0.19–0.26 · watch</div>
+        <div class="zone-desc">Stress indicators rising; each year of inaction adds to the recovery burden. Examples (CDRS 2025, data series v2): Japan 0.22, France 0.23, United Kingdom 0.22.</div>
       </div>
       <div class="zone-card" role="listitem">
-        <div><span class="zone-badge" style="background:#e67e22"></span><span class="zone-name">Riskzon</span></div>
-        <div class="zone-range">Score 0.40–0.65</div>
-        <div class="zone-desc">Structural erosion underway. Nonlinear dynamics likely. Recovery requires ℋ× more institutional effort than erosion consumed. USA, India, Mexico.</div>
-        <div class="zone-sv">Risk zone</div>
+        <div><span class="zone-badge" style="background:#e67e22"></span><span class="zone-name">Risk zone</span></div>
+        <div class="zone-range">CDRS 0.26–0.39 · warning and critical</div>
+        <div class="zone-desc">Structural erosion underway; non-linear dynamics likely. Recovery episodes are on average about 1.7 times as large as the erosion they repair. Examples (CDRS 2025, data series v2): USA 0.30, Poland 0.32, Hungary 0.36.</div>
       </div>
       <div class="zone-card" role="listitem">
-        <div><span class="zone-badge" style="background:#c0392b"></span><span class="zone-name">Autokratigropen</span></div>
-        <div class="zone-range">Score 0.65–1.00</div>
-        <div class="zone-desc">Deep path dependency. Recovery from this depth is historically rare without external shock or elite defection. Hungary, Turkey, Russia.</div>
-        <div class="zone-sv">Autocratic pit</div>
+        <div><span class="zone-badge" style="background:#c0392b"></span><span class="zone-name">Autocratic pit</span></div>
+        <div class="zone-range">CDRS 0.39 and above · crisis</div>
+        <div class="zone-desc">Deep path dependency. Recovery from this depth is historically rare without external shock or elite defection. Examples (CDRS 2025, data series v2): India 0.41, Turkey 0.48, Russia 0.66.</div>
       </div>
     </div>
   </section>
@@ -353,16 +349,16 @@ footer a:hover{color:var(--gold-lt)}
     <div>
       <div class="fs-label">HL Principle — Core Equations</div>
       <div class="fs-formula">
-        ℋ = 1 + (Δ/duration × 10)<br>
-        Recovery = Δ × 1.77 × ℋ × 10 years<br>
-        Delay cost = delay_years × ℋ<br>
-        κ = ℋ / 8 = 0.216
+        ℋ = mean recovery magnitude / mean erosion magnitude = 109.4 / 63.5 ≈ 1.724<br>
+        95% interval for ℋ: 1.53–1.96<br>
+        κ = ℋ / 8 ≈ 0.216 (threshold on the democracy level D: D ≤ κ)<br>
+        CDRS: c<sub>L</sub> = 0.21 (lead time) · W = 0.26 (warning)
       </div>
     </div>
     <div class="fs-note">
-      Δ is erosion magnitude (peak minus current score). Duration is years of continuous erosion. 
-      Every year of inaction adds ℋ years to expected recovery. 
-      κ is the empirically calibrated tipping threshold — below this, autocratic acceleration becomes historically likely.
+      Magnitudes are measured on the democracy level (V-Dem). ℋ is a ratio of magnitudes, not of time, so it says nothing directly about how many years recovery takes.
+      κ is derived from ℋ and applies to the democracy level. The CDRS thresholds c<sub>L</sub> and W are empirical and calibrated separately on regime transitions 1996–2009 (data series v2).
+      The earlier formulas with the factors 10 and 1.77 were withdrawn on 25 November 2026 because they had no source. Definitions, propositions and proofs: the HL calculator in the dashboard.
       <br><br>
       All formulas are open, testable, and reproduced in full in the scientific transparency platform.
     </div>
@@ -384,10 +380,11 @@ footer a:hover{color:var(--gold-lt)}
       <a href="why-fieldshift-is-different.html">Research</a> &nbsp;·&nbsp;
       <a href="https://fieldshift.streamlit.app" target="_blank" rel="noopener">Science ↗</a><br><br>
       Target venues: Journal of Democracy · American Political Science Review<br>
-      163 countries · 2010–2023 · 25,709 observations
+      163 countries · 2010–2025 · data series v2
     </div>
   </div>
 </footer>
 
+<!-- FS-FIX-33 -->
 </body>
 </html>
