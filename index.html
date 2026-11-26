@@ -32,7 +32,7 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-heigh
 
 /* ── NAV ── */
 .site-nav{background:#111;border-bottom:1px solid #333}
-.nav-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:flex;gap:0;align-items:center;flex-wrap:wrap}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:flex;gap:0;align-items:center}
 .nav-link{color:#aaa;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;text-decoration:none;padding:14px 20px 12px;border-bottom:2px solid transparent;transition:all .15s}
 .nav-link:hover{color:var(--gold-lt)}
 .nav-link.active{color:var(--gold-lt);border-bottom-color:var(--gold)}
@@ -88,6 +88,7 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-heigh
 .zone-name{font-family:var(--serif);font-size:15px;font-weight:700;margin-bottom:4px}
 .zone-range{font-family:var(--mono);font-size:11px;color:var(--ink-light);margin-bottom:8px}
 .zone-desc{font-size:12px;color:var(--ink-soft);line-height:1.6}
+.zone-sv{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-top:8px}
 
 /* ── PAGE CARDS ── */
 .page-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:28px}
@@ -138,7 +139,8 @@ footer a:hover{color:var(--gold-lt)}
       <strong>ℋ = 1.724</strong>
       163 countries · 2010–2023<br>
       Karlstad University<br>
-      fieldshift.org
+      fieldshift.org<br>
+      <a href="index_sv.html" lang="sv" hreflang="sv" style="color:var(--gold-lt);text-decoration:none">Svenska</a>
     </div>
   </div>
 </header>
@@ -149,7 +151,7 @@ footer a:hover{color:var(--gold-lt)}
     <a href="index.html" class="nav-link active" aria-current="page">Home</a>
     <a href="dashboard.html" class="nav-link">Dashboard</a>
     <a href="why-fieldshift-is-different.html" class="nav-link">Research</a>
-    <a href="science.html" class="nav-link">Science</a>
+    <a href="https://fieldshift.streamlit.app" class="nav-link" target="_blank" rel="noopener">Science ↗</a>
   </div>
 </nav>
 
@@ -170,7 +172,7 @@ footer a:hover{color:var(--gold-lt)}
       <div class="hero-actions">
         <a href="dashboard.html" class="btn-primary">Open Dashboard</a>
         <a href="why-fieldshift-is-different.html" class="btn-ghost">Research Overview</a>
-        <a href="science.html" class="btn-ghost">Scientific Data</a>
+        <a href="https://fieldshift.streamlit.app" class="btn-ghost" target="_blank" rel="noopener">Scientific Data ↗</a>
       </div>
     </div>
 
@@ -289,24 +291,28 @@ footer a:hover{color:var(--gold-lt)}
 
     <div class="zones-grid" role="list">
       <div class="zone-card" role="listitem">
-        <div><span class="zone-badge" style="background:#1e8449"></span><span class="zone-name">Safe Zone</span></div>
+        <div><span class="zone-badge" style="background:#1e8449"></span><span class="zone-name">Demokratidalen</span></div>
         <div class="zone-range">Score 0.00–0.20</div>
         <div class="zone-desc">Institutional buffers largely intact. ℋ is low — intervention cost is still proportional. Sweden, Switzerland, New Zealand.</div>
+        <div class="zone-sv">Safe zone</div>
       </div>
       <div class="zone-card" role="listitem">
-        <div><span class="zone-badge" style="background:#d4ac0d"></span><span class="zone-name">Warning Zone</span></div>
+        <div><span class="zone-badge" style="background:#d4ac0d"></span><span class="zone-name">Varningszon</span></div>
         <div class="zone-range">Score 0.20–0.40</div>
         <div class="zone-desc">Stress indicators rising. ℋ increasing — each year of inaction adds meaningfully to recovery burden. Germany, Canada, Japan.</div>
+        <div class="zone-sv">Warning zone</div>
       </div>
       <div class="zone-card" role="listitem">
-        <div><span class="zone-badge" style="background:#e67e22"></span><span class="zone-name">Risk Zone</span></div>
+        <div><span class="zone-badge" style="background:#e67e22"></span><span class="zone-name">Riskzon</span></div>
         <div class="zone-range">Score 0.40–0.65</div>
         <div class="zone-desc">Structural erosion underway. Nonlinear dynamics likely. Recovery requires ℋ× more institutional effort than erosion consumed. USA, India, Mexico.</div>
+        <div class="zone-sv">Risk zone</div>
       </div>
       <div class="zone-card" role="listitem">
-        <div><span class="zone-badge" style="background:#c0392b"></span><span class="zone-name">Autocratic Pit</span></div>
+        <div><span class="zone-badge" style="background:#c0392b"></span><span class="zone-name">Autokratigropen</span></div>
         <div class="zone-range">Score 0.65–1.00</div>
         <div class="zone-desc">Deep path dependency. Recovery from this depth is historically rare without external shock or elite defection. Hungary, Turkey, Russia.</div>
+        <div class="zone-sv">Autocratic pit</div>
       </div>
     </div>
   </section>
@@ -329,13 +335,12 @@ footer a:hover{color:var(--gold-lt)}
         <div class="pc-title">Why FieldShift Is Different</div>
         <div class="pc-body">A structured argument for what FieldShift contributes beyond existing democracy frameworks — and what it does not claim. For peer reviewers, sceptics, and curious readers.</div>
         <a href="why-fieldshift-is-different.html" class="pc-link">Read the argument →</a>
-        <a href="fieldshift-principle.html" class="pc-link">Explore the FieldShift Principle</a>
       </div>
       <div class="page-card">
         <div class="pc-label">Scientific Transparency</div>
         <div class="pc-title">Reproducibility Platform</div>
-        <div class="pc-body">Explore methods, results and validation materials. Download the data published with the FieldShift dashboard.</div>
-        <a href="science.html" class="pc-link">Open Science</a>
+        <div class="pc-body">Every formula exposed as Python code. Every calculation shown step by step. Full dataset downloadable as CSV. Designed to be 100% falsifiable and independently replicable.</div>
+        <a href="https://fieldshift.streamlit.app" class="pc-link" target="_blank" rel="noopener">Open Streamlit app ↗</a>
       </div>
     </div>
   </section>
@@ -370,14 +375,14 @@ footer a:hover{color:var(--gold-lt)}
     <div>
       <strong style="color:#ccc;font-family:var(--serif);font-size:14px">FieldShift.org</strong><br>
       Hedlund-Leijon Principle · ℋ = 1.724 · κ = 0.216<br>
-      Karlstad University<br>
+      Karlstad University · Värmdö Yrkesgymnasium<br>
       Data: V-Dem, Freedom House, World Bank WGI, SIPRI, IMF
     </div>
     <div style="text-align:right">
       <a href="index.html">Home</a> &nbsp;·&nbsp;
       <a href="dashboard.html">Dashboard</a> &nbsp;·&nbsp;
       <a href="why-fieldshift-is-different.html">Research</a> &nbsp;·&nbsp;
-      <a href="science.html">Science</a><br><br>
+      <a href="https://fieldshift.streamlit.app" target="_blank" rel="noopener">Science ↗</a><br><br>
       Target venues: Journal of Democracy · American Political Science Review<br>
       163 countries · 2010–2023 · 25,709 observations
     </div>

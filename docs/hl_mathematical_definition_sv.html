@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matematisk definition av Hedlund-Leijon-principen och CDRS-modellen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f9f6f1;--ink:#2b2723;--muted:#6b6258;--rule:#d8d0c4;--head:#f0ebe3;--accent:#7a5c3e}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Source Sans 3","Source Sans Pro","Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.6}
+main{max-width:860px;margin:0 auto;padding:32px 16px 64px}
+.source{font-size:.85rem;color:var(--muted);border-bottom:1px solid var(--rule);padding-bottom:10px;margin:0 0 28px}
+h1,h2,h3,h4,h5{font-family:"Libre Baskerville",Georgia,"Times New Roman",serif;font-weight:700;line-height:1.3;color:var(--ink)}
+h1{font-size:1.9rem;margin:.2em 0 .4em}
+h2{font-size:1.45rem;margin:2em 0 .6em;padding-bottom:.25em;border-bottom:1px solid var(--rule)}
+h3{font-size:1.18rem;margin:1.6em 0 .5em}
+h4,h5{font-size:1.02rem;margin:1.3em 0 .4em}
+p{margin:0 0 .9em}
+.subtitle{font-size:1.1rem;color:var(--muted);font-style:italic}
+blockquote{margin:1.2em 0;padding:.6em 1.1em;border-left:3px solid var(--accent);background:#f3eee6;font-style:italic}
+ul,ol{margin:0 0 1em;padding-left:1.6em}
+li{margin:.25em 0}
+sup,sub{font-size:.72em;line-height:0}
+.tbl{overflow-x:auto;margin:1.1em 0 1.5em}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:#fffdf9}
+th,td{border:1px solid var(--rule);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--head);font-weight:600}
+.fig{color:var(--muted);font-style:italic}
+@media print{
+ @page{margin:18mm 16mm}
+ body{background:#fff;color:#000;font-size:11pt}
+ main{max-width:none;padding:0}
+ h2,h3,h4{page-break-after:avoid;break-after:avoid}
+ table,tr,blockquote{page-break-inside:avoid;break-inside:avoid}
+ .tbl{overflow:visible}
+ th{background:#eee}
+ th,td{border-color:#999}
+}
+</style>
+</head>
+<body>
+<main>
+<p class="source">Källa: Mathematical_Definition_HL_Principle_and_CDRS.docx, hämtad från författarens Drive 2026-11-25. Arbetsdokument. · <a href="hl_mathematical_definition.html" lang="en" hreflang="en" style="color:inherit">English</a></p>
+<h1 class="doc-title">Matematisk definition av Hedlund-Leijon-principen och CDRS-modellen</h1>
+<p class="subtitle" style="text-align:center">Utarbetad som en renodlad teknisk anteckning med helt standardiserad matematisk notation</p>
+<p>Detta dokument ger en strikt matematisk formulering av ℋ = 1.724 och en formaliserad modell av Composite Democratic Risk Score (CDRS). Notationen nedan är standardiserad för direkt användning i en teknisk artikel, en metodbilaga eller en matematisk anteckning.</p>
+<h2>1. Matematisk modell för ℋ = 1.724</h2>
+<p>Låt D(c,t) beteckna demokratinivån i land c vid tidpunkt t.</p>
+<h3>Definitioner av episoder</h3>
+<p>För varje erosionsepisod e i land c, från start t_{e,0} till slut t_{e,1}, definieras erosionens storlek som</p>
+<p style="text-align:center"><em>M</em><sub>e</sub><sup>−</sup> = <em>D</em><sub>c,t</sub><sub>e,0</sub> − <em>D</em><sub>c,t</sub><sub>e,1</sub>,   <em>M</em><sub>e</sub><sup>−</sup> &gt; 0</p>
+<p>För varje återhämtningsepisod r i land c, från start t_{r,0} till slut t_{r,1}, definieras återhämtningens storlek som</p>
+<p style="text-align:center"><em>M</em><sub>r</sub><sup>+</sup> = <em>D</em><sub>c,t</sub><sub>r,1</sub> − <em>D</em><sub>c,t</sub><sub>r,0</sub>,   <em>M</em><sub>r</sub><sup>+</sup> &gt; 0</p>
+<h3>Kärndefinition av Hedlund-Leijon-principen</h3>
+<p>Den empiriska asymmetrin definieras som kvoten mellan den genomsnittliga storleken på demokratisk återhämtning och den genomsnittliga storleken på demokratisk erosion:</p>
+<p style="text-align:center"><em>ℋ</em> = [ (1/R) Σ <sub>r=1</sub><sup>R</sup> <em>M</em><sub>r</sub><sup>+</sup> ] / [ (1/E) Σ <sub>e=1</sub><sup>E</sup> <em>M</em><sub>e</sub><sup>−</sup> ]</p>
+<p>där R är antalet återhämtningsepisoder och E är antalet erosionsepisoder.</p>
+<p>I den empiriska skattningen blir detta:</p>
+<p style="text-align:center"><em>ℋ</em> = 109.4 / 63.5 ≈ 1.724</p>
+<p>Tolkning: för varje 1 enhet demokrati som går förlorad genom erosion kräver demokratisk återhämtning i genomsnitt 1,724 enheter av kumulativ återställande rörelse.</p>
+<h3>Bootstrapskattare av ℋ</h3>
+<p>Eftersom ℋ är bootstrapvaliderad kan skattaren för bootstrapdragning b = 1, …, B med B = 10,000 skrivas som</p>
+<p style="text-align:center"><em>ℋ̂</em>(b) = [ (1/R<sub>b</sub>) Σ <sub>r=1</sub><sup>R</sup><sup>b</sup> <em>M</em><sub>r</sub><sup>+,(b)</sup> ] / [ (1/E<sub>b</sub>) Σ <sub>e=1</sub><sup>E</sup><sup>b</sup> <em>M</em><sub>e</sub><sup>−,(b)</sup> ]</p>
+<p>Den slutliga skattningen blir då</p>
+<p style="text-align:center"><em>ℋ̂</em> = median(<em>ℋ̂</em>(1), …, <em>ℋ̂</em>(B)) = 1.724</p>
+<p style="text-align:center"><em>CI</em><sup>95%</sup>(ℋ) = [1.53, 1.96]</p>
+<h3>Kritisk gräns</h3>
+<p>Den kritiska gränsen definieras som</p>
+<p style="text-align:center"><em>κ</em> = ℋ / 8</p>
+<p style="text-align:center"><em>κ</em> = 1.724 / 8 = 0.2155 ≈ 0.216</p>
+<p>Detta är det samband för varningsgränsen som används i modellen.</p>
+<h3>Illustrativ dynamisk framställning</h3>
+<p>En stiliserad dynamisk form som är förenlig med manuskriptet kan skrivas som</p>
+<p style="text-align:center"><em>D</em>(t) = <em>D</em><sub>eq</sub> + <em>A</em><sub>0</sub> e<sup>−δt</sup> sin(ℋ·t/T + φ)</p>
+<p>där D_eq är demokratins jämviktsnivå, A_0 är den initiala amplituden, δ är en parameter för dämpning eller institutionell tröghet, T är den karakteristiska cykellängden och φ är fasförskjutningen. Ekvationen bör i första hand tolkas som en illustrativ dynamisk framställning och inte som den primära skattaren av ℋ. Den primära matematiska definitionen av ℋ är fortfarande asymmetrikvoten mellan kumulativ återhämtning och kumulativ erosion.</p>
+<h2>2. Matematisk modell för CDRS</h2>
+<p>Låt CDRS(c,t) beteckna Composite Democratic Risk Score för land c vid tidpunkt t. Den definieras som ett sammansatt mått på demokratisk stress, med</p>
+<p style="text-align:center"><em>CDRS</em><sub>c,t</sub> ∈ [0, 1]</p>
+<p>där högre värden anger större demokratisk stress och större demokratisk risk.</p>
+<h3>Femdimensionell struktur</h3>
+<p>Låt de fem komponentdimensionerna definieras enligt följande:</p>
+<p style="text-align:center"><em>F</em><sub>c,t</sub> = finanspolitisk integritetsstress</p>
+<p style="text-align:center"><em>C</em><sub>c,t</sub> = konstitutionell begränsningsstress</p>
+<p style="text-align:center"><em>O</em><sub>c,t</sub> = organisatorisk konkurrensstress</p>
+<p style="text-align:center"><em>N</em><sub>c,t</sub> = stress i demokratiska normer</p>
+<p style="text-align:center"><em>R</em><sub>c,t</sub> = stress i institutionell motståndskraft</p>
+<p>Varje dimension normaliseras till intervallet [0, 1], där 0 betecknar låg stress och 1 betecknar högsta observerade stress.</p>
+<h3>Grundformulering med lika vikter</h3>
+<p>Om huvudmodellen använder lika vikter är definitionen av CDRS</p>
+<p style="text-align:center"><em>CDRS</em><sub>c,t</sub> = (1/5)(<em>F</em><sub>c,t</sub> + <em>C</em><sub>c,t</sub> + <em>O</em><sub>c,t</sub> + <em>N</em><sub>c,t</sub> + <em>R</em><sub>c,t</sub>)</p>
+<p>Detta är den tydligaste huvudekvationen för CDRS i den tekniska artikeln.</p>
+<h3>Allmän viktad formulering</h3>
+<p>Mer allmänt kan modellen skrivas som</p>
+<p style="text-align:center"><em>CDRS</em><sub>c,t</sub> = Σ <sub>j=1</sub><sup>5</sup> w<sub>j</sub> X<sub>j,c,t</sub></p>
+<p style="text-align:center">Σ <sub>j=1</sub><sup>5</sup> w<sub>j</sub> = 1</p>
+<p>och i grundspecifikationen är w_j = 0.2 för alla j.</p>
+<h3>Normalisering av komponentindikatorer</h3>
+<p>Om en rå indikator skrivs som Z(j,c,t) definieras min-max-normalisering som</p>
+<p style="text-align:center"><em>X</em><sub>j,c,t</sub> = (Z<sub>j,c,t</sub> − min(Z<sub>j</sub>)) / (max(Z<sub>j</sub>) − min(Z<sub>j</sub>))</p>
+<p>när högre råvärden innebär större demokratisk stress. Om en rå indikator i stället anger starkare demokratisk prestation snarare än stress är den normaliserade stressversionen</p>
+<p style="text-align:center"><em>X</em><sub>j,c,t</sub><sup>stress</sup> = 1 − (Z<sub>j,c,t</sub> − min(Z<sub>j</sub>)) / (max(Z<sub>j</sub>) − min(Z<sub>j</sub>))</p>
+<p>Detta ger alla komponenter samma riktning: högre värden anger alltid svårare demokratisk stress.</p>
+<h3>Fullständig sammansatt modell</h3>
+<p>Den fullständiga sammansatta formen kan därför skrivas som</p>
+<p style="text-align:center"><em>CDRS</em><sub>c,t</sub> = (1/5)[ <em>F̃</em><sub>c,t</sub> + <em>C̃</em><sub>c,t</sub> + <em>Õ</em><sub>c,t</sub> + <em>Ñ</em><sub>c,t</sub> + <em>R̃</em><sub>c,t</sub> ]</p>
+<p>där varje term med tilde betecknar en normaliserad stresskomponent i intervallet [0, 1].</p>
+<h3>Gränsregim för CDRS</h3>
+<p>Gränsregimen för CDRS definieras av κ enligt följande:</p>
+<p style="text-align:center"><em>CDRS</em><sub>c,t</sub> &lt; κ   ⇒   stabil zon / zon med låg stress</p>
+<p style="text-align:center"><em>CDRS</em><sub>c,t</sub> ≥ κ   ⇒   varningszon / förhöjd demokratisk stress</p>
+<p style="text-align:center"><em>κ</em> = 0.216</p>
+<p>Detta är den renaste gränsregeln för modellen.</p>
+<h3>Valfritt dynamiskt riskskikt ovanpå CDRS</h3>
+<p>Om man vill modellera tanken att demokratisk stress blir farligare efter κ kan en accelerationsterm läggas till:</p>
+<p style="text-align:center"><em>A</em><sub>c,t</sub> = max(0, (CDRS<sub>c,t</sub> − κ) / (1 − κ))</p>
+<p>Om CDRS(c,t) &lt; κ finns då ingen term för accelererad risk; om CDRS(c,t) ≥ κ växer riskaccelerationen gradvis mot 1.</p>
+<p>Ett jämnare alternativ är en logistisk riskfunktion:</p>
+<p style="text-align:center"><em>P</em>(collapse<sub>c,t+h</sub>) = 1 / (1 + exp[−α(CDRS<sub>c,t</sub> − κ)])</p>
+<p>där α styr hur brant risken ökar och h är prognoshorisonten. Denna utvidgning är användbar om modellen senare förs över från ett stressindex till uttrycklig sannolikhetsprognos.</p>
+<h2>3. Rekommenderad formulering för teknisk artikel</h2>
+<p>Den mest koncisa och publiceringsfärdiga formuleringen är följande:</p>
+<p style="text-align:center">ℋ = [(1/R) Σ Mᵣ⁺] / [(1/E) Σ Mₑ⁻] = 1.724</p>
+<p style="text-align:center">κ = ℋ / 8 = 0.216</p>
+<p style="text-align:center">CDRS(c,t) = (1/5)(F(c,t) + C(c,t) + O(c,t) + N(c,t) + R(c,t))</p>
+<p>där Mᵣ⁺ betecknar den kumulativa storleken på den demokratiska återhämtningsepisoden r, Mₑ⁻ betecknar den kumulativa storleken på den demokratiska erosionsepisoden e, och varje komponent i CDRS är normaliserad till enhetsintervallet och orienterad så att högre värden anger större demokratisk stress.</p>
+<h2>4. Rekommenderad användning i hela manuskriptet</h2>
+<p>Huvudtext: använd endast de tre mest kompakta uttrycken.</p>
+<ul>
+<li>ℋ = M⁺ / M⁻ = 1.724
+</li>
+<li>κ = ℋ / 8 = 0.216
+</li>
+<li>CDRS = (1/5)(F + C + O + N + R)
+</li></ul>
+<p>Metodbilaga: ta med de exakta episoddefinitionerna, normaliseringsregeln, bootstrapskattaren och eventuellt det valfria logistiska riskskiktet.</p>
+<p>Figurtexter: använd kortfattade formuleringar som ”högre CDRS anger större demokratisk stress” och ”κ markerar början på förhöjd systemisk skörhet”.</p>
+<h2>5. Teknisk text (i originalet på engelska) klar för direkt användning</h2>
+<p>Följande stycke kan infogas direkt i den tekniska artikeln:</p>
+<blockquote>Hedlund-Leijon-principen definieras som den empiriska asymmetrin mellan den genomsnittliga storleken på demokratisk återhämtning och den genomsnittliga storleken på demokratisk erosion. I kompakt form är ℋ = 1.724 och den motsvarande kritiska gränsen är κ = ℋ/8 = 0.216. Composite Democratic Risk Score definieras som ett femdimensionellt stressindex med lika vikter, CDRS(c,t) = (1/5)(F + C + O + N + R), där varje komponent är normaliserad till [0,1] och orienterad så att högre värden anger större demokratisk stress. Att gränsen κ passeras identifierar förhöjd systemisk skörhet snarare än deterministisk kollaps.</blockquote>
+</main>
+</body>
+</html>

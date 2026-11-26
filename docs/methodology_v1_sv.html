@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FieldShift metoddokument v1 (FieldShift_Methodology_v1.docx)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f9f6f1;--ink:#2b2723;--muted:#6b6258;--rule:#d8d0c4;--head:#f0ebe3;--accent:#7a5c3e}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Source Sans 3","Source Sans Pro","Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.6}
+main{max-width:860px;margin:0 auto;padding:32px 16px 64px}
+.source{font-size:.85rem;color:var(--muted);border-bottom:1px solid var(--rule);padding-bottom:10px;margin:0 0 28px}
+h1,h2,h3,h4,h5{font-family:"Libre Baskerville",Georgia,"Times New Roman",serif;font-weight:700;line-height:1.3;color:var(--ink)}
+h1{font-size:1.9rem;margin:.2em 0 .4em}
+h2{font-size:1.45rem;margin:2em 0 .6em;padding-bottom:.25em;border-bottom:1px solid var(--rule)}
+h3{font-size:1.18rem;margin:1.6em 0 .5em}
+h4,h5{font-size:1.02rem;margin:1.3em 0 .4em}
+p{margin:0 0 .9em}
+.subtitle{font-size:1.1rem;color:var(--muted);font-style:italic}
+blockquote{margin:1.2em 0;padding:.6em 1.1em;border-left:3px solid var(--accent);background:#f3eee6;font-style:italic}
+ul,ol{margin:0 0 1em;padding-left:1.6em}
+li{margin:.25em 0}
+sup,sub{font-size:.72em;line-height:0}
+.tbl{overflow-x:auto;margin:1.1em 0 1.5em}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:#fffdf9}
+th,td{border:1px solid var(--rule);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--head);font-weight:600}
+.fig{color:var(--muted);font-style:italic}
+@media print{
+ @page{margin:18mm 16mm}
+ body{background:#fff;color:#000;font-size:11pt}
+ main{max-width:none;padding:0}
+ h2,h3,h4{page-break-after:avoid;break-after:avoid}
+ table,tr,blockquote{page-break-inside:avoid;break-inside:avoid}
+ .tbl{overflow:visible}
+ th{background:#eee}
+ th,td{border-color:#999}
+}
+</style>
+</head>
+<body>
+<main>
+<p class="source"><a href="methodology_v1.html" lang="en" hreflang="en" style="float:right;margin-left:12px;color:var(--accent)">English</a>Källa: FieldShift_Methodology_v1.docx, hämtat från författarens Drive 2026-11-25. Arbetsdokument.</p>
+<p><strong>FieldShift – system för tidig varning</strong></p>
+<p>Metodik och tekniskt referensdokument</p>
+<p>Version 1.0  —  Arbetsdokument  —  Före publicering</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Datatäckning</strong><br>163 länder  ·  2010–2023  ·  14 år<br><strong>Primära datakällor</strong><br>V-Dem, Freedom House, IMF GFS, WGI, RSF, SIPRI, CCP, IDEA<br><strong>Risklager</strong><br>Finanspolitiskt  ·  Konstitutionellt  ·  Organisatoriskt  ·  Beteendemässigt  ·  Utökat</th><th><strong>Sammanfattning</strong><br>FieldShift är ett fritt tillgängligt system för tidig varning för demokratisk erosion. Det har flera lager och täcker 163 länder inom fem institutionella riskområden. Dokumentet beskriver aggregeringslogiken, viktningen av källor, kalibreringen av gränsvärden och de mätantaganden som ligger bakom det sammansatta demokratiska riskmåttet (Composite Democratic Risk Score, CDRS). Det är tänkt som den metodiska grunden för akademisk användning. Det är också det första steget mot en referentgranskad artikel om ramverket.</th></tr>
+</thead>
+</table></div>
+<h2><strong>1. Inledning och motivering</strong></h2>
+<p>FieldShift fyller en tydlig lucka i övervakningen av demokrati. Det saknas ett fritt tillgängligt och pedagogiskt uppbyggt instrument för tidig varning med flera lager. Ett sådant instrument översätter det metodiska djupet i akademiska dataset till format som beslutsfattare, lärare och forskare utan specialistkunskap kan använda. Systemet sammanför data från åtta oberoende internationella dataset till ett sammansatt demokratiskt riskmått (CDRS). Måttet delas upp i fem institutionella lager.</p>
+<p>FieldShift skiljer sig från binära frihetsbetyg och demokratiindex med en enda axel. Systemet fångar att demokratisk erosion sker i steg och inom särskilda områden. Forskning i jämförande politik har gång på gång visat att erosionen är gradvis, flerdimensionell och knuten till specifika institutioner (Levitsky &amp; Ziblatt 2018; Luhrmann &amp; Lindberg 2019; Bermeo 2016). Systemet är uttryckligen inte en konkurrent till V-Dem. Det är ett pedagogiskt och policyinriktat aggregeringslager som bygger på V-Dem och sju kompletterande källor.</p>
+<p>Dokumentet har tre syften: (1) att ge den metodiska öppenhet som krävs för akademisk citering och replikering, (2) att dokumentera och motivera besluten om aggregering och (3) att redovisa nuvarande begränsningar och den planerade utvecklingsplanen.</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Om omfattningen</strong><br>163 länder får i dag ett värde. Sex länder (Nordkorea, Syrien, Somalia, Sydsudan, Eritrea, Turkmenistan) redovisas som otillgängliga på grund av systematiska begränsningar i data. Fullständiga förklaringar finns i det interaktiva gränssnittet. Alla angivna täckningssiffror gäller bara de 163 länder som har fått ett värde.</th></tr>
+</thead>
+</table></div>
+<h2><strong>2. Teoretisk ram</strong></h2>
+<h3><strong>2.1 Demokratisk erosion som en process inom flera områden</strong></h3>
+<p>FieldShift bygger på ett centralt teoretiskt påstående: demokratisk erosion är sällan ett plötsligt sammanbrott. Den är snarare en stegvis försämring inom olika institutionella områden. Levitsky och Ziblatt (2018) skiljer mellan demokratins formella konstitutionella skal och de beteendenormer som håller demokratin vid liv, nämligen ömsesidig tolerans och institutionell återhållsamhet. Den skillnaden motsvarar direkt det konstitutionella lagret och det beteendemässiga lagret (normlagret). De två lagren går ofta isär. Ett land kan behålla de formella bestämmelserna i konstitutionen samtidigt som den verkställande makten systematiskt undergräver dem i praktiken.</p>
+<p>Luhrmann och Lindberg (2019) pekar ut tre olika vägar som demokratier har eroderat längs sedan 1900: maktövertagande av den verkställande makten, militärkupper och – i allt högre grad den vanligaste formen efter kalla kriget – gradvis autokratisering. Den drivs av makthavare som verkar inom formella demokratiska institutioner. FieldShifts arkitektur med fem lager är särskilt utformad för att upptäcka tidiga tecken på denna tredje väg. Vanliga binära betyg misslyckas genomgående med att upptäcka den förrän erosionen har gått långt.</p>
+<h3><strong>2.2 Arkitekturen med fem lager</strong></h3>
+<p>Varje lager motsvarar ett teoretiskt avgränsat institutionellt område. Varje lager hämtar data från olika primära källor och fångar en egen mekanism för demokratisk erosion. Alla lager väger lika, 20 %. Det är ett medvetet teoretiskt val: inget område behandlas som överordnat de andra. Valet kan ifrågasättas, men det är öppet redovisat och svårt att manipulera.</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Lager</strong></th><th><strong>Vikt</strong></th><th><strong>Primära källor</strong></th><th><strong>Indikatorer som fångas</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Finanspolitisk integritet</strong></td><td>20 %</td><td>IMF GFS, Världsbankens WGI (Control of Corruption, Govt Effectiveness)</td><td>Budgetöppenhet, utgifter utanför budgeten, finanspolitiskt självbestämmande, skuldförvaltning</td></tr>
+<tr><td><strong>Konstitutionellt</strong></td><td>20 %</td><td>V-Dem (Liberal Component), Comparative Constitutions Project, IDEA</td><td>Domstolarnas oberoende, maktdelning, begränsningar av den verkställande makten, rättsstatlighet</td></tr>
+<tr><td><strong>Organisatoriskt</strong></td><td>20 %</td><td>V-Dem (Electoral Component), Freedom House, IDEA Electoral Integrity</td><td>Utrymme för civilsamhället, partipluralism, mötesfrihet, valadministration</td></tr>
+<tr><td><strong>Beteendenormer</strong></td><td>20 %</td><td>V-Dem (Participatory &amp; Egalitarian Components), RSF Press Freedom Index</td><td>Elitens efterlevnad av normer, mediefrihet, politisk tolerans, inkludering av minoriteter</td></tr>
+<tr><td><strong>Utökad motståndskraft</strong></td><td>20 %</td><td>SIPRI Military Expenditure, V-Dem (Deliberative), WGI (Voice &amp; Accountability)</td><td>Relationen mellan civil och militär makt, civil kontroll, deliberativ kvalitet, förmåga till protest</td></tr>
+</tbody>
+</table></div>
+<p>Tabell 1: FieldShifts lagerarkitektur, koppling till källor och täckning av indikatorer. CCP = Comparative Constitutions Project; IDEA = Institute for Democracy and Electoral Assistance.</p>
+<h2><strong>3. Datakällor och källornas tillförlitlighet</strong></h2>
+<h3><strong>3.1 Primära källor</strong></h3>
+<p>De åtta dataseten väljs ut efter fyra kriterier: (i) metodiskt oberoende av varandra, (ii) jämn årlig täckning från 2010 till 2023, (iii) fri tillgång och (iv) mätmetoder som är referentgranskade eller validerade av experter.</p>
+<ul>
+<li>V-Dem Institute (v14): Primär källa för det konstitutionella, det organisatoriska och det beteendemässiga lagret. Använder bayesiansk item response-teori (IRT) för att väga samman experters kodningar till skattningar av latenta variabler med publicerade konfidensintervall. Fältets nuvarande metodiska guldstandard för flerdimensionell bedömning av demokrati (Coppedge et al. 2023).
+</li>
+<li>Freedom House (Freedom in the World, 2010–2023): Bidrar till det organisatoriska lagret som sekundär korsvalidering. Har en dokumenterad ideologisk konsekvensbias (Munck &amp; Verkuilen 2002). Används därför som kompletterande och inte som primär indata.
+</li>
+<li>IMF Government Finance Statistics (GFS): Primär källa för lagret för finanspolitisk integritet – budgetöppenhet, utgifter utanför budgeten och efterlevnad av finanspolitiska regler. Den mest auktoritativa källan för jämförbara data om offentliga finanser över olika inkomstnivåer.
+</li>
+<li>Världsbankens Worldwide Governance Indicators (WGI): Bidrar till det finanspolitiska lagret (Control of Corruption, Govt Effectiveness) och det utökade lagret (Voice &amp; Accountability). Använder en Unobserved Components Model som väger samman fler än 30 underliggande källor. Konfidensintervall publiceras.
+</li>
+<li>Reportrar utan gränser (RSF Press Freedom Index): Primär källa för mediefrihet i det beteendemässiga lagret. Bygger på strukturerade expertenkäter inom fem dimensioner: rättslig ram, politiskt sammanhang, ekonomisk miljö, sociokulturellt sammanhang och fysisk säkerhet.
+</li>
+<li>SIPRI Military Expenditure Database: Primär källa för relationen mellan civil och militär makt i lagret för utökad motståndskraft. Måttet är andelen militära utgifter av de totala statliga utgifterna, som en indikator på civil kontroll över budgeten.
+</li>
+<li>Comparative Constitutions Project (CCP): Bidrar till det konstitutionella lagret. Hur ofta och hur omfattande konstitutionen ändras används som indikatorer på institutionell stabilitet.
+</li>
+<li>International IDEA: Bidrar till det organisatoriska lagret genom delkomponenten Electoral Integrity.
+</li></ul>
+<h3><strong>3.2 Hantering av motstridiga källor</strong></h3>
+<p>När källor ger motstridiga signaler för samma område tillämpar FieldShift följande rangordning:</p>
+<ol>
+<li>I det organisatoriska lagret går V-Dems skattningar före Freedom Houses kodningar. Skälet är V-Dems större metodiska öppenhet och publicerade osäkerhetsgränser.
+</li>
+<li>I det finanspolitiska lagret används WGI:s skattningar för att korsvalidera data från IMF GFS. Om de två skiljer sig åt med mer än 0,15 på den normaliserade skalan används den mest pessimistiska skattningen.
+</li>
+<li>RSF:s årliga värden normaliseras till 0–1 före integrationen. Förändringar från ett år till nästa som överstiger 15 normaliserade enheter flaggas för manuell granskning.
+</li>
+<li>Länder med ofullständig källtäckning (färre än fem av åtta källor) får ett täckningsavdrag på det sammansatta värdet: CDRS multipliceras med 0,92 för att minska skenbar precision.
+</li></ol>
+<h3><strong>3.3 Kända begränsningar i källorna</strong></h3>
+<ul>
+<li>V-Dems bayesianska modell ger latenta skattningar som bygger på sammanvägda expertbedömningar, inte direkta mätningar. Modellen kan ligga 12–24 månader efter synliga institutionella förändringar, särskilt i krissituationer som utvecklas snabbt.
+</li>
+<li>Freedom House har kritiserats för ideologisk konsekvensbias, särskilt i hur organisationen behandlar stater som är allierade med USA. FieldShift minskar problemet genom att använda källan som sekundär korsvalidering.
+</li>
+<li>Kvaliteten på finanspolitiska data från IMF GFS varierar kraftigt med inkomstnivå. Låginkomstländer saknar ofta fullständiga data om utgifter utanför budgeten och om finanser på regional och lokal nivå. Det leder till en systematisk underskattning av den finanspolitiska risken i delar av Afrika söder om Sahara.
+</li>
+<li>RSF:s värden kan påverkas av hur synliga förföljelser av journalister blir internationellt under ett visst år. Det kan ge överdrivet stora svängningar mellan åren för länder med uppmärksammade fall. Förändringar i RSF:s värden från ett år till nästa bör därför tolkas försiktigt.
+</li></ul>
+<h2><strong>4. Aggregeringslogik och konstruktion av indexet</strong></h2>
+<h3><strong>4.1 Normalisering</strong></h3>
+<p>Alla källvariabler normaliseras till skalan 0–1 före aggregeringen. 0 står för lägsta risk för de demokratiska institutionerna och 1 för högsta risk. För källor med omvänd riktning (till exempel V-Dems Liberal Democracy Index, där högre värden betyder mer demokrati) vänds värdena: FieldShift-värde = 1 minus källans värde.</p>
+<p>Normaliseringen utgår från det observerade spannet i panelen 2010–2023, inte från en tvärsnittsstandardisering. Ankarpunkterna bestäms av de faktiskt observerade minimi- och maximivärdena för alla land-år. Det gör att värdena går att jämföra över tid.</p>
+<h3><strong>4.2 Formel för det sammansatta värdet</strong></h3>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Sammansatt demokratiskt riskmått (CDRS)</strong><br>CDRS = (Fiscal + Constitutional + Organisational + Behavioral + Extended) / 5
+
+Alla fem lager får samma vikt = 0,20. Känslighetsanalysen (avsnitt 4.4) visar att rangordningen är robust mot måttliga ändringar av vikterna: Spearmans rho &gt; 0,94 för alla prövade alternativa specifikationer.</th></tr>
+</thead>
+</table></div>
+<h3><strong>4.3 Gränser för riskband</strong></h3>
+<p>CDRS delas in i sex riskband. Banden är kalibrerade mot den historiska fördelningen av värden för länder som har genomgått demokratiska övergångar enligt V-Dems variabel Regimes of the World (RoW).</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Riskband</strong></th><th><strong>Värdeintervall</strong></th><th><strong>N</strong></th><th><strong>Andel</strong></th><th><strong>Typiska exempel (2023)</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Mycket låg risk</strong></td><td>0,00 – 0,24</td><td>18</td><td>11,0 %</td><td>Norge, Schweiz, Island, Finland</td></tr>
+<tr><td><strong>Låg risk</strong></td><td>0,25 – 0,37</td><td>26</td><td>16,0 %</td><td>Tyskland, Frankrike, Japan, Australien</td></tr>
+<tr><td><strong>Bevakning</strong></td><td>0,38 – 0,51</td><td>38</td><td>23,3 %</td><td>Mexiko, Sydkorea, Brasilien, Bulgarien</td></tr>
+<tr><td><strong>Varning</strong></td><td>0,52 – 0,65</td><td>41</td><td>25,2 %</td><td>USA, Indien, Kenya, Colombia</td></tr>
+<tr><td><strong>Kritisk</strong></td><td>0,66 – 0,79</td><td>26</td><td>16,0 %</td><td>Ungern, Turkiet, Iran, Egypten</td></tr>
+<tr><td><strong>Kris</strong></td><td>0,80 – 1,00</td><td>14</td><td> 8,6 %</td><td>Ryssland (0,92), Kina (0,89)</td></tr>
+</tbody>
+</table></div>
+<p>Tabell 2: FieldShifts riskband med fördelningen av länder 2023 (n=163). Medelvärdet för CDRS över alla länder = 0,513; median = 0,518; standardavvikelse = 0,206.</p>
+<p>Varningsgränsen 0,52 har en tydlig empirisk grund. En analys gäller de länder som enligt V-Dem gick från valdemokrati (Electoral Democracy) till valautokrati (Electoral Autocracy) mellan 2010 och 2023. Den visar att CDRS låg över 0,52 året innan V-Dem ändrade klassningen i 14 av 17 sådana övergångar. Gränsen ska förstås som en sannolikhetsindikator, inte som en deterministisk utlösare.</p>
+<h3><strong>4.4 Känslighetsanalys</strong></h3>
+<ul>
+<li>Lagrens vikter varierades mellan 0,10 och 0,30 (summan låst till 1,00). De sammansatta värdena räknades om för alla 163 länder.
+</li>
+<li>Rangkorrelationer mellan basfallet med lika vikter och alla alternativa specifikationer: Spearmans rho &gt; 0,94. Det tyder på att ländernas rangordning är mycket robust.
+</li>
+<li>De länder som är mest känsliga för nya vikter är de där ett lagers värde avviker kraftigt från de andra. Det gäller länder i övergång, till exempel Brasilien (2018–2022), Polen (2015–2023) och Tunisien (2021–). Det är just i sådana fall som alternativa teoretiska antaganden om vilka institutioner som väger tyngst får störst analytisk betydelse.
+</li>
+<li>Fullständiga känslighetstabeller kommer att publiceras i Technical Appendix v1.1.
+</li></ul>
+<h2><strong>5. Mätinvarians och jämförbarhet över tid</strong></h2>
+<h3><strong>5.1 Problemet</strong></h3>
+<p>Alla system som följer demokrati över tid möter problemet med mätinvarians: mäter instrumentet samma latenta begrepp vid olika tidpunkter? V-Dem har gjort tre större metodändringar mellan 2010 och 2023. De gäller ändringar i ländernas expertpaneler (cirka 40 länder), revideringar av den bayesianska IRT-modellen (version 9, 12 och 14) samt nya indikatorer om desinformation, valteknik och jämställdhet. Ändringarna påverkar jämförbarheten bakåt i tiden. V-Dem hanterar det delvis med överbryggande studier, men det är fortfarande en verklig källa till osäkerhet.</p>
+<h3><strong>5.2 Nuvarande arbetssätt och planerad förbättring</strong></h3>
+<p>FieldShift använder V-Dem v14 för alla år. Därmed accepteras det underförstådda antagandet att den nuvarande modellen ger de mest korrekta skattningarna för alla år, även 2010. Det är vanlig praxis i forskningen om jämförande politik (Boese et al. 2022). Men det innebär att skattningarna av utvecklingen 2010–2015 är mer osäkra än de för 2018–2023.</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Prioriterad förbättring i version 2.0: visualisering av konfidensintervall</strong><br>V-Dem publicerar konfidensintervall för alla sina skattningar. Ett land med värdet 0,52 +/- 0,08 befinner sig i en kvalitativt annan situation än ett land med 0,52 +/- 0,02. Den skillnaden syns i dag inte i FieldShift. Den är den enskilt viktigaste metodiska förbättring som planeras. Version 2.0 kommer att visa osäkerhetsgränser i alla tidsseriediagram. Det möter direkt den främsta metodiska invändningen från kvantitativt skolade statsvetare.</th></tr>
+</thead>
+</table></div>
+<h3><strong>5.3 Resultat om den globala erosionstrenden</strong></h3>
+<p>En analys av utvecklingen i datasetets modul för instabila länder visar följande: 17 av 18 länder med tillgänglig utveckling för 2010–2023 försämrades netto, och inget land förbättrades på ett meningsfullt sätt. Det stämmer i riktning med V-Dems Democracy Report 2024. Resultatet bör ändå tolkas försiktigt. Den nuvarande modulen för utveckling över tid täcker ett icke-representativt urval (utvalda instabila fall). Den kan inte användas för slutsatser om hela urvalet på 163 länder.</p>
+<p>De fem största försämringarna: Ungern (+39,2 procentenheter), Turkiet (+38,6 pp), Indien (+30,4 pp), Israel (+29,6 pp), USA (+26,2 pp). Alla fem förblev formellt valdemokratier under hela perioden. Det understryker systemets centrala analytiska värde.</p>
+<h2><strong>6. Bibliotek över erosionsvägar</strong></h2>
+<p>FieldShift omsätter Luhrmanns och Lindbergs (2019) typologi i fem identifierbara erosionsvägar. Varje väg känns igen på sin signatur, det vill säga i vilken ordning lagren försämras. Biblioteket gör två saker möjliga. Det första är prediktiv analys: när ett lands lagerprofil matchar signaturen för ett tidigt skede av en väg visar biblioteket vilka områden som riskerar att drabbas härnäst. Det andra är strukturerad jämförelse mellan fall.</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Erosionsväg</strong></th><th><strong>Lagerföljd</strong></th><th><strong>Empiriska fall</strong></th><th><strong>Central litteratur</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Den verkställande maktens maktutvidgning</strong></td><td>Konstitutionellt, sedan beteendemässigt</td><td>Ungern (2010–), Turkiet (2013–), USA (2017–)</td><td>Luhrmann &amp; Lindberg 2019; Ginsburg &amp; Huq 2018</td></tr>
+<tr><td><strong>Populistisk normerosion</strong></td><td>Beteendemässigt, sedan organisatoriskt</td><td>Polen (2015–2023), Israel (2022–), Brasilien (2018–2022)</td><td>Levitsky &amp; Ziblatt 2018; Mudde &amp; Kaltwasser 2017</td></tr>
+<tr><td><strong>Militärt maktövertagande eller maktövertagande av säkerhetsapparaten</strong></td><td>Organisatoriskt, sedan finanspolitiskt</td><td>Myanmar (2021), Sudan (2019), Mali (2021)</td><td>Svolik 2012; Finer 1962</td></tr>
+<tr><td><strong>Finanspolitiskt maktövertagande</strong></td><td>Finanspolitiskt, sedan konstitutionellt</td><td>Venezuela (2000-talet), Zimbabwe, Ryssland (2000-talet)</td><td>Bueno de Mesquita et al. 2003; Guriev &amp; Treisman 2019</td></tr>
+<tr><td><strong>Informationsautokrati</strong></td><td>Utökat, sedan beteendemässigt</td><td>Ryssland (2012–), Kina, Ungerns kontroll över medierna</td><td>Guriev &amp; Treisman 2022; Rod &amp; Weidmann 2015</td></tr>
+</tbody>
+</table></div>
+<p>Tabell 3: Vägar för demokratisk erosion med typiska lagerföljder och exempel på fall. ”Lagerföljd” anger det område som brukar försämras först och det område som försämringen sedan sprider sig till.</p>
+<h2><strong>7. Regional fördelning av risk och smittoeffekter</strong></h2>
+<p>Brinks och Coppedge (2006) visade att typen av demokratisk regim har en betydande rumslig autokorrelation. Gunitsky (2014) visade att stormaktsstatus förstärker spridningseffekter. FieldShifts regionala medelvärden för 2023 skiljer sig tydligt åt, vilket delvis speglar smittodynamik:</p>
+<ul>
+<li>Västeuropa: medelvärde för CDRS 0,243 (n=20) – världens demokratiska ankarregion.
+</li>
+<li>Centraleuropa: medelvärde för CDRS 0,408 (n=8) – under ihållande tryck från Ungern (0,756) och Polen (som återhämtar sig från toppen 0,63 år 2021).
+</li>
+<li>Afrika söder om Sahara: medelvärde för CDRS 0,591 (n=45) – den största variationen inom en region i datasetet. Botswana (0,31) och Zimbabwe (0,74) är motpolerna.
+</li>
+<li>Centralasien: medelvärde för CDRS 0,695 (n=5) – det högsta regionala medelvärdet. Det speglar en befäst auktoritär konsolidering.
+</li>
+<li>Mellanöstern och Nordafrika: medelvärde för CDRS 0,628 (n=17) – stabilt inom regionen men med hög absolut risk. Förenade Arabemiraten (0,52) och Marocko (0,58) är jämförelsevis måttliga i det regionala sammanhanget.
+</li></ul>
+<p>En dynamisk smittomodul planeras för version 2.0. Den ska identifiera länder som ligger geografiskt eller institutionellt nära fall med kraftig försämring.</p>
+<h2><strong>8. Förhållande till befintliga system</strong></h2>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Dimension</strong></th><th><strong>FieldShift</strong></th><th><strong>V-Dem</strong></th><th><strong>Freedom House</strong></th><th><strong>EIU-index</strong></th><th><strong>Polity5</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Antal länder</strong></td><td>163</td><td>202</td><td>195</td><td>167</td><td>167 (2018)</td></tr>
+<tr><td><strong>Tidsserie</strong></td><td>2010–2023</td><td>1789–2023</td><td>1972–2023</td><td>2006–2023</td><td>1800–2018</td></tr>
+<tr><td><strong>Uppdateringsfrekvens</strong></td><td>Årlig</td><td>Årlig</td><td>Årlig</td><td>Årlig</td><td>Nedlagd</td></tr>
+<tr><td><strong>Fri tillgång</strong></td><td>Ja – fullständig</td><td>Ja</td><td>Delvis</td><td>Betalvägg</td><td>Ja</td></tr>
+<tr><td><strong>Sammansatt tidig varning</strong></td><td><strong>Ja</strong></td><td>Nej</td><td>Nej</td><td>Nej</td><td>Nej</td></tr>
+<tr><td><strong>Visualisering av utveckling över tid</strong></td><td><strong>Ja</strong></td><td>Delvis</td><td>Nej</td><td>Nej</td><td>Nej</td></tr>
+<tr><td><strong>Landsberättelse</strong></td><td>Ja (AI)</td><td>Nej</td><td>Nej</td><td>Nej</td><td>Nej</td></tr>
+<tr><td><strong>Pedagogiskt gränssnitt</strong></td><td>Tre nivåer</td><td>Endast för experter</td><td>Måttligt</td><td>Endast för experter</td><td>Endast för experter</td></tr>
+<tr><td><strong>Uppdelning i lager</strong></td><td>5 områden</td><td>Fler än 400 variabler</td><td>Binära kategorier</td><td>4 kategorier</td><td>3-gradig skala</td></tr>
+<tr><td><strong>Visad osäkerhet</strong></td><td>Planeras i v2</td><td>Ja (KI)</td><td>Nej</td><td>Nej</td><td>Nej</td></tr>
+<tr><td><strong>Citerbar metodik</strong></td><td>Detta dokument</td><td>Omfattande</td><td>Ja</td><td>Ja</td><td>Ja (äldre)</td></tr>
+</tbody>
+</table></div>
+<p>Tabell 4: FieldShift jämfört med fem ledande system för övervakning av demokrati.</p>
+<p>FieldShifts främsta styrka är inte datatäckning eller källornas oberoende – där är V-Dem bättre på båda punkterna. Styrkan är att uppdelning i flera lager, analys av utveckling över tid och pedagogisk tillgänglighet finns samlade i ett enda fritt tillgängligt gränssnitt. FieldShift är ett översättande instrument. Det omvandlar djupet i akademiska dataset till former som universitetslärare, policyanalytiker, valobservatörer och journalister kan använda.</p>
+<h2><strong>9. Begränsningar och utvecklingsplan</strong></h2>
+<h3><strong>9.1 Nuvarande begränsningar</strong></h3>
+<ul>
+<li>Lika vikter för lagren: Teoretiskt motiverat men inte prövat empiriskt. Optimala vikter, kalibrerade mot historiska regimövergångar, har ännu inte skattats.
+</li>
+<li>Inga konfidensintervall: Nuvarande värden är punktskattningar utan osäkerhetsgränser. Det ger skenbar precision, särskilt i bevakningszonen (0,38–0,52), där små mätskillnader avgör riskklassningen.
+</li>
+<li>Luckor i täckningen: De 163 länderna omfattar inte flera små östater, där dynamiken i demokratisk erosion kan vara särskilt synlig.
+</li>
+<li>Engelskspråkig slagsida: Berättelser och pedagogiskt innehåll finns i dag bara på engelska. Det begränsar tillgängligheten i fransktalande Afrika och spansktalande Latinamerika.
+</li>
+<li>Startår: Eftersom systemet börjar 2010 kan det inte upptäcka erosionsförlopp som har sina rötter i tidigare perioder.
+</li></ul>
+<h3><strong>9.2 Utvecklingsplan</strong></h3>
+<ol>
+<li>Version 2.0 (prioriterad): Visualisering av konfidensintervall med V-Dems publicerade KI-gränser.
+</li>
+<li>Version 2.0: Dynamisk smittomodul – visualisering av regional spridning med viktning efter närhet.
+</li>
+<li>Version 2.1: Händelsemarkeringar – institutionella händelser läggs direkt in i tidsseriediagrammen.
+</li>
+<li>Version 2.1: Baslinjerapporter före val – automatiska landsbedömningar som PDF, skapade enligt en löpande valkalender.
+</li>
+<li>Version 3.0: Gränssnitt för känslighetsanalys – forskare kan ändra lagrens vikter och se hur värdena påverkas i realtid.
+</li>
+<li>Version 3.0: API-åtkomst för R och Python – gör direkt integration i akademiska forskningsflöden möjlig.
+</li></ol>
+<h2><strong>10. Vägledning för akademisk användning</strong></h2>
+<h4><strong>Som undervisningsinstrument</strong></h4>
+<p>Gränssnittet har tre lägen (student / policy / forskning) och en funktion för landsberättelser (Country Story). De är utformade för kurser på grund- och avancerad nivå om jämförande demokrati och demokratisk tillbakagång. Jämförelsefunktionen Head-to-Head passar direkt för strukturerade jämförelseövningar på seminarier.</p>
+<h4><strong>Som utforskande forskningsverktyg</strong></h4>
+<p>Uppdelningen i fem lager hjälper forskare att hitta fall där enskilda institutionella områden avviker från landets övergripande demokratiska utveckling. Sådana avvikande fall kan vara teoretiskt betydelsefulla och motivera fallstudier. Visualiseringen av regional risk är lämplig för att formulera hypoteser om demokratisk spridning och smitta.</p>
+<h4><strong>Vägledning för citering</strong></h4>
+<p>Tills en referentgranskad metodartikel har publicerats är detta rätt sätt att citera:</p>
+<div class="tbl"><table>
+<thead>
+<tr><th><strong>Föreslagen citering före publicering</strong><br>FieldShift Early Warning System (2024). Methodology &amp; Technical Reference Document v1.0. [URL]. Obs! Detta är ett arbetsdokument före publicering. För publicerade arbeten rekommenderas att centrala empiriska påståenden kontrolleras mot primärkällorna (V-Dem v14, Freedom House, IMF GFS).</th></tr>
+</thead>
+</table></div>
+<p>Forskare som använder FieldShifts värden i publicerade arbeten bör korsvalidera viktiga resultat mot primärkällorna – framför allt V-Dem v14 – och redovisa eventuella skillnader. FieldShift är en ingång och ett verktyg för utforskning. Det ersätter inte direkt arbete med de primära dataseten.</p>
+<h2><strong>Referenser</strong></h2>
+<p>Bermeo, N. (2016). On Democratic Backsliding. Journal of Democracy, 27(1), 5-19.</p>
+<p>Boese, V.A., Alizada, N., Lundstedt, M., et al. (2022). Autocratization Changing Nature? Democracy Report 2022. V-Dem Institute.</p>
+<p>Brinks, D., &amp; Coppedge, M. (2006). Diffusion Is No Illusion: Neighbor Emulation in the Third Wave of Democracy. Comparative Political Studies, 39(4), 463-489.</p>
+<p>Bueno de Mesquita, B., Smith, A., Siverson, R.M., &amp; Morrow, J.D. (2003). The Logic of Political Survival. MIT Press.</p>
+<p>Coppedge, M., Gerring, J., Knutsen, C.H., Lindberg, S.I., et al. (2023). V-Dem Codebook v14. Varieties of Democracy (V-Dem) Project.</p>
+<p>Ginsburg, T., &amp; Huq, A.Z. (2018). How to Save a Constitutional Democracy. University of Chicago Press.</p>
+<p>Guriev, S., &amp; Treisman, D. (2019). Informational Autocrats. Journal of Economic Perspectives, 33(4), 100-127.</p>
+<p>Guriev, S., &amp; Treisman, D. (2022). Spin Dictators: The Changing Face of Tyranny in the 21st Century. Princeton University Press.</p>
+<p>Gunitsky, S. (2014). From Shocks to Waves: Hegemonic Transitions and Democratization in the Twentieth Century. International Organization, 68(3), 561-597.</p>
+<p>Levitsky, S., &amp; Ziblatt, D. (2018). How Democracies Die. Crown Publishing.</p>
+<p>Luhrmann, A., &amp; Lindberg, S.I. (2019). A Third Wave of Autocratization is Here: What is New About It? Democratization, 26(7), 1095-1113.</p>
+<p>Mudde, C., &amp; Kaltwasser, C.R. (2017). Populism: A Very Short Introduction. Oxford University Press.</p>
+<p>Munck, G.L., &amp; Verkuilen, J. (2002). Conceptualizing and Measuring Democracy: Evaluating Alternative Indices. Comparative Political Studies, 35(1), 5-34.</p>
+<p>Pemstein, D., Meserve, S.A., &amp; Melton, J. (2010). Democratic Compromise: A Latent Variable Analysis of Ten Measures of Regime Type. Political Analysis, 18(4), 426-449.</p>
+<p>Rod, E.G., &amp; Weidmann, N.B. (2015). Empowering Activists or Autocrats? The Internet in Authoritarian Regimes. Journal of Peace Research, 52(3), 338-351.</p>
+<p>Svolik, M.W. (2012). The Politics of Authoritarian Rule. Cambridge University Press.</p>
+<p>Technical Appendix v1.1 (kommer): Fullständiga indikatorvikter inom varje lager  ·  Fullständiga tabeller för känslighetsanalysen  ·  Dokumentation av källtäckningen per land  ·  Protokoll för integration av V-Dems konfidensintervall</p>
+</main>
+</body>
+</html>

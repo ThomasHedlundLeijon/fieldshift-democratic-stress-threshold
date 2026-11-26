@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="FieldShift – ett ramverk för tidig varning för demokratisk erosion. Byggt på Hedlund-Leijon-principen: ℋ = 1,724, κ = 0,216. 163 länder, 2010–2023.">
+<title>FieldShift – system för tidig varning för demokratisk erosion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a1a;--ink-soft:#4a4a4a;--ink-light:#7a7a7a;
+  --paper:#f9f6f1;--paper-2:#f2ede5;--paper-3:#e8e0d4;--rule:#d0c8bc;
+  --gold:#b8922a;--gold-lt:#e8c96e;--gold-pale:#f5ead0;
+  --danger:#c0392b;--ok:#1e8449;--info:#1a5276;
+  --serif:'Libre Baskerville',Georgia,serif;
+  --sans:'Source Sans 3',system-ui,sans-serif;
+  --mono:'JetBrains Mono','Courier New',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.65;min-height:100vh}
+
+/* ── MASTHEAD ── */
+.masthead{background:var(--ink);color:var(--paper);border-bottom:3px solid var(--gold)}
+.masthead-inner{max-width:1200px;margin:0 auto;padding:36px 48px 28px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.masthead-title{font-family:var(--serif);font-size:clamp(28px,4vw,52px);font-weight:700;letter-spacing:-0.02em;line-height:1}
+.masthead-title span{color:var(--gold-lt)}
+.masthead-sub{font-size:12px;color:#b0a898;margin-top:10px;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.masthead-meta{text-align:right;font-family:var(--mono);font-size:11px;color:#888;line-height:2}
+.masthead-meta strong{color:var(--gold-lt);display:block;font-size:20px;font-family:var(--serif)}
+
+/* ── NAV ── */
+.site-nav{background:#111;border-bottom:1px solid #333}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:flex;gap:0;align-items:center}
+.nav-link{color:#aaa;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;text-decoration:none;padding:14px 20px 12px;border-bottom:2px solid transparent;transition:all .15s}
+.nav-link:hover{color:var(--gold-lt)}
+.nav-link.active{color:var(--gold-lt);border-bottom-color:var(--gold)}
+.nav-sep{color:#444;padding:0 4px;font-size:11px}
+
+/* ── HERO ── */
+.hero{background:var(--ink);padding:80px 48px 72px;border-bottom:3px solid var(--gold)}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.hero-headline{font-family:var(--serif);font-size:clamp(28px,3.5vw,46px);font-weight:700;color:var(--paper);line-height:1.2;letter-spacing:-0.01em}
+.hero-headline em{color:var(--gold-lt);font-style:normal}
+.hero-body{font-size:15px;color:#b0a898;line-height:1.75;margin-top:20px;max-width:540px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn-primary{font-family:var(--serif);font-size:13px;font-weight:700;padding:11px 28px;background:var(--gold);color:var(--ink);border:none;cursor:pointer;letter-spacing:.02em;text-decoration:none;display:inline-block;transition:background .15s}
+.btn-primary:hover{background:var(--gold-lt)}
+.btn-ghost{font-family:var(--mono);font-size:11px;padding:11px 20px;background:transparent;color:#aaa;border:1px solid #444;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .15s}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-lt)}
+
+/* Hero metrics */
+.hero-metrics{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#333}
+.h-metric{background:#1a1a1a;padding:28px 24px}
+.h-metric-val{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--gold-lt);line-height:1}
+.h-metric-label{font-family:var(--mono);font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.1em;margin-top:6px}
+.h-metric-desc{font-size:12px;color:#777;margin-top:6px;line-height:1.5}
+
+/* ── LAYOUT ── */
+.layout{max-width:1200px;margin:0 auto;padding:64px 48px 96px}
+
+/* ── SECTION ── */
+.section-rule{border:none;border-top:2px solid var(--ink);margin:0 0 24px}
+.section-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-light);margin-bottom:6px}
+.section-title{font-family:var(--serif);font-size:clamp(20px,2.5vw,30px);font-weight:700;margin-bottom:8px}
+.section-desc{font-size:14px;color:var(--ink-soft);max-width:680px;line-height:1.75}
+
+/* ── CLAIMS GRID ── */
+.claims-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:28px}
+.claim-card{background:var(--paper);padding:28px 24px}
+.claim-num{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:10px}
+.claim-title{font-family:var(--serif);font-size:17px;font-weight:700;margin-bottom:8px}
+.claim-body{font-size:13px;color:var(--ink-soft);line-height:1.7}
+
+/* ── EMPIRICAL BAND ── */
+.empirical-band{background:var(--paper-2);border:1px solid var(--rule);border-left:4px solid var(--gold);padding:28px 32px;margin:48px 0}
+.empirical-band h3{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:16px}
+.emp-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px 32px}
+.emp-item{}
+.emp-val{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--ink)}
+.emp-label{font-size:12px;color:var(--ink-soft);margin-top:3px;line-height:1.5}
+
+/* ── ZONES TABLE ── */
+.zones-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:24px}
+.zone-card{padding:24px 20px;background:var(--paper)}
+.zone-badge{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.zone-name{font-family:var(--serif);font-size:15px;font-weight:700;margin-bottom:4px}
+.zone-range{font-family:var(--mono);font-size:11px;color:var(--ink-light);margin-bottom:8px}
+.zone-desc{font-size:12px;color:var(--ink-soft);line-height:1.6}
+.zone-sv{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-top:8px}
+
+/* ── PAGE CARDS ── */
+.page-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:28px}
+.page-card{background:var(--paper);padding:28px 24px;display:flex;flex-direction:column}
+.page-card:hover{background:var(--paper-2)}
+.pc-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-light);margin-bottom:8px}
+.pc-title{font-family:var(--serif);font-size:18px;font-weight:700;margin-bottom:8px}
+.pc-body{font-size:13px;color:var(--ink-soft);line-height:1.7;flex:1}
+.pc-link{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-pale)}
+.pc-link:hover{color:var(--ink)}
+
+/* ── FORMULA STRIP ── */
+.formula-strip{background:var(--ink);padding:32px 48px;border-top:3px solid var(--gold);margin-top:64px}
+.formula-strip-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center}
+.fs-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#888}
+.fs-formula{font-family:var(--mono);font-size:13px;color:var(--gold-lt);line-height:2}
+.fs-note{font-size:12px;color:#777;line-height:1.6;max-width:420px}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);color:#777;padding:32px 48px;font-family:var(--mono);font-size:11px;line-height:2;border-top:3px solid var(--gold)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:24px}
+footer a{color:#888;text-decoration:none}
+footer a:hover{color:var(--gold-lt)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-inner,.formula-strip-inner{grid-template-columns:1fr}
+  .zones-grid,.page-cards{grid-template-columns:1fr 1fr}
+  .masthead-inner{grid-template-columns:1fr}
+  .masthead-meta{text-align:left}
+  .masthead-inner,.nav-inner,.hero,.layout,.footer-inner,.formula-strip{padding-left:24px;padding-right:24px}
+}
+@media(max-width:560px){
+  .zones-grid,.page-cards,.h-metric-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead" role="banner">
+  <div class="masthead-inner">
+    <div>
+      <div class="masthead-title">Field<span>Shift</span></div>
+      <div class="masthead-sub">System för tidig varning för demokratisk erosion · Hedlund-Leijon-principen</div>
+    </div>
+    <div class="masthead-meta">
+      <strong>ℋ = 1,724</strong>
+      163 länder · 2010–2023<br>
+      Karlstads universitet<br>
+      fieldshift.org<br>
+      <a href="index.html" lang="en" hreflang="en" style="color:var(--gold-lt);text-decoration:none">English</a>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="site-nav" aria-label="Huvudnavigering">
+  <div class="nav-inner">
+    <a href="index_sv.html" class="nav-link active" aria-current="page">Start</a>
+    <a href="dashboard_sv.html" class="nav-link">Instrumentpanel</a>
+    <a href="why-fieldshift-is-different_sv.html" class="nav-link">Forskning</a>
+    <a href="https://fieldshift.streamlit.app" class="nav-link" target="_blank" rel="noopener">Vetenskap ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" aria-label="Inledning">
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-headline">
+        Demokratier eroderar snabbare<br>än de <em>återhämtar sig.</em>
+      </h1>
+      <p class="hero-body">
+        FieldShift är ett ramverk för tidig varning för demokratisk erosion –
+        byggt för att upptäcka strukturell fara <em>innan</em> sammanbrottet syns
+        i vanliga demokratiindex. Ramverket mäter institutionell stress
+        i 163 länder från 2010 till 2023 och vilar på
+        Hedlund-Leijons asymmetrikonstant.
+      </p>
+      <div class="hero-actions">
+        <a href="dashboard_sv.html" class="btn-primary">Öppna instrumentpanelen</a>
+        <a href="why-fieldshift-is-different_sv.html" class="btn-ghost">Forskningsöversikt</a>
+        <a href="https://fieldshift.streamlit.app" class="btn-ghost" target="_blank" rel="noopener">Vetenskapliga data ↗</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="hero-metrics">
+        <div class="h-metric">
+          <div class="h-metric-val">ℋ = 1,724</div>
+          <div class="h-metric-label">HL-konstanten</div>
+          <div class="h-metric-desc">Återhämtning tar 1,724 gånger längre tid än erosion. Validerad på V-Dem 1789–2024.</div>
+        </div>
+        <div class="h-metric">
+          <div class="h-metric-val">κ = 0,216</div>
+          <div class="h-metric-label">Tipppunkt</div>
+          <div class="h-metric-desc">Under κ = ℋ/8 blir en accelererande autokratisering historiskt sannolik.</div>
+        </div>
+        <div class="h-metric">
+          <div class="h-metric-val">AUC 0,96</div>
+          <div class="h-metric-label">Modellens prestanda</div>
+          <div class="h-metric-desc">86,7 % träffsäkerhet utanför urvalet i 17 bekräftade sammanbrottsepisoder.</div>
+        </div>
+        <div class="h-metric">
+          <div class="h-metric-val">3,3 år</div>
+          <div class="h-metric-label">Genomsnittlig ledtid</div>
+          <div class="h-metric-desc">Genomsnittligt varningsfönster innan sammanbrottet blir synligt. En mandatperiod.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<main class="layout">
+
+  <!-- WHAT IS NEW -->
+  <section aria-labelledby="new-heading">
+    <hr class="section-rule">
+    <div class="section-label">Ramverk</div>
+    <h2 class="section-title" id="new-heading">Vad FieldShift tillför</h2>
+    <p class="section-desc">
+      De flesta demokratiindex beskriver var ett land befinner sig. FieldShift är byggt för att
+      uppskatta <em>när</em> ett system går in i en strukturellt farlig fas –
+      innan sammanbrottet är uppenbart.
+    </p>
+
+    <div class="claims-grid" role="list">
+      <div class="claim-card" role="listitem">
+        <div class="claim-num">01 – Varning</div>
+        <div class="claim-title">Byggt för tidig upptäckt, inte för klassificering</div>
+        <div class="claim-body">Huvudsyftet är inte att stämpla ett land som demokratiskt eller auktoritärt. Syftet är att upptäcka förhöjd strukturell risk innan sammanbrottet sker – vanligen 3,3 år i förväg.</div>
+      </div>
+      <div class="claim-card" role="listitem">
+        <div class="claim-num">02 – Stress</div>
+        <div class="claim-title">Institutionell stress, inte institutionellt tillstånd</div>
+        <div class="claim-body">Ett land kan se demokratiskt ut på papperet men ändå bära på stort strukturellt tryck. FieldShift mäter ackumulerad stress inom fem områden, inte bara hur mycket demokrati landet har i dag.</div>
+      </div>
+      <div class="claim-card" role="listitem">
+        <div class="claim-num">03 – Asymmetri</div>
+        <div class="claim-title">Kvantifierad asymmetri mellan erosion och återhämtning</div>
+        <div class="claim-body">HL-konstanten ℋ = 1,724 fångar det empiriska resultatet att demokratier i regel är lättare att bryta ned än att bygga upp igen. Varje år utan åtgärder lägger till ℋ år till den förväntade återhämtningstiden.</div>
+      </div>
+      <div class="claim-card" role="listitem">
+        <div class="claim-num">04 – Förlopp</div>
+        <div class="claim-title">Institutioner som fallerar i tur och ordning</div>
+        <div class="claim-body">Demokratisk försämring sker i lager. Först försvagas den finansiella integriteten, sedan de konstitutionella begränsningarna, den organisatoriska konkurrensen, de demokratiska normerna och sist den institutionella motståndskraften.</div>
+      </div>
+      <div class="claim-card" role="listitem">
+        <div class="claim-num">05 – Gräns</div>
+        <div class="claim-title">Kalibrerad gräns för tidig varning</div>
+        <div class="claim-body">κ ≈ 0,22 markerar gränsen för tydligt förhöjd risk. Det är en varningszon, inte en punkt utan återvändo. När κ passeras öppnas ett fönster för åtgärder – innan fönstret stängs.</div>
+      </div>
+      <div class="claim-card" role="listitem">
+        <div class="claim-num">06 – Öppet</div>
+        <div class="claim-title">Transparent, prövbart och replikerbart</div>
+        <div class="claim-body">Alla data, formler och mellanliggande beräkningar är offentligt tillgängliga. Varje påstående i FieldShift kan kontrolleras, kritiseras eller ifrågasättas av andra. Det här är inte ett svartlådevärde.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMPIRICAL ANCHORS -->
+  <div class="empirical-band" role="region" aria-label="Empiriska resultat">
+    <h3>Empiriska hållpunkter</h3>
+    <div class="emp-row">
+      <div class="emp-item">
+        <div class="emp-val">25&#8239;709</div>
+        <div class="emp-label">Observationer (land och år)<br>V-Dem 1789–2024</div>
+      </div>
+      <div class="emp-item">
+        <div class="emp-val">200</div>
+        <div class="emp-label">Länder i<br>valideringsdatamängden</div>
+      </div>
+      <div class="emp-item">
+        <div class="emp-val">17</div>
+        <div class="emp-label">Bekräftade sammanbrotts&shy;episoder<br>(utanför urvalet)</div>
+      </div>
+      <div class="emp-item">
+        <div class="emp-val">d = 3,57</div>
+        <div class="emp-label">Cohens d<br>Gapet mellan mandat och kapacitet</div>
+      </div>
+      <div class="emp-item">
+        <div class="emp-val">0,96</div>
+        <div class="emp-label">AUC (ROC-kurva)<br>Logistisk modell</div>
+      </div>
+      <div class="emp-item">
+        <div class="emp-val">3,3 år</div>
+        <div class="emp-label">Genomsnittlig ledtid<br>före sammanbrott</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RISK ZONES -->
+  <section aria-labelledby="zones-heading">
+    <hr class="section-rule">
+    <div class="section-label">Riskklassificering</div>
+    <h2 class="section-title" id="zones-heading">De fyra officiella zonerna</h2>
+    <p class="section-desc">Alla 163 länder placeras i en av fyra zoner utifrån sitt sammanvägda riskvärde. Högre värde = större risk för autokrati.</p>
+
+    <div class="zones-grid" role="list">
+      <div class="zone-card" role="listitem">
+        <div><span class="zone-badge" style="background:#1e8449"></span><span class="zone-name">Demokratidalen</span></div>
+        <div class="zone-range">Värde 0,00–0,20</div>
+        <div class="zone-desc">De institutionella buffertarna är i stort sett intakta. ℋ är lågt – kostnaden för åtgärder är fortfarande proportionerlig. Sverige, Schweiz, Nya Zeeland.</div>
+        <div class="zone-sv">Säker zon</div>
+      </div>
+      <div class="zone-card" role="listitem">
+        <div><span class="zone-badge" style="background:#d4ac0d"></span><span class="zone-name">Varningszon</span></div>
+        <div class="zone-range">Värde 0,20–0,40</div>
+        <div class="zone-desc">Stressindikatorerna stiger. ℋ ökar – varje år utan åtgärder gör återhämtningen märkbart tyngre. Tyskland, Kanada, Japan.</div>
+        <div class="zone-sv">Varningszon</div>
+      </div>
+      <div class="zone-card" role="listitem">
+        <div><span class="zone-badge" style="background:#e67e22"></span><span class="zone-name">Riskzon</span></div>
+        <div class="zone-range">Värde 0,40–0,65</div>
+        <div class="zone-desc">Strukturell erosion pågår. Icke-linjär utveckling är sannolik. Återhämtningen kräver ℋ gånger mer institutionell kraft än erosionen förbrukade. USA, Indien, Mexiko.</div>
+        <div class="zone-sv">Riskzon</div>
+      </div>
+      <div class="zone-card" role="listitem">
+        <div><span class="zone-badge" style="background:#c0392b"></span><span class="zone-name">Autokratigropen</span></div>
+        <div class="zone-range">Värde 0,65–1,00</div>
+        <div class="zone-desc">Starkt spårberoende. Återhämtning från detta djup är historiskt sällsynt utan en yttre chock eller att delar av eliten bryter sig loss. Ungern, Turkiet, Ryssland.</div>
+        <div class="zone-sv">Autokratisk grop</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGES -->
+  <section aria-labelledby="pages-heading" style="margin-top:64px">
+    <hr class="section-rule">
+    <div class="section-label">Resurser</div>
+    <h2 class="section-title" id="pages-heading">Utforska FieldShift</h2>
+
+    <div class="page-cards">
+      <div class="page-card">
+        <div class="pc-label">Interaktivt</div>
+        <div class="pc-title">Instrumentpanel för tidig varning</div>
+        <div class="pc-body">Hela FieldShift-instrumentet. 163 länder, riskförlopp, HL-kalkylator, världskarta, landberättelser och modellen för att minska gapet (Gap Reduction Model). Körs helt i din webbläsare.</div>
+        <a href="dashboard_sv.html" class="pc-link">Öppna instrumentpanelen →</a>
+      </div>
+      <div class="page-card">
+        <div class="pc-label">Forskning</div>
+        <div class="pc-title">Varför FieldShift är annorlunda</div>
+        <div class="pc-body">En strukturerad argumentation för vad FieldShift tillför utöver befintliga ramverk för demokrati – och vad det inte gör anspråk på. För granskare, skeptiker och nyfikna läsare.</div>
+        <a href="why-fieldshift-is-different_sv.html" class="pc-link">Läs argumentationen →</a>
+      </div>
+      <div class="page-card">
+        <div class="pc-label">Vetenskaplig transparens</div>
+        <div class="pc-title">Plattform för reproducerbarhet</div>
+        <div class="pc-body">Varje formel visas som Python-kod. Varje beräkning visas steg för steg. Hela datamängden kan laddas ned som CSV. Utformad för att vara 100 % falsifierbar och oberoende replikerbar.</div>
+        <a href="https://fieldshift.streamlit.app" class="pc-link" target="_blank" rel="noopener">Öppna Streamlit-appen ↗</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FORMULA STRIP -->
+<div class="formula-strip" role="complementary" aria-label="Grundformler">
+  <div class="formula-strip-inner">
+    <div>
+      <div class="fs-label">HL-principen – grundekvationer</div>
+      <div class="fs-formula">
+        ℋ = 1 + (Δ/varaktighet × 10)<br>
+        Återhämtning = Δ × 1,77 × ℋ × 10 år<br>
+        Fördröjningskostnad = fördröjning_år × ℋ<br>
+        κ = ℋ / 8 = 0,216
+      </div>
+    </div>
+    <div class="fs-note">
+      Δ är erosionens storlek (toppvärde minus nuvarande värde). Varaktighet är antalet år med obruten erosion.
+      Varje år utan åtgärder lägger till ℋ år till den förväntade återhämtningstiden.
+      κ är den empiriskt kalibrerade tipppunkten – under den blir en accelererande autokratisering historiskt sannolik.
+      <br><br>
+      Alla formler är öppna och prövbara och återges i sin helhet på plattformen för vetenskaplig transparens.
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <strong style="color:#ccc;font-family:var(--serif);font-size:14px">FieldShift.org</strong><br>
+      Hedlund-Leijon-principen · ℋ = 1,724 · κ = 0,216<br>
+      Karlstads universitet · Värmdö Yrkesgymnasium<br>
+      Data: V-Dem, Freedom House, World Bank WGI, SIPRI, IMF
+    </div>
+    <div style="text-align:right">
+      <a href="index_sv.html">Start</a> &nbsp;·&nbsp;
+      <a href="dashboard_sv.html">Instrumentpanel</a> &nbsp;·&nbsp;
+      <a href="why-fieldshift-is-different_sv.html">Forskning</a> &nbsp;·&nbsp;
+      <a href="https://fieldshift.streamlit.app" target="_blank" rel="noopener">Vetenskap ↗</a><br><br>
+      Tänkta tidskrifter: Journal of Democracy · American Political Science Review<br>
+      163 länder · 2010–2023 · 25&#8239;709 observationer
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
