@@ -1041,11 +1041,11 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
       <a class="masthead-title" href="index.html" style="text-decoration:none;color:inherit;cursor:pointer">FieldShift <span>Early Warning System</span></a>
       <div class="masthead-sub">Democratic Erosion &middot; Institutional Resilience &middot; Governing Capacity</div>
     </div>
-    <div class="masthead-meta" data-fix="FS-FIX-11">
-      <span class="mm-item tip-left" tabindex="0" data-tip="163 countries have data in all five risk layers and are included in the analysis. 6 more lack sufficient data and are listed as unavailable. Each country has one CDRS value per year."><strong>163</strong>countries tracked<span class="mm-i" aria-hidden="true">i</span></span>
-      <span class="mm-item tip-left" tabindex="0" data-tip="The period covered by the CDRS values: annual values 2010–2023 (14 years; not every year is available for every country). The last year is 2023 because the data are based on V-Dem v14 (released March 2024), which runs to 2023. The latest edition, V-Dem v16 (March 2026, to 2025), has not yet been loaded into the dashboard."><strong>2010&ndash;2023</strong>timeline<span class="mm-i" aria-hidden="true">i</span></span>
-      <span class="mm-item tip-left" tabindex="0" data-tip="According to the methodology document the index draws on 8 international sources: V-Dem, Freedom House, World Bank WGI, IMF GFS, SIPRI, Reporters Without Borders (RSF), the Comparative Constitutions Project and International IDEA. In the country file, five of them are flagged per country (V-Dem, Freedom House, WGI, IMF, SIPRI)."><strong>8</strong>source datasets<span class="mm-i" aria-hidden="true">i</span></span>
-      <span class="mm-item mm-src tip-left" tabindex="0" data-tip="Not the latest V-Dem. The dashboard uses V-Dem v14 (March 2024), which covers the years up to 2023. V-Dem v16 (March 2026) covers up to 2025 and must be loaded to update the values. Validation of forecasts will use V-Dem v17 (expected March 2027).">Data: V-Dem v14 · to 2023<span class="mm-i" aria-hidden="true">i</span></span>
+    <div class="masthead-meta" data-fix="FS-FIX-11 FS-FIX-12">
+      <span class="mm-item tip-left" tabindex="0" data-tip="163 countries have CDRS values (at least three of five layers). 6 more lack data and are listed as unavailable."><strong>163</strong>countries tracked<span class="mm-i" aria-hidden="true">i</span></span>
+      <span class="mm-item tip-left" tabindex="0" data-tip="Annual CDRS values 2010–2025 (16 years). V-Dem v16 (March 2026) runs to 2025; World Bank WGI was updated in September 2026."><strong>2010&ndash;2025</strong>timeline<span class="mm-i" aria-hidden="true">i</span></span>
+      <span class="mm-item tip-left" tabindex="0" data-tip="Computed with the original recipe from three sources: V-Dem v16 (constitutional, organizational and extended layers), World Bank WGI (behavioral layer, and fallbacks) and World Bank WDI (fiscal layer: military and education spending). Freedom House, SIPRI, IMF, RSF, CCP and IDEA are not used in the recipe."><strong>3</strong>source datasets<span class="mm-i" aria-hidden="true">i</span></span>
+      <span class="mm-item mm-src tip-left" tabindex="0" data-tip="The dashboard uses V-Dem v16 (March 2026), the latest edition, covering up to 2025. Values were recomputed on 25 November 2026; see the report. Forecast validation will use V-Dem v17 (expected March 2027).">Data: V-Dem v16 · to 2025<span class="mm-i" aria-hidden="true">i</span></span>
     </div>
   </div>
 </div>
@@ -1053,7 +1053,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 <div class="tbar">
   <div class="tbar-inner">
     <div class="tpill" data-tip="Every dataset used in this system is publicly available — anyone can download the same data and verify the results."><div class="tdot g"></div><strong>Open data</strong> &mdash; all sources public</div>
-    <div class="tpill" data-tip="All years from 2010 to 2023 are included. No year has been removed because results looked inconvenient."><div class="tdot g"></div><strong>No year excluded</strong> &mdash; 2010&ndash;2023</div>
+    <div class="tpill" data-tip="All years from 2010 to 2025 are included. No year has been removed because results looked inconvenient."><div class="tdot g"></div><strong>No year excluded</strong> &mdash; 2010&ndash;2025</div>
     <div class="tpill" data-tip="No country is silently excluded. If a country lacks sufficient data, it is listed below with a full explanation of why."><div class="tdot g"></div><strong>No country hidden</strong> &mdash; gaps shown explicitly</div>
     <div class="tpill" data-tip="Six countries (North Korea, Syria, Somalia, South Sudan, Eritrea, Turkmenistan) could not be included due to data gaps. Full explanations are in the Data Transparency section."><div class="tdot gr"></div><strong>6 countries unavailable</strong> &mdash; full explanation below</div>
     <div class="tpill" onclick="document.getElementById('hlSection').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;margin-left:auto" data-tip="Jump to the Hedlund-Leijon Principle of Democracy — the HL risk calculator and asymmetry framework."><div class="tdot" style="background:var(--gold)"></div><strong>HL Principle</strong> &mdash; erosion &amp; recovery calculus ↓</div>
@@ -1075,6 +1075,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- MAIN NAVIGATION TAB BAR                                     -->
 <!-- ═══════════════════════════════════════════════════════════ -->
+<div id="fsDataNotice" style="background:#fbf3e2;border-bottom:1px solid #e3cf9f;border-left:4px solid #9a6a0c;padding:10px 16px;font-size:13px;line-height:1.6;color:#4a3b17"><b>New data series (v16, 25 November 2026).</b> CDRS values are now computed with the original recipe (fieldshift_loader.py) from V-Dem v16 and World Bank WGI/WDI, 2010–2025. The earlier values could not be reproduced with that recipe. Texts, tables, country analyses and thresholds written before the switch (for example the risk bands, the warning threshold 0.52, the lead-time threshold 0.22, 86.7% and AUC 0.96) are based on the earlier data series and have not yet been recalculated. <a href="docs/cdrs_v16.html" target="_blank" rel="noopener">Report and comparison ↗</a></div>
 <nav id="mainNavBar" role="navigation" aria-label="Main sections">
   <div class="mnav-inner">
     <a class="mnav-tab mnav-langtab" href="dashboard_sv.html" data-lang="sv" lang="sv" title="Visa hela dashboarden på svenska"><svg class="fs-flag" viewBox="0 0 16 10" width="29" height="18" aria-hidden="true" focusable="false"><rect width="16" height="10" fill="#006AA7"/><rect x="5" width="2" height="10" fill="#FECC02"/><rect y="4" width="16" height="2" fill="#FECC02"/></svg><span class="fs-sr">Svenska</span></a>
@@ -1391,13 +1392,13 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
       <div>
         <div class="ctrl-label" data-tip="The first year included in your analysis. Move the slider right to start later.">Start Year</div>
         <div class="range-row">
-          <input type="range" id="yearStart" min="2010" max="2023" value="2015" oninput="updateYears()">
+          <input type="range" id="yearStart" min="2010" max="2025" value="2015" oninput="updateYears()">
           <div class="year-display" id="ysDisplay">2015</div>
         </div>
-        <div class="ctrl-label" data-tip="The last year included in your analysis. Data runs up to 2023.">End Year</div>
+        <div class="ctrl-label" data-tip="The last year included in your analysis. Data runs up to 2025.">End Year</div>
         <div class="range-row">
-          <input type="range" id="yearEnd" min="2010" max="2023" value="2023" oninput="updateYears()">
-          <div class="year-display" id="yeDisplay">2023</div>
+          <input type="range" id="yearEnd" min="2010" max="2025" value="2025" oninput="updateYears()">
+          <div class="year-display" id="yeDisplay">2025</div>
         </div>
       </div>
       <div>
@@ -1650,7 +1651,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
       <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light)" data-tip="Choose which year's data to display on the map.">Map year:</div>
       <select class="map-btn" id="mapYear" onchange="renderMap()" style="border-radius:2px;font-family:var(--mono);font-size:11px;padding:5px 10px;cursor:pointer;outline:none">
         <option value="2010">2010</option><option value="2012">2012</option><option value="2015">2015</option>
-        <option value="2018">2018</option><option value="2020">2020</option><option value="2023" selected>2023</option>
+        <option value="2018">2018</option><option value="2020">2020</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025" selected>2025</option>
       </select>
       <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-left:12px" data-tip="Choose which risk layer to display on the map.">Layer:</div>
       <select class="map-btn" id="mapLayer" onchange="renderMap()" style="border-radius:2px;font-family:var(--mono);font-size:11px;padding:5px 10px;cursor:pointer;outline:none">
@@ -1830,7 +1831,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
     <div class="compare-sep">vs.</div>
     <select class="story-sel" id="cmpB" onchange="renderCompare()" data-tip="Select the second country to compare."><option value="">-- Country B --</option></select>
     <select class="story-sel" id="cmpYear" onchange="renderCompare()" style="min-width:100px" data-tip="Which year's data to use for the comparison.">
-      <option value="2023" selected>2023</option><option value="2022">2022</option><option value="2020">2020</option>
+      <option value="2025" selected>2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2020">2020</option>
       <option value="2018">2018</option><option value="2015">2015</option><option value="2010">2010</option>
     </select>
   </div>
@@ -3278,7 +3279,7 @@ var FSI = {};
     c.data = norm;
   }
   Promise.all([
-    fetch('./countries.json').then(function(r){ if(!r.ok) throw new Error('countries.json not found'); return r.json(); }),
+    fetch('./countries.json?v=v16-20261125').then(function(r){ if(!r.ok) throw new Error('countries.json not found'); return r.json(); }),
     fetch('./fsi.json').then(function(r){ if(!r.ok) throw new Error('fsi.json not found'); return r.json(); })
   ]).then(function(results) {
     results[0].forEach(function(c){ COUNTRIES.push(c); normaliseYears(c); });
@@ -3323,7 +3324,7 @@ function cc(name) { return CMAP[name] || '#999'; }
 
 // ── STATE ─────────────────────────────────────────────────────
 var selected = new Set(['Hungary','Sweden','USA','Poland','India','Brazil']);
-var yearStart = 2015, yearEnd = 2023;
+var yearStart = 2015, yearEnd = 2025;
 var charts = [];
 
 // ── RISK ──────────────────────────────────────────────────────
@@ -4715,7 +4716,7 @@ function renderRFS() {
   // Use yearStart/yearEnd from main controls
   var years = [];
   for (var y = yearStart; y <= yearEnd; y++) years.push(y);
-  if (years.length === 0) { for (var y = 2015; y <= 2023; y++) years.push(y); }
+  if (years.length === 0) { for (var y = 2015; y <= 2025; y++) years.push(y); }
 
   // Evaluate all indicators
   var results = RFS_INDICATORS.map(function(ind) {
@@ -5043,7 +5044,7 @@ function mapHover(e, mapName, scoreStr, riskLbl) {
   h += '</div>';
 
   if (c && c.available && c.data) {
-    var d = c.data['2023']||c.data['2022']||c.data['2021'];
+    var d = c.data['2025']||c.data['2024']||c.data['2023']||c.data['2022']||c.data['2021'];
     var d10 = c.data['2010']||c.data['2012'];
 
     if (d && d.composite!=null) {
@@ -5705,7 +5706,7 @@ function renderCompare() {
   var panel = document.getElementById('comparePanel');
   if (!panel || !selA || !selB) return;
   var nameA = selA.value, nameB = selB.value;
-  var year = selYr ? selYr.value : '2023';
+  var year = selYr ? selYr.value : '2025';
   if (!nameA || !nameB) {
     panel.innerHTML = '<div class="empty-state"><div class="empty-icon">⚖️</div><h3>Select two countries to compare</h3><p>Choose Country A and Country B above.</p></div>';
     return;
@@ -5927,7 +5928,7 @@ function buildQSCards() {
   QS_FEATURED.forEach(function(f) {
     var c = COUNTRIES.find(function(x){ return x.name === f.name; });
     if (!c) return;
-    var d = c.data['2023'] || c.data[2023] || c.data['2022'] || c.data[2022];
+    var d = c.data['2025']||c.data['2024']||c.data['2023'] || c.data[2023] || c.data['2022'] || c.data[2022];
     var score = d ? (d.composite * 100).toFixed(1) + '%' : '—';
     var scoreCol = d ? (d.composite < 0.38 ? '#2ecc71' : d.composite < 0.52 ? '#f1c40f' : d.composite < 0.66 ? '#e67e22' : '#e74c3c') : '#888';
     h += '<div class="qs-card" onclick="qsGo(\''+f.name+'\')">';
@@ -5970,7 +5971,7 @@ function qsSearch(val) {
 
   var h = '';
   matches.forEach(function(c, i) {
-    var d = c.data['2023'] || c.data[2023] || c.data['2022'] || c.data[2022];
+    var d = c.data['2025']||c.data['2024']||c.data['2023'] || c.data[2023] || c.data['2022'] || c.data[2022];
     var score = d ? (d.composite * 100).toFixed(1) + '%' : '—';
     var scoreCol = d ? (d.composite < 0.38 ? '#2ecc71' : d.composite < 0.52 ? '#f1c40f' : d.composite < 0.66 ? '#e67e22' : '#e74c3c') : '#888';
     var deepAvail = !!(c && c.data && Object.keys(c.data).length);
@@ -6269,7 +6270,7 @@ function makeSystemSlide(audience) {
 function makeCountrySlide(countryName, audience) {
   var c = COUNTRIES.find(function(x){ return x.name === countryName; });
   if (!c) return null;
-  var d23 = c.data['2023'] || c.data[2023] || c.data['2022'] || c.data[2022];
+  var d23 = c.data['2025']||c.data['2024']||c.data['2023'] || c.data[2023] || c.data['2022'] || c.data[2022];
   var d10 = c.data['2010'] || c.data[2010];
   if (!d23) return null;
   var score = d23.composite;
@@ -6290,7 +6291,7 @@ function makeCountrySlide(countryName, audience) {
 
   return {
     type: 'stat',
-    html: '<div class="slide-eyebrow">' + c.region + ' &nbsp;·&nbsp; Latest data 2023</div>' +
+    html: '<div class="slide-eyebrow">' + c.region + ' &nbsp;·&nbsp; Latest data 2025</div>' +
           '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px">' +
           '<div class="slide-h2">' + countryName + '</div>' +
           '<div style="text-align:right"><div style="font-family:var(--serif);font-size:48px;font-weight:700;color:'+col+';line-height:1">'+(score*100).toFixed(1)+'%</div>' +
@@ -6322,8 +6323,8 @@ function makeCompareSlide(nameA, nameB, audience) {
   var cA = COUNTRIES.find(function(x){ return x.name === nameA; });
   var cB = COUNTRIES.find(function(x){ return x.name === nameB; });
   if (!cA || !cB) return null;
-  var dA = cA.data['2023'] || cA.data[2023];
-  var dB = cB.data['2023'] || cB.data[2023];
+  var dA = cA.data['2025']||cA.data['2024']||cA.data['2023'] || cA.data[2023];
+  var dB = cB.data['2025']||cB.data['2024']||cB.data['2023'] || cB.data[2023];
   if (!dA || !dB) return null;
 
   function col(c) {
@@ -6345,7 +6346,7 @@ function makeCompareSlide(nameA, nameB, audience) {
 
   return {
     type: 'compare',
-    html: '<div class="slide-eyebrow">Head-to-Head Comparison &nbsp;·&nbsp; 2023</div>' +
+    html: '<div class="slide-eyebrow">Head-to-Head Comparison &nbsp;·&nbsp; 2025</div>' +
           '<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:start;margin-bottom:16px">' +
           '<div><div class="slide-h2">'+nameA+'</div><div style="font-family:var(--serif);font-size:40px;font-weight:700;color:'+presRiskCol(dA.composite)+';">'+(dA.composite*100).toFixed(1)+'%</div><div style="font-family:var(--mono);font-size:11px;color:'+presRiskCol(dA.composite)+'">'+presRiskLabel(dA.composite)+'</div></div>' +
           '<div style="font-family:var(--mono);font-size:24px;color:#ccc;padding-top:20px">vs</div>' +
@@ -6798,7 +6799,7 @@ function rankRiskBg(s) {
 }
 
 function rankBuildRows(sortLayer) {
-  var YEAR = '2023';
+  var YEAR = '2025';
   var rows = [];
   COUNTRIES.forEach(function(c) {
     if (!c.available || !c.data) return;
@@ -7257,7 +7258,7 @@ function buildRiskyRegions() {
     var cs = regionMap[reg] || [];
     var scores23 = [], scores10 = [], deltas = [], countryList = [];
     cs.forEach(function(c) {
-      var d23 = c.data['2023'] || c.data['2022'] || c.data['2021'];
+      var d23 = c.data['2025']||c.data['2024']||c.data['2023'] || c.data['2022'] || c.data['2021'];
       var d10 = c.data['2010'] || c.data['2012'];
       var s23 = d23 ? d23.composite : null;
       var s10 = d10 ? d10.composite : null;
@@ -7843,7 +7844,7 @@ function buildPathwayCases() {
     cases.forEach(function(name){
       var c = COUNTRIES.find(function(x){ return x.name===name; });
       if(!c||!c.available) return;
-      var d = c.data['2023']||c.data['2022']||{};
+      var d = c.data['2025']||c.data['2024']||c.data['2023']||c.data['2022']||{};
       var sc = d.composite;
       var col = sc<0.38?'#45b06e':sc<0.52?'#d4b800':sc<0.66?'#c06820':sc<0.80?'#b02810':'#7a1810';
       html += '<div class="pathway-case" onclick="qsGo(\''+name+'\')" style="border-color:'+col+'">';
@@ -12652,5 +12653,6 @@ if(document.readyState==='loading'){
 <!-- FS-FIX-7b -->
 <!-- FS-FIX-9 -->
 <!-- FS-FIX-10: 8 -->
+<!-- FS-FIX-12: 20 årsersättningar -->
 </body>
 </html>
