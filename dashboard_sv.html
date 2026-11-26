@@ -1033,6 +1033,17 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 <style>/* FS-FIX-8 */.mnav-langtab .fs-flag{display:block;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.35)}.mnav-langtab{display:inline-flex;align-items:center;justify-content:center}.mnav-langtab .fs-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}</style>
 <style>/* FS-FIX-11 */.masthead-meta .mm-item{display:block;cursor:help;outline:none}.masthead-meta .mm-item:focus-visible{box-shadow:0 0 0 2px var(--gold-lt);border-radius:2px}.masthead-meta [data-tip]::after{top:calc(100% + 8px);bottom:auto;left:auto;right:0;transform:none;text-align:left;max-width:340px;font-size:12.5px;text-transform:none;letter-spacing:0}.masthead-meta [data-tip]::before{top:calc(100% - 4px);bottom:auto;left:auto;right:16px;transform:none;border-top-color:transparent;border-bottom-color:#333}.masthead-meta [data-tip]:focus::after,.masthead-meta [data-tip]:focus::before{opacity:1}.masthead-meta .mm-src{display:inline-block;margin-top:4px;font-size:10px;color:#b9a77a;border-bottom:1px dotted #b9a77a}.masthead-meta .mm-i{display:inline-block;width:13px;height:13px;line-height:13px;text-align:center;border:1px solid #888;border-radius:50%;font-size:9px;margin-left:4px;vertical-align:1px}</style>
 <style>/* FS-FIX-32 */[style*="gap:1px;background:var(--rule)"]>*:last-child{grid-column-end:-1}</style>
+<script>/* FS-FIX-34 */
+function fs34Line(e){var sv=(document.documentElement.lang||'').slice(0,2)==='sv';
+  if(typeof COUNTRIES==='undefined'||!COUNTRIES.length)return '';
+  var nm=(typeof epNormalizeCountryName==='function')?epNormalizeCountryName(e.country):e.country,c=null;
+  for(var i=0;i<COUNTRIES.length;i++){var x=COUNTRIES[i];if(x.available&&(x.name===nm||x.name===e.country)){c=x;break;}}
+  var v=c&&c.data&&(c.data[2025]||c.data['2025']);if(!v||typeof v.composite!=='number')return '';
+  var f=sv?v.composite.toFixed(3).replace('.',','):v.composite.toFixed(3);
+  var tip=sv?'HL-värdet är en del av den låsta prognosen (21 november 2026) och bygger på den tidigare dataserien. Det ändras inte i efterhand. CDRS 2025 är landets aktuella värde i dataserie v2.'
+            :'The HL score is part of the locked prediction (21 November 2026) and rests on the earlier data series. It is not changed afterwards. CDRS 2025 is the country\u2019s current value in data series v2.';
+  return ' &nbsp;·&nbsp; <span title="'+tip+'" style="cursor:help;border-bottom:1px dotted currentColor">'+(sv?'CDRS 2025 (dataserie v2): ':'CDRS 2025 (data series v2): ')+'<strong>'+f+'</strong></span>';}
+</script>
 </head>
 <body>
 <script>
@@ -3285,7 +3296,7 @@ window._fieldshiftDataReady=function(){
   ['rfsSel','storySel','cmpA','cmpB','uncSelA','uncSelB'].forEach(clear);
   ['populateStorySelects','annotateDeepAnalysisOptions','populateRFSSelect','initUncertaintySelects',
    'buildCountryGrid','buildGaps','rankBuild','rankRender','buildVolatileList','buildRiskyRegions','buildQSCards',
-   'buildPathwayCases','buildContagion','renderGRM','handleHashRouting','initPathwayFromHash'].forEach(run);
+   'buildPathwayCases','buildContagion','fsSfInit','renderGRM','handleHashRouting','initPathwayFromHash'].forEach(run);
   if(typeof window.fsFlagRun==='function')setTimeout(window.fsFlagRun,50);
 };
 (function() {
@@ -7482,31 +7493,31 @@ var BENEFIT_CONCEPTS = {
 };
 
 var BENEFIT_COUNTRIES = {
-  'Global (summary)':{score:0.62,entropy:0.45,risk:'Medium',trend:'Stabil'},
-  'Sweden':{score:0.92,entropy:0.12,risk:'Low',trend:'Stabil'},
-  'Norway':{score:0.93,entropy:0.11,risk:'Low',trend:'Stabil'},
-  'Denmark':{score:0.94,entropy:0.10,risk:'Low',trend:'Stabil'},
-  'Finland':{score:0.91,entropy:0.13,risk:'Low',trend:'Stabil'},
-  'USA':{score:0.71,entropy:0.45,risk:'Medium-High',trend:'Försämras'},
-  'UK':{score:0.81,entropy:0.32,risk:'Medium',trend:'Stabil'},
-  'Germany':{score:0.88,entropy:0.28,risk:'Medium',trend:'Stabil'},
-  'France':{score:0.79,entropy:0.38,risk:'Medium',trend:'Stabil'},
-  'Poland':{score:0.45,entropy:0.52,risk:'High',trend:'Återhämtar sig'},
-  'Hungary':{score:0.34,entropy:0.78,risk:'Critical',trend:'Försämras'},
-  'Russia':{score:0.08,entropy:0.92,risk:'Kollapsad',trend:'Autokrati'},
-  'Turkey':{score:0.28,entropy:0.72,risk:'Critical',trend:'Försämras'},
-  'India':{score:0.64,entropy:0.55,risk:'High',trend:'Försämras'},
-  'Brazil':{score:0.65,entropy:0.48,risk:'Medium-High',trend:'Återhämtar sig'},
-  'South Africa':{score:0.72,entropy:0.42,risk:'Medium',trend:'Stabil'}
+  'Global (summary)':{score:0.62,entropy:0.45,risk:'High',trend:'Stabil'},
+  'Sweden':{score:0.88,entropy:0.12,risk:'Low',trend:'Försämras'},
+  'Norway':{score:0.86,entropy:0.11,risk:'Low',trend:'Försämras'},
+  'Denmark':{score:0.89,entropy:0.10,risk:'Low',trend:'Försämras'},
+  'Finland':{score:0.84,entropy:0.13,risk:'Low',trend:'Försämras'},
+  'USA':{score:0.70,entropy:0.45,risk:'Medium-High',trend:'Stabil'},
+  'UK':{score:0.78,entropy:0.32,risk:'Medium',trend:'Förbättras'},
+  'Germany':{score:0.84,entropy:0.28,risk:'Low',trend:'Försämras'},
+  'France':{score:0.77,entropy:0.38,risk:'Medium',trend:'Förbättras'},
+  'Poland':{score:0.68,entropy:0.52,risk:'Medium-High',trend:'Stabil'},
+  'Hungary':{score:0.64,entropy:0.78,risk:'High',trend:'Stabil'},
+  'Russia':{score:0.34,entropy:0.92,risk:'Critical',trend:'Försämras'},
+  'Turkey':{score:0.52,entropy:0.72,risk:'Critical',trend:'Stabil'},
+  'India':{score:0.59,entropy:0.55,risk:'Critical',trend:'Försämras'},
+  'Brazil':{score:0.71,entropy:0.48,risk:'Medium-High',trend:'Förbättras'},
+  'South Africa':{score:0.74,entropy:0.42,risk:'Medium-High',trend:'Förbättras'}
 };
 
 var BENEFIT_COMPARISONS = {
-  'None':null,
-  'V-Dem average':{score:0.62,entropy:0.45},
-  'Nordic average':{score:0.92,entropy:0.12},
-  'EU average':{score:0.78,entropy:0.35},
-  'Hungary (reference)':{score:0.34,entropy:0.78},
-  'Poland (reference)':{score:0.45,entropy:0.52}
+  'Ingen':null,
+  'Globalt genomsnitt':{score:0.62,entropy:0.45},
+  'Nordiskt genomsnitt':{score:0.87,entropy:0.12},
+  'EU-genomsnitt':{score:0.79,entropy:0.35},
+  'Ungern (referens)':{score:0.64,entropy:0.78},
+  'Polen (referens)':{score:0.68,entropy:0.52}
 };
 
 function initBenefitsSummary() {
@@ -7618,48 +7629,48 @@ function generateBenefitReport() {
   lines.push('------------------------------------------------------------');
 
   if (checked.h) {
-    lines.push('[HEDLUND-LEIJON CONSTANT]');
-    lines.push('H = 1.724  -> demokratisk återhämtning kräver mer ansträngning än demokratisk nedgång.');
+    lines.push('[HEDLUND-LEIJON-KONSTANTEN]');
+    lines.push('H = 1,724  -> demokratisk återhämtning kräver mer ansträngning än demokratisk nedgång.');
     lines.push('');
   }
   if (checked.k) {
-    lines.push('[CRITICAL THRESHOLD]');
-    lines.push('kappa = H/8 = 0.216  -> under denna tröskel ökar den autokratiska accelerationen.');
+    lines.push('[KRITISK GRÄNS]');
+    lines.push('kappa = H/8 = 0,216  -> gräns på demokratinivån D (D <= kappa), härledd ur H. På CDRS-skalan är de empiriska gränserna c_L = 0,21 och W = 0,26.');
     lines.push('');
   }
   if (checked.score) {
-    lines.push('[CURRENT COUNTRY SCORE]');
-    lines.push('Demokrativärde: ' + c.score.toFixed(2));
+    lines.push('[LANDETS AKTUELLA VÄRDE]');
+    lines.push('Demokrativärde (1 − CDRS 2025, dataserie v2): ' + c.score.toFixed(2).replace('.', ','));
     lines.push('Trend: ' + c.trend);
     lines.push('');
   }
   if (checked.risk) {
-    lines.push('[RISK ASSESSMENT]');
-    lines.push('Riskklass: ' + c.risk);
-    lines.push('Tolkning: ' + (c.score < 0.21 ? 'zon för kritisk tröskel' : c.score < 0.26 ? 'stresszon' : 'bevakningszon'));
+    lines.push('[RISKBEDÖMNING]');
+    lines.push('Riskklass: ' + (window.__fsDisp ? __fsDisp(c.risk) : c.risk));
+    lines.push('Tolkning: ' + (1 - c.score >= 0.39 ? 'krisbandet' : 1 - c.score >= 0.33 ? 'kritiska bandet' : 1 - c.score >= 0.26 ? 'varningsbandet' : 1 - c.score >= 0.19 ? 'bevakningsbandet' : 'låg risk') + ' (CDRS = ' + (1 - c.score).toFixed(2).replace('.', ',') + ')');
     lines.push('');
   }
   if (checked.entropy) {
-    lines.push('[DEMOCRATIC ENTROPY]');
-    lines.push('Entropi: ' + c.entropy.toFixed(2));
+    lines.push('[DEMOKRATISK ENTROPI]');
+    lines.push('Entropi: ' + c.entropy.toFixed(2).replace('.', ',') + ' (illustrativt värde utan dokumenterad källa)');
     lines.push('Tolkning: ' + (c.entropy > 0.70 ? 'mycket hög fragmentering' : c.entropy > 0.50 ? 'förhöjd instabilitet' : 'begränsad osäkerhet'));
     lines.push('');
   }
   if (checked.compare) {
-    lines.push('[COMPARISON]');
+    lines.push('[JÄMFÖRELSE]');
     if (!cmp) {
       lines.push('Ingen jämförelse vald.');
     } else {
       var ds = (c.score - cmp.score).toFixed(2);
       var de = (c.entropy - cmp.entropy).toFixed(2);
       lines.push('Referens: ' + cmpName);
-      lines.push('Värdedifferens: ' + (ds >= 0 ? '+' : '') + ds);
-      lines.push('Entropiförändring: ' + (de >= 0 ? '+' : '') + de);
+      lines.push('Värdedifferens: ' + (ds >= 0 ? '+' : '') + String(ds).replace('.', ','));
+      lines.push('Entropiförändring: ' + (de >= 0 ? '+' : '') + String(de).replace('.', ','));
     }
     lines.push('');
   }
   if (checked.reco) {
-    lines.push('[RECOMMENDATIONS]');
+    lines.push('[REKOMMENDATIONER]');
     if (c.risk === 'Low') lines.push('- Upprätthåll institutionella skyddsräcken och publicera transparensgranskningar årligen.');
     else if (c.risk === 'Medium' || c.risk === 'Medium-High') lines.push('- Aktivera förebyggande paket: normförsvar, medieintegritet och övervakning av domstolsväsendet.');
     else if (c.risk === 'High' || c.risk === 'Critical') lines.push('- Prioritera akuta demokratiska skyddsmekanismer och oberoende tillsynsmekanismer nu.');
@@ -7668,10 +7679,10 @@ function generateBenefitReport() {
     lines.push('');
   }
   if (checked.caveats) {
-    lines.push('[METHODOLOGICAL CAVEATS]');
+    lines.push('[METODOLOGISKA FÖRBEHÅLL]');
     lines.push('- Värdena är indikatorer, inte deterministiska prognoser.');
     lines.push('- Entropi- och tröskelsignaler ska läsas tillsammans med osäkerhetsgränser.');
-    lines.push('- Skillnader mellan dataset (V-Dem jämfört med FIW/Polity) speglar mätningarnas omfattning.');
+    lines.push('- Demokrativärdet är 1 − CDRS (dataserie v2), som bygger på åtta källor; skillnader mot andra index speglar olika mätningar.');
     lines.push('');
   }
 
@@ -8375,7 +8386,7 @@ function closeEvidenceGuide() {
       <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:20px;">
         <select id="sfSel" onchange="sfLoad()" style="font-family:var(--mono);font-size:13px;padding:8px 14px;border:1px solid var(--rule);border-radius:3px;background:var(--paper-2);color:var(--ink);cursor:pointer;min-width:220px;"></select>
         <div id="sfAlertBadge" style="font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:3px;font-weight:700;"></div>
-        <div style="font-size:12px;color:var(--ink-soft);">Modellens tillförlitlighet: <strong id="sfConf" style="color:var(--ink);font-family:var(--mono);"></strong></div>
+        <div style="font-size:12px;color:var(--ink-soft);">Modellens tillförlitlighet: <strong id="sfConf" style="color:var(--ink);font-family:var(--mono);"></strong></div><div style="font-size:11px;color:var(--ink-light);margin-top:6px;line-height:1.5">Indata: fyra värden 0–100 (högre = friskare) härledda ur CDRS dataserie v2, 2025: valintegritet = 100 × (1 − organisatoriskt lager), begränsningar av den verkställande makten = 100 × (1 − konstitutionellt lager), civilsamhälle = 100 × (1 − normlagret), lokal styrning ≈ 100 × (1 − motståndskraftslagret). En approximation; de ursprungliga källfälten finns inte.</div>
       </div>
 
       <!-- Row 1: RFIM + Carrier Groups -->
@@ -8688,15 +8699,16 @@ function sfDrawDiff(canvas,D){
 function sfKV(k,v,c){return '<div style="display:flex;justify-content:space-between;font-size:11px;padding:2px 0;"><span style="color:var(--ink-soft);font-family:var(--mono);">'+k+'</span><span style="font-family:var(--mono);font-weight:700;color:'+(c||'var(--ink)')+';">'+v+'</span></div>';}
 
 // ── UI init & render ──
-(function(){
+/* FS-FIX-35 */window.fsSfInit=function(){
   var SF_COUNTRIES = (typeof COUNTRIES !== 'undefined' ? COUNTRIES : []).filter(function(d){return d.available;}).map(function(d){
-    var ld=d.latest_data||{};
-    var el=ld.electoral_integrity||50,ex=ld.executive_constraints||50,ci=ld.civil_society||50,lo=ld.local_governance||50;
+    var y=(d.data&&(d.data[2025]||d.data['2025']))||{};function hh(v){return (typeof v==='number')?100*(1-v):50;}
+    var el=hh(y.organizational),ex=hh(y.constitutional),ci=hh(y.behavioral),lo=hh(y.extended);
     return{name:d.name,scores:{electoral:Math.round(el),executive:Math.round(ex),civil:Math.round(ci),local:Math.round(lo)}};
   });
 
   var sel=document.getElementById('sfSel');
   if(!sel||!SF_COUNTRIES.length) return;
+  while(sel.options.length)sel.remove(0);
   for(var i=0;i<SF_COUNTRIES.length;i++){var o=document.createElement('option');o.value=SF_COUNTRIES[i].name;o.textContent=SF_COUNTRIES[i].name;sel.appendChild(o);}
 
   window.sfLoad=function(){
@@ -8775,7 +8787,8 @@ function sfKV(k,v,c){return '<div style="display:flex;justify-content:space-betw
   };
 
   sfLoad();
-})();
+};
+window.fsSfInit();
 
 } catch (err) { console.error('Initieringen av SocioField Physics misslyckades:', err); }
 
@@ -12045,7 +12058,7 @@ function epSelectElection(idx){
     +'<div>'
     +'<div class="ep-d-country">'+escHtmlEP(e.country)+'</div>'
     +'<div class="ep-d-meta">'+escHtmlEP(e.type)+' &nbsp;·&nbsp; <strong style="color:'+st.c+'">'+e.dateLabel+'</strong>'
-    +' &nbsp;·&nbsp; HL-värde: <strong style="color:'+st.c+'">'+e.hl.toFixed(3)+' ('+st.label+')</strong>'
+    +' &nbsp;·&nbsp; HL-värde: <strong style="color:'+st.c+'">'+e.hl.toFixed(3).replace('.', ',')+' ('+st.label+')</strong>'+fs34Line(e)
     +(isPast?' &nbsp;·&nbsp; <span style="color:#888;font-size:10px">(concluded)</span>':'')
     +'</div>'
     +'</div>'
@@ -12440,5 +12453,6 @@ if(typeof Chart!=='undefined'){Chart.register({id:'fs18Pred',
 <!-- FS-FIX-21 -->
 <!-- FS-FIX-22 -->
 <!-- FS-FIX-23 -->
+<!-- FS-FIX-36 -->
 </body>
 </html>

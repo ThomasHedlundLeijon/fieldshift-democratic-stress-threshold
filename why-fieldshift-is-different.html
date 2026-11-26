@@ -210,7 +210,7 @@ footer a:hover{color:var(--gold-lt)}
 
   <div class="metric-hl" role="img" aria-label="HL constant: 1.724">
     <span class="val">ℋ = 1.724</span>
-    <span class="lbl">Hedlund-Leijon Constant — asymmetry between erosion and recovery<br>Validated on V-Dem 1789–2024 (200 countries, 25,709 observations)</span>
+    <span class="lbl">Hedlund-Leijon Constant — asymmetry between erosion and recovery<br>Estimated from erosion and recovery episodes in V-Dem data (95% interval 1.53–1.96)</span>
   </div>
 
   <p>That constant captures the broader empirical pattern that democracies are generally easier to break than to rebuild.</p>
@@ -220,11 +220,11 @@ footer a:hover{color:var(--gold-lt)}
   <p>FieldShift proposes an empirically calibrated warning zone around:</p>
 
   <div class="metric-hl" role="img" aria-label="Kappa threshold: 0.22">
-    <span class="val">κ ≈ 0.22</span>
-    <span class="lbl">Critical tipping threshold — derived as κ = ℋ/8<br>Below this, autocratic acceleration becomes historically likely</span>
+    <span class="val">c<sub>L</sub> = 0.21 · W = 0.26</span>
+    <span class="lbl">Empirical thresholds on the CDRS scale, calibrated on regime transitions 1996–2009. κ = ℋ/8 ≈ 0.216 is a separate, derived threshold on the democracy level.<br>Below this, autocratic acceleration becomes historically likely</span>
   </div>
 
-  <p>This does not mean collapse is inevitable. It means risk rises meaningfully once institutional stress crosses that region. κ is a warning threshold, not a point of no return.</p>
+  <p>This does not mean collapse is inevitable. It means risk rises meaningfully once institutional stress crosses that region. The warning threshold is not a point of no return.</p>
 
   <!-- HOW DIFFERENT -->
   <h2 id="how-different">How FieldShift Differs from Existing Frameworks</h2>
@@ -275,8 +275,8 @@ footer a:hover{color:var(--gold-lt)}
   <p>FieldShift is presented as an open, testable, and replicable framework rather than a black-box score. Its prototype results suggest:</p>
 
   <ul>
-    <li>average early-warning lead time of about 3.3 years</li>
-    <li>strong out-of-sample performance (86.7% accuracy, 17 episodes)</li>
+    <li>average early-warning lead time of about 3.3 years in the earlier data series</li>
+    <li>out-of-sample performance (test 2024–2025: AUC 0.80; all 7 transitions above the warning threshold)</li>
     <li>nonlinear risk escalation near the proposed warning threshold</li>
     <li>unusually high precision in the test period, with more modest recall</li>
   </ul>
@@ -316,9 +316,9 @@ footer a:hover{color:var(--gold-lt)}
         <td class="yes">✓ ℋ = 1.724</td>
       </tr>
       <tr>
-        <td>Calibrated tipping threshold</td>
+        <td>Calibrated warning threshold</td>
         <td class="no">✗ Not defined</td>
-        <td class="yes">✓ κ = 0.216</td>
+        <td class="yes">✓ W = 0.26 (CDRS)</td>
       </tr>
       <tr>
         <td>Sequential layer model</td>
@@ -389,8 +389,8 @@ footer a:hover{color:var(--gold-lt)}
     <h3>Five distinctive contributions</h3>
     <ul>
       <li>Asymmetry between erosion and recovery — quantified, not assumed</li>
-      <li>A precise constant: ℋ = 1.724, validated on 200 countries, 1789–2024</li>
-      <li>An early-warning threshold: κ ≈ 0.22, calibrated empirically</li>
+      <li>An estimated constant: ℋ = 1.724 (95% interval 1.53–1.96)</li>
+      <li>Empirically calibrated thresholds on the CDRS scale: c<sub>L</sub> = 0.21 and W = 0.26</li>
       <li>Sequential measurement of institutional stress across five layers</li>
       <li>A lead-time model designed for intervention before collapse</li>
     </ul>
@@ -424,5 +424,6 @@ footer a:hover{color:var(--gold-lt)}
   </div>
 </footer>
 
+<!-- FS-FIX-33 -->
 </body>
 </html>

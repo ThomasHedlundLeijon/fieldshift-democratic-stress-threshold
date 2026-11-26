@@ -1033,6 +1033,17 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 <style>/* FS-FIX-8 */.mnav-langtab .fs-flag{display:block;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.35)}.mnav-langtab{display:inline-flex;align-items:center;justify-content:center}.mnav-langtab .fs-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}</style>
 <style>/* FS-FIX-11 */.masthead-meta .mm-item{display:block;cursor:help;outline:none}.masthead-meta .mm-item:focus-visible{box-shadow:0 0 0 2px var(--gold-lt);border-radius:2px}.masthead-meta [data-tip]::after{top:calc(100% + 8px);bottom:auto;left:auto;right:0;transform:none;text-align:left;max-width:340px;font-size:12.5px;text-transform:none;letter-spacing:0}.masthead-meta [data-tip]::before{top:calc(100% - 4px);bottom:auto;left:auto;right:16px;transform:none;border-top-color:transparent;border-bottom-color:#333}.masthead-meta [data-tip]:focus::after,.masthead-meta [data-tip]:focus::before{opacity:1}.masthead-meta .mm-src{display:inline-block;margin-top:4px;font-size:10px;color:#b9a77a;border-bottom:1px dotted #b9a77a}.masthead-meta .mm-i{display:inline-block;width:13px;height:13px;line-height:13px;text-align:center;border:1px solid #888;border-radius:50%;font-size:9px;margin-left:4px;vertical-align:1px}</style>
 <style>/* FS-FIX-32 */[style*="gap:1px;background:var(--rule)"]>*:last-child{grid-column-end:-1}</style>
+<script>/* FS-FIX-34 */
+function fs34Line(e){var sv=(document.documentElement.lang||'').slice(0,2)==='sv';
+  if(typeof COUNTRIES==='undefined'||!COUNTRIES.length)return '';
+  var nm=(typeof epNormalizeCountryName==='function')?epNormalizeCountryName(e.country):e.country,c=null;
+  for(var i=0;i<COUNTRIES.length;i++){var x=COUNTRIES[i];if(x.available&&(x.name===nm||x.name===e.country)){c=x;break;}}
+  var v=c&&c.data&&(c.data[2025]||c.data['2025']);if(!v||typeof v.composite!=='number')return '';
+  var f=sv?v.composite.toFixed(3).replace('.',','):v.composite.toFixed(3);
+  var tip=sv?'HL-värdet är en del av den låsta prognosen (21 november 2026) och bygger på den tidigare dataserien. Det ändras inte i efterhand. CDRS 2025 är landets aktuella värde i dataserie v2.'
+            :'The HL score is part of the locked prediction (21 November 2026) and rests on the earlier data series. It is not changed afterwards. CDRS 2025 is the country\u2019s current value in data series v2.';
+  return ' &nbsp;·&nbsp; <span title="'+tip+'" style="cursor:help;border-bottom:1px dotted currentColor">'+(sv?'CDRS 2025 (dataserie v2): ':'CDRS 2025 (data series v2): ')+'<strong>'+f+'</strong></span>';}
+</script>
 </head>
 <body>
 
@@ -3282,7 +3293,7 @@ window._fieldshiftDataReady=function(){
   ['rfsSel','storySel','cmpA','cmpB','uncSelA','uncSelB'].forEach(clear);
   ['populateStorySelects','annotateDeepAnalysisOptions','populateRFSSelect','initUncertaintySelects',
    'buildCountryGrid','buildGaps','rankBuild','rankRender','buildVolatileList','buildRiskyRegions','buildQSCards',
-   'buildPathwayCases','buildContagion','renderGRM','handleHashRouting','initPathwayFromHash'].forEach(run);
+   'buildPathwayCases','buildContagion','fsSfInit','renderGRM','handleHashRouting','initPathwayFromHash'].forEach(run);
   if(typeof window.fsFlagRun==='function')setTimeout(window.fsFlagRun,50);
 };
 (function() {
@@ -7479,31 +7490,31 @@ var BENEFIT_CONCEPTS = {
 };
 
 var BENEFIT_COUNTRIES = {
-  'Global (summary)':{score:0.62,entropy:0.45,risk:'Medium',trend:'Stable'},
-  'Sweden':{score:0.92,entropy:0.12,risk:'Low',trend:'Stable'},
-  'Norway':{score:0.93,entropy:0.11,risk:'Low',trend:'Stable'},
-  'Denmark':{score:0.94,entropy:0.10,risk:'Low',trend:'Stable'},
-  'Finland':{score:0.91,entropy:0.13,risk:'Low',trend:'Stable'},
-  'USA':{score:0.71,entropy:0.45,risk:'Medium-High',trend:'Declining'},
-  'UK':{score:0.81,entropy:0.32,risk:'Medium',trend:'Stable'},
-  'Germany':{score:0.88,entropy:0.28,risk:'Medium',trend:'Stable'},
-  'France':{score:0.79,entropy:0.38,risk:'Medium',trend:'Stable'},
-  'Poland':{score:0.45,entropy:0.52,risk:'High',trend:'Recovering'},
-  'Hungary':{score:0.34,entropy:0.78,risk:'Critical',trend:'Declining'},
-  'Russia':{score:0.08,entropy:0.92,risk:'Collapsed',trend:'Autocracy'},
-  'Turkey':{score:0.28,entropy:0.72,risk:'Critical',trend:'Declining'},
-  'India':{score:0.64,entropy:0.55,risk:'High',trend:'Declining'},
-  'Brazil':{score:0.65,entropy:0.48,risk:'Medium-High',trend:'Recovering'},
-  'South Africa':{score:0.72,entropy:0.42,risk:'Medium',trend:'Stable'}
+  'Global (summary)':{score:0.62,entropy:0.45,risk:'High',trend:'Stable'},
+  'Sweden':{score:0.88,entropy:0.12,risk:'Low',trend:'Declining'},
+  'Norway':{score:0.86,entropy:0.11,risk:'Low',trend:'Declining'},
+  'Denmark':{score:0.89,entropy:0.10,risk:'Low',trend:'Declining'},
+  'Finland':{score:0.84,entropy:0.13,risk:'Low',trend:'Declining'},
+  'USA':{score:0.70,entropy:0.45,risk:'Medium-High',trend:'Stable'},
+  'UK':{score:0.78,entropy:0.32,risk:'Medium',trend:'Improving'},
+  'Germany':{score:0.84,entropy:0.28,risk:'Low',trend:'Declining'},
+  'France':{score:0.77,entropy:0.38,risk:'Medium',trend:'Improving'},
+  'Poland':{score:0.68,entropy:0.52,risk:'Medium-High',trend:'Stable'},
+  'Hungary':{score:0.64,entropy:0.78,risk:'High',trend:'Stable'},
+  'Russia':{score:0.34,entropy:0.92,risk:'Critical',trend:'Declining'},
+  'Turkey':{score:0.52,entropy:0.72,risk:'Critical',trend:'Stable'},
+  'India':{score:0.59,entropy:0.55,risk:'Critical',trend:'Declining'},
+  'Brazil':{score:0.71,entropy:0.48,risk:'Medium-High',trend:'Improving'},
+  'South Africa':{score:0.74,entropy:0.42,risk:'Medium-High',trend:'Improving'}
 };
 
 var BENEFIT_COMPARISONS = {
   'None':null,
-  'V-Dem average':{score:0.62,entropy:0.45},
-  'Nordic average':{score:0.92,entropy:0.12},
-  'EU average':{score:0.78,entropy:0.35},
-  'Hungary (reference)':{score:0.34,entropy:0.78},
-  'Poland (reference)':{score:0.45,entropy:0.52}
+  'Global average':{score:0.62,entropy:0.45},
+  'Nordic average':{score:0.87,entropy:0.12},
+  'EU average':{score:0.79,entropy:0.35},
+  'Hungary (reference)':{score:0.64,entropy:0.78},
+  'Poland (reference)':{score:0.68,entropy:0.52}
 };
 
 function initBenefitsSummary() {
@@ -7621,24 +7632,24 @@ function generateBenefitReport() {
   }
   if (checked.k) {
     lines.push('[CRITICAL THRESHOLD]');
-    lines.push('kappa = H/8 = 0.216  -> below this threshold, autocratic acceleration increases.');
+    lines.push('kappa = H/8 = 0.216  -> threshold on the democracy level D (D <= kappa), derived from H. On the CDRS scale the empirical thresholds are c_L = 0.21 and W = 0.26.');
     lines.push('');
   }
   if (checked.score) {
     lines.push('[CURRENT COUNTRY SCORE]');
-    lines.push('Democracy score: ' + c.score.toFixed(2));
+    lines.push('Democracy score (1 - CDRS 2025, data series v2): ' + c.score.toFixed(2));
     lines.push('Trend: ' + c.trend);
     lines.push('');
   }
   if (checked.risk) {
     lines.push('[RISK ASSESSMENT]');
     lines.push('Risk class: ' + c.risk);
-    lines.push('Interpretation: ' + (c.score < 0.22 ? 'critical threshold zone' : c.score < 0.50 ? 'stress zone' : 'monitoring zone'));
+    lines.push('Interpretation: ' + (1 - c.score >= 0.39 ? 'crisis band' : 1 - c.score >= 0.33 ? 'critical band' : 1 - c.score >= 0.26 ? 'warning band' : 1 - c.score >= 0.19 ? 'watch band' : 'low risk') + ' (CDRS = ' + (1 - c.score).toFixed(2) + ')');
     lines.push('');
   }
   if (checked.entropy) {
     lines.push('[DEMOCRATIC ENTROPY]');
-    lines.push('Entropy: ' + c.entropy.toFixed(2));
+    lines.push('Entropy: ' + c.entropy.toFixed(2) + ' (illustrative value without a documented source)');
     lines.push('Interpretation: ' + (c.entropy > 0.70 ? 'very high fragmentation' : c.entropy > 0.50 ? 'elevated instability' : 'contained uncertainty'));
     lines.push('');
   }
@@ -7668,7 +7679,7 @@ function generateBenefitReport() {
     lines.push('[METHODOLOGICAL CAVEATS]');
     lines.push('- Scores are indicators, not deterministic forecasts.');
     lines.push('- Entropy and threshold signals should be read with uncertainty bounds.');
-    lines.push('- Cross-dataset differences (V-Dem vs FIW/Polity) reflect measurement scope.');
+    lines.push('- The democracy score is 1 − CDRS (data series v2), built from eight sources; differences from other indices reflect different measurements.');
     lines.push('');
   }
 
@@ -8372,7 +8383,7 @@ function closeEvidenceGuide() {
       <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:20px;">
         <select id="sfSel" onchange="sfLoad()" style="font-family:var(--mono);font-size:13px;padding:8px 14px;border:1px solid var(--rule);border-radius:3px;background:var(--paper-2);color:var(--ink);cursor:pointer;min-width:220px;"></select>
         <div id="sfAlertBadge" style="font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:3px;font-weight:700;"></div>
-        <div style="font-size:12px;color:var(--ink-soft);">Model confidence: <strong id="sfConf" style="color:var(--ink);font-family:var(--mono);"></strong></div>
+        <div style="font-size:12px;color:var(--ink-soft);">Model confidence: <strong id="sfConf" style="color:var(--ink);font-family:var(--mono);"></strong></div><div style="font-size:11px;color:var(--ink-light);margin-top:6px;line-height:1.5">Input: four scores 0–100 (higher = healthier) derived from CDRS data series v2, 2025: electoral integrity = 100 × (1 − organizational layer), executive constraints = 100 × (1 − constitutional layer), civil society = 100 × (1 − norms layer), local governance ≈ 100 × (1 − resilience layer). An approximation; the original source fields are not available.</div>
       </div>
 
       <!-- Row 1: RFIM + Carrier Groups -->
@@ -8685,15 +8696,16 @@ function sfDrawDiff(canvas,D){
 function sfKV(k,v,c){return '<div style="display:flex;justify-content:space-between;font-size:11px;padding:2px 0;"><span style="color:var(--ink-soft);font-family:var(--mono);">'+k+'</span><span style="font-family:var(--mono);font-weight:700;color:'+(c||'var(--ink)')+';">'+v+'</span></div>';}
 
 // ── UI init & render ──
-(function(){
+/* FS-FIX-35 */window.fsSfInit=function(){
   var SF_COUNTRIES = (typeof COUNTRIES !== 'undefined' ? COUNTRIES : []).filter(function(d){return d.available;}).map(function(d){
-    var ld=d.latest_data||{};
-    var el=ld.electoral_integrity||50,ex=ld.executive_constraints||50,ci=ld.civil_society||50,lo=ld.local_governance||50;
+    var y=(d.data&&(d.data[2025]||d.data['2025']))||{};function hh(v){return (typeof v==='number')?100*(1-v):50;}
+    var el=hh(y.organizational),ex=hh(y.constitutional),ci=hh(y.behavioral),lo=hh(y.extended);
     return{name:d.name,scores:{electoral:Math.round(el),executive:Math.round(ex),civil:Math.round(ci),local:Math.round(lo)}};
   });
 
   var sel=document.getElementById('sfSel');
   if(!sel||!SF_COUNTRIES.length) return;
+  while(sel.options.length)sel.remove(0);
   for(var i=0;i<SF_COUNTRIES.length;i++){var o=document.createElement('option');o.value=SF_COUNTRIES[i].name;o.textContent=SF_COUNTRIES[i].name;sel.appendChild(o);}
 
   window.sfLoad=function(){
@@ -8772,7 +8784,8 @@ function sfKV(k,v,c){return '<div style="display:flex;justify-content:space-betw
   };
 
   sfLoad();
-})();
+};
+window.fsSfInit();
 
 } catch (err) { console.error('SocioField Physics initialization failed:', err); }
 
@@ -12471,7 +12484,7 @@ function epSelectElection(idx){
     +'<div>'
     +'<div class="ep-d-country">'+escHtmlEP(e.country)+'</div>'
     +'<div class="ep-d-meta">'+escHtmlEP(e.type)+' &nbsp;·&nbsp; <strong style="color:'+st.c+'">'+e.dateLabel+'</strong>'
-    +' &nbsp;·&nbsp; HL score: <strong style="color:'+st.c+'">'+e.hl.toFixed(3)+' ('+st.label+')</strong>'
+    +' &nbsp;·&nbsp; HL score: <strong style="color:'+st.c+'">'+e.hl.toFixed(3)+' ('+st.label+')</strong>'+fs34Line(e)
     +(isPast?' &nbsp;·&nbsp; <span style="color:#888;font-size:10px">(concluded)</span>':'')
     +'</div>'
     +'</div>'
@@ -12865,5 +12878,6 @@ if(typeof Chart!=='undefined'){Chart.register({id:'fs18Pred',
 <!-- FS-FIX-20 -->
 <!-- FS-FIX-21 -->
 <!-- FS-FIX-22 -->
+<!-- FS-FIX-36 -->
 </body>
 </html>
