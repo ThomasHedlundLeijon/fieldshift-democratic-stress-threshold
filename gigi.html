@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="sv">
 <head>
+<script>/* FS-FIX-31 */window.__fsCH=function(){var h=0;Array.prototype.forEach.call(document.body.children,function(c){var r=c.getBoundingClientRect();if(r.height>0&&getComputedStyle(c).position!=='fixed')h=Math.max(h,r.bottom+window.scrollY);});return Math.ceil(h+(parseFloat(getComputedStyle(document.body).paddingBottom)||0)+(parseFloat(getComputedStyle(document.body).marginBottom)||0)+12);};</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GIGI könsgap</title>
@@ -270,10 +272,11 @@ function bindNav(root){
    setTimeout(function(){var el=sc?document.getElementById(sc):null;if(el){el.scrollIntoView({block:'start'});scrollParent(el.getBoundingClientRect().top+window.scrollY);}else{window.scrollTo(0,0);scrollParent(0);}},60);};
   b.onclick=f;b.onkeydown=function(e){if(e.key==='Enter'||e.key===' ')f(e);};});
 }
-function post(){try{if(parent!==window)parent.postMessage({type:'gc-height',src:'gigi',height:document.documentElement.scrollHeight},'*');}catch(e){}}
+function post(){try{if(parent!==window)parent.postMessage({type:'gc-height',src:'gigi',height:(window.__fsCH?window.__fsCH():document.documentElement.scrollHeight)},'*');}catch(e){}}
 window.addEventListener('resize',post);
 render();
 })();
 </script>
+<script>/* FS-FIX-31b */(function(){if(window.parent===window||!/[?&]embed=1/.test(location.search))return;var t=null,last=0;function send(){var h=window.__fsCH();if(Math.abs(h-last)>2){last=h;window.parent.postMessage({type:'gc-height',src:'gigi',height:h},'*');}}function s(){clearTimeout(t);t=setTimeout(send,80);}window.addEventListener('load',s);if(window.ResizeObserver)new ResizeObserver(s).observe(document.body);new MutationObserver(s).observe(document.body,{childList:true,subtree:true});s();})();</script>
 </body>
 </html>

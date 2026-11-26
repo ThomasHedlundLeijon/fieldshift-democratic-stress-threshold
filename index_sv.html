@@ -67,8 +67,8 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-heigh
 .section-desc{font-size:14px;color:var(--ink-soft);max-width:680px;line-height:1.75}
 
 /* ── CLAIMS GRID ── */
-.claims-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:28px}
-.claim-card{background:var(--paper);padding:28px 24px}
+.claims-grid{display:flex;flex-wrap:wrap;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:28px}
+.claim-card{background:var(--paper);padding:28px 24px;flex:1 1 260px}
 .claim-num{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:10px}
 .claim-title{font-family:var(--serif);font-size:17px;font-weight:700;margin-bottom:8px}
 .claim-body{font-size:13px;color:var(--ink-soft);line-height:1.7}
