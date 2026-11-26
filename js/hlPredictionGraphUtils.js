@@ -23,11 +23,13 @@
     },
     // κ gäller demokratinivån (D ≤ κ). På CDRS-skalan motsvarar den 1 − κ = 0,7845 under antagandet
     // CDRS ≈ 1 − D (hl_calc.html, S3). Accelerationstermen och den logistiska risken från K1 har tagits bort,
-    // eftersom de lägger κ på CDRS-skalan (S5) och α inte är skattad. Varning: CDRS ≥ 0,52 (empirisk, A3).
+    // eftersom de lägger κ på CDRS-skalan (S5) och α inte är skattad. Varning: CDRS ≥ 0,26 (kalibrerad 1996–2009, A3).
     kappaOnCDRS: 1 - H / 8,
-    warnCDRS: 0.52,
-    // Empirisk ledtidsgräns på CDRS-skalan (JoD-manus v8; hl_calc.html A6, S18). Inte κ.
-    leadTimeCDRS: 0.22,
+    warnCDRS: 0.26,
+    // Empirisk ledtidsgräns på CDRS-skalan (kalibrerad 1996–2009; hl_calc.html A6, S18). Inte κ.
+    leadTimeCDRS: 0.21,
+    // Riskband (hl_calc.html D8): 3-årsrisk 1/2/5/10/20 % för demokratier.
+    bands: [0.13, 0.19, 0.26, 0.33, 0.39],
     estimateH: function (recoveries, erosions) {
       var m = function (a) { return a.reduce(function (x, y) { return x + y; }, 0) / a.length; };
       return (recoveries.length && erosions.length) ? m(recoveries) / m(erosions) : null;

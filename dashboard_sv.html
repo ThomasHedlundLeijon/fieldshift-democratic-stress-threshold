@@ -1072,7 +1072,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
     <div class="masthead-meta" data-fix="FS-FIX-11 FS-FIX-12">
       <span class="mm-item tip-left" tabindex="0" data-tip="163 länder har CDRS-värden (minst tre av fem lager). Ytterligare 6 saknar data och redovisas som otillgängliga."><strong>163</strong>länder som följs<span class="mm-i" aria-hidden="true">i</span></span>
       <span class="mm-item tip-left" tabindex="0" data-tip="Årliga CDRS-värden 2010–2025 (16 år). V-Dem v16 (mars 2026) går till och med 2025; Världsbankens WGI uppdaterades i september 2026."><strong>2010&ndash;2025</strong>tidslinje<span class="mm-i" aria-hidden="true">i</span></span>
-      <span class="mm-item tip-left" tabindex="0" data-tip="Beräknat med originalreceptet ur tre källor: V-Dem v16 (konstitutionellt, organisatoriskt och utökat lager), Världsbankens WGI (beteendemässigt lager samt reserv) och Världsbankens WDI (finanspolitiskt lager: militär- och utbildningsutgifter). Freedom House, SIPRI, IMF, RSF, CCP och IDEA används inte i receptet."><strong>3</strong>källdataset<span class="mm-i" aria-hidden="true">i</span></span>
+      <span class="mm-item tip-left" tabindex="0" data-tip="Recept v2 (JoD-manuset, Method Box): finanspolitiskt = IMF (budgetsaldo, bruttoskuld) och SIPRI (militärutgifternas andel av statens utgifter); konstitutionellt = V-Dem (rättslig kontroll av regeringen) och CCP (nya konstitutioner, interimskonstitutioner och upphävanden senaste 5 åren); organisatoriskt = V-Dem (civilsamhälle) och International IDEA (fria partier, trovärdiga val); normer = Freedom House (PR/CL) och RSF (pressfrihet); motståndskraft = Världsbankens WGI (regeringens effektivitet, rättsstatlighet) och SIPRI (militärutgifter/BNP). Freedom House 2025 förs fram från 2024."><strong>8</strong>källdataset<span class="mm-i" aria-hidden="true">i</span></span>
       <span class="mm-item mm-src tip-left" tabindex="0" data-tip="Dashboarden använder V-Dem v16 (mars 2026), den senaste utgåvan, som täcker till och med 2025. Värdena räknades om den 25 november 2026; se rapporten. Prognoserna valideras mot V-Dem v17 (väntas mars 2027).">Data: V-Dem v16 · t.o.m. 2025<span class="mm-i" aria-hidden="true">i</span></span>
     </div>
   </div>
@@ -1103,7 +1103,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- MAIN NAVIGATION TAB BAR                                     -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<div id="fsDataNotice" style="background:#fbf3e2;border-bottom:1px solid #e3cf9f;border-left:4px solid #9a6a0c;padding:10px 16px;font-size:13px;line-height:1.6;color:#4a3b17"><b>Ny dataserie (v16, 25 november 2026).</b> CDRS-värdena räknas nu med originalreceptet (fieldshift_loader.py) ur V-Dem v16 och Världsbankens WGI/WDI, 2010–2025. De tidigare värdena gick inte att återskapa med receptet. Texter, tabeller, landanalyser och gränser skrivna före bytet (till exempel riskbanden, varningsgränsen 0,52, ledtidsgränsen 0,22, 86,7 % och AUC 0,96) bygger på den tidigare dataserien och är ännu inte omräknade. <a href="docs/cdrs_v16.html" target="_blank" rel="noopener">Rapport och jämförelse ↗</a></div>
+<div id="fsDataNotice" style="background:#fbf3e2;border-bottom:1px solid #e3cf9f;border-left:4px solid #9a6a0c;padding:10px 16px;font-size:13px;line-height:1.6;color:#4a3b17"><b>Ny dataserie och kalibrering (v0.9.0, 26 november 2026).</b> CDRS följer nu JoD-manusets recept: fem lager ur åtta källor (V-Dem v16, International IDEA, Freedom House, RSF, CCP, SIPRI, IMF och Världsbankens WGI), 2010–2025. Riskband och gränser är omkalibrerade på regimövergångar 1996–2009 (den reserverade FS-004-perioden 2010–2022 användes inte): varning 0,26, ledtidsgräns 0,21, band 0,13 / 0,19 / 0,26 / 0,33 / 0,39 (risken att en demokrati blir autokrati inom tre år: 1, 2, 5, 10 och 20 %). Kalibrering AUC 0,82; test 2024–2025: AUC 0,80, 7 av 7 övergångar över varningsgränsen. Landanalyser, statiska tabeller och de 28 röda-flagg-indikatorerna skrivna före bytet bygger fortfarande på den tidigare dataserien. <a href="docs/cdrs_v16.html" target="_blank" rel="noopener">Rapport ↗</a></div>
 <nav id="mainNavBar" role="navigation" aria-label="Huvudavsnitt">
   <div class="mnav-inner">
     <a class="mnav-tab mnav-langtab" href="dashboard_sv.html" data-lang="sv" lang="sv" title="Visa hela dashboarden på svenska"><svg class="fs-flag" viewBox="0 0 16 10" width="29" height="18" aria-hidden="true" focusable="false"><rect width="16" height="10" fill="#006AA7"/><rect x="5" width="2" height="10" fill="#FECC02"/><rect y="4" width="16" height="2" fill="#FECC02"/></svg><span class="fs-sr">Svenska</span></a>
@@ -2002,7 +2002,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
     </div>
   </div>
   <div style="margin-top:16px;padding:12px 16px;background:var(--paper-2);border:1px solid var(--rule);font-size:11px;color:var(--ink-soft);font-family:var(--mono)">
-    <strong style="color:var(--ink)">Metodologisk anmärkning:</strong> Osäkerhetsbanden skattas utifrån variansen mellan källor (oenighet mellan källor) och från V-Dems publicerade konfidensintervall där sådana finns. Länder med färre tillgängliga källor eller stor oenighet mellan källor visar bredare band. Den streckade linjen vid 0.52 markerar FieldShifts tröskel för tidig varning.
+    <strong style="color:var(--ink)">Metodologisk anmärkning:</strong> Osäkerhetsbanden skattas utifrån variansen mellan källor (oenighet mellan källor) och från V-Dems publicerade konfidensintervall där sådana finns. Länder med färre tillgängliga källor eller stor oenighet mellan källor visar bredare band. Den streckade linjen vid 0,26 markerar FieldShifts tröskel för tidig varning.
   </div>
 </div>
 
@@ -2398,7 +2398,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
       </div>
 
       <div class="meth-warning-box">
-        <strong>⚠ Nuvarande begränsning — konfidensintervall:</strong> Värdena presenteras för närvarande som punktskattningar. V-Dem publicerar 95-procentiga bayesianska konfidensintervall för alla sina indikatorskattningar; ett land med värdet 0.52 ± 0.08 befinner sig i en kvalitativt annan situation än ett med 0.52 ± 0.02. Visualisering av konfidensintervall är den högst prioriterade punkten i utvecklingsplanen för Version 2.0. Till dess bör värden i bevakningszonen (0.38–0.52) tolkas med särskild försiktighet.
+        <strong>⚠ Nuvarande begränsning — konfidensintervall:</strong> Värdena presenteras för närvarande som punktskattningar. V-Dem publicerar 95-procentiga bayesianska konfidensintervall för alla sina indikatorskattningar; ett land med värdet 0.52 ± 0.08 befinner sig i en kvalitativt annan situation än ett med 0.52 ± 0.02. Visualisering av konfidensintervall är den högst prioriterade punkten i utvecklingsplanen för Version 2.0. Till dess bör värden i bevakningszonen (0,19–0,26) tolkas med särskild försiktighet.
       </div>
 
       <!-- Formula -->
@@ -2484,39 +2484,39 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
       <table class="meth-threshold-table">
         <thead>
           <tr>
-            <th>Band</th><th>CDRS-intervall</th><th>Länder (2023)</th><th>Andel</th><th>Kalibreringsgrund</th>
+            <th>Band</th><th>CDRS-intervall</th><th>Länder (2025)</th><th>Andel</th><th>Kalibreringsgrund</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><span class="risk-dot-sm" style="background:#1e8449"></span><strong style="color:#1e8449">Mycket låg</strong></td>
-            <td style="font-family:var(--mono)">0.00 – 0.24</td><td>18</td><td>11.0%</td>
-            <td style="font-size:11px;color:var(--ink-soft)">Norge (0.11), Schweiz (0.12)</td>
+            <td style="font-family:var(--mono)">0,00 – 0,12</td><td>5</td><td>3.1%</td>
+            <td style="font-size:11px;color:var(--ink-soft)">3-årsrisk under 1 % (demokratier) · Sweden (0.12), Denmark (0.11)</td>
           </tr>
           <tr>
             <td><span class="risk-dot-sm" style="background:#45b06e"></span><strong style="color:#45b06e">Låg</strong></td>
-            <td style="font-family:var(--mono)">0.25 – 0.37</td><td>26</td><td>16.0%</td>
-            <td style="font-size:11px;color:var(--ink-soft)">Tyskland, Frankrike, Japan</td>
+            <td style="font-family:var(--mono)">0,13 – 0,18</td><td>14</td><td>8.6%</td>
+            <td style="font-size:11px;color:var(--ink-soft)">3-årsrisk 1–2 % (demokratier) · Norway (0.14), Finland (0.16), Germany (0.16)</td>
           </tr>
           <tr>
             <td><span class="risk-dot-sm" style="background:#d4ac0d"></span><strong style="color:#d4ac0d">Bevakning</strong></td>
-            <td style="font-family:var(--mono)">0.38 – 0.51</td><td>38</td><td>23.3%</td>
-            <td style="font-size:11px;color:var(--ink-soft)">Mexiko, Sydkorea, Brasilien</td>
+            <td style="font-family:var(--mono)">0,19 – 0,25</td><td>22</td><td>13.5%</td>
+            <td style="font-size:11px;color:var(--ink-soft)">3-årsrisk 2–5 % (demokratier) · Japan (0.22), United Kingdom (0.22), France (0.23)</td>
           </tr>
           <tr>
-            <td><span class="risk-dot-sm" style="background:#e67e22"></span><strong style="color:#c06820">Varning</strong></td>
-            <td style="font-family:var(--mono)">0.52 – 0.65</td><td>41</td><td>25.2%</td>
-            <td style="font-size:11px;color:var(--ink-soft)"><strong>0.52 threshold:</strong> 14 av 17 länder som V-Dem omklassificerade från valdemokrati till valautokrati (2010–2023) hade CDRS &gt;0.52 året innan</td>
+            <td><span class="risk-dot-sm" style="background:#c06820"></span><strong style="color:#c06820">Varning</strong></td>
+            <td style="font-family:var(--mono)">0,26 – 0,32</td><td>30</td><td>18.4%</td>
+            <td style="font-size:11px;color:var(--ink-soft)"><strong>Varningsgräns 0,26:</strong> Youdens optimum 1996–2006 (sensitivitet 0,91, specificitet 0,65) · 3-årsrisk 5–10 % (demokratier) · USA (0.30), Brazil (0.29), Poland (0.32)</td>
           </tr>
           <tr>
-            <td><span class="risk-dot-sm" style="background:#e74c3c"></span><strong style="color:#b02810">Kritisk</strong></td>
-            <td style="font-family:var(--mono)">0.66 – 0.79</td><td>26</td><td>16.0%</td>
-            <td style="font-size:11px;color:var(--ink-soft)">Ungern (0.756), Turkiet (0.75), Iran</td>
+            <td><span class="risk-dot-sm" style="background:#b02810"></span><strong style="color:#b02810">Kritisk</strong></td>
+            <td style="font-family:var(--mono)">0,33 – 0,38</td><td>21</td><td>12.9%</td>
+            <td style="font-size:11px;color:var(--ink-soft)">3-årsrisk 10–20 % (demokratier) · Hungary (0.36), Indonesia (0.35)</td>
           </tr>
           <tr>
-            <td><span class="risk-dot-sm" style="background:#922b21"></span><strong style="color:#7a1810">Kris</strong></td>
-            <td style="font-family:var(--mono)">0.80 – 1.00</td><td>14</td><td>8.6%</td>
-            <td style="font-size:11px;color:var(--ink-soft)">Russia (0.92), China (0.89)</td>
+            <td><span class="risk-dot-sm" style="background:#7a1810"></span><strong style="color:#7a1810">Kris</strong></td>
+            <td style="font-family:var(--mono)">0,39 – 1,00</td><td>71</td><td>43.6%</td>
+            <td style="font-size:11px;color:var(--ink-soft)">3-årsrisk över 20 % (demokratier) · Mexico (0.42), India (0.41), Turkey (0.48)</td>
           </tr>
         </tbody>
       </table>
@@ -3119,7 +3119,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
     <div style="background:var(--ink);padding:24px;border-left:1px solid var(--rule)">
       <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:8px">D5 · S3 · S4</div>
       <div style="font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:10px;color:var(--paper)">κ och trösklarna</div>
-      <div style="font-size:13px;color:#b0a898;line-height:1.75">κ = ℋ/8 = 0,2155 är en gräns på demokratinivån: D ≤ κ. Om CDRS ≈ 1 − D motsvarar den CDRS ≥ 0,7845. Den empiriska CDRS-varningen från 0,52 motsvarar D ≤ 0,48. Varje land som passerat κ är därför också i varning. <a href="#hlCalcBlock" data-hlref="S3" style="font-family:var(--mono);font-size:11px;color:var(--info)">S3</a> <a href="#hlCalcBlock" data-hlref="S4" style="font-family:var(--mono);font-size:11px;color:var(--info)">S4</a></div>
+      <div style="font-size:13px;color:#b0a898;line-height:1.75">κ = ℋ/8 = 0,2155 är en gräns på demokratinivån: D ≤ κ. Om CDRS ≈ 1 − D motsvarar den CDRS ≥ 0,7845. Den kalibrerade CDRS-varningen från 0,26 motsvarar D ≤ 0,74. Varje land som passerat κ är därför också i varning. <a href="#hlCalcBlock" data-hlref="S3" style="font-family:var(--mono);font-size:11px;color:var(--info)">S3</a> <a href="#hlCalcBlock" data-hlref="S4" style="font-family:var(--mono);font-size:11px;color:var(--info)">S4</a></div>
     </div>
   </div>
 
@@ -3145,7 +3145,7 @@ footer{background:var(--ink);color:#888;padding:32px 40px;font-family:var(--mono
     <div style="margin-bottom:20px" id="kappa">
       <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:22px">Position på demokratiskalan (0 = autokrati, 1 = demokrati)</div>
       <div style="position:relative;height:24px;border-radius:4px;background:linear-gradient(to right,#8e0000 0%,#c0392b 22%,#d4a017 48%,#1e8449 100%);margin-bottom:4px">
-        <div style="position:absolute;left:21.55%;top:-6px;height:36px;border-left:2px dashed var(--ink)"><span style="position:absolute;top:-18px;left:-2px;white-space:nowrap;font-family:var(--mono);font-size:10px;color:var(--ink)">κ = 0,2155 (S2)</span></div><div style="position:absolute;left:48%;top:-6px;height:36px;border-left:2px dashed var(--ink)"><span style="position:absolute;top:38px;left:-2px;white-space:nowrap;font-family:var(--mono);font-size:10px;color:var(--ink)">D = 0,48 ⇔ CDRS = 0,52 (S4)</span></div>
+        <div style="position:absolute;left:21.55%;top:-6px;height:36px;border-left:2px dashed var(--ink)"><span style="position:absolute;top:-18px;left:-2px;white-space:nowrap;font-family:var(--mono);font-size:10px;color:var(--ink)">κ = 0,2155 (S2)</span></div><div style="position:absolute;left:74%;top:-6px;height:36px;border-left:2px dashed var(--ink)"><span style="position:absolute;top:38px;left:-2px;white-space:nowrap;font-family:var(--mono);font-size:10px;color:var(--ink)">D = 0,74 ⇔ CDRS = 0,26 (S4)</span></div>
         <div id="hlPeakMark" style="position:absolute;top:-4px;width:2px;height:32px;border-radius:1px;background:rgba(255,255,255,0.8)"></div>
         <div id="hlScoreMark" style="position:absolute;top:-4px;width:3px;height:32px;border-radius:2px;background:var(--ink)"></div>
       </div>
@@ -3331,8 +3331,8 @@ var RISK_COLS = {CRITICAL:'#6c1a1a',HIGH:'#c0392b',MEDIUM:'#d68910',LOW:'#1e8449
 var RISK_BGS  = {CRITICAL:'#fdf2f2',HIGH:'#fef5f5',MEDIUM:'#fef9e7',LOW:'#eafaf1',MINIMAL:'#e8faf4','No data':'#f5f5f5'};
 function riskLevel(s) {
   if (s===null||s===undefined||isNaN(s)) return 'No data';
-  if (s>=0.85) return 'CRITICAL'; if (s>=0.70) return 'HIGH';
-  if (s>=0.50) return 'MEDIUM';   if (s>=0.30) return 'LOW'; return 'MINIMAL';
+  if (s>=0.39) return 'CRITICAL'; if (s>=0.33) return 'HIGH';
+  if (s>=0.26) return 'MEDIUM';   if (s>=0.19) return 'LOW'; return 'MINIMAL';
 }
 var TRAJ_COL = {Deteriorating:'#c0392b',Improving:'#1e8449',Stable:'#7f8c8d',Volatile:'#d68910','Insufficient data':'#bbb'};
 var TRAJ_ARR = {Deteriorating:'&#8600;',Improving:'&#8599;',Stable:'&#8594;',Volatile:'&#8596;','Insufficient data':'&middot;'};
@@ -4527,7 +4527,7 @@ var RFS_INDICATORS = [
     thresholdBasis:'Validerad tröskel 0.55: 52 av 89 länder med sammanvägt värde över 0.55 upplevde betydande demokratisk nedgång inom 5 år i V-Dem-datasetet 1990-2022. 0.70: 71% av länderna över denna tröskel upplevde nedgång inom 3 år.',
     inverted:true, unit:'%',
     desc:'Primär integrerad systemsignal. Medelvärde med lika vikter av alla fem lager. Transparent formel för full replikering.',
-    thresholds:[0.25, 0.38, 0.52, 0.66, 0.80],
+    thresholds:[0.13, 0.19, 0.26, 0.33, 0.39],
     getValue: function(c,fsi,yrs){ return latestLayerVal(c,yrs,'composite'); },
     timeframes: ['PREVENTIVE','LONG','MEDIUM','SHORT','IMMEDIATE'],
     prescribed: ['Behåll nuvarande bana – systemet är friskt','Aktivera övervakningsprotokoll och informera intressenter','Inled fas 1 i sekvensen för gapminskning omedelbart','Akut ingripande — alla GRM-faser granskas och aktiveras','Krisprotokoll: alla sex GRM-faser aktiverade – internationellt stöd krävs'] },
@@ -4933,21 +4933,21 @@ var MAP_RISK_LABELS = ['Very Low','Low','Watch','Warning','Critical','Crisis'];
 
 function getRiskColor(score) {
   if (score === null || score === undefined || isNaN(score)) return '#d0c8bc';
-  if (score < 0.25) return MAP_RISK_COLORS[0];
-  if (score < 0.38) return MAP_RISK_COLORS[1];
-  if (score < 0.52) return MAP_RISK_COLORS[2];
-  if (score < 0.66) return MAP_RISK_COLORS[3];
-  if (score < 0.80) return MAP_RISK_COLORS[4];
+  if (score < 0.13) return MAP_RISK_COLORS[0];
+  if (score < 0.19) return MAP_RISK_COLORS[1];
+  if (score < 0.26) return MAP_RISK_COLORS[2];
+  if (score < 0.33) return MAP_RISK_COLORS[3];
+  if (score < 0.39) return MAP_RISK_COLORS[4];
   return MAP_RISK_COLORS[5];
 }
 
 function getRiskLabel(score) {
   if (score === null || score === undefined || isNaN(score)) return 'No data';
-  if (score < 0.25) return 'Very Low';
-  if (score < 0.38) return 'Low';
-  if (score < 0.52) return 'Watch';
-  if (score < 0.66) return 'Warning';
-  if (score < 0.80) return 'Critical';
+  if (score < 0.13) return 'Very Low';
+  if (score < 0.19) return 'Low';
+  if (score < 0.26) return 'Watch';
+  if (score < 0.33) return 'Warning';
+  if (score < 0.39) return 'Critical';
   return 'Crisis';
 }
 
@@ -5048,8 +5048,8 @@ function mapHover(e, mapName, scoreStr, riskLbl) {
 
     if (d && d.composite!=null) {
       var sc = d.composite;
-      var rCol = sc<0.25?'#1a7a40':sc<0.38?'#45b06e':sc<0.52?'#d4b800':sc<0.66?'#c06820':sc<0.80?'#b02810':'#7a1810';
-      var rLbl = sc<0.25?'Very Low':sc<0.38?'Low':sc<0.52?'Bevakningszon':sc<0.66?'Warning':sc<0.80?'Critical':'Crisis';
+      var rCol = sc<0.13?'#1a7a40':sc<0.19?'#45b06e':sc<0.26?'#d4b800':sc<0.33?'#c06820':sc<0.39?'#b02810':'#7a1810';
+      var rLbl = sc<0.13?'Very Low':sc<0.19?'Low':sc<0.26?'Bevakningszon':sc<0.33?'Warning':sc<0.39?'Critical':'Crisis';
 
       h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">';
       h += '<div style="flex:1;height:6px;background:#333;border-radius:3px;overflow:hidden">';
@@ -5218,11 +5218,11 @@ function renderMap() {
     if(c && !c.available) return '#888880';
     var s=scoreLookup[name];
     if(s===undefined||s===null) return '#c8c0b4';
-    if(s<0.25) return '#1a7a40';
-    if(s<0.38) return '#45b06e';
-    if(s<0.52) return '#d4b800';
-    if(s<0.66) return '#c06820';
-    if(s<0.80) return '#b02810';
+    if(s<0.13) return '#1a7a40';
+    if(s<0.19) return '#45b06e';
+    if(s<0.26) return '#d4b800';
+    if(s<0.33) return '#c06820';
+    if(s<0.39) return '#b02810';
     return '#7a1810';
   }
   function d3Stroke(numId) {
@@ -5353,11 +5353,11 @@ function classifyTrajectory(startScore, endScore, years) {
 }
 
 function classifyLevel(score) {
-  if (score < 0.25) return 'mycket låg';
-  if (score < 0.38) return 'low';
-  if (score < 0.52) return 'bevakningszon';
-  if (score < 0.66) return 'warning';
-  if (score < 0.80) return 'critical';
+  if (score < 0.13) return 'mycket låg';
+  if (score < 0.19) return 'low';
+  if (score < 0.26) return 'bevakningszon';
+  if (score < 0.33) return 'warning';
+  if (score < 0.39) return 'critical';
   return 'critical';
 }
 
@@ -5458,10 +5458,10 @@ function generateNarrative(country, years, dataByYear, fsiData) {
 
   // Outlook
   var p4 = '';
-  if (endScore > 0.65) {
+  if (endScore > 0.33) {
     p4 = '<strong>Utsikter:</strong> Vid nuvarande risknivåer, ' + cname + ' befinner sig i den zon där FieldShift-modellens återhämtningsasymmetri får operativ betydelse. I V-Dems data om regimförändringsepisoder (ERT; Lührmann och Lindberg 2019) varar den genomsnittliga återhämtningsepisoden 8,3 år; det är ett genomsnitt över länder, inte en prognos för just detta land. Förebyggande åtgärder är inte längre möjliga — aktivt genomförande av Gap Reduction Sequence krävs.';
   } else if (traj === 'mild_erosion' || traj === 'significant_erosion') {
-    p4 = '<strong>Utsikter:</strong> Den nuvarande banan — om den förblir oförändrad — kommer att föra ' + cname + ' in i VARNINGSZONEN inom ' + (Math.max(1, Math.round((0.52 - endScore) / Math.max(0.001, (endScore-startScore)/nYears)))) + ' år med den observerade takten. Detta är fönstret för förebyggande åtgärder: det mest kostnadseffektiva tillfället att aktivera Gap Reduction Sequence. Ju längre åtgärder skjuts upp, desto högre blir återhämtningskostnaden.';
+    p4 = '<strong>Utsikter:</strong> Den nuvarande banan — om den förblir oförändrad — kommer att föra ' + cname + ' in i VARNINGSZONEN inom ' + (Math.max(1, Math.round((0.26 - endScore) / Math.max(0.001, (endScore-startScore)/nYears)))) + ' år med den observerade takten. Detta är fönstret för förebyggande åtgärder: det mest kostnadseffektiva tillfället att aktivera Gap Reduction Sequence. Ju längre åtgärder skjuts upp, desto högre blir återhämtningskostnaden.';
   } else if (traj === 'stable') {
     p4 = '<strong>Utsikter:</strong> Stabilitet på denna risknivå kräver aktivt underhåll. FieldShift-modellen identifierar flera förebyggande åtgärder som befäster den demokratiska hälsan under stabila perioder: samordning av grindvaktsfunktioner, finansiell övervakning och granskning av reversibilitet. Det är lågkostnadsinsatser när de tillämpas förebyggande.';
   } else {
@@ -5499,17 +5499,17 @@ function buildArcCards(years, dataByYear) {
     var d = dataByYear[yr];
     if (!d) return;
     var score = d.composite;
-    var col = score < 0.38 ? '#1e8449' : score < 0.52 ? '#d68910' : score < 0.66 ? '#e67e22' : '#c0392b';
+    var col = score < 0.19 ? '#1e8449' : score < 0.26 ? '#d68910' : score < 0.33 ? '#e67e22' : '#c0392b';
     var prevYr = significant[i-1];
     var prevD = prevYr ? dataByYear[prevYr] : null;
     var delta = prevD ? score - prevD.composite : 0;
     var deltaStr = prevD ? (delta >= 0 ? '▲+' : '▼') + (delta*100).toFixed(1)+'<span class="pp-wrap"><span class="pp">pp</span></span>' : 'Baslinje';
     var dom = dominantLayer(d);
-    var title = score < 0.25 ? 'Stark demokratisk hälsa' :
-                score < 0.38 ? 'Låg risk — stabil' :
-                score < 0.52 ? 'Bevakningszon — påfrestning synlig' :
-                score < 0.66 ? 'Varning — betydande risk' :
-                score < 0.80 ? 'Kritisk — erosionen långt gången' :
+    var title = score < 0.13 ? 'Stark demokratisk hälsa' :
+                score < 0.19 ? 'Låg risk — stabil' :
+                score < 0.26 ? 'Bevakningszon — påfrestning synlig' :
+                score < 0.33 ? 'Varning — betydande risk' :
+                score < 0.39 ? 'Kritisk — erosionen långt gången' :
                                'Kris — allvarlig erosion';
     h += '<div class="story-arc-card">';
     h += '<div class="story-arc-year">'+yr+'</div>';
@@ -5530,7 +5530,7 @@ function buildSparkline(years, dataByYear) {
   vals.forEach(function(v) {
     var pct = max > min ? (v-min)/(max-min) : 0.5;
     var ht = Math.round(4 + pct * 20);
-    var col = v < 0.38 ? '#2ecc71' : v < 0.52 ? '#f1c40f' : v < 0.66 ? '#e67e22' : '#e74c3c';
+    var col = v < 0.19 ? '#2ecc71' : v < 0.26 ? '#f1c40f' : v < 0.33 ? '#e67e22' : '#e74c3c';
     h += '<div class="story-bar-seg" style="height:'+ht+'px;background:'+col+'"></div>';
   });
   return h;
@@ -5612,8 +5612,8 @@ function renderStory() {
   h += '<div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#666;margin-bottom:4px">Sammanvägd risk '+lastYr+'</div>';
   h += '<div class="story-fsi-num" style="color:'+(endScore<0.38?'#2ecc71':endScore<0.52?'#f1c40f':endScore<0.66?'#e67e22':'#e74c3c')+'">'+(endScore*100).toFixed(1)+'%</div>';
   // Add threshold label under score
-  var threshLabel = endScore < 0.25 ? 'Mycket låg risk' : endScore < 0.38 ? 'Låg risk' : endScore < 0.52 ? '⚠ Bevakningszon' : endScore < 0.66 ? '⚠ Varning' : endScore < 0.80 ? '🔴 Kritisk' : '🔴 Kris';
-  var threshCol   = endScore < 0.38 ? '#1e8449' : endScore < 0.52 ? '#d68910' : endScore < 0.66 ? '#e67e22' : '#e74c3c';
+  var threshLabel = endScore < 0.13 ? 'Mycket låg risk' : endScore < 0.19 ? 'Låg risk' : endScore < 0.26 ? '⚠ Bevakningszon' : endScore < 0.33 ? '⚠ Varning' : endScore < 0.39 ? '🔴 Kritisk' : '🔴 Kris';
+  var threshCol   = endScore < 0.19 ? '#1e8449' : endScore < 0.26 ? '#d68910' : endScore < 0.33 ? '#e67e22' : '#e74c3c';
   h += '<div style="font-family:var(--mono);font-size:11px;font-weight:700;color:'+threshCol+';margin-top:3px">'+threshLabel+'</div>';
   // Mini threshold bar
   h += '<div style="margin-top:6px;height:6px;border-radius:3px;overflow:hidden;display:flex;width:120px">';
@@ -5647,7 +5647,7 @@ function renderStory() {
       h += '<div class="story-layer-card"><div class="story-layer-name">'+layerNames[i]+'</div><div class="story-layer-val" style="color:#ccc">—</div></div>';
       return;
     }
-    var col = lastV < 0.38 ? '#1e8449' : lastV < 0.52 ? '#d68910' : lastV < 0.66 ? '#e67e22' : '#c0392b';
+    var col = lastV < 0.19 ? '#1e8449' : lastV < 0.26 ? '#d68910' : lastV < 0.33 ? '#e67e22' : '#c0392b';
     var dlt = firstV !== undefined ? lastV - firstV : 0;
     h += '<div class="story-layer-card">';
     h += '<div class="story-layer-name" style="color:'+layerCols[i]+'">'+layerNames[i]+'</div>';
@@ -5734,7 +5734,7 @@ function renderCompare() {
 
   function rCol(v) {
     if (v === null || v === undefined) return '#888';
-    return v < 0.25 ? '#1e8449' : v < 0.38 ? '#117a65' : v < 0.52 ? '#d68910' : v < 0.66 ? '#e67e22' : '#c0392b';
+    return v < 0.13 ? '#1e8449' : v < 0.19 ? '#117a65' : v < 0.26 ? '#d68910' : v < 0.33 ? '#e67e22' : '#c0392b';
   }
 
   function getTraj(country) {
@@ -5929,7 +5929,7 @@ function buildQSCards() {
     if (!c) return;
     var d = c.data['2025']||c.data['2024']||c.data['2023'] || c.data[2023] || c.data['2022'] || c.data[2022];
     var score = d ? (d.composite * 100).toFixed(1) + '%' : '—';
-    var scoreCol = d ? (d.composite < 0.38 ? '#2ecc71' : d.composite < 0.52 ? '#f1c40f' : d.composite < 0.66 ? '#e67e22' : '#e74c3c') : '#888';
+    var scoreCol = d ? (d.composite < 0.19 ? '#2ecc71' : d.composite < 0.26 ? '#f1c40f' : d.composite < 0.33 ? '#e67e22' : '#e74c3c') : '#888';
     h += '<div class="qs-card" onclick="qsGo(\''+f.name+'\')">';
     h += '<div class="qs-card-label" style="color:'+f.labelCol+'">'+f.label+'</div>';
     h += '<div class="qs-card-country">'+f.name+'</div>';
@@ -5972,7 +5972,7 @@ function qsSearch(val) {
   matches.forEach(function(c, i) {
     var d = c.data['2025']||c.data['2024']||c.data['2023'] || c.data[2023] || c.data['2022'] || c.data[2022];
     var score = d ? (d.composite * 100).toFixed(1) + '%' : '—';
-    var scoreCol = d ? (d.composite < 0.38 ? '#2ecc71' : d.composite < 0.52 ? '#f1c40f' : d.composite < 0.66 ? '#e67e22' : '#e74c3c') : '#888';
+    var scoreCol = d ? (d.composite < 0.19 ? '#2ecc71' : d.composite < 0.26 ? '#f1c40f' : d.composite < 0.33 ? '#e67e22' : '#e74c3c') : '#888';
     var deepAvail = !!(c && c.data && Object.keys(c.data).length);
     var deepBadge = deepAvail ? '<span style="margin-left:7px;padding:2px 6px;border-radius:10px;background:#e8f2fc;color:#1a5276;font-size:9px;font-family:var(--mono);font-weight:700;letter-spacing:.04em">DEEP</span>' : '';
     h += '<div class="qs-result-item" onclick="qsGo(\''+c.name+'\')" data-idx="'+i+'">';
@@ -6216,20 +6216,20 @@ var AUDIENCE_LABELS = {
 // ── Risk color helper (presentation) ────────────────────────
 function presRiskCol(v) {
   if (v === null || v === undefined) return '#888';
-  if (v < 0.25) return '#1e8449';
-  if (v < 0.38) return '#117a65';
-  if (v < 0.52) return '#d68910';
-  if (v < 0.66) return '#e67e22';
-  if (v < 0.80) return '#e74c3c';
+  if (v < 0.13) return '#1e8449';
+  if (v < 0.19) return '#117a65';
+  if (v < 0.26) return '#d68910';
+  if (v < 0.33) return '#e67e22';
+  if (v < 0.39) return '#e74c3c';
   return '#c0392b';
 }
 
 function presRiskLabel(v) {
-  if (v < 0.25) return 'Mycket låg risk';
-  if (v < 0.38) return 'Låg risk';
-  if (v < 0.52) return 'Bevakningszon';
-  if (v < 0.66) return 'Varningszon';
-  if (v < 0.80) return 'Critical';
+  if (v < 0.13) return 'Mycket låg risk';
+  if (v < 0.19) return 'Låg risk';
+  if (v < 0.26) return 'Bevakningszon';
+  if (v < 0.33) return 'Varningszon';
+  if (v < 0.39) return 'Critical';
   return 'Crisis';
 }
 
@@ -6769,31 +6769,31 @@ var RANK_LCOLS = {fiscal:'#2471a3',constitutional:'#e67e22',
 
 function rankRiskColor(s) {
   if (s === null || s === undefined) return '#aaa';
-  if (s < 0.25) return '#1e8449';
-  if (s < 0.38) return '#2e7d52';
-  if (s < 0.52) return '#d68910';
-  if (s < 0.66) return '#e67e22';
-  if (s < 0.80) return '#e74c3c';
+  if (s < 0.13) return '#1e8449';
+  if (s < 0.19) return '#2e7d52';
+  if (s < 0.26) return '#d68910';
+  if (s < 0.33) return '#e67e22';
+  if (s < 0.39) return '#e74c3c';
   return '#922b21';
 }
 
 function rankRiskLabel(s) {
   if (s === null || s === undefined) return 'No data';
-  if (s < 0.25) return 'Very Low';
-  if (s < 0.38) return 'Low';
-  if (s < 0.52) return 'Bevakningszon';
-  if (s < 0.66) return 'Warning';
-  if (s < 0.80) return 'Critical';
+  if (s < 0.13) return 'Very Low';
+  if (s < 0.19) return 'Low';
+  if (s < 0.26) return 'Bevakningszon';
+  if (s < 0.33) return 'Warning';
+  if (s < 0.39) return 'Critical';
   return 'Crisis';
 }
 
 function rankRiskBg(s) {
   if (s === null || s === undefined) return '#f5f5f5';
-  if (s < 0.25) return '#eafaf1';
-  if (s < 0.38) return '#f0faf4';
-  if (s < 0.52) return '#fef9e7';
-  if (s < 0.66) return '#fef5e7';
-  if (s < 0.80) return '#fdf2f2';
+  if (s < 0.13) return '#eafaf1';
+  if (s < 0.19) return '#f0faf4';
+  if (s < 0.26) return '#fef9e7';
+  if (s < 0.33) return '#fef5e7';
+  if (s < 0.39) return '#fdf2f2';
   return '#f9ebea';
 }
 
@@ -7293,16 +7293,16 @@ function buildRiskyRegions() {
     var deltaPct = (stats.avgDelta*100 > 0 ? '+' : '') + (stats.avgDelta*100).toFixed(1);
 
     // Risk color
-    var riskCol = stats.avg23 > 0.65 ? '#922b21' : stats.avg23 > 0.50 ? '#e74c3c' :
-                  stats.avg23 > 0.38 ? '#e67e22' : stats.avg23 > 0.25 ? '#d68910' : '#2e7d52';
-    var riskLbl = stats.avg23 > 0.65 ? 'Critical' : stats.avg23 > 0.50 ? 'Warning' :
-                  stats.avg23 > 0.38 ? 'Watch' : stats.avg23 > 0.25 ? 'Low' : 'Very Low';
+    var riskCol = stats.avg23 > 0.33 ? '#922b21' : stats.avg23 > 0.26 ? '#e74c3c' :
+                  stats.avg23 > 0.19 ? '#e67e22' : stats.avg23 > 0.13 ? '#d68910' : '#2e7d52';
+    var riskLbl = stats.avg23 > 0.33 ? 'Critical' : stats.avg23 > 0.26 ? 'Warning' :
+                  stats.avg23 > 0.19 ? 'Watch' : stats.avg23 > 0.13 ? 'Low' : 'Very Low';
 
     // Top 5 countries by score
     var topCs = stats.countries.slice(0,5).map(function(c){
       var cc = riskCol;
-      if (c.score > 0.65) cc='#922b21'; else if (c.score>0.50) cc='#e74c3c';
-      else if (c.score>0.38) cc='#e67e22'; else cc='#2e7d52';
+      if (c.score > 0.33) cc='#922b21'; else if (c.score>0.26) cc='#e74c3c';
+      else if (c.score>0.19) cc='#e67e22'; else cc='#2e7d52';
       var dStr = (c.delta != null) ? (' <span style="color:'+(c.delta>0.03?'#e74c3c':'#1e8449')+';font-size:9px">'+(c.delta>0?'↑+':'↓')+(c.delta*100).toFixed(0)+'pp</span>') : '';
       return '<span style="font-family:monospace;font-size:10px;color:'+cc+'">'+c.name+'</span>'+dStr;
     }).join(' &nbsp;·&nbsp; ');
@@ -7420,14 +7420,14 @@ var BENEFIT_CONCEPTS = {
   hconstant:{title:'ℋ = 1.724',text:'Hedlund-Leijon-konstanten. För varje steg demokratin faller krävs 1.724 steg för att återhämta sig. Validerad på 200 år av V-Dem-data (1789–2024, 200 länder, 25,709 observationer).'},
   kappa:{title:'κ = 0,2155',text:'Den kritiska tröskeln κ = ℋ/8 = 0,2155 på demokratinivån: D ≤ κ (D5, S3). Om CDRS ≈ 1 − D motsvarar den CDRS ≥ 0,7845. Att länder accelererar mot autokrati under κ är en hypotes som inte har visats.'},
   asymmetry:{title:'Asymmetri',text:'Två olika kvoter. Kärnan i Hedlund-Leijon-principen är ℋ = 1,724: genomsnittlig återhämtningsstorlek delat med genomsnittlig erosionsstorlek (D3). Därutöver varar erosionsepisoder i genomsnitt 4,7 år och återhämtningsepisoder 8,3 år i V-Dems data om regimförändringsepisoder (ERT; Lührmann och Lindberg 2019) (en tidskvot på ungefär 1,77). Tidskvoten är inte ℋ.'},
-  earlywarning:{title:'Tidig varning',text:'FieldShift-systemet identifierar länder i riskzonen 3–5 år före en demokratisk kollaps. Varningströskel på CDRS-skalan: 0,52 (empiriskt kalibrerad, A3). Ledtidsgränsen c_L ≈ 0,22 på CDRS-skalan ger den tidigaste signalen, i genomsnitt 3,3 år före kollaps; den är empirisk och är inte κ (A6, S18). κ = ℋ/8 = 0,2155 hör till demokratinivån och motsvarar CDRS ≈ 0,78 (S3). Test utanför urvalet (träning 2010–2018, test 2019–2023): 13 av 15 länders utfall rätt (86,7 %; precision 1,00, recall 0,75, F1 0,857; AUC 0,96). Studien omfattar 17 bekräftade kollapsepisoder 2010–2023 (JoD-manuset v8, tabell 1 och slutnot 4). Testmängden är liten (n = 15).'},
+  earlywarning:{title:'Tidig varning',text:'FieldShift-systemet identifierar länder i riskzonen 3–5 år före en demokratisk kollaps. Varningsgräns på CDRS-skalan: 0,26; ledtidsgräns c_L = 0,21 (kalibrerade på regimövergångar 1996–2009, AUC 0,82; prövade på 2024–2025: AUC 0,80, 7 av 7 övergångar fångade). Ingen av dem är κ (A6, S18). κ = ℋ/8 = 0,2155 hör till demokratinivån och motsvarar CDRS ≈ 0,78 (S3). Tidigare dataserie (JoD-manuset): test utanför urvalet (träning 2010–2018, test 2019–2023): 13 av 15 länders utfall rätt (86,7 %; precision 1,00, recall 0,75, F1 0,857; AUC 0,96). Studien omfattar 17 bekräftade kollapsepisoder 2010–2023 (JoD-manuset v8, tabell 1 och slutnot 4). Testmängden är liten (n = 15).'},
   pointnoreturn:{title:'Punkten utan återvändo',text:'CDRS ≈ 0.66. Bortom detta har demokratiska system i praktiken kollapsat. Belarus (0.910), Ryssland (0.920) och Myanmar (0.858) befinner sig i den autokratiska attraktorn.'},
   entropy:{title:'Demokratisk entropi',text:'Mäter systemets osäkerhet och fragmentering. Hög entropi tyder på instabilitet och rörelse mot varningsgränserna. Shannon-entropi kan beräknas från V-Dem-data.'},
   landscape:{title:'Stabilitetslandskap',text:'Demokrati som en kula som rullar i ett landskap med två dalar: demokratidalen (stabil) och autokratigropen (kollapsad). Institutionell stress trycker kulan uppför sluttningen. Bortom åsen (CDRS ≈ 0,66 i JoD-manuset) antas kulan accelerera mot autokrati. Åsen är inte κ: κ = 0,2155 är en gräns på demokratinivån (S3).'},
   cdrs:{title:'CDRS',text:'Sammanvägt demokratiskt riskvärde (0–1). Väger samman fem dimensioner: finansiell integritet, konstitutionella begränsningar, organisatorisk konkurrens, demokratiska normer och institutionell motståndskraft. Högre värden = högre risk.'},
   fiwvsvdem:{title:'FIW vs V-Dem',text:'V-Dem (ℋ = 1.724) mäter demokrati brett, inklusive institutioner, rättsstatens principer och civilsamhället. Freedom House/FIW (ℋ = 0.970) mäter politiska rättigheter och medborgerliga fri- och rättigheter snävare. Skillnaden tyder på att institutionella faktorer driver asymmetrin.'},
   resilience:{title:'Demokratisk motståndskraft',text:'Ett systems förmåga att stå emot och återhämta sig från stress. En funktion av institutionell styrka, civilsamhällets robusthet och historisk erfarenhet.'},
-  polandeffect:{title:'Polen-effekten',text:'Polen nådde CDRS 0,646 2019, långt över ledtidsgränsen c_L ≈ 0,22 och varningsgränsen 0,52. Men efter valet 2023 (74% valdeltagande) vände banan. Detta visar att tröskeln markerar ökad risk, inte oundviklig kollaps.'},
+  polandeffect:{title:'Polen-effekten',text:'Polen nådde CDRS 0,646 2019, långt över ledtidsgränsen och varningsgränsen (värde från den tidigare dataserien). Men efter valet 2023 (74% valdeltagande) vände banan. Detta visar att tröskeln markerar ökad risk, inte oundviklig kollaps.'},
   tipping:{title:'Tippningspunkt',text:'κ = ℋ/8 = 0,2155 är den antagna tippningspunkten på demokratinivån (D5, S3): under den är återhämtning fortfarande möjlig men kräver extraordinära insatser. Att stabiliteten ändrar karaktär vid κ är en hypotes, inte ett visat resultat.'},
   vdem:{title:'V-Dem-data',text:'Varieties of Democracy tillhandahåller breda, flerdimensionella institutionella indikatorer som används för långsiktig jämförande landanalys och validering av asymmetrin.'},
   bootstrap:{title:'Bootstrap',text:'Validering baserad på omsampling, använd för att skatta hur robusta asymmetrikoefficienterna och tröskelbeteendet är över olika modellspecifikationer.'}
@@ -7588,7 +7588,7 @@ function generateBenefitReport() {
   if (checked.risk) {
     lines.push('[RISK ASSESSMENT]');
     lines.push('Riskklass: ' + c.risk);
-    lines.push('Tolkning: ' + (c.score < 0.22 ? 'zon för kritisk tröskel' : c.score < 0.50 ? 'stresszon' : 'bevakningszon'));
+    lines.push('Tolkning: ' + (c.score < 0.21 ? 'zon för kritisk tröskel' : c.score < 0.26 ? 'stresszon' : 'bevakningszon'));
     lines.push('');
   }
   if (checked.entropy) {
@@ -7698,16 +7698,16 @@ function renderUncertaintyChart(selId, chartId, interpId) {
   function px(year){ return pad.l + (years.indexOf(year)/(points.length-1))*gW; }
   function py(v){ return pad.t + gH - ((v-minY)/(maxY-minY))*gH; }
   function riskColor(v){
-    if(v<0.25) return '#1a7a40'; if(v<0.38) return '#45b06e';
-    if(v<0.52) return '#d4b800'; if(v<0.66) return '#c06820';
-    if(v<0.80) return '#b02810'; return '#7a1810';
+    if(v<0.13) return '#1a7a40'; if(v<0.19) return '#45b06e';
+    if(v<0.26) return '#d4b800'; if(v<0.33) return '#c06820';
+    if(v<0.39) return '#b02810'; return '#7a1810';
   }
 
   var svg = ['<svg width="100%" height="'+H+'" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">'];
 
   // Grid lines
   svg.push('<g stroke="rgba(0,0,0,0.06)" stroke-width="0.5">');
-  [0.25,0.38,0.52,0.66,0.80].forEach(function(v){
+  [0.13,0.19,0.26,0.33,0.39].forEach(function(v){
     if(v>=minY&&v<=maxY){
       var y=py(v);
       svg.push('<line x1="'+pad.l+'" y1="'+y+'" x2="'+(W-pad.r)+'" y2="'+y+'"/>');
@@ -7715,11 +7715,11 @@ function renderUncertaintyChart(selId, chartId, interpId) {
   });
   svg.push('</g>');
 
-  // Threshold line at 0.52
-  if(0.52>=minY&&0.52<=maxY){
-    var ty=py(0.52);
+  // Threshold line at 0.26
+  if(0.26>=minY&&0.26<=maxY){
+    var ty=py(0.26);
     svg.push('<line x1="'+pad.l+'" y1="'+ty+'" x2="'+(W-pad.r)+'" y2="'+ty+'" stroke="#c06820" stroke-width="1" stroke-dasharray="4,3" opacity="0.7"/>');
-    svg.push('<text x="'+(pad.l+3)+'" y="'+(ty-3)+'" font-size="8" fill="#c06820" font-family="monospace" opacity="0.8">0.52 threshold</text>');
+    svg.push('<text x="'+(pad.l+3)+'" y="'+(ty-3)+'" font-size="8" fill="#c06820" font-family="monospace" opacity="0.8">0.26 threshold</text>');
   }
 
   // Uncertainty band (polygon)
@@ -7774,7 +7774,7 @@ function renderUncertaintyChart(selId, chartId, interpId) {
     var first = points[0];
     var unc = getUncertaintyBand(country, last.year);
     var rLabels = ['Very Low','Low','Bevakningszon','Warning','Critical','Crisis'];
-    function rLabel(v){ return v<0.25?rLabels[0]:v<0.38?rLabels[1]:v<0.52?rLabels[2]:v<0.66?rLabels[3]:v<0.80?rLabels[4]:rLabels[5]; }
+    function rLabel(v){ return v<0.13?rLabels[0]:v<0.19?rLabels[1]:v<0.26?rLabels[2]:v<0.33?rLabels[3]:v<0.39?rLabels[4]:rLabels[5]; }
     var lo=Math.max(0,last.v-unc), hi=Math.min(1,last.v+unc);
     var loL=rLabel(lo), hiL=rLabel(hi);
     var ambig = loL!==hiL ? ' — spänner över två risknivåer ('+loL+' to '+hiL+'), vilket gör exakt klassificering osäker' : '';
@@ -7845,7 +7845,7 @@ function buildPathwayCases() {
       if(!c||!c.available) return;
       var d = c.data['2025']||c.data['2024']||c.data['2023']||c.data['2022']||{};
       var sc = d.composite;
-      var col = sc<0.38?'#45b06e':sc<0.52?'#d4b800':sc<0.66?'#c06820':sc<0.80?'#b02810':'#7a1810';
+      var col = sc<0.19?'#45b06e':sc<0.26?'#d4b800':sc<0.33?'#c06820':sc<0.39?'#b02810':'#7a1810';
       html += '<div class="pathway-case" onclick="qsGo(\''+name+'\')" style="border-color:'+col+'">';
       html += '<span>'+name+'</span>';
       html += ' <span style="color:'+col+';font-weight:700">'+(sc?(sc*100).toFixed(0)+'%':'—')+'</span>';
@@ -7869,9 +7869,9 @@ function buildContagion() {
   });
 
   function riskColor(v){
-    if(v<0.25) return '#1a7a40'; if(v<0.38) return '#45b06e';
-    if(v<0.52) return '#d4b800'; if(v<0.66) return '#c06820';
-    if(v<0.80) return '#b02810'; return '#7a1810';
+    if(v<0.13) return '#1a7a40'; if(v<0.19) return '#45b06e';
+    if(v<0.26) return '#d4b800'; if(v<0.33) return '#c06820';
+    if(v<0.39) return '#b02810'; return '#7a1810';
   }
 
   // Main region table
@@ -7924,9 +7924,9 @@ function selectRegion(region) {
   if(!s) return;
 
   function riskColor(v){
-    if(v<0.25) return '#1a7a40'; if(v<0.38) return '#45b06e';
-    if(v<0.52) return '#d4b800'; if(v<0.66) return '#c06820';
-    if(v<0.80) return '#b02810'; return '#7a1810';
+    if(v<0.13) return '#1a7a40'; if(v<0.19) return '#45b06e';
+    if(v<0.26) return '#d4b800'; if(v<0.33) return '#c06820';
+    if(v<0.39) return '#b02810'; return '#7a1810';
   }
 
   var html = '<div class="cg-detail-title">'+region+' — Spridningsanalys på landnivå</div>';
@@ -7960,7 +7960,7 @@ function selectRegion(region) {
   });
 
   // Contagion risk note
-  var highRisk = s.countries.filter(function(c){ return c.score>=0.52; });
+  var highRisk = s.countries.filter(function(c){ return c.score>=0.26; });
   if(highRisk.length>0) {
     html += '<div class="cg-spread-box"><div class="cg-spread-title">Spridningsrisk</div>';
     html += highRisk.length+' of '+s.countries.length+' länder i '+region+' ligger i varningszonen eller högre (≥52%). ';
@@ -9575,7 +9575,7 @@ var DEEPER_ANALYSIS = {
   // ── POLAND ──────────────────────────────────────────────────
   'Poland': {
     title: 'Polen FieldShift-analys: omsvängningsfallet',
-    content: `\n<strong style="font-size:16px">I. Institutionell position (2023)</strong>\n<p><strong>CDRS-värde: ~0.58 (vändning efter 2023 pågår).</strong> Polen är det viktigaste återhämtningsfallet i FieldShift-datasetet. På toppen (2019, CDRS 0.646) låg det långt över det empiriska kollapsgolvet (0.36) och närmade sig punkten utan återvändo (0.66). Parlamentsvalet i oktober 2023 — med 74% valdeltagande, det högsta sedan 1919 — vände banan. Detta är datasetets tydligaste belägg för att varningsfönstret inte bara är teoretiskt.</p>\n\n<p><strong>Zonhistorik:</strong></p>\n<ul style="margin-left:20px">\n<li><strong>2015:</strong> CDRS 0.362 — passerade området för tidig varning (ledtidsgräns c_L ≈ 0,22, A6). Ledtid: 3 år innan V-Dem registrerade autokratiseringsepisoden kring 2018.</li>\n<li><strong>2019:</strong> CDRS 0.646 — inom 0.02 från Point of No Return. Detta är det närmaste datasetet registrerar av en återvändo från åsen.</li>\n<li><strong>2023 onward:</strong> Omsvängning pågår. Återhämtning till under varningsregionen beräknas kräva ytterligare 5–8 år av uthållig institutionell återuppbyggnad.</li>\n</ul>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>II. Hedlund-Leijon-konstanten tillämpad</strong><br>\nℋ = 1,724 är en kvot mellan storlekar (D3): i genomsnitt måste återhämtningen täcka ungefär 1,72 gånger så stor sträcka på demokratiskalan som förlusten. Den är ingen tidsmultiplikator, så Polens ungefär 8 år av erosion (2015–2023) kan inte multipliceras med ℋ för att få år (S6). Därutöver ger V-Dems data om regimförändringsepisoder (ERT; Lührmann och Lindberg 2019) en genomsnittlig varaktighet på 4,7 år för erosion och 8,3 år för återhämtning; det är ett genomsnitt över länder, inte en prognos för Polen. Uppskattningen 5–8 år av konsekventa institutionella reformer är en kvalitativ bedömning och härleds inte ur ℋ.</p>\n\n<p><strong>Vad återhämtning kräver efter att 0.64 har passerats:</strong></p>\n<ul style="margin-left:20px">\n<li>Återställning av domstolsväsendet: domarutnämningar från PiS-eran måste rullas tillbaka — politiskt omstritt och juridiskt ifrågasatt.</li>\n<li>Ombalansering av medierna: statens kontroll över public service måste hävas; detta skedde snabbt 2024 men är fortfarande omstritt.</li>\n<li>Valintegritet: Manipulerade valkretsgränser och ändringar i vallagen kräver parlamentariska beslut.</li>\n<li>Konstitutionell normalisering: Författningsdomstolen förblir förlamad av tvisten om dubbla utnämningar — det djupaste strukturella problemet.</li>\n</ul>\n\n<p style="border-left:3px solid #1e8449;padding-left:16px;margin-top:16px"><strong>III. CDRS med fem lager i Polen</strong></p>\n<p><strong>Lager 2 (konstitutionellt):</strong> Primär erosionsmekanism — författningsdomstolen togs över 2015–2016 genom olagliga utnämningar och lagstiftning som körde över den. Återhämtningen är svårast här.</p>\n<p><strong>Lager 3 (organisatoriskt):</strong> Valkonkurrensen fanns kvar; oppositionen undertrycktes aldrig formellt. Därför var en vändning möjlig.</p>\n<p><strong>Lager 4 (demokratiska normer):</strong> Övertagandet av public service (TVP) var den mest synliga erosionen. Snabbt institutionellt övertagande i slutet av 2023–början av 2024, men rättsliga prövningar pågår.</p>\n<p><strong>Lager 1 (finansiellt):</strong> Mindre snedvridet än Ungern — den oligarkiska erövringen nådde aldrig ungerskt djup. Det lämnade finansiella kanaler för styrning kvar efter övergången.</p>\n<p><strong>Lager 5 (motståndskraft):</strong> Militären och den lokala styrningen förblev relativt intakta under Natos begränsningar. En avgörande fördel jämfört med Ungern.</p>\n\n<p style="border-left:3px solid #f39c12;padding-left:16px;margin-top:16px"><strong>IV. Skillnaden mellan Polen och Ungern: den centrala fallstudien</strong></p>\n<p>Polen och Ungern passerade varningsregionen inom 3 år från varandra vid nästan identiska CDRS-värden (0.362 resp. 0.364). De representerar olika politiska svar på samma strukturella signal. Ungerns fönster stängdes; Polen tog vara på sitt.</p>\n<p><strong>Varför vände Polen när Ungern inte gjorde det?</strong></p>\n<ul style="margin-left:20px">\n<li>Oppositionens samordning: I Polen enade en bred koalition tre ideologiskt olika partier. Ungerns opposition förblev splittrad.</li>\n<li>Djupet i den institutionella erövringen: Ungerns oligarkiska erövring trängde djupare och snabbare. Polens statliga medier togs över men domstolsväsendet tämjdes aldrig helt.</li>\n<li>Valintegritet: Polens valregler var försämrade men tillät fortfarande en verklig valtävlan. Ungerns regler hade snedvridits betydligt mer genomgripande.</li>\n<li>Internationell påverkan: EU:s anslutningsmedel var viktigare för Polens ekonomiska stabilitet, vilket gav Bryssel en verklig hävstång som saknades (eller inte användes) gentemot Ungern.</li>\n</ul>\n\n<p style="border-left:3px solid #c0392b;padding-left:16px;margin-top:16px"><strong>V. Outlook</strong></p>\n<p>Polen är i aktiv återhämtning men långt ifrån säkert. Låsningen kring konstitutionsdomstolen innebär att det konstitutionella lagret fortfarande är dysfunktionellt. Om den nuvarande koalitionen spricker kommer de institutionella reformerna att avstanna och banan kan vända igen. Polen visar att en demokratisk omsvängning är möjlig — och samtidigt att den kräver en uthållig politisk koalition, inte bara ett valresultat. Kulan är tillbaka på sluttningen men ännu inte i dalen.</p>\n    `
+    content: `\n<strong style="font-size:16px">I. Institutionell position (2023)</strong>\n<p><strong>CDRS-värde: ~0.58 (vändning efter 2023 pågår).</strong> Polen är det viktigaste återhämtningsfallet i FieldShift-datasetet. På toppen (2019, CDRS 0.646) låg det långt över det empiriska kollapsgolvet (0.36) och närmade sig punkten utan återvändo (0.66). Parlamentsvalet i oktober 2023 — med 74% valdeltagande, det högsta sedan 1919 — vände banan. Detta är datasetets tydligaste belägg för att varningsfönstret inte bara är teoretiskt.</p>\n\n<p><strong>Zonhistorik:</strong></p>\n<ul style="margin-left:20px">\n<li><strong>2015:</strong> CDRS 0.362 — passerade området för tidig varning (ledtidsgräns c_L ≈ 0,21, A6). Ledtid: 3 år innan V-Dem registrerade autokratiseringsepisoden kring 2018.</li>\n<li><strong>2019:</strong> CDRS 0.646 — inom 0.02 från Point of No Return. Detta är det närmaste datasetet registrerar av en återvändo från åsen.</li>\n<li><strong>2023 onward:</strong> Omsvängning pågår. Återhämtning till under varningsregionen beräknas kräva ytterligare 5–8 år av uthållig institutionell återuppbyggnad.</li>\n</ul>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>II. Hedlund-Leijon-konstanten tillämpad</strong><br>\nℋ = 1,724 är en kvot mellan storlekar (D3): i genomsnitt måste återhämtningen täcka ungefär 1,72 gånger så stor sträcka på demokratiskalan som förlusten. Den är ingen tidsmultiplikator, så Polens ungefär 8 år av erosion (2015–2023) kan inte multipliceras med ℋ för att få år (S6). Därutöver ger V-Dems data om regimförändringsepisoder (ERT; Lührmann och Lindberg 2019) en genomsnittlig varaktighet på 4,7 år för erosion och 8,3 år för återhämtning; det är ett genomsnitt över länder, inte en prognos för Polen. Uppskattningen 5–8 år av konsekventa institutionella reformer är en kvalitativ bedömning och härleds inte ur ℋ.</p>\n\n<p><strong>Vad återhämtning kräver efter att 0.64 har passerats:</strong></p>\n<ul style="margin-left:20px">\n<li>Återställning av domstolsväsendet: domarutnämningar från PiS-eran måste rullas tillbaka — politiskt omstritt och juridiskt ifrågasatt.</li>\n<li>Ombalansering av medierna: statens kontroll över public service måste hävas; detta skedde snabbt 2024 men är fortfarande omstritt.</li>\n<li>Valintegritet: Manipulerade valkretsgränser och ändringar i vallagen kräver parlamentariska beslut.</li>\n<li>Konstitutionell normalisering: Författningsdomstolen förblir förlamad av tvisten om dubbla utnämningar — det djupaste strukturella problemet.</li>\n</ul>\n\n<p style="border-left:3px solid #1e8449;padding-left:16px;margin-top:16px"><strong>III. CDRS med fem lager i Polen</strong></p>\n<p><strong>Lager 2 (konstitutionellt):</strong> Primär erosionsmekanism — författningsdomstolen togs över 2015–2016 genom olagliga utnämningar och lagstiftning som körde över den. Återhämtningen är svårast här.</p>\n<p><strong>Lager 3 (organisatoriskt):</strong> Valkonkurrensen fanns kvar; oppositionen undertrycktes aldrig formellt. Därför var en vändning möjlig.</p>\n<p><strong>Lager 4 (demokratiska normer):</strong> Övertagandet av public service (TVP) var den mest synliga erosionen. Snabbt institutionellt övertagande i slutet av 2023–början av 2024, men rättsliga prövningar pågår.</p>\n<p><strong>Lager 1 (finansiellt):</strong> Mindre snedvridet än Ungern — den oligarkiska erövringen nådde aldrig ungerskt djup. Det lämnade finansiella kanaler för styrning kvar efter övergången.</p>\n<p><strong>Lager 5 (motståndskraft):</strong> Militären och den lokala styrningen förblev relativt intakta under Natos begränsningar. En avgörande fördel jämfört med Ungern.</p>\n\n<p style="border-left:3px solid #f39c12;padding-left:16px;margin-top:16px"><strong>IV. Skillnaden mellan Polen och Ungern: den centrala fallstudien</strong></p>\n<p>Polen och Ungern passerade varningsregionen inom 3 år från varandra vid nästan identiska CDRS-värden (0.362 resp. 0.364). De representerar olika politiska svar på samma strukturella signal. Ungerns fönster stängdes; Polen tog vara på sitt.</p>\n<p><strong>Varför vände Polen när Ungern inte gjorde det?</strong></p>\n<ul style="margin-left:20px">\n<li>Oppositionens samordning: I Polen enade en bred koalition tre ideologiskt olika partier. Ungerns opposition förblev splittrad.</li>\n<li>Djupet i den institutionella erövringen: Ungerns oligarkiska erövring trängde djupare och snabbare. Polens statliga medier togs över men domstolsväsendet tämjdes aldrig helt.</li>\n<li>Valintegritet: Polens valregler var försämrade men tillät fortfarande en verklig valtävlan. Ungerns regler hade snedvridits betydligt mer genomgripande.</li>\n<li>Internationell påverkan: EU:s anslutningsmedel var viktigare för Polens ekonomiska stabilitet, vilket gav Bryssel en verklig hävstång som saknades (eller inte användes) gentemot Ungern.</li>\n</ul>\n\n<p style="border-left:3px solid #c0392b;padding-left:16px;margin-top:16px"><strong>V. Outlook</strong></p>\n<p>Polen är i aktiv återhämtning men långt ifrån säkert. Låsningen kring konstitutionsdomstolen innebär att det konstitutionella lagret fortfarande är dysfunktionellt. Om den nuvarande koalitionen spricker kommer de institutionella reformerna att avstanna och banan kan vända igen. Polen visar att en demokratisk omsvängning är möjlig — och samtidigt att den kräver en uthållig politisk koalition, inte bara ett valresultat. Kulan är tillbaka på sluttningen men ännu inte i dalen.</p>\n    `
   },
 
   // ── TURKEY ──────────────────────────────────────────────────
@@ -9701,7 +9701,7 @@ var DEEPER_ANALYSIS = {
   // ── SWEDEN ───────────────────────────────────────────────────
   'Sweden': {
     title: 'FieldShift-analys av Sverige: den demokratiska dalens botten',
-    content: `\n<strong style="font-size:16px">I. Institutionell position</strong>\n<p><strong>CDRS-värde: 0.162</strong> — Sverige ligger på den demokratiska dalbotten: ett av endast 14 länder i datasetet under området för tidig varning (ledtidsgräns c_L ≈ 0,22, A6). Ett CDRS på 0.162 återspeglar inte bara goda institutioner utan en djupt stabil demokratisk jämvikt där de återställande krafterna är starka och kulan ligger långt från åsen. FieldShift-landskapets analogi: Sverige ligger på dalens botten — att förskjuta landet mot åsen kräver enorm, uthållig kraft i flera institutionella dimensioner samtidigt.</p>\n\n<p style="border-left:3px solid #1e8449;padding-left:16px;margin-top:16px"><strong>II. Vad som gör Sverige till ett referensfall</strong><br>\nSveriges institutionella arkitektur ligger nära taket i alla fem CDRS-lagren:\n<ul style="margin-left:20px">\n<li><strong>Finansiellt (lager 1):</strong> Riksrevisionen är självständigt inrättad; den finansiella transparensen rankas genomgående i toppskiktet av IMF och OECD.</li>\n<li><strong>Konstitutionellt (lager 2):</strong> 1974 års regeringsform, riksdagen med proportionell representation och ombudsmannainstitutionerna (äldst i världen — JO inrättades 1809) ger ett djupt horisontellt ansvarsutkrävande.</li>\n<li><strong>Organisatoriskt (lager 3):</strong> Flerpartisystem med verklig konkurrens; civilsamhället hör till de mest robusta i världen (förtroendet för institutioner över 60%).</li>\n<li><strong>Normer (lager 4):</strong> RSF:s pressfrihetsindex 2023: plats 2/180. Inkludering av minoriteter och hbtq-rättigheter hör till de högsta i det globala datasetet. Den politiska pluralismen är verklig.</li>\n<li><strong>Motståndskraft (lager 5):</strong> Stark förvaltningsstat; professionell statsförvaltning; civil kontroll över militären är absolut och institutionellt förankrad.</li>\n</ul>\n</p>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>III. Sverige som baslinje för HL-principen</strong><br>\nSverige illustrerar Hedlund-Leijon-principens djupaste implikation: demokratisk stabilitet är inte ett passivt tillstånd utan en aktiv jämvikt som upprätthålls av institutionell återkoppling. Avläsningen CDRS 0.162 speglar 200+ år av konsekventa institutionella investeringar — dalens djup speglar detta ackumulerade institutionella kapital. Att erodera det kräver uthålligt, samordnat tryck i alla fem lagren. Sverigedemokraternas (SD) parlamentariska framväxt (20%+) sedan 2010 utgör en stress i det organisatoriska lagret som inte har spridit sig till andra lager — ett tecken på att de återställande krafterna vid dalens botten fungerar så som landskapsmodellen förutsäger att de ska.</p>\n    `
+    content: `\n<strong style="font-size:16px">I. Institutionell position</strong>\n<p><strong>CDRS-värde: 0.162</strong> — Sverige ligger på den demokratiska dalbotten: ett av endast 14 länder i datasetet under området för tidig varning (ledtidsgräns c_L ≈ 0,21, A6). Ett CDRS på 0.162 återspeglar inte bara goda institutioner utan en djupt stabil demokratisk jämvikt där de återställande krafterna är starka och kulan ligger långt från åsen. FieldShift-landskapets analogi: Sverige ligger på dalens botten — att förskjuta landet mot åsen kräver enorm, uthållig kraft i flera institutionella dimensioner samtidigt.</p>\n\n<p style="border-left:3px solid #1e8449;padding-left:16px;margin-top:16px"><strong>II. Vad som gör Sverige till ett referensfall</strong><br>\nSveriges institutionella arkitektur ligger nära taket i alla fem CDRS-lagren:\n<ul style="margin-left:20px">\n<li><strong>Finansiellt (lager 1):</strong> Riksrevisionen är självständigt inrättad; den finansiella transparensen rankas genomgående i toppskiktet av IMF och OECD.</li>\n<li><strong>Konstitutionellt (lager 2):</strong> 1974 års regeringsform, riksdagen med proportionell representation och ombudsmannainstitutionerna (äldst i världen — JO inrättades 1809) ger ett djupt horisontellt ansvarsutkrävande.</li>\n<li><strong>Organisatoriskt (lager 3):</strong> Flerpartisystem med verklig konkurrens; civilsamhället hör till de mest robusta i världen (förtroendet för institutioner över 60%).</li>\n<li><strong>Normer (lager 4):</strong> RSF:s pressfrihetsindex 2023: plats 2/180. Inkludering av minoriteter och hbtq-rättigheter hör till de högsta i det globala datasetet. Den politiska pluralismen är verklig.</li>\n<li><strong>Motståndskraft (lager 5):</strong> Stark förvaltningsstat; professionell statsförvaltning; civil kontroll över militären är absolut och institutionellt förankrad.</li>\n</ul>\n</p>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>III. Sverige som baslinje för HL-principen</strong><br>\nSverige illustrerar Hedlund-Leijon-principens djupaste implikation: demokratisk stabilitet är inte ett passivt tillstånd utan en aktiv jämvikt som upprätthålls av institutionell återkoppling. Avläsningen CDRS 0.162 speglar 200+ år av konsekventa institutionella investeringar — dalens djup speglar detta ackumulerade institutionella kapital. Att erodera det kräver uthålligt, samordnat tryck i alla fem lagren. Sverigedemokraternas (SD) parlamentariska framväxt (20%+) sedan 2010 utgör en stress i det organisatoriska lagret som inte har spridit sig till andra lager — ett tecken på att de återställande krafterna vid dalens botten fungerar så som landskapsmodellen förutsäger att de ska.</p>\n    `
   },
 
   // ── NORWAY ───────────────────────────────────────────────────
@@ -9713,7 +9713,7 @@ var DEEPER_ANALYSIS = {
   // ── HUNGARY ─────────────────────────────────────────────────
   'Hungary': {
     title: 'FieldShift-analys av Ungern: demokratisk bana och risk enligt HL-principen',
-    content: `\n<strong style="font-size:16px">I. Institutionell position (2023)</strong>\n<p><strong>CDRS-värde: 0.756</strong> — Ungern ligger djupt inne i kriszonen, långt bortom Point of No Return (≈0.66). Som jämförelse: ett CDRS på 0.756 placerar Ungern mellan Myanmar (0.858) och Turkiet (0.856) i den autokratiska attraktorbassängen. Ingen utväg från denna zon har observerats i datasetet utan större extern omvälvning.</p>\n\n<p><strong>De tre zonerna och Ungerns position:</strong></p>\n<ul style="margin-left:20px">\n<li><strong>Säker zon (CDRS &lt; 0.22):</strong> Bara 14 av 163 länder befinner sig här (Sverige 0.162, Norge 0.114, Schweiz 0.110). Ungern är inte i närheten.</li>\n<li><strong>Område för tidig varning (ledtidsgräns c_L ≈ 0,22, A6):</strong> Interventionsfönstret. Ungern passerade detta ungefär 2012–2013, inom 2–3 år från starten 2010. Detta stämde perfekt med den empiriska förvarningstiden.</li>\n<li><strong>Eskalerande risk (0.22–0.66):</strong> Ungern befann sig i denna zon i ungefär 11 år (2012–2023). Detta är fönstret där återhämtning teoretiskt är möjlig men kräver ihållande tryck.</li>\n<li><strong>Kriszon (&gt;0.66):</strong> Ungern gick in i denna zon runt 2021–2022 och har inte vänt. CDRS 0.756 år 2023 betyder att den demokratiska potentialbrunnen har kollapsat.</li>\n</ul>\n\n<p style="border-left:3px solid #e67e22;padding-left:16px;margin-top:16px"><strong>II. Hedlund-Leijon-konstanten: varför återhämtning blir svårare</strong><br>\nKvoten ℋ = 1,724 (i genomsnitt måste återhämtningen täcka ungefär 1,72 gånger så stor sträcka på demokratiskalan som förlusten; D3) ramar in Ungerns svåra läge. Den kritiska tröskeln definieras ur den som κ = ℋ/8 = 0,2155 på demokratinivån (D5).</p>\n\n<ul style="margin-left:20px">\n<li><strong>Erosionens varaktighet:</strong> i V-Dems data om regimförändringsepisoder (ERT; Lührmann och Lindberg 2019) varar den genomsnittliga erosionsepisoden 4,7 år. Det är ett genomsnitt över länder, inte en uppskattning för Ungern, vars erosion pågått sedan 2010.</li>\n<li><strong>Återhämtningstid:</strong> den genomsnittliga återhämtningsepisoden i samma data varar 8,3 år — mer än en hel mandatperiod. Även det är ett genomsnitt över länder, inte en prognos för Ungern.</li>\n<li><strong>Men Ungern är förbi åsen (0.756 &gt;&gt; 0.66).</strong> Asymmetrin är nu icke-linjär. Inget fall i datasetet visar återhämtning utan en stor extern chock från institutioner som Belarus (0.910) eller Ryssland (0.920).</li>\n</ul>\n\n<p><strong>Den fysikaliska tolkningen:</strong> Det demokratiska landskapet har en autokratisk attraktor med brantare väggar. När ett land väl hamnat under kammen påskyndar den institutionella dynamiken kollapsen. För varje månad i krisezonen blir väggarna brantare — den oligarkiska kontrollen fördjupas, oppositionen blir alltmer splittrad och den internationella isoleringen stärker regimens grepp.</p>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>III. Ungerns CDRS-uppdelning på fem lager</strong></p>\n<p><strong>Lager 1: Finansiell integritet</strong> — Överföringar av tillgångar till oligarknätverk snedvrider budgetinsynen. EU-medel avleds till lojala företag. Signalens timing: finanspolitisk ogenomskinlighet slog ut först och föregick den elektorala/konstitutionella kollapsen med månader till år.</p>\n<p><strong>Lager 2: Konstitutionella begränsningar</strong> — Fångsten av författningsdomstolen 2011, packning av domstolsväsendet med lojalister och avskaffad obligatorisk domstolsprövning. Kritiskt misslyckande: 2014 hade det horisontella ansvarsutkrävandet kollapsat.</p>\n<p><strong>Lager 3: Organisatorisk konkurrens</strong> — Gerrymandering, mediecentralisering och ackumulerade institutionella fångster snedvred valkonkurrensen utan att formellt avskaffa den.</p>\n<p><strong>Lager 4: Demokratiska normer</strong> — Pressfriheten kollapsade synligt först (mediefångst efter 2010). Minoriteters inkludering försämrades. Den politiska pluralismen överlevde formellt men urholkades.</p>\n<p><strong>Lager 5: Institutionell motståndskraft</strong> — EU och NATO begränsade politiseringen av militären längst, men administrativ fångst — lojala tjänstemän, avsked av kritiker — försvagade successivt den självständiga statliga kapaciteten.</p>\n\n<p style="border-left:3px solid #c0392b;padding-left:16px;margin-top:16px"><strong>IV. Jämförelsen med Polen: samma signal, olika utfall</strong></p>\n<p>Ungern passerade den tidiga varningszonen 2012 (CDRS 0.364). Polen passerade 2015 (CDRS 0.362). Nästan identiska utgångslägen, motsatta utfall. Polen vände vid valet i oktober 2023; Ungern fortsatte till 0.756. Tröskeln är probabilistisk, inte deterministisk. En vändning kräver väljarmobilisering, enighet i oppositionskoalitionen och internationell påverkan. Polen uppnådde alla tre; Ungerns fönster stängdes innan någon av dem uppnåddes i tillräcklig skala.</p>\n\n<p style="border-left:3px solid #f39c12;padding-left:16px;margin-top:16px"><strong>V. Aktuell riskbedömning</strong></p>\n<p>Om Ungern skulle försöka återhämta sig i dag (2026): ett minsta fönster på 8.3+ år under ideala förhållanden. Verkligheten: vid CDRS 0.756 har Ungern passerat den strukturella vändpunkten. Lärarstrejker (2023) slogs ned; högt valdeltagande för oppositionen 2024 men Fidesz behöll makten; EU-medel som betalas ut utan villkor bevarar regimens kapacitet; oligarkiska eliter är djupt integrerade. Fönstret är stängt. Ungerns väg till återhämtning beror nu på yttre störningar — strukturell förändring i EU, ekonomisk kris eller förskjutning i det ryska trycket — snarare än enbart på inre demokratisk dynamik.</p>\n\n<p style="margin-top:20px;padding:16px;background:#f5f5f5;border-radius:6px"><strong>Den centrala diagnosen:</strong> Ungerns CDRS 0.756 är inte ett misslyckande för demokratin i sig utan ett misslyckande för försvaret av demokratin. Systemet för tidig varning fungerade — signalen var tydlig 2012. Polen visar att en vändning är möjlig om fönstret används; Ungern visar vad som händer när det ignoreras.</p>\n    `
+    content: `\n<strong style="font-size:16px">I. Institutionell position (2023)</strong>\n<p><strong>CDRS-värde: 0.756</strong> — Ungern ligger djupt inne i kriszonen, långt bortom Point of No Return (≈0.66). Som jämförelse: ett CDRS på 0.756 placerar Ungern mellan Myanmar (0.858) och Turkiet (0.856) i den autokratiska attraktorbassängen. Ingen utväg från denna zon har observerats i datasetet utan större extern omvälvning.</p>\n\n<p><strong>De tre zonerna och Ungerns position:</strong></p>\n<ul style="margin-left:20px">\n<li><strong>Säker zon (CDRS &lt; 0.22):</strong> Bara 14 av 163 länder befinner sig här (Sverige 0.162, Norge 0.114, Schweiz 0.110). Ungern är inte i närheten.</li>\n<li><strong>Område för tidig varning (ledtidsgräns c_L ≈ 0,21, A6):</strong> Interventionsfönstret. Ungern passerade detta ungefär 2012–2013, inom 2–3 år från starten 2010. Detta stämde perfekt med den empiriska förvarningstiden.</li>\n<li><strong>Eskalerande risk (0.22–0.66):</strong> Ungern befann sig i denna zon i ungefär 11 år (2012–2023). Detta är fönstret där återhämtning teoretiskt är möjlig men kräver ihållande tryck.</li>\n<li><strong>Kriszon (&gt;0.66):</strong> Ungern gick in i denna zon runt 2021–2022 och har inte vänt. CDRS 0.756 år 2023 betyder att den demokratiska potentialbrunnen har kollapsat.</li>\n</ul>\n\n<p style="border-left:3px solid #e67e22;padding-left:16px;margin-top:16px"><strong>II. Hedlund-Leijon-konstanten: varför återhämtning blir svårare</strong><br>\nKvoten ℋ = 1,724 (i genomsnitt måste återhämtningen täcka ungefär 1,72 gånger så stor sträcka på demokratiskalan som förlusten; D3) ramar in Ungerns svåra läge. Den kritiska tröskeln definieras ur den som κ = ℋ/8 = 0,2155 på demokratinivån (D5).</p>\n\n<ul style="margin-left:20px">\n<li><strong>Erosionens varaktighet:</strong> i V-Dems data om regimförändringsepisoder (ERT; Lührmann och Lindberg 2019) varar den genomsnittliga erosionsepisoden 4,7 år. Det är ett genomsnitt över länder, inte en uppskattning för Ungern, vars erosion pågått sedan 2010.</li>\n<li><strong>Återhämtningstid:</strong> den genomsnittliga återhämtningsepisoden i samma data varar 8,3 år — mer än en hel mandatperiod. Även det är ett genomsnitt över länder, inte en prognos för Ungern.</li>\n<li><strong>Men Ungern är förbi åsen (0.756 &gt;&gt; 0.66).</strong> Asymmetrin är nu icke-linjär. Inget fall i datasetet visar återhämtning utan en stor extern chock från institutioner som Belarus (0.910) eller Ryssland (0.920).</li>\n</ul>\n\n<p><strong>Den fysikaliska tolkningen:</strong> Det demokratiska landskapet har en autokratisk attraktor med brantare väggar. När ett land väl hamnat under kammen påskyndar den institutionella dynamiken kollapsen. För varje månad i krisezonen blir väggarna brantare — den oligarkiska kontrollen fördjupas, oppositionen blir alltmer splittrad och den internationella isoleringen stärker regimens grepp.</p>\n\n<p style="border-left:3px solid #2471a3;padding-left:16px;margin-top:16px"><strong>III. Ungerns CDRS-uppdelning på fem lager</strong></p>\n<p><strong>Lager 1: Finansiell integritet</strong> — Överföringar av tillgångar till oligarknätverk snedvrider budgetinsynen. EU-medel avleds till lojala företag. Signalens timing: finanspolitisk ogenomskinlighet slog ut först och föregick den elektorala/konstitutionella kollapsen med månader till år.</p>\n<p><strong>Lager 2: Konstitutionella begränsningar</strong> — Fångsten av författningsdomstolen 2011, packning av domstolsväsendet med lojalister och avskaffad obligatorisk domstolsprövning. Kritiskt misslyckande: 2014 hade det horisontella ansvarsutkrävandet kollapsat.</p>\n<p><strong>Lager 3: Organisatorisk konkurrens</strong> — Gerrymandering, mediecentralisering och ackumulerade institutionella fångster snedvred valkonkurrensen utan att formellt avskaffa den.</p>\n<p><strong>Lager 4: Demokratiska normer</strong> — Pressfriheten kollapsade synligt först (mediefångst efter 2010). Minoriteters inkludering försämrades. Den politiska pluralismen överlevde formellt men urholkades.</p>\n<p><strong>Lager 5: Institutionell motståndskraft</strong> — EU och NATO begränsade politiseringen av militären längst, men administrativ fångst — lojala tjänstemän, avsked av kritiker — försvagade successivt den självständiga statliga kapaciteten.</p>\n\n<p style="border-left:3px solid #c0392b;padding-left:16px;margin-top:16px"><strong>IV. Jämförelsen med Polen: samma signal, olika utfall</strong></p>\n<p>Ungern passerade den tidiga varningszonen 2012 (CDRS 0.364). Polen passerade 2015 (CDRS 0.362). Nästan identiska utgångslägen, motsatta utfall. Polen vände vid valet i oktober 2023; Ungern fortsatte till 0.756. Tröskeln är probabilistisk, inte deterministisk. En vändning kräver väljarmobilisering, enighet i oppositionskoalitionen och internationell påverkan. Polen uppnådde alla tre; Ungerns fönster stängdes innan någon av dem uppnåddes i tillräcklig skala.</p>\n\n<p style="border-left:3px solid #f39c12;padding-left:16px;margin-top:16px"><strong>V. Aktuell riskbedömning</strong></p>\n<p>Om Ungern skulle försöka återhämta sig i dag (2026): ett minsta fönster på 8.3+ år under ideala förhållanden. Verkligheten: vid CDRS 0.756 har Ungern passerat den strukturella vändpunkten. Lärarstrejker (2023) slogs ned; högt valdeltagande för oppositionen 2024 men Fidesz behöll makten; EU-medel som betalas ut utan villkor bevarar regimens kapacitet; oligarkiska eliter är djupt integrerade. Fönstret är stängt. Ungerns väg till återhämtning beror nu på yttre störningar — strukturell förändring i EU, ekonomisk kris eller förskjutning i det ryska trycket — snarare än enbart på inre demokratisk dynamik.</p>\n\n<p style="margin-top:20px;padding:16px;background:#f5f5f5;border-radius:6px"><strong>Den centrala diagnosen:</strong> Ungerns CDRS 0.756 är inte ett misslyckande för demokratin i sig utan ett misslyckande för försvaret av demokratin. Systemet för tidig varning fungerade — signalen var tydlig 2012. Polen visar att en vändning är möjlig om fönstret används; Ungern visar vad som händer när det ignoreras.</p>\n    `
   }
 
 };
@@ -9765,22 +9765,22 @@ function buildAutoDeeperAnalysis(countryName) {
   }
 
   var riskLevel = classifyLevel(end);
-  var zone = end < 0.22 ? 'Säker zon' : end < 0.36 ? 'Sluttning för tidig varning' : end < 0.66 ? 'Zon för eskalerande risk' : 'Kriszon';
+  var zone = end < 0.21 ? 'Säker zon' : end < 0.26 ? 'Sluttning för tidig varning' : end < 0.33 ? 'Zon för eskalerande risk' : 'Kriszon';
   var region = country.region || 'Global';
   var deltaPP = (delta * 100);
   var yearlyPP = deltaPP / yearsSpan;
-  var titleSuffix = end < 0.22 ? 'Stabilitetsrapport för dalbotten' : end < 0.36 ? 'Tidig varning-rapport' : end < 0.66 ? 'Eskaleringsrapport' : 'Kriszonsgenomgång';
+  var titleSuffix = end < 0.21 ? 'Stabilitetsrapport för dalbotten' : end < 0.26 ? 'Tidig varning-rapport' : end < 0.33 ? 'Eskaleringsrapport' : 'Kriszonsgenomgång';
 
   var family = getRegimeFamilyClassification(region, dom, traj, end);
   var regimeFamily = family.name;
   var familyLens = family.lens;
 
   var zoneLens = '';
-  if (end < 0.22) {
+  if (end < 0.21) {
     zoneLens = 'Den institutionella stressen är låg i jämförelse. Den största policyutmaningen är underhåll: att bevara demokratiska rutiner med högt förtroende innan chocker tvingar fram reaktiva reformer.';
-  } else if (end < 0.36) {
+  } else if (end < 0.26) {
     zoneLens = 'Denna position ligger ovanför dalbotten och bör behandlas som ett fönster för förebyggande åtgärder. I detta skede är kostnaderna för politiska ingripanden fortfarande betydligt lägre än kostnaderna för återhämtning i ett sent skede.';
-  } else if (end < 0.66) {
+  } else if (end < 0.33) {
     zoneLens = 'Systemet befinner sig på den övre sluttningen där stabiliserande återkopplingar försvagas och stigberoendet börjar dominera. Små politiska chocker kan nu ge oproportionerliga institutionella effekter.';
   } else {
     zoneLens = 'Landet befinner sig i krisezonen bortom kammen, där återhämtning kräver asymmetriskt större ansträngning än fortsatt försämring under oförändrade incitament.';
@@ -9844,13 +9844,13 @@ function buildAutoDeeperAnalysis(countryName) {
 }
 
 function getRegimeFamilyClassification(region, dom, traj, endScore) {
-  if ((traj === 'strong_recovery' || traj === 'mild_recovery') && endScore < 0.66) {
+  if ((traj === 'strong_recovery' || traj === 'mild_recovery') && endScore < 0.33) {
     return {
       name: 'Recovery Transition Case',
       lens: 'Mönstret liknar en återhämtningsövergång: den politiska konkurrensen har öppnat tillräckligt institutionellt utrymme för en partiell omsvängning, men återuppbyggnadens hållbarhet beror på konstitutionell och rättslig återstabilisering.'
     };
   }
-  if ((region === 'Sub-Saharan Africa' || region === 'Africa') && (dom === 'institutional resilience' || endScore >= 0.66)) {
+  if ((region === 'Sub-Saharan Africa' || region === 'Africa') && (dom === 'institutional resilience' || endScore >= 0.33)) {
     return {
       name: 'Security-Driven Fragility Case',
       lens: 'Mönstret liknar säkerhetsdriven skörhet, där erosion av statens kapacitet och tvångskontroll krymper varningsfönstren och kan påskynda institutionellt sammanbrott oberoende av formella valregler.'
@@ -9874,13 +9874,13 @@ function getRegimeFamilyClassification(region, dom, traj, endScore) {
       lens: 'Mönstret liknar klientelistisk kontroll: finansiell ogenomskinlighet och snedvriden resursfördelning försvagar först ansvarskanalerna och sprids sedan till de konstitutionella och organisatoriska lagren.'
     };
   }
-  if (endScore >= 0.66) {
+  if (endScore >= 0.33) {
     return {
       name: 'Autocratic Lock-In Case',
       lens: 'Mönstret liknar autokratisk inlåsning: en omsvängning kräver oproportionerligt stor politisk samordning och ofta en extern störning när systemet väl har stabiliserats i krisszonen.'
     };
   }
-  if (endScore >= 0.22) {
+  if (endScore >= 0.21) {
     return {
       name: 'Preventive Window Case',
       lens: 'Mönstret liknar ett fall med förebyggande fönster: den institutionella stressen är betydande men ännu inte strukturellt inlåst, så tidpunkten för insatser är fortfarande den avgörande variabeln.'
@@ -12249,11 +12249,12 @@ if(document.readyState==='loading'){
 <script>/* GIGI-CS-PATCH */(function(){var F={gigi:'gigiFrame',capacityshift:'capacityshiftFrame'};window.addEventListener('message',function(e){var d=e.data||{};if(d.type!=='gc-height'||!F[d.src])return;var f=document.getElementById(F[d.src]);if(!f||e.source!==f.contentWindow)return;if(d.height>200)f.style.height=Math.min(d.height+4,20000)+'px';});})();</script>
 <script>/* GIGI-CS-NAV2 */(function(){var B={gigiSection:'mnav-gigi',capacityshiftSection:'mnav-capacityshift',voteshiftSection:'mnav-voteshift','early-warning':'mnav-warning'};var F={gigi:'gigiFrame',capacityshift:'capacityshiftFrame'};window.addEventListener('message',function(e){var d=e.data||{};function ensure(el,off){setTimeout(function(){var r=el.getBoundingClientRect().top;if(Math.abs(r-off)>40)window.scrollTo(0,r+window.scrollY-off);},900);}if(d.type==='gc-nav'&&B[d.section]&&document.getElementById(d.section)){mnavTo(d.section,B[d.section]);var nb=document.getElementById('mainNavBar');ensure(document.getElementById(d.section),(nb?nb.offsetHeight:0)+8);}if(d.type==='gc-scroll'&&F[d.src]){var f=document.getElementById(F[d.src]);if(!f||e.source!==f.contentWindow)return;var y=f.getBoundingClientRect().top+window.scrollY+(d.top||0)-90;window.scrollTo({top:Math.max(0,y),behavior:'smooth'});setTimeout(function(){var y2=f.getBoundingClientRect().top+window.scrollY+(d.top||0)-90;if(Math.abs(window.scrollY-y2)>40)window.scrollTo(0,Math.max(0,y2));},900);}});})();</script>
 <script>/* FS-FIX-5 */(function(){window.addEventListener('message',function(e){var f=document.getElementById('hlCalcFrame');var d=e.data||{};if(!f||e.source!==f.contentWindow||d.src!=='hlcalc')return;if(d.type==='gc-height'&&d.height>200)f.style.height=Math.min(d.height+4,30000)+'px';if(d.type==='gc-scroll'&&isFinite(d.top))window.scrollTo(0,f.getBoundingClientRect().top+window.scrollY+d.top-70);});})();</script>
-<script>/* FS-FIX-6 */(function(){var T={"yes": "Ja", "no": "Nej", "above": "över κ med", "below": "under κ med", "warn": "empirisk varning (≥ 0,52, A3)", "nowarn": "under den empiriska varningen 0,52", "crit": "≥ 1 − κ = 0,7845: motsvarar D ≤ κ", "ci": "95 %", "ins": ["Nivån", "ligger över κ", "ligger på eller under κ", "Motsvarande CDRS", "Att nå målet kräver i genomsnitt en kumulativ återhämtningsrörelse på", "på demokratiskalan", "Det är ett genomsnitt över historiska episoder, inte en prognos för landet och inte en tidsuppskattning."]},SV=true,H=1.724,LO=1.53,HI=1.96,K=H/8,CASE='';function F(x,d){var t=(+x).toFixed(d==null?3:d);return SV?t.replace('.',','):t;}function st(id,v){var e=document.getElementById(id);if(e)e.innerHTML=v;}window.hlRender=function(){var g=function(id){var e=document.getElementById(id);return e?+e.value:NaN;};var d=g('hlScore'),pk=g('hlPeak'),tg=g('hlTarget');if(!isFinite(d))return;st('hlScoreV',F(d,2));st('hlPeakV',F(pk,2));st('hlTargetV',F(tg,2));var sm=document.getElementById('hlScoreMark'),pm=document.getElementById('hlPeakMark');if(sm)sm.style.left='calc('+(d*100).toFixed(1)+'% - 1.5px)';if(pm)pm.style.left='calc('+(pk*100).toFixed(1)+'% - 1px)';var eM=Math.max(0,pk-d),rM=Math.max(0,tg-d),cd=1-d,under=d<=K;st('hl6EMag','M⁻ = '+F(eM));st('hl6EMagS','D2');st('hl6Kappa','<span style="color:'+(under?'var(--danger)':'#1e7a46')+'">'+(under?T.yes:T.no)+'</span>');st('hl6KappaS','D '+(under?T.below:T.above)+' '+F(Math.abs(d-K),4));st('hl6Cdrs',F(cd));st('hl6CdrsS',cd>=1-K?T.crit:(cd>=0.52?T.warn:T.nowarn));st('hl6RMag','ΔM = '+F(rM));st('hl6RMagS',T.ci+' ℋ: '+F(LO,2)+'–'+F(HI,2));st('hl6Req',F(H*rM));st('hl6ReqS',T.ci+': '+F(LO*rM)+' – '+F(HI*rM));st('hl6Extra',F((H-1)*rM));st('hl6ExtraS','(ℋ − 1) = '+F(H-1));var I=T.ins,ins=document.getElementById('hlInsight');if(ins)ins.innerHTML=(CASE?'<span style="color:var(--gold-lt);font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em">'+CASE+'</span><br>':'')+'<span style="font-size:13px;line-height:1.7">'+I[0]+' D = '+F(d,2)+' '+(under?I[2]:I[1])+' (κ = '+F(K,4)+', S3). '+I[3]+' ≈ '+F(cd)+(cd>=0.52?' ≥ ':' &lt; ')+F(0.52,2)+' (A2, S4). '+(rM>0?I[4]+' ℋ·ΔM = '+F(H*rM)+' '+I[5]+' ('+T.ci+': '+F(LO*rM)+'–'+F(HI*rM)+', S6). '+I[6]:'')+'</span>';};document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[id^="hlcase-"]');if(b){var t=b.querySelectorAll('div');CASE=(t[0]?t[0].textContent:'')+(t[1]?' · '+t[1].textContent:'');setTimeout(window.hlRender,0);}var r=e.target.closest&&e.target.closest('[data-hlref]');if(r){e.preventDefault();var f=document.getElementById('hlCalcFrame');if(!f)return;f.loading='eager';var go=function(){try{f.contentWindow.postMessage({type:'hlcalc-goto',id:r.getAttribute('data-hlref')},'*');}catch(x){}};f.scrollIntoView();if(f.contentWindow&&f.contentWindow.HL_CALC)go();else f.addEventListener('load',function(){setTimeout(go,300);},{once:true});}},true);window.hlRender();})();</script>
+<script>/* FS-FIX-6 */(function(){var T={"yes": "Ja", "no": "Nej", "above": "över κ med", "below": "under κ med", "warn": "kalibrerad varning (≥ 0,26, A3)", "nowarn": "under den kalibrerade varningen 0,26", "crit": "≥ 1 − κ = 0,7845: motsvarar D ≤ κ", "ci": "95 %", "ins": ["Nivån", "ligger över κ", "ligger på eller under κ", "Motsvarande CDRS", "Att nå målet kräver i genomsnitt en kumulativ återhämtningsrörelse på", "på demokratiskalan", "Det är ett genomsnitt över historiska episoder, inte en prognos för landet och inte en tidsuppskattning."]},SV=true,H=1.724,LO=1.53,HI=1.96,K=H/8,CASE='';function F(x,d){var t=(+x).toFixed(d==null?3:d);return SV?t.replace('.',','):t;}function st(id,v){var e=document.getElementById(id);if(e)e.innerHTML=v;}window.hlRender=function(){var g=function(id){var e=document.getElementById(id);return e?+e.value:NaN;};var d=g('hlScore'),pk=g('hlPeak'),tg=g('hlTarget');if(!isFinite(d))return;st('hlScoreV',F(d,2));st('hlPeakV',F(pk,2));st('hlTargetV',F(tg,2));var sm=document.getElementById('hlScoreMark'),pm=document.getElementById('hlPeakMark');if(sm)sm.style.left='calc('+(d*100).toFixed(1)+'% - 1.5px)';if(pm)pm.style.left='calc('+(pk*100).toFixed(1)+'% - 1px)';var eM=Math.max(0,pk-d),rM=Math.max(0,tg-d),cd=1-d,under=d<=K;st('hl6EMag','M⁻ = '+F(eM));st('hl6EMagS','D2');st('hl6Kappa','<span style="color:'+(under?'var(--danger)':'#1e7a46')+'">'+(under?T.yes:T.no)+'</span>');st('hl6KappaS','D '+(under?T.below:T.above)+' '+F(Math.abs(d-K),4));st('hl6Cdrs',F(cd));st('hl6CdrsS',cd>=1-K?T.crit:(cd>=0.26?T.warn:T.nowarn));st('hl6RMag','ΔM = '+F(rM));st('hl6RMagS',T.ci+' ℋ: '+F(LO,2)+'–'+F(HI,2));st('hl6Req',F(H*rM));st('hl6ReqS',T.ci+': '+F(LO*rM)+' – '+F(HI*rM));st('hl6Extra',F((H-1)*rM));st('hl6ExtraS','(ℋ − 1) = '+F(H-1));var I=T.ins,ins=document.getElementById('hlInsight');if(ins)ins.innerHTML=(CASE?'<span style="color:var(--gold-lt);font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em">'+CASE+'</span><br>':'')+'<span style="font-size:13px;line-height:1.7">'+I[0]+' D = '+F(d,2)+' '+(under?I[2]:I[1])+' (κ = '+F(K,4)+', S3). '+I[3]+' ≈ '+F(cd)+(cd>=0.26?' ≥ ':' &lt; ')+F(0.26,2)+' (A2, S4). '+(rM>0?I[4]+' ℋ·ΔM = '+F(H*rM)+' '+I[5]+' ('+T.ci+': '+F(LO*rM)+'–'+F(HI*rM)+', S6). '+I[6]:'')+'</span>';};document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[id^="hlcase-"]');if(b){var t=b.querySelectorAll('div');CASE=(t[0]?t[0].textContent:'')+(t[1]?' · '+t[1].textContent:'');setTimeout(window.hlRender,0);}var r=e.target.closest&&e.target.closest('[data-hlref]');if(r){e.preventDefault();var f=document.getElementById('hlCalcFrame');if(!f)return;f.loading='eager';var go=function(){try{f.contentWindow.postMessage({type:'hlcalc-goto',id:r.getAttribute('data-hlref')},'*');}catch(x){}};f.scrollIntoView();if(f.contentWindow&&f.contentWindow.HL_CALC)go();else f.addEventListener('load',function(){setTimeout(go,300);},{once:true});}},true);window.hlRender();})();</script>
 <!-- FS-FIX-7: 13 texträttningar -->
 <!-- FS-FIX-7b -->
 <!-- FS-FIX-9 -->
 <!-- FS-FIX-10: 8 -->
 <!-- FS-FIX-12: 21 årsersättningar -->
+<!-- FS-FIX-13: 92 klassningsrader -->
 </body>
 </html>

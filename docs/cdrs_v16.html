@@ -1,6 +1,47 @@
-<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CDRS med V-Dem v16</title><style>body{margin:0;background:#f9f6f1;color:#1a1a1a;font:16px/1.6 "Source Sans 3",system-ui,sans-serif}main{max-width:900px;margin:0 auto;padding:28px 16px 60px}h1,h2{font-family:Georgia,serif}table{border-collapse:collapse;width:100%;margin:10px 0;background:#fff;font-size:14px}th,td{border-bottom:1px solid #e8e0d4;padding:6px 8px;text-align:left}th{background:#f2ede5}code,pre{font-family:ui-monospace,monospace;font-size:13px;background:#f2ede5;padding:1px 4px}pre{padding:10px;overflow-x:auto}</style></head><body><main><h1>CDRS med V-Dem v16: återuppbyggnad enligt originalreceptet (2026-11-25)</h1>
-<p><b>Status:</b> analysunderlag. Dashboarden är inte ändrad, och ett beslut om hur den ska uppdateras behövs först.</p>
-<h2>Vad som gjordes</h2>
+<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CDRS med V-Dem v16</title><style>body{margin:0;background:#f9f6f1;color:#1a1a1a;font:16px/1.6 "Source Sans 3",system-ui,sans-serif}main{max-width:900px;margin:0 auto;padding:28px 16px 60px}h1,h2{font-family:Georgia,serif}table{border-collapse:collapse;width:100%;margin:10px 0;background:#fff;font-size:14px}th,td{border-bottom:1px solid #e8e0d4;padding:6px 8px;text-align:left}th{background:#f2ede5}code,pre{font-family:ui-monospace,monospace;font-size:13px;background:#f2ede5;padding:1px 4px}pre{padding:10px;overflow-x:auto}</style></head><body><main><h1>CDRS med V-Dem v16: recept v2 och omkalibrering (2026-11-26)</h1>
+<p><b>Status:</b> dashboarden använder sedan v0.9.0 recept v2 (2010–2025) och de omkalibrerade gränserna nedan. Avsnitten längre ned om originalreceptet (v1) beskriver steget före.</p>
+<h2>Recept v2 (JoD-manusets Method Box) – används i dashboarden från v0.9.0</h2>
+<p>Bygget görs av <code>build_cdrs_v2.py</code>, och källfilerna ligger i <code>sources/raw/</code>.</p>
+<table><tr><th>Lager</th><th>Indikatorer (stress, fasta skalor)</th></tr><tr><td>Finanspolitiskt</td><td>SIPRI militärutgifter/statens utgifter (x/20 %), IMF budgetsaldo (−saldo/10 %), IMF bruttoskuld (x/150 % av BNP)</td></tr><tr><td>Konstitutionellt</td><td>V-Dem 1 − v2x_jucon; CCP nya konstitutioner, interimskonstitutioner och upphävanden t−4…t (/2)</td></tr><tr><td>Organisatoriskt</td><td>V-Dem 1 − v2x_cspart; IDEA 1 − free_parties_est; IDEA 1 − cred_elect_est</td></tr><tr><td>Normer</td><td>Freedom House ((PR + CL)/2 − 1)/6; RSF 1 − poäng/100 (index N = år N−1)</td></tr><tr><td>Motståndskraft</td><td>WGI (2,5 − GE)/5 och (2,5 − RL)/5; SIPRI militärutgifter/BNP (x/8 %)</td></tr><tr><td>CDRS</td><td>Medelvärde av lagren om minst tre lager finns</td></tr></table>
+<p><b>Källversioner:</b></p>
+<ul>
+<li>V-Dem v16, IDEA GSoD v10 (2026-06), Freedom House ratings 1973–2024 (FIW 2025), RSF-index 2013–2026, CCP Chronology v6, SIPRI Milex 1949–2025 och IMF DataMapper (WEO), hämtat 2026-11-26.</li>
+<li>WGI från Världsbanken (2026-09).</li>
+</ul>
+<p><b>Antaganden och avvikelser:</b></p>
+<ul>
+<li>Freedom House för 2025 förs fram från 2024.</li>
+<li>RSF saknas före 2012. Utan RSF blir normlagret i genomsnitt 0,03 högre, vilket motsvarar mindre än 0,01 i CDRS.</li>
+<li>IMF-värdena för 2025 är skattningar.</li>
+<li>IMF GFS ersätts av IMF WEO (DataMapper).</li>
+<li>För att skydda FS-004 läses av V-Dem för 2010–2022 bara v2x_jucon och v2x_cspart.</li>
+</ul>
+<h2>Omkalibrering (calibrate_v2.py, 2026-11-26)</h2>
+<ul>
+<li><b>Kalibrering:</b> demokratiska land-år 1996–2006 (v2x_regime 2 eller 3). Utfallet är övergång till autokrati inom 3 år, till och med 2009. Inga utfall från FS-004-perioden 2010–2022 används.</li>
+<li><b>Underlag:</b> 932 land-år, 57 fönster med övergång och 99 länder. <b>AUC 0.816</b>.</li>
+<li><b>Varningsgräns</b> W = 0.263 (95 % KI 0.248–0.316). Det är Youdens optimum, med sensitivitet 0.912 och specificitet 0.649.</li>
+<li><b>Ledtidsgräns</b> c_L = 0.214 (95 % KI 0.175–0.275). Det är den högsta tröskeln med sensitivitet ≥ 0,95.</li>
+<li><b>Riskband:</b> en logistisk modell, P = 1/(1 + e^−(-6.249 + 12.441·CDRS)), ger bandgränserna:</li>
+</ul>
+<p>  | Gräns (3-årsrisk) | CDRS | 95 % KI |</p>
+<p>  |---|---|---|</p>
+<p>  | 1 % | 0.133 | 0.04–0.205 |</p>
+<p>  | 2 % | 0.189 | 0.118–0.247 |</p>
+<p>  | 5 % | 0.266 | 0.218–0.318 |</p>
+<p>  | 10 % | 0.326 | 0.287–0.383 |</p>
+<p>  | 20 % | 0.391 | 0.35–0.466 |</p>
+<p>  I dashboarden används de avrundade gränserna 0,13 / 0,19 / 0,26 / 0,33 / 0,39.</p>
+<ul>
+<li><b>Test utanför urvalet:</b> 88 demokratier 2023, varav 7 blev autokratier 2024–2025 (ALB, BIH, GEO, MEX, ZMB, IDN, MNG). AUC 0.8. Vid W fångas 7 av 7 övergångar, med specificitet 0.531.</li>
+<li><b>Begränsningar:</b></li>
+<li>Fönstren överlappar, så 57 fönster motsvarar ungefär 20 episoder.</li>
+<li>Testet bygger på bara 7 händelser.</li>
+<li>Sannolikheterna gäller demokratier; för autokratier saknar de tolkning.</li>
+<li>De 28 röda-flagg-indikatorerna och landanalyserna är inte omräknade.</li>
+</ul>
+<h2>Steget före: originalreceptet v1 (2026-11-25)</h2>
+<h3>Vad som gjordes</h3>
 <ul>
 <li><b>Receptet:</b> <code>source/fieldshift_loader_original_2026-02-28.py</code> hämtades från Drive. Det är det enda hittade skriptet som producerar dashboardens fem lager och källmarkeringar. Filen kördes inte. Landlista och indikatorer lästes ut med AST, och receptet följs ordagrant i <code>build_cdrs_v16.py</code>.</li>
 <li><b>Data:</b></li>
