@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Är FieldShift bara gamla nyheter i ny förpackning? Ett strukturerat resonemang om vad FieldShift tillför – och vad det inte påstår.">
+<title>Varför FieldShift är annorlunda – FieldShift.org</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a1a;--ink-soft:#4a4a4a;--ink-light:#7a7a7a;
+  --paper:#f9f6f1;--paper-2:#f2ede5;--paper-3:#e8e0d4;--rule:#d0c8bc;
+  --gold:#b8922a;--gold-lt:#e8c96e;--gold-pale:#f5ead0;
+  --danger:#c0392b;--ok:#1e8449;--info:#1a5276;
+  --serif:'Libre Baskerville',Georgia,serif;
+  --sans:'Source Sans 3',system-ui,sans-serif;
+  --mono:'JetBrains Mono','Courier New',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.65;min-height:100vh}
+
+/* ── MASTHEAD ── */
+.masthead{background:var(--ink);color:var(--paper);border-bottom:3px solid var(--gold)}
+.masthead-inner{max-width:1200px;margin:0 auto;padding:32px 48px 24px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.masthead-title{font-family:var(--serif);font-size:clamp(24px,3vw,42px);font-weight:700;letter-spacing:-0.02em;line-height:1}
+.masthead-title span{color:var(--gold-lt)}
+.masthead-sub{font-size:11px;color:#b0a898;margin-top:8px;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.masthead-meta{text-align:right;font-family:var(--mono);font-size:11px;color:#888;line-height:2}
+
+/* ── NAV ── */
+.site-nav{background:#111;border-bottom:1px solid #333}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:flex;gap:0}
+.nav-link{color:#aaa;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;text-decoration:none;padding:14px 20px 12px;border-bottom:2px solid transparent;transition:all .15s}
+.nav-link:hover{color:var(--gold-lt)}
+.nav-link.active{color:var(--gold-lt);border-bottom-color:var(--gold)}
+
+/* ── PAGE HEADER ── */
+.page-header{background:var(--paper-2);border-bottom:1px solid var(--rule);padding:48px 48px 40px}
+.page-header-inner{max-width:800px;margin:0 auto}
+.page-meta{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-light);margin-bottom:12px}
+.page-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,44px);font-weight:700;line-height:1.2;margin-bottom:16px;color:var(--ink)}
+.page-standfirst{font-family:var(--serif);font-size:17px;font-style:italic;color:var(--ink-soft);line-height:1.65;max-width:680px}
+.page-toc{margin-top:28px;padding:20px 24px;background:white;border:1px solid var(--rule);max-width:480px}
+.toc-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);margin-bottom:10px}
+.toc-list{list-style:none}
+.toc-list li{padding:3px 0;font-size:13px}
+.toc-list a{color:var(--info);text-decoration:none;font-family:var(--mono);font-size:11px}
+.toc-list a:hover{color:var(--gold)}
+
+/* ── ARTICLE LAYOUT ── */
+.article-wrap{max-width:800px;margin:0 auto;padding:56px 48px 96px}
+
+/* ── ARTICLE TYPOGRAPHY ── */
+.article-wrap p{font-size:16px;line-height:1.8;color:var(--ink-soft);margin-bottom:1.4em}
+.article-wrap p:first-of-type{font-size:17px;color:var(--ink);font-weight:600}
+.article-wrap h2{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--ink);margin:2.5em 0 0.6em;padding-top:1.5em;border-top:1px solid var(--rule)}
+.article-wrap h3{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--ink);margin:1.8em 0 0.5em}
+.article-wrap ul,.article-wrap ol{margin:0.8em 0 1.4em 1.4em;color:var(--ink-soft)}
+.article-wrap li{font-size:15px;line-height:1.75;padding:2px 0}
+.article-wrap ol{counter-reset:list}
+.article-wrap ol li{list-style:none;counter-increment:list;display:flex;gap:12px}
+.article-wrap ol li::before{content:counter(list,decimal) ".";font-family:var(--mono);font-size:12px;color:var(--gold);min-width:20px;padding-top:3px;flex-shrink:0}
+
+/* ── CALLOUT ── */
+.callout{background:var(--paper-2);border-left:4px solid var(--gold);padding:18px 22px;margin:24px 0;border-radius:0 4px 4px 0}
+.callout p{margin:0;font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink)}
+
+/* ── METRIC HIGHLIGHT ── */
+.metric-hl{text-align:center;padding:28px 20px;background:var(--ink);margin:28px 0;color:var(--paper)}
+.metric-hl .val{font-family:var(--serif);font-size:42px;font-weight:700;color:var(--gold-lt);display:block;line-height:1.1}
+.metric-hl .lbl{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#888;margin-top:8px;display:block}
+
+/* ── COMPARISON TABLE ── */
+.compare-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px}
+.compare-table th{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light);padding:10px 14px;border-bottom:2px solid var(--ink);background:var(--paper-2);text-align:left}
+.compare-table td{padding:10px 14px;border-bottom:1px solid var(--paper-3);vertical-align:top;line-height:1.6;color:var(--ink-soft)}
+.compare-table tr:hover td{background:var(--paper-2)}
+.compare-table .yes{color:var(--ok);font-family:var(--mono);font-size:11px}
+.compare-table .no{color:var(--danger);font-family:var(--mono);font-size:11px}
+
+/* ── FIVE-LAYER TABLE ── */
+.layers-grid{display:grid;grid-template-columns:auto 1fr;gap:0;border:1px solid var(--rule);margin:20px 0}
+.layer-row{display:contents}
+.layer-row .l-num{font-family:var(--mono);font-size:11px;color:var(--gold);padding:14px 16px;border-bottom:1px solid var(--paper-3);background:var(--paper-2);font-weight:500}
+.layer-row .l-text{padding:14px 16px;border-bottom:1px solid var(--paper-3);background:white}
+.layer-row .l-text strong{font-family:var(--serif);display:block;margin-bottom:3px}
+.layer-row .l-text span{font-size:12px;color:var(--ink-light)}
+.layer-row:last-child .l-num,.layer-row:last-child .l-text{border-bottom:none}
+
+/* ── BOTTOM BOX ── */
+.bottom-box{background:var(--ink);padding:32px;margin-top:48px;color:var(--paper)}
+.bottom-box h3{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--gold-lt);margin-bottom:16px}
+.bottom-box ul{list-style:none;padding:0}
+.bottom-box li{font-size:14px;color:#b0a898;padding:5px 0;border-bottom:1px solid #2a2a2a;display:flex;gap:10px;line-height:1.6}
+.bottom-box li::before{content:"→";font-family:var(--mono);font-size:11px;color:var(--gold);flex-shrink:0;padding-top:2px}
+
+/* ── NAV PREV/NEXT ── */
+.article-nav{display:flex;justify-content:space-between;margin-top:48px;padding-top:24px;border-top:1px solid var(--rule)}
+.article-nav a{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);text-decoration:none}
+.article-nav a:hover{color:var(--ink)}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);color:#777;padding:32px 48px;font-family:var(--mono);font-size:11px;line-height:2;border-top:3px solid var(--gold)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:24px}
+footer a{color:#888;text-decoration:none}
+footer a:hover{color:var(--gold-lt)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .masthead-inner{grid-template-columns:1fr}
+  .masthead-inner,.nav-inner,.page-header,.footer-inner{padding-left:24px;padding-right:24px}
+  .article-wrap{padding:40px 24px 80px}
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead" role="banner">
+  <div class="masthead-inner">
+    <div>
+      <div class="masthead-title"><a href="index_sv.html" style="text-decoration:none;color:inherit">Field<span>Shift</span></a></div>
+      <div class="masthead-sub">System för tidig varning för demokratisk erosion · Hedlund-Leijon-principen</div>
+    </div>
+    <div class="masthead-meta">
+      ℋ = 1,724 &nbsp;·&nbsp; κ = 0,216<br>
+      Karlstads universitet
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="site-nav" aria-label="Huvudmeny">
+  <div class="nav-inner">
+    <a href="index_sv.html" class="nav-link">Start</a>
+    <a href="dashboard_sv.html" class="nav-link">Dashboard</a>
+    <a href="why-fieldshift-is-different_sv.html" class="nav-link active" aria-current="page">Forskning</a>
+    <a href="https://fieldshift.streamlit.app" class="nav-link" target="_blank" rel="noopener">Vetenskap ↗</a>
+    <a href="why-fieldshift-is-different.html" class="nav-link" lang="en" hreflang="en" style="margin-left:auto">English</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-meta">Forskning · Begreppsliga grunder</div>
+    <h1 class="page-title">Är FieldShift bara gamla nyheter<br>i ny förpackning?</h1>
+    <p class="page-standfirst">
+      Ett strukturerat resonemang om vad FieldShift tillför utöver befintliga
+      ramverk för demokrati – och, lika viktigt, vad det inte påstår.
+    </p>
+    <nav class="page-toc" aria-label="Innehållsförteckning">
+      <div class="toc-label">Innehåll</div>
+      <ul class="toc-list">
+        <li><a href="#answer">Det korta svaret</a></li>
+        <li><a href="#what-is-new">Vad är egentligen nytt?</a></li>
+        <li><a href="#how-different">Hur FieldShift skiljer sig</a></li>
+        <li><a href="#does-better">Vad FieldShift gör bättre</a></li>
+        <li><a href="#does-not-claim">Vad FieldShift inte påstår</a></li>
+        <li><a href="#fair-assessment">En rättvis bedömning</a></li>
+        <li><a href="#bottom-line">Slutsats</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<!-- ARTICLE -->
+<div class="article-wrap">
+
+  <p id="answer">Nej.</p>
+
+  <p>Grundbeståndsdelarna i FieldShift är inte nya. Demokratisk tillbakagång, institutionell erosion, instabila regimer och tippningspunkter har studerats i årtionden. Forskare som Robert Dahl, Nancy Bermeo, Levitsky och Way samt Lührmann och Lindberg har redan kartlagt stora delar av det begreppsliga fältet.</p>
+
+  <p>Det FieldShift tillför är något annat:</p>
+
+  <ul>
+    <li>ett framåtblickande ramverk för tidig varning</li>
+    <li>en kvantifierad asymmetri mellan erosion och återhämtning</li>
+    <li>en kalibrerad varningsgräns</li>
+    <li>en mätmodell som bygger på påfrestning, i stället för ett index som bara mäter tillstånd</li>
+    <li>en stegvis beskrivning av hur demokratiska system försvagas över tid</li>
+  </ul>
+
+  <p>FieldShift är alltså inte nytt i vad det studerar. Det är nytt i hur det operationaliserar risk, när det upptäcker fara och hur det omsätter demokratisk erosion i ett mätbart system för tidig varning.</p>
+
+  <!-- WHAT IS NEW -->
+  <h2 id="what-is-new">Vad är egentligen nytt?</h2>
+
+  <p>FieldShift gör fyra påståenden som tillsammans skiljer det från de flesta befintliga ramverk för demokrati.</p>
+
+  <h3>1. Det är byggt för att varna, inte för att beskriva</h3>
+
+  <p>De flesta demokratiindex beskriver var ett land befinner sig i dag. FieldShift är utformat för att uppskatta när ett system går in i en farlig zon, innan ett sammanbrott inträffar.</p>
+
+  <div class="callout">
+    <p>Det huvudsakliga syftet är inte klassificering. Det är tidig upptäckt.</p>
+  </div>
+
+  <h3>2. Det mäter institutionell påfrestning, inte bara institutionellt tillstånd</h3>
+
+  <p>Traditionella index mäter till stor del det demokratiska beståndet: hur demokratiskt, fritt, konkurrensutsatt eller begränsat ett system verkar vara.</p>
+
+  <p>FieldShift fokuserar i stället på institutionell påfrestning: ackumulerat tryck inom flera områden som kan driva en demokrati mot sammanbrott redan innan sammanbrottet syns tydligt i vanliga regimmått.</p>
+
+  <h3>3. Det kvantifierar asymmetrin mellan erosion och återhämtning</h3>
+
+  <p>Ett centralt empiriskt resultat i FieldShift är att demokratisk erosion tenderar att gå snabbare än demokratisk återhämtning. Asymmetrin sammanfattas i Hedlund-Leijon-konstanten:</p>
+
+  <div class="metric-hl" role="img" aria-label="HL-konstanten: 1,724">
+    <span class="val">ℋ = 1,724</span>
+    <span class="lbl">Hedlund-Leijon-konstanten – asymmetri mellan erosion och återhämtning<br>Validerad på V-Dem 1789–2024 (200 länder, 25&#8239;709 observationer)</span>
+  </div>
+
+  <p>Konstanten fångar det bredare empiriska mönstret att demokratier i allmänhet är lättare att bryta ned än att bygga upp igen.</p>
+
+  <h3>4. Det identifierar en gräns för tidig varning</h3>
+
+  <p>FieldShift föreslår en empiriskt kalibrerad varningszon kring:</p>
+
+  <div class="metric-hl" role="img" aria-label="Kappagräns: 0,22">
+    <span class="val">κ ≈ 0,22</span>
+    <span class="lbl">Kritisk tippningsgräns – härledd som κ = ℋ/8<br>Under denna nivå blir en accelererande autokratisering historiskt sannolik</span>
+  </div>
+
+  <p>Det betyder inte att ett sammanbrott är oundvikligt. Det betyder att risken ökar påtagligt när den institutionella påfrestningen passerar det området. κ är en varningsgräns, inte en punkt där det inte finns någon återvändo.</p>
+
+  <!-- HOW DIFFERENT -->
+  <h2 id="how-different">Hur FieldShift skiljer sig från befintliga ramverk</h2>
+
+  <h3>Begreppsmässigt</h3>
+
+  <p>De flesta ramverk ställer en av tre frågor: Hur demokratiskt är landet? Hur fritt är landet? Hur fungerar hybridregimer eller auktoritära regimer?</p>
+
+  <div class="callout">
+    <p>FieldShift ställer en annan fråga: När går en demokrati in i en strukturellt farlig fas?</p>
+  </div>
+
+  <p>Den förskjutningen är viktig. Den flyttar fokus från klassificering till tidpunkt.</p>
+
+  <h3>Metodmässigt</h3>
+
+  <p>FieldShift skiljer sig från många befintliga angreppssätt på tre sätt: det behandlar demokratisk erosion som en dynamisk process snarare än ett statiskt tillstånd, det skiljer varning från sammanbrott och det modellerar erosion som stegvis snarare än ögonblicklig.</p>
+
+  <p>Ramverket utgår från att demokratisk försämring ofta sker i lager. Trycket når inte alla institutionella områden samtidigt. Den föreslagna ordningsföljden är:</p>
+
+  <div class="layers-grid" role="list">
+    <div class="layer-row" role="listitem">
+      <div class="l-num">01</div>
+      <div class="l-text"><strong>Finanspolitisk integritet</strong><span>Budgetinsyn, finanspolitisk kapacitet, indikatorer från IMF/WGI</span></div>
+    </div>
+    <div class="layer-row" role="listitem">
+      <div class="l-num">02</div>
+      <div class="l-text"><strong>Konstitutionella begränsningar</strong><span>Domstolarnas oberoende, rättsstatlighet, indikatorer från V-Dem</span></div>
+    </div>
+    <div class="layer-row" role="listitem">
+      <div class="l-num">03</div>
+      <div class="l-text"><strong>Organisatorisk konkurrens</strong><span>Valens integritet, förvaltningens opartiskhet</span></div>
+    </div>
+    <div class="layer-row" role="listitem">
+      <div class="l-num">04</div>
+      <div class="l-text"><strong>Demokratiska normer</strong><span>Ledarskapets beteende, den verkställande maktens normefterlevnad</span></div>
+    </div>
+    <div class="layer-row" role="listitem">
+      <div class="l-num">05</div>
+      <div class="l-text"><strong>Institutionell motståndskraft</strong><span>Pressfrihet, civilsamhällets utrymme, utökade signaler för tidig varning</span></div>
+    </div>
+  </div>
+
+  <p>Denna logik med ”stegvis utlösning” är en av ramverkets viktigaste nyheter.</p>
+
+  <h3>Empiriskt</h3>
+
+  <p>FieldShift presenteras som ett öppet, prövbart och replikerbart ramverk snarare än ett svart-låda-mått. Resultaten från prototypen tyder på:</p>
+
+  <ul>
+    <li>en genomsnittlig ledtid för tidig varning på omkring 3,3 år</li>
+    <li>starka resultat utanför urvalet (86,7 % träffsäkerhet, 17 episoder)</li>
+    <li>en icke-linjär riskökning nära den föreslagna varningsgränsen</li>
+    <li>ovanligt hög precision under testperioden, med mer måttlig täckning (recall)</li>
+  </ul>
+
+  <p>Tolkningen är inte att FieldShift tar bort osäkerheten. Den är att ramverket gör strukturell demokratisk risk synlig tidigare än vanliga ramverk brukar göra.</p>
+
+  <!-- COMPARISON TABLE -->
+  <h3>Jämförelse med befintliga index</h3>
+
+  <table class="compare-table" role="table">
+    <thead>
+      <tr>
+        <th>Förmåga</th>
+        <th>V-Dem / FH / EIU</th>
+        <th>FieldShift</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Beskriver nuvarande demokratisk kvalitet</td>
+        <td class="yes">✓ Huvudfunktion</td>
+        <td class="yes">✓ Härledd</td>
+      </tr>
+      <tr>
+        <td>Tidig varning före synligt sammanbrott</td>
+        <td class="no">✗ Inte huvudfunktion</td>
+        <td class="yes">✓ Huvudfunktion</td>
+      </tr>
+      <tr>
+        <td>Mäter institutionell påfrestning (inte bara bestånd)</td>
+        <td class="no">✗ Fokus på tillstånd</td>
+        <td class="yes">✓ Fokus på påfrestning</td>
+      </tr>
+      <tr>
+        <td>Kvantifierar asymmetrin mellan erosion och återhämtning</td>
+        <td class="no">✗ Inte kvantifierad</td>
+        <td class="yes">✓ ℋ = 1,724</td>
+      </tr>
+      <tr>
+        <td>Kalibrerad tippningsgräns</td>
+        <td class="no">✗ Inte definierad</td>
+        <td class="yes">✓ κ = 0,216</td>
+      </tr>
+      <tr>
+        <td>Stegvis modell med risklager</td>
+        <td class="no">✗ Samtidiga</td>
+        <td class="yes">✓ Ordningsföljd i fem lager</td>
+      </tr>
+      <tr>
+        <td>Ersätter V-Dem / Freedom House</td>
+        <td class="yes">Primär</td>
+        <td class="no">Nej – bygger på dem</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- DOES BETTER -->
+  <h2 id="does-better">Vad FieldShift gör bättre</h2>
+
+  <h3>Tidig varning</h3>
+  <p>De flesta demokratimått är utmärkta på att dokumentera erosion när den väl har blivit synlig. Betydligt färre är utformade för att upptäcka förhöjd fara före ett sammanbrott. FieldShift är byggt kring den saknade funktionen.</p>
+
+  <h3>Asymmetri</h3>
+  <p>Statsvetare har länge konstaterat att institutioner kan raseras snabbare än de kan repareras. FieldShift försöker kvantifiera den asymmetrin i stället för att låta den förbli en kvalitativ intuition.</p>
+
+  <h3>Påfrestning kontra tillstånd</h3>
+  <p>Ett land kan fortfarande se demokratiskt ut på papperet och samtidigt bära på betydande strukturell påfrestning. FieldShift försöker fånga det glappet.</p>
+
+  <h3>Användbar tidpunkt</h3>
+  <p>Ett varningsfönster på ungefär en mandatperiod är politiskt meningsfullt. Det kan ge domstolar, oppositionspartier, civilsamhället, journalister och internationella aktörer utrymme att agera innan sammanbrottet har blivit fastlåst.</p>
+
+  <!-- DOES NOT CLAIM -->
+  <h2 id="does-not-claim">Vad FieldShift inte påstår</h2>
+
+  <p>FieldShift är ingen kristallkula och ska inte presenteras som en.</p>
+
+  <p>Det gör inte anspråk på att:</p>
+  <ul>
+    <li>förutsäga exakt vad som utlöser ett sammanbrott</li>
+    <li>peka ut vilken aktör som orsakar det avgörande brottet</li>
+    <li>garantera perfekt träffsäkerhet</li>
+    <li>ersätta V-Dem, Freedom House eller liknande index</li>
+    <li>minska betydelsen av handlingsutrymme, ledarskap eller tillfälligheter</li>
+  </ul>
+
+  <div class="callout">
+    <p>Det identifierar strukturella förhållanden med förhöjd risk. Det påstår inte att strukturen avgör ödet. Den skillnaden är avgörande.</p>
+  </div>
+
+  <!-- FAIR ASSESSMENT -->
+  <h2 id="fair-assessment">En rättvis bedömning</h2>
+
+  <p>Är FieldShift då bara gammal teori i ny förpackning? Ett rättvist svar är:</p>
+
+  <div class="metric-hl" role="img" aria-label="Bedömning: Nej, men byggt på äldre grunder">
+    <span class="val" style="font-size:28px">Nej – men det är byggt<br>på äldre grunder.</span>
+    <span class="lbl" style="margin-top:12px">Begreppen står i kontinuitet med tidigare forskning om demokrati, institutioner,<br>stigberoende, instabilitet och tippningspunkter.</span>
+  </div>
+
+  <p>Bidraget ligger i syntes, kvantifiering, kalibrering och operativ utformning.</p>
+
+  <p>FieldShift bör förstås som ett ramverk som tar nästa steg snarare än en uppfinning från grunden. Det förkastar inte Dahl, Pierson, Bermeo, Scheffer, Levitsky eller Lührmann. Det bygger på dem och försöker göra något de i regel inte gjorde: omvandla demokratisk sårbarhet till en empiriskt prövbar arkitektur för tidig varning.</p>
+
+  <!-- BOTTOM LINE -->
+  <h2 id="bottom-line">Slutsats</h2>
+
+  <p>FieldShift är inte gamla nyheter i ny förpackning. Det är ett nytt operativt ramverk byggt på etablerad demokratiteori och samtida empirisk mätning.</p>
+
+  <div class="bottom-box" role="region" aria-label="Sammanfattning: fem särskiljande bidrag">
+    <h3>Fem särskiljande bidrag</h3>
+    <ul>
+      <li>Asymmetri mellan erosion och återhämtning – kvantifierad, inte antagen</li>
+      <li>En exakt konstant: ℋ = 1,724, validerad på 200 länder, 1789–2024</li>
+      <li>En gräns för tidig varning: κ ≈ 0,22, empiriskt kalibrerad</li>
+      <li>Stegvis mätning av institutionell påfrestning i fem lager</li>
+      <li>En ledtidsmodell utformad för insatser före ett sammanbrott</li>
+    </ul>
+  </div>
+
+  <p style="margin-top:32px">Det är där originaliteten ligger.</p>
+
+  <!-- ARTICLE NAV -->
+  <div class="article-nav">
+    <a href="index_sv.html">← Tillbaka till FieldShifts startsida</a>
+    <a href="dashboard_sv.html">Öppna dashboarden →</a>
+  </div>
+
+</div><!-- /article-wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <strong style="color:#ccc;font-family:var(--serif);font-size:14px">FieldShift.org</strong><br>
+      Hedlund-Leijon-principen · ℋ = 1,724 · κ = 0,216<br>
+      Karlstads universitet · Värmdö Yrkesgymnasium<br>
+      Data: V-Dem, Freedom House, World Bank WGI, SIPRI, IMF
+    </div>
+    <div style="text-align:right">
+      <a href="index_sv.html">Start</a> &nbsp;·&nbsp;
+      <a href="dashboard_sv.html">Dashboard</a> &nbsp;·&nbsp;
+      <a href="why-fieldshift-is-different_sv.html">Forskning</a> &nbsp;·&nbsp;
+      <a href="https://fieldshift.streamlit.app" target="_blank" rel="noopener">Vetenskap ↗</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

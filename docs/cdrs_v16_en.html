@@ -1,0 +1,93 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CDRS with V-Dem v16</title><style>body{margin:0;background:#f9f6f1;color:#1a1a1a;font:16px/1.6 "Source Sans 3",system-ui,sans-serif}main{max-width:900px;margin:0 auto;padding:28px 16px 60px}h1,h2{font-family:Georgia,serif}table{border-collapse:collapse;width:100%;margin:10px 0;background:#fff;font-size:14px}th,td{border-bottom:1px solid #e8e0d4;padding:6px 8px;text-align:left}th{background:#f2ede5}code,pre{font-family:ui-monospace,monospace;font-size:13px;background:#f2ede5;padding:1px 4px}pre{padding:10px;overflow-x:auto}</style></head><body><main><p style="text-align:right;font-size:13px;margin:0"><a href="cdrs_v16.html" lang="sv" hreflang="sv">Svenska</a></p><h1>CDRS with V-Dem v16: recipe v2 and recalibration (2026-11-26)</h1>
+<p><b>Status:</b> since v0.9.0, the dashboard uses recipe v2 (2010–2025) and the recalibrated thresholds below. The sections further down on the original recipe (v1) describe the previous step.</p>
+<h2>Recipe v2 (Method Box of the JoD manuscript) – used in the dashboard from v0.9.0</h2>
+<p>The build is done by <code>build_cdrs_v2.py</code>, and the source files are in <code>sources/raw/</code>.</p>
+<table><tr><th>Layer</th><th>Indicators (stress, fixed scales)</th></tr><tr><td>Fiscal</td><td>SIPRI military expenditure/government expenditure (x/20 %), IMF budget balance (−balance/10 %), IMF gross debt (x/150 % of GDP)</td></tr><tr><td>Constitutional</td><td>V-Dem 1 − v2x_jucon; CCP new constitutions, interim constitutions and suspensions t−4…t (/2)</td></tr><tr><td>Organizational</td><td>V-Dem 1 − v2x_cspart; IDEA 1 − free_parties_est; IDEA 1 − cred_elect_est</td></tr><tr><td>Norms</td><td>Freedom House ((PR + CL)/2 − 1)/6; RSF 1 − score/100 (index N = year N−1)</td></tr><tr><td>Resilience</td><td>WGI (2.5 − GE)/5 and (2.5 − RL)/5; SIPRI military expenditure/GDP (x/8 %)</td></tr><tr><td>CDRS</td><td>Mean of the layers if at least three layers are available</td></tr></table>
+<p><b>Source versions:</b></p>
+<ul>
+<li>V-Dem v16, IDEA GSoD v10 (2026-06), Freedom House ratings 1973–2024 (FIW 2025), RSF index 2013–2026, CCP Chronology v6, SIPRI Milex 1949–2025 and IMF DataMapper (WEO), retrieved 2026-11-26.</li>
+<li>WGI from the World Bank (2026-09).</li>
+</ul>
+<p><b>Assumptions and deviations:</b></p>
+<ul>
+<li>Freedom House for 2025 is carried forward from 2024.</li>
+<li>RSF is missing before 2012. Without RSF, the Norms layer is on average 0.03 higher, which corresponds to less than 0.01 in CDRS.</li>
+<li>The IMF values for 2025 are estimates.</li>
+<li>IMF GFS is replaced by IMF WEO (DataMapper).</li>
+<li>To protect FS-004, only v2x_jucon and v2x_cspart are read from V-Dem for 2010–2022.</li>
+</ul>
+<h2>Recalibration (calibrate_v2.py, 2026-11-26)</h2>
+<ul>
+<li><b>Calibration:</b> democratic country-years 1996–2006 (v2x_regime 2 or 3). The outcome is a transition to autocracy within 3 years, up to and including 2009. No outcomes from the FS-004 reserved period 2010–2022 are used.</li>
+<li><b>Basis:</b> 932 country-years, 57 windows with a transition and 99 countries. <b>AUC 0.816</b>.</li>
+<li><b>Warning threshold</b> W = 0.263 (95% CI 0.248–0.316). This is the Youden optimum, with sensitivity 0.912 and specificity 0.649.</li>
+<li><b>Lead-time threshold</b> c_L = 0.214 (95% CI 0.175–0.275). This is the highest threshold with sensitivity ≥ 0.95.</li>
+<li><b>Risk bands:</b> a logistic model, P = 1/(1 + e^−(-6.249 + 12.441·CDRS)), gives the band limits:</li>
+</ul>
+<p>  | Limit (3-year risk) | CDRS | 95% CI |</p>
+<p>  |---|---|---|</p>
+<p>  | 1 % | 0.133 | 0.04–0.205 |</p>
+<p>  | 2 % | 0.189 | 0.118–0.247 |</p>
+<p>  | 5 % | 0.266 | 0.218–0.318 |</p>
+<p>  | 10 % | 0.326 | 0.287–0.383 |</p>
+<p>  | 20 % | 0.391 | 0.35–0.466 |</p>
+<p>  The dashboard uses the rounded limits 0.13 / 0.19 / 0.26 / 0.33 / 0.39.</p>
+<ul>
+<li><b>Out-of-sample test:</b> 88 democracies in 2023, of which 7 became autocracies in 2024–2025 (ALB, BIH, GEO, MEX, ZMB, IDN, MNG). AUC 0.8. At W, 7 of 7 transitions are captured, with specificity 0.531.</li>
+<li><b>Limitations:</b></li>
+<li>The windows overlap, so 57 windows correspond to about 20 episodes.</li>
+<li>The test is based on only 7 events.</li>
+<li>The probabilities apply to democracies; for autocracies they have no interpretation.</li>
+<li>The 28 red-flag indicators (quantile matching, <code>results/rfs_trosklar_v2.json</code>) and the 24 country analyses (<code>results/landanalyser_v2.json</code>) have been recalculated in dashboard v0.10.0.</li>
+<li>The observed line in the election chart is based on Freedom House subscore A (<code>build_fh_electoral.py</code>, <code>results/fh_electoral_process.json</code>).</li>
+</ul>
+<h2>The previous step: original recipe v1 (2026-11-25)</h2>
+<h3>What was done</h3>
+<ul>
+<li><b>The recipe:</b> <code>source/fieldshift_loader_original_2026-02-28.py</code> was retrieved from Drive. It is the only script found that produces the dashboard&#x27;s five layers and source labels. The file was not run. The country list and indicators were extracted with AST, and the recipe is followed verbatim in <code>build_cdrs_v16.py</code>.</li>
+<li><b>Data:</b></li>
+<li>V-Dem v16 (<code>V-Dem-CY-Full+Others-v16.csv</code>): only <code>country_text_id</code>, <code>year</code>, <code>v2x_jucon</code>, <code>v2x_cspart</code> and <code>v2x_libdem</code> were read.</li>
+<li>World Bank WGI (API source 3, new codes <code>GOV_WGI_*</code>, updated 2026-09-25) and WDI (military and education expenditure, updated 2026-11-11), 2010–2025: <code>data/worldbank_2010_2025.json</code>.</li>
+<li><b>FS-004:</b> V-Dem 2010–2022 was read under Thomas&#x27;s decision of 2026-11-25 (&quot;Ja, bara för dashboarden&quot;) (&quot;Yes, only for the dashboard&quot;). It applies only to the dashboard&#x27;s descriptive layers. Nothing here may be used in FS-004.</li>
+<li><b>Results:</b></li>
+<li><code>results/countries_v16_2010_2023.json</code>: the same period as the dashboard, for comparison.</li>
+<li><code>results/countries_v16_2010_2025.json</code>: updated up to and including 2025.</li>
+</ul>
+<p>  Both files have the same format as the dashboard&#x27;s <code>countries.json</code>: 163 available countries and 6 unavailable.</p>
+<h2>The recipe (fieldshift_loader.py)</h2>
+<table><tr><th>Layer</th><th>Measure (stress, higher = worse)</th></tr><tr><td>Fiscal</td><td>WDI: military expenditure as % of GDP (stress) and education expenditure as % of GDP (inverted)</td></tr><tr><td>Constitutional</td><td>1 − V-Dem <code>v2x_jucon</code></td></tr><tr><td>Organizational</td><td>1 − V-Dem <code>v2x_cspart</code> (WGI Voice &amp; Accountability if V-Dem is missing)</td></tr><tr><td>Behavioral</td><td>WGI Control of Corruption and Political Stability (inverted)</td></tr><tr><td>Extended</td><td>1 − V-Dem <code>v2x_libdem</code> (WGI Rule of Law and Government Effectiveness if V-Dem is missing; Freedom House last)</td></tr><tr><td>CDRS</td><td>Mean of the available layers, if at least three layers are available</td></tr></table>
+<p>The World Bank values are min-max normalized per indicator across all units and years that the API returns, including regional aggregates. This is a weakness in the original, and it is kept here.</p>
+<p><b>Deviations from the original:</b></p>
+<ul>
+<li>Freedom House is not available locally. The source is used only when V-Dem is missing.</li>
+<li>Taiwan has been added, because the dashboard includes it. It is based on V-Dem only.</li>
+<li>SIPRI, IMF, RSF, CCP and IDEA are not used in the original calculation either.</li>
+</ul>
+<h2>Comparison with current dashboard data (same country and year, 2010–2023)</h2>
+<table><tr><th>Layer</th><th>n</th><th>Correlation r</th><th>Mean today</th><th>Mean with v16</th><th>Mean deviation</th></tr><tr><td>Fiscal</td><td>704</td><td>0.12</td><td>0.479</td><td>0.345</td><td>0.210</td></tr><tr><td>Constitutional</td><td>728</td><td>0.81</td><td>0.483</td><td>0.395</td><td>0.174</td></tr><tr><td>Organizational</td><td>728</td><td>0.67</td><td>0.504</td><td>0.321</td><td>0.214</td></tr><tr><td>Behavioral</td><td>724</td><td>0.84</td><td>0.495</td><td>0.480</td><td>0.084</td></tr><tr><td>Extended</td><td>699</td><td>0.89</td><td>0.483</td><td>0.570</td><td>0.125</td></tr><tr><td><b>CDRS</b></td><td>728</td><td><b>0.88</b></td><td>0.490</td><td>0.424</td><td>0.091</td></tr></table>
+<p>Examples of CDRS for 2023, today vs v16: USA 0.552 / 0.145; Hungary 0.756 / 0.401; India 0.664 / 0.410; Sweden 0.162 / 0.084; Russia 0.920 / 0.770.</p>
+<h2>Assessment</h2>
+<ul>
+<li><b>The recipe does not reproduce the current values.</b> The ranking is similar to the current one (r = 0.88), but the levels differ a lot for individual countries. The Fiscal layer has in practice no relationship with the current values (r = 0.12).</li>
+<li><b>The current <code>countries.json</code> has features that do not arise from the recipe:</b></li>
+<li>two decimals;</li>
+<li>3–9 years per country (usually 4) instead of all years;</li>
+<li>even steps, for example Sweden&#x27;s Fiscal layer 0.11 → 0.12 → 0.14 → 0.17 → 0.20.</li>
+</ul>
+<p>   The origin of the current values is therefore unclear. They may have been processed or compiled in a different way than with this recipe. This cannot be determined from the material found so far.</p>
+<ul>
+<li><b>Consequences for what builds on the current values:</b></li>
+<li>Table 1 of the JoD manuscript and its statistics (Cohen d, 86.7 %, AUC 0.96);</li>
+<li>the warning threshold 0.52 and the lead-time threshold c_L ≈ 0.22;</li>
+<li>A3, A4 and A6 in the calculator.</li>
+</ul>
+<p>   None of this can be transferred to the v16 values without new calibration and validation.</p>
+<h2>Decisions needed</h2>
+<ul>
+<li>Whether the dashboard should switch to the reconstructed v16 values, as a new version with new calibration, or keep the current values with a clear provenance label.</li>
+<li>Whether the original step that produced the current values should be traced, and if so, where.</li>
+</ul>
+<h2>Reproduce</h2>
+<pre>
+python -I build_cdrs_v16.py &quot;C:/Users/thoma/Downloads/V-Dem-CY-Full+Others-v16.csv&quot;
+</pre></main></body></html>
