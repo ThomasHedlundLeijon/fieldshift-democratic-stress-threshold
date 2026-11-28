@@ -1,0 +1,63 @@
+{
+ "study": "VS-WORLD v1 (VoteShift världen: framåtblickande prognoser för nationella val)",
+ "status": "PROSPEKTIV. Varje prognos låses och publiceras före valdagen och poängsätts mot det officiella utfallet. Ingen prognos får ändras efter låsning.",
+ "written": "2026-11-28",
+ "author": "Thomas Hedlund Leijon, FieldShift.org",
+ "decisions": "Thomas 2026-11-28: nationella parlaments- och presidentval; reservmodell med tydlig märkning där mätningar saknas; automatisk körning varje vecka med låsning 7 dagar före valdagen; jämförelse mot enkelt mätningssnitt, föregående resultat, prediktionsmarknader och publicerade prognosmakare.",
+ "population": {
+  "include": "Nationella val till underhus eller enkammarparlament och direkta presidentval i suveräna stater med valdag från och med 2026-12-08 (första valdag som kan låsas 7 dagar efter protokollets låsning).",
+  "exclude": "Folkomröstningar, regionala och lokala val, indirekta presidentval, val enbart till överhus.",
+  "calendar": "data/calendar_*.json, uppdateras varje vecka. Val som läggs till senare ingår om de kan låsas i tid.",
+  "competitiveness_flag": "Val där det enligt valartikeln eller oberoende valobservatörer saknas verklig opposition märks 'icke-konkurrensutsatt'. De prognostiseras men redovisas och poängsätts separat."
+ },
+ "lock": {
+  "time": "Valdagen minus 7 dagar, kl. 23:59 UTC. För presidentval med två omgångar låses varje omgång separat 7 dagar före respektive omgång.",
+  "cutoff": "Endast mätningar vars fältperiod slutade senast vid låsningen. Saknas publiceringsdatum används fältperiodens sista dag plus 1 dag; detta registreras.",
+  "proof": "Prognosen sparas som JSON, SHA-256-hashas och committas till GitHub-arkivet (voteshift-world/locks/) före valdagen. Committidpunkten är det offentliga beviset.",
+  "late": "Kan en prognos inte låsas senast 1 dag före valdagen görs ingen prognos för valet; det registreras som 'ej låst i tid'.",
+  "date_change": "Flyttas valdagen efter låsning gäller den låsta prognosen; en ny prognos får låsas 7 dagar före den nya dagen och redovisas som version 2. Båda poängsätts."
+ },
+ "targets": {
+  "Q1_shares": "Röstandel (procent) i första omgången för varje parti eller kandidat som har minst 2 % i föregående val eller i mätningssnittet, samt 'övriga'.",
+  "Q2_winner": "Sannolikhet för vilket parti eller vilken kandidat som får flest röster (första omgången för presidentval).",
+  "Q3_threshold": "Där en nationell spärr finns: sannolikheten att varje parti når spärren."
+ },
+ "model_VoteShift": {
+  "name": "VoteShift B2-världen v1",
+  "lineage": "Samma PollEngine B2 som i VS-US26-BT (metodbladet v0.2), generaliserad till andelar per parti.",
+  "window_days": "60; finns färre än 3 mätningar används 180 dagar; finns färre än 3 även då används reservmodellen.",
+  "time_weight": "0.5 ** (ålder_dagar / 14), ålder = låsdatum − fältperiodens slut",
+  "sample_weight": "sqrt(min(n, 3000)); saknas n används 1000",
+  "pollster_cap": "högst de 3 senaste mätningarna per institut",
+  "house_effect": "h_p,j = k_p/(k_p+5) · medelavvikelse för institut p från det tidsvägda snittet av övriga institut, per parti j; dras av från institutets siffror. Kräver minst 2 institut.",
+  "estimate": "viktat medel av husjusterade andelar, normerat till 100",
+  "uncertainty": "Monte Carlo 20 000 dragningar. Varje parti j: andel + N(0, σ_j), σ_j = sqrt(p_j(1−p_j)/n_eff + σ_hist,j²), σ_hist,j = clip(2.5 · sqrt(p_j/25), 0.8, 4.0) procentenheter, där p_j är andelen i procent. Negativa andelar sätts till 0 och dragningen normeras till 100. σ_hist bygger på storleksordningen för historiska mätfel i Jennings & Wlezien (2018, Nature Human Behaviour).",
+  "seed": "20261128 + valets löpnummer"
+ },
+ "model_fallback": {
+  "name": "VoteShift reserv (inga mätningar)",
+  "when": "färre än 3 behöriga mätningar inom 180 dagar",
+  "estimate": "föregående valresultat för samma partier/kandidater; nya partier får 0",
+  "uncertainty": "som ovan men σ = 2 · σ_hist,j",
+  "label": "Märks alltid 'reservmodell – inga mätningar' och poängsätts i en egen grupp."
+ },
+ "benchmarks": {
+  "M0_previous": "Föregående valresultat med samma osäkerhet som reservmodellen.",
+  "M1_poll_average": "Oviktat medel av mätningar med fältperiodens slut inom 14 dagar före låsning (minst 3; annars de 5 senaste), samma osäkerhet som VoteShift.",
+  "M2_markets": "Prediktionsmarknaders pris (mittpris) vid låsningen för vinnaren, där en likvid marknad finns (t.ex. Polymarket). Priset sparas med källa och tidpunkt. Används bara för Q2.",
+  "M3_forecasters": "Publicerade prognoser från etablerade prognosmakare, hämtade vid låsningen med källa, länk och tidpunkt. Används för de mått de rapporterar."
+ },
+ "scoring": {
+  "outcome_source": "Officiellt slutresultat från valmyndigheten; i andra hand Wikipedia med hänvisning till valmyndigheten. Hämtas tidigast när rösträkningen är klar och senast 60 dagar efter valet.",
+  "Q1": "Medelabsolutfel (procentenheter) över de listade partierna.",
+  "Q2": "Brier (summa över utfall av (p − y)²) och log score (−ln p för vinnaren, p ≥ 0,001).",
+  "Q3": "Brier per parti.",
+  "groups": "Redovisas separat: (a) val med mätningar, (b) reservmodell, (c) icke-konkurrensutsatta."
+ },
+ "claim_rule": {
+  "best": "Ordet 'bäst' får användas om en jämförelse först när: (1) minst 30 poängsatta val i grupp (a); (2) VoteShift har lägre medel-Brier för Q2 och lägre medelfel för Q1 än jämförelsemodellen; (3) skillnaden har ett 95 %-intervall som utesluter 0 i en parad bootstrap över val (2 000 dragningar, frö 20261128). Mot M2 och M3 krävs dessutom minst 15 gemensamma val, och bara gemensamma val jämförs.",
+  "before": "Innan kraven är uppfyllda visas löpande resultat med texten 'för tidigt att avgöra'.",
+  "no_cherry_picking": "Alla låsta prognoser poängsätts, även misslyckade. Ingen prognos får tas bort."
+ },
+ "integrity": "Protokollet låses med SHA-256 före den första prognosen. Ändringar görs bara som ny version med datum och skäl i deviations.md och gäller bara prognoser som låses därefter."
+}
